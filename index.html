@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag, Drop & Browse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h3>Upload your File :</h3>
+        <div class="drag-area">
+            <div class="icon">
+                <i class="fas fa-images"></i>
+            </div>
+            <span class="header">Drag & Drop</span>
+            <span class="header">or <span class="button">browse</span></span>
+            <span class="support">Supports: JWPUB</span>
+            <input type="file" hidden accept=".jwpub" />
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sql.js@1.4.0/dist/sql-asm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
