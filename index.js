@@ -36,155 +36,47 @@ function displayFile() {
         JSZip.loadAsync(r.result).then(function(zip) {
             // TODO Your code goes here. This is just an example.
             zip.file("contents").async('uint8array').then(function(contents) {
-                JSZip.loadAsync(contents).then(function(internal) {
-                    const contents = document.createElement("div");
-                    contents.id = 'contents';
-                    dropArea.append(contents);
-                    internal.forEach(function(filename) {
-                        const [name, extension] = filename.split('.');
-                        if(['jpg'].includes(extension)) {
-                            internal.file(filename).async('base64').then(function(base64) {
-                                document.getElementById('contents').insertAdjacentHTML('beforeend', `<img src="data:image/jpg;base64,${base64}">`);
-                            });
-                        }
-                        if(['db'].includes(extension)) {
-                            internal.file(filename).async('uint8array').then(function(sqlite) {
-                                initSqlJs().then(function(SQL) {
-                                    const db = new SQL.Database(sqlite);
-                                    const words = getWords(db);
-                                    const sIndexes = getIndexes(db);
+                JSZip.loadAsync(contents).then(function(files) {
+                    const div = document.createElement("div");
+                    div.classList.add('contents');
+                    document.querySelector('.container').append(div);
+                    files.filter((name) => name.endsWith('.db')).forEach((database) => {
+                        database.async('uint8array').then(function(sqlite) {
+                            initSqlJs().then(function(SQL) {
+                                const db = new SQL.Database(sqlite);
+                                // https://github.com/darioragusa/JW-Library-macOS/issues/1#issuecomment-1079989526
+                                const info = getPublicationInfo(db);
 
-                                    let loop = true;
-                                    let docID = 0;
-                                    let curDocIndex = "128";
-                                    let fullText = {};
+                                const sha256 = CryptoJS.SHA256(info).toString();
 
-                                    if (fullText[docID] === undefined) {
-                                        fullText[docID] = "";
-                                    }
+                                const bitwiseXOR = hexXOR('11cbb5587e32846d4c26790c633da289f66fe5842a3a585ce1bc3a294af5ada7', sha256);
 
-                                    let totalLoops = 0;
-
-                                    while (loop) {
-                                        let finded = false;
-
-                                        totalLoops++;
-                                        if (totalLoops > 1000) {
-                                            loop = false;
-                                        }
-
-                                        for (let i = 0; i < sIndexes.length; i++) {
-                                            if (sIndexes[i].TextUnitIndices.startsWith("128")) {
-                                                if (sIndexes[i].PositionalList.startsWith(curDocIndex)) {
-                                                    let rem = sIndexes[i].PositionalListIndex.substring(0, 3);
-                                                    if (parseInt(rem) > 128) {
-                                                        finded = true;
-                                                        let wd = words[sIndexes[i].WordID] || "";
-                                                        if (wd !== String(fullText[docID]?.split(" ").pop() || "")) {
-                                                            fullText[docID] += wd + " ";
-                                                        }
-                                                        sIndexes[i].PositionalList = sIndexes[i].PositionalList.substring(curDocIndex.length).trim();
-                                                        rem = String(parseInt(rem) - 1);
-                                                        sIndexes[i].PositionalListIndex = rem + sIndexes[i].PositionalListIndex.substring(3);
-
-                                                        let curDocIndexArray = curDocIndex.split(" ");
-                                                        let repo = false;
-
-                                                        for (let j = 0; j < curDocIndexArray.length; j++) {
-                                                            if (j === 0) {
-                                                                if ((curDocIndexArray[j] === "255" && curDocIndexArray.length === 1) || (curDocIndexArray[j] === "127" && curDocIndexArray.length > 1)) {
-                                                                    repo = true;
-                                                                    curDocIndex = "0";
-
-                                                                    if (repo && j === curDocIndexArray.length - 1) {
-                                                                        curDocIndex += " 129";
-                                                                        repo = false;
-                                                                    }
-                                                                } else {
-                                                                    curDocIndex = String(parseInt(curDocIndexArray[j]) + 1);
-                                                                    repo = false;
-                                                                }
-                                                            } else {
-                                                                if (repo) {
-                                                                    if (curDocIndexArray[j] === "255") {
-                                                                        repo = true;
-                                                                        curDocIndex += " 129";
-                                                                        if (repo && j === curDocIndexArray.length - 1) {
-                                                                            curDocIndex += " 129";
-                                                                            repo = false;
-                                                                        }
-                                                                    } else {
-                                                                        curDocIndex += " " + String(parseInt(curDocIndexArray[j]) + 1);
-                                                                        repo = false;
-                                                                    }
-                                                                } else {
-                                                                    curDocIndex += " " + curDocIndexArray[j];
-                                                                }
-                                                            }
-                                                        }
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        if (!finded) {
-                                            let toRem = [];
-
-                                            for (let i = 0; i < sIndexes.length; i++) {
-                                                let docI = sIndexes[i].TextUnitIndices.substring(0, 3);
-                                                sIndexes[i].TextUnitIndices = sIndexes[i].TextUnitIndices.substring(3);
-
-                                                if (parseInt(docI) === 128) {
-                                                    sIndexes[i].TextUnitIndices = sIndexes[i].TextUnitIndices.trim();
-
-                                                    if (sIndexes[i].TextUnitIndices !== "") {
-                                                        docI = sIndexes[i].TextUnitIndices.substring(0, 3);
-                                                        sIndexes[i].TextUnitIndices = docI + sIndexes[i].TextUnitIndices.substring(3);
-                                                        docI = String(parseInt(docI) - 1);
-                                                    }
-                                                } else {
-                                                    docI = String(parseInt(docI) - 1);
-                                                }
-
-                                                sIndexes[i].TextUnitIndices = docI + sIndexes[i].TextUnitIndices;
-
-                                                if (sIndexes[i].TextUnitIndices === "") {
-                                                    toRem.push(i);
-                                                }
-
-                                                let rem = sIndexes[i].PositionalListIndex.substring(0, 3);
-
-                                                if (parseInt(rem) === 128) {
-                                                    sIndexes[i].PositionalListIndex = sIndexes[i].PositionalListIndex.substring(3).trim();
-                                                }
-                                            }
-
-                                            for (let i = toRem.length - 1; i >= 0; i--) {
-                                                sIndexes.splice(toRem[i], 1);
-                                            }
-
-                                            docID++;
-
-                                            if (fullText[docID] === undefined) {
-                                                fullText[docID] = "";
-                                            }
-
-                                            curDocIndex = "128";
-                                        }
-
-                                        if (sIndexes.length === 0) {
-                                            loop = false;
-                                        }
-                                    }
-                                    Object.entries(fullText).forEach(function(p) {
-                                        if(p[1].length) {
-                                            document.getElementById('contents').insertAdjacentHTML('afterbegin', `<p>${p[1]}</p>`);
-                                        }
+                                const key = CryptoJS.enc.Hex.parse(bitwiseXOR.slice(0, 32));
+                                const iv  = CryptoJS.enc.Hex.parse(bitwiseXOR.substr(-32));
+                                
+                                const documents = getDocuments(db);
+                                documents.forEach((d) => {
+                                    const ciphertext = bytesToHex(d);
+                                    const decryptedHex = CryptoJS.AES.decrypt({
+                                        ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
+                                    }, key, { 
+                                        iv: iv,
+                                        mode: CryptoJS.mode.CBC
+                                    });
+                                    const decryptedBytes = hexToBytes(decryptedHex.toString());
+                                    const decompressed = (new Zlib.Inflate(decryptedBytes)).decompress();
+                                    const decoded = new TextDecoder().decode(decompressed);
+                                    div.insertAdjacentHTML('afterbegin', decoded);
+                                });
+                            }).finally(() => {
+                                files.filter((name) => name.endsWith('.jpg')).forEach((image) => {
+                                    image.async('base64').then(function(base64) {
+                                        const element = document.querySelector(`img[src="jwpub-media://${image.name}"]`);
+                                        element && element.setAttribute("src", `data:image/jpg;base64,${base64}`);
                                     });
                                 });
                             });
-                        }
+                        });
                     });
                 }).catch(function(e) {
                     console.error("Failed to open ZIP file:", e);
@@ -197,27 +89,37 @@ function displayFile() {
     r.readAsArrayBuffer(file);
 }
 
-function getWords(db) {
-    const words = {};
-    const stmt = db.prepare("SELECT WordID, Word FROM Word");
+function getPublicationInfo(db) {
+    const stmt = db.prepare("SELECT MepsLanguageIndex, Symbol, Year, IssueTagNumber FROM Publication");
     while (stmt.step()) {
-        const word = stmt.getAsObject()
-        words[word.WordId] = word.Word
+        const publication = stmt.getAsObject();
+        // @TODO: IssueTagNumber might not be present
+        return Object.values(publication).join('_');
     }
-    return words;
 }
 
-function getIndexes(db) {
-    const searchIndexes = [];
-    const stmt = db.prepare("SELECT WordID, TextUnitIndices, PositionalList, PositionalListIndex FROM SearchIndexDocument");
+function getDocuments(db) {
+    const stmt = db.prepare("SELECT Content FROM Document ORDER BY DocumentId DESC");
+    const documents = [];
     while (stmt.step()) {
-        const index = stmt.getAsObject()
-        searchIndexes.push({
-            WordID: index.WordId,
-            PositionalList: index.PositionalList.toString().replace(/,/g, ' '),
-            TextUnitIndices: index.TextUnitIndices.toString().replace(/,/g, ' '),
-            PositionalListIndex: index.PositionalListIndex.toString().replace(/,/g, ' ')
-        });
+        const document = stmt.getAsObject();
+        documents.push(document.Content);
     }
-    return searchIndexes;
+    return documents;
+}
+
+function hexXOR(a, b) {
+    return Array.from(a, (char, i) => (parseInt(char, 16) ^ parseInt(b[i], 16)).toString(16).toUpperCase()).join('');
+}
+
+function bytesToHex(bytes) {
+    return bytes.reduce((hex, byte) => hex + byte.toString(16).padStart(2, '0'), '');
+}
+
+function hexToBytes(hex) {
+    const bytes = [];
+    for (let i = 0; i < hex.length; i += 2) {
+        bytes.push(parseInt(hex.substr(i, 2), 16));
+    }
+    return bytes;
 }
