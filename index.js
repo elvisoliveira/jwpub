@@ -67,7 +67,7 @@ function displayFile() {
                                     const decompressed = (new Zlib.Inflate(decryptedBytes)).decompress();
 
                                     const entry = document.createElement("div");
-                                    entry.classList.add('itemData');
+                                    entry.classList.add('pub-mwb');
                                     entry.innerHTML = new TextDecoder().decode(decompressed);
 
                                     contentOnly.append(entry);
