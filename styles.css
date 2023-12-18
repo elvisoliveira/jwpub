@@ -72,11 +72,11 @@ h3 {
   object-fit: cover;
 }
 
-.contents {
+.contentOnly {
   margin-top: 20px;
 }
 
-.contents img {
+.contentOnly img {
     float: left;
     width: 100%;
     height: auto;

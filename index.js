@@ -37,9 +37,9 @@ function displayFile() {
             // TODO Your code goes here. This is just an example.
             zip.file("contents").async('uint8array').then(function(contents) {
                 JSZip.loadAsync(contents).then(function(files) {
-                    const div = document.createElement("div");
-                    div.classList.add('contents');
-                    document.querySelector('.container').append(div);
+                    const contentOnly = document.createElement("div");
+                    contentOnly.classList.add('contentOnly');
+                    document.querySelector('.container').append(contentOnly);
                     files.filter((name) => name.endsWith('.db')).forEach((database) => {
                         database.async('uint8array').then(function(sqlite) {
                             initSqlJs().then(function(SQL) {
@@ -53,20 +53,24 @@ function displayFile() {
 
                                 const key = CryptoJS.enc.Hex.parse(bitwiseXOR.slice(0, 32));
                                 const iv  = CryptoJS.enc.Hex.parse(bitwiseXOR.substr(-32));
-                                
+
                                 const documents = getDocuments(db);
                                 documents.forEach((d) => {
                                     const ciphertext = bytesToHex(d);
                                     const decryptedHex = CryptoJS.AES.decrypt({
                                         ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
-                                    }, key, { 
+                                    }, key, {
                                         iv: iv,
                                         mode: CryptoJS.mode.CBC
                                     });
                                     const decryptedBytes = hexToBytes(decryptedHex.toString());
                                     const decompressed = (new Zlib.Inflate(decryptedBytes)).decompress();
-                                    const decoded = new TextDecoder().decode(decompressed);
-                                    div.insertAdjacentHTML('afterbegin', decoded);
+
+                                    const entry = document.createElement("div");
+                                    entry.classList.add('itemData');
+                                    entry.innerHTML = new TextDecoder().decode(decompressed);
+
+                                    contentOnly.append(entry);
                                 });
                             }).finally(() => {
                                 files.filter((name) => name.endsWith('.jpg')).forEach((image) => {
@@ -99,7 +103,7 @@ function getPublicationInfo(db) {
 }
 
 function getDocuments(db) {
-    const stmt = db.prepare("SELECT Content FROM Document ORDER BY DocumentId DESC");
+    const stmt = db.prepare("SELECT Content FROM Document ORDER BY DocumentId ASC");
     const documents = [];
     while (stmt.step()) {
         const document = stmt.getAsObject();
