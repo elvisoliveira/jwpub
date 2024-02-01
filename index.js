@@ -2,16 +2,15 @@ const dropArea = document.querySelector('.drag-area');
 const dragText = document.querySelector('.header');
 const input = dropArea.querySelector('input');
 
-let file;
-
 dropArea.querySelector('.button').onclick = () => {
     input.click();
 };
 
 input.addEventListener('change', function() {
-    file = this.files[0];
     dropArea.classList.add('active');
-    displayFile();
+    Array.from(this.files).forEach((file) => {
+        displayFile(file);
+    });
 });
 
 dropArea.addEventListener('dragover', (event) => {
@@ -27,10 +26,13 @@ dropArea.addEventListener('dragleave', () => {
 
 dropArea.addEventListener('drop', (event) => {
     event.preventDefault();
-    displayFile();
+
+    Array.from(event.dataTransfer.files).forEach((file) => {
+        displayFile(file);
+    });
 });
 
-function displayFile() {
+function displayFile(file) {
     const r = new FileReader();
     r.onload = function() {
         JSZip.loadAsync(r.result).then(function(zip) {
