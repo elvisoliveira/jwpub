@@ -99,7 +99,7 @@ function getPublicationInfo(db) {
     const stmt = db.prepare("SELECT MepsLanguageIndex, Symbol, Year, IssueTagNumber FROM Publication");
     while (stmt.step()) {
         const publication = stmt.getAsObject();
-        // @TODO: IssueTagNumber might not be present
+        if(!parseInt(publication.IssueTagNumber)) delete publication.IssueTagNumber;
         return Object.values(publication).join('_');
     }
 }
