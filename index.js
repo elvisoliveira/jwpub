@@ -37,9 +37,9 @@ function displayFile(file) {
     r.onload = function() {
         JSZip.loadAsync(r.result).then(function(zip) {
             // TODO Your code goes here. This is just an example.
-            zip.file("contents").async('uint8array').then(function(contents) {
+            zip.file('contents').async('uint8array').then(function(contents) {
                 JSZip.loadAsync(contents).then(function(files) {
-                    const contentOnly = document.createElement("div");
+                    const contentOnly = document.createElement('div');
                     contentOnly.classList.add('contentOnly');
                     document.querySelector('.container').append(contentOnly);
                     files.filter((name) => name.endsWith('.db')).forEach((database) => {
@@ -68,7 +68,7 @@ function displayFile(file) {
                                     const decryptedBytes = hexToBytes(decryptedHex.toString());
                                     const decompressed = (new Zlib.Inflate(decryptedBytes)).decompress();
 
-                                    const entry = document.createElement("div");
+                                    const entry = document.createElement('div');
                                     entry.classList.add('pub-mwb');
                                     entry.innerHTML = new TextDecoder().decode(decompressed);
 
@@ -77,26 +77,26 @@ function displayFile(file) {
                             }).finally(() => {
                                 files.filter((name) => name.endsWith('.jpg')).forEach((image) => {
                                     image.async('base64').then(function(base64) {
-                                        const element = document.querySelector(`img[src="jwpub-media://${image.name}"]`);
-                                        element && element.setAttribute("src", `data:image/jpg;base64,${base64}`);
+                                        const element = document.querySelector(`img[src='jwpub-media://${image.name}']`);
+                                        element && element.setAttribute('src', `data:image/jpg;base64,${base64}`);
                                     });
                                 });
                             });
                         });
                     });
                 }).catch(function(e) {
-                    console.error("Failed to open ZIP file:", e);
+                    console.error('Failed to open ZIP file:', e);
                 })
             })
         }).catch(function(e) {
-            console.error("Failed to open ZIP file:", e);
+            console.error('Failed to open ZIP file:', e);
         })
     }
     r.readAsArrayBuffer(file);
 }
 
 function getPublicationInfo(db) {
-    const stmt = db.prepare("SELECT MepsLanguageIndex, Symbol, Year, IssueTagNumber FROM Publication");
+    const stmt = db.prepare('SELECT MepsLanguageIndex, Symbol, Year, IssueTagNumber FROM Publication');
     while (stmt.step()) {
         const publication = stmt.getAsObject();
         if(!parseInt(publication.IssueTagNumber)) delete publication.IssueTagNumber;
@@ -105,7 +105,7 @@ function getPublicationInfo(db) {
 }
 
 function getDocuments(db) {
-    const stmt = db.prepare("SELECT Content FROM Document ORDER BY DocumentId ASC");
+    const stmt = db.prepare('SELECT Content FROM Document ORDER BY DocumentId ASC');
     const documents = [];
     while (stmt.step()) {
         const document = stmt.getAsObject();
