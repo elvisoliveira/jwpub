@@ -1,0 +1,47 @@
+name: Deploy to Pages
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bake secret key into crypto.wasm
+        env:
+          JWPUB_KEY: ${{ secrets.JWPUB_KEY }}
+        run: |
+          rustup target add wasm32-unknown-unknown
+          python3 - <<'PY'
+          import os
+          key = os.environ['JWPUB_KEY'].strip()
+          data = ','.join(str(int(key[i:i+2], 16)) for i in range(0, len(key), 2))
+          open('crypto.rs', 'w').write(
+              open('crypto.template.rs').read().replace('__SECRET_BYTES__', data))
+          PY
+          rustc --target wasm32-unknown-unknown -C opt-level=z -C panic=abort \
+            --crate-type cdylib crypto.rs -o crypto.wasm
+          rm crypto.rs   # never publish the plaintext key
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
