@@ -4,7 +4,9 @@
 // Footnote (.fn, .footnoteLink) and endnote (.en, .endnoteLink) markers (reference/note-links.css).
 
 @include jwac {
-  .fn-symbol:not(.tt), .fn:not(.tt), .footnoteLink {
+  .fn-symbol:not(.tt),
+  .fn:not(.tt),
+  .footnoteLink {
     font-family: WTFootnote !important;
     line-height: 1;
     text-indent: 0;
@@ -13,7 +15,8 @@
     padding-right: 4px;
   }
   @include mirrored(".footnoteLink:last-child", padding, right, 0);
-  .en:not(.tt), .fn:not(.tt) {
+  .en:not(.tt),
+  .fn:not(.tt) {
     display: inline;
     @include token(color, ds-link-color);
   }

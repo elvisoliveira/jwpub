@@ -55,12 +55,12 @@
       @include token(color, du-color--white);
       background: rgba(18, 18, 18, 0.6);
     }
+    @include bidi((left, right)) using ($side) {
+      &::before { #{$side}: 0; }
+    }
+    &:focus::before,
+    &:hover::before { background: rgba(18, 18, 18, 0.8); }
   }
-  @include bidi((left, right)) using ($side) {
-    [class*=" dc-iconOverlay--"]::before, [class^=dc-iconOverlay--]::before { #{$side}: 0; }
-  }
-  [class*=" dc-iconOverlay--"]:focus::before, [class*=" dc-iconOverlay--"]:hover::before,
-  [class^=dc-iconOverlay--]:focus::before, [class^=dc-iconOverlay--]:hover::before { background: rgba(18, 18, 18, 0.8); }
 
   @each $name, $code in $icons {
     @include variants($responsive) using ($s) {

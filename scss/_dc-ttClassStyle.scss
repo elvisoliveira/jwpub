@@ -1,10 +1,26 @@
-// Written by split.py --convert from reference/jw-site.min.css (plain jw.org CSS,
-// one mixin per piece; _order.scss puts each piece where it was).
+// Converted by split.py --convert from reference/jw-site.min.css, then edited by hand
+// (listed in HAND_EDITED, so --convert keeps it). One mixin per piece; _order.scss puts
+// each piece where it was.
+@use "sass:list";
 @use "lib" as *;
+
+$styled: ":not(.dc-ttClassStyle--unset)";  // jw.org's opt-out of these box styles
+
+// The quote-like boxes styled here.
+$quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
+
+// One rule for each box (+ $extra on it), unless opted out: .stdCaption[class*=float]:not(…)
+@mixin quotes($boxes: list.append($quote-boxes, "blockquote"), $extra: "") {
+  $selectors: ();
+  @each $box in $boxes {
+    $selectors: list.append($selectors, "#{$box}#{$extra}#{$styled}", comma);
+  }
+  #{$selectors} { @content; }
+}
 
 @mixin part-1 {
   @include jwac {
-    .boxTtl:not(.dc-ttClassStyle--unset) {
+    .boxTtl#{$styled} {
       padding-top: 16px;
       padding-bottom: 8px;
       padding-left: 16px;
@@ -14,7 +30,7 @@
         padding-right: 32px;
       }
     }
-    .boxSubTtl:not(.dc-ttClassStyle--unset) {
+    .boxSubTtl#{$styled} {
       padding-top: 0;
       padding-bottom: 8px;
       padding-left: 16px;
@@ -29,7 +45,7 @@
       }
     }
     .boxSubTtl, .boxTtl {
-      &:not(.dc-ttClassStyle--unset) {
+      &#{$styled} {
         h2, h3, h4, h5, h6 {
           margin: 0;
         }
@@ -50,7 +66,7 @@
         }
       }
     }
-    .boxContent:not(.dc-ttClassStyle--unset) {
+    .boxContent#{$styled} {
       padding-top: 16px;
       padding-bottom: 16px;
       padding-left: 16px;
@@ -68,7 +84,8 @@
           margin-bottom: 16px;
         }
       }
-      &::after, &::before {
+      &::after,
+      &::before {
         content: " ";
         display: table;
       }
@@ -90,11 +107,12 @@
       }
     }
     .blockTeach, .boxSupplement {
-      &:not(.dc-ttClassStyle--unset) {
+      &#{$styled} {
         @include token(background-color, du-bgColor--bgSecondary);
         margin-top: 1.5em;
         margin-bottom: 1.5em;
-        &::after, &::before {
+        &::after,
+        &::before {
           content: " ";
           display: table;
         }
@@ -108,7 +126,7 @@
 
 @mixin part-2 {
   @include jwac {
-    .openingContent:not(.dc-ttClassStyle--unset) {
+    .openingContent#{$styled} {
       margin-top: 1em;
       margin-bottom: 1em;
       font-size: 1.21em;
@@ -136,21 +154,17 @@
         }
       }
     }
-    .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset), blockquote:not(.dc-ttClassStyle--unset) {
+    @include quotes {
       margin-left: 0;
       margin-right: 0;
       @include token(color, du-color--textSubdued);
     }
     @include bidi((left, right)) using ($s) {
-      .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset), blockquote:not(.dc-ttClassStyle--unset) {
-        padding-#{$s}: 1.5em;
-      }
+      @include quotes { padding-#{$s}: 1.5em; }
     }
     @media #{$desktop-only} {
       @include bidi((left, right)) using ($s) {
-        .blockTxt[class*=float]:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule[class*=float]:not(.dc-ttClassStyle--unset), .stdCaption[class*=float]:not(.dc-ttClassStyle--unset), .stdPullQuote[class*=float]:not(.dc-ttClassStyle--unset), blockquote[class*=float]:not(.dc-ttClassStyle--unset) {
-          padding-#{$s}: 0;
-        }
+        @include quotes($extra: "[class*=float]") { padding-#{$s}: 0; }
       }
     }
   }
@@ -158,11 +172,11 @@
 
 @mixin part-3 {
   @include jwac {
-    .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset) {
+    @include quotes($quote-boxes) {
       margin-top: 1em;
       margin-bottom: 1em;
     }
-    .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset), blockquote.rule:not(.dc-ttClassStyle--unset) {
+    @include quotes(list.append($quote-boxes, "blockquote.rule")) {
       border-top-style: solid;
       border-bottom-style: solid;
       border-width: 1px;

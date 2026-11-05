@@ -6,6 +6,14 @@
 // Every rule of the reader's content hangs from this class (set on each <article>).
 $root: ".jwac";
 
+// The reader element; the jw.org element resets (img, p, table…) are scoped to it, without
+// adding specificity.
+$reader: ":where(#reader)";
+
+@mixin reader {
+  #{$reader} { @content; }
+}
+
 // Wraps rules in the root class; use & for classes on the root itself (&.dir-ltr, &.ms-X).
 // The mixins below emit the root themselves (@at-root), so they work inside or outside it.
 @mixin jwac {

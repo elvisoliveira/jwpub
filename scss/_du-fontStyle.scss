@@ -6,7 +6,8 @@
   @include jwac {
     .du-fontStyle {
       &--normal {
-        &, > em {
+        &,
+        > em {
           font-style: normal!important;
         }
       }

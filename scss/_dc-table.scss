@@ -11,7 +11,9 @@
       }
       &.dc-table-border {
         &--rows {
-          tbody tr:not(:last-child), thead, > tr:not(:last-child) {
+          tbody tr:not(:last-child),
+          thead,
+          > tr:not(:last-child) {
             border-bottom-style: solid;
             border-bottom-width: 1px;
           }
@@ -51,12 +53,14 @@
               }
             }
           }
-          tbody tr:nth-child(2n), > tr:nth-child(2n) {
+          tbody tr:nth-child(2n),
+          > tr:nth-child(2n) {
             @include token(background-color, du-bgColor--bgSecondary);
           }
         }
         &--columns {
-          td:nth-child(2n), th:nth-child(2n) {
+          td:nth-child(2n),
+          th:nth-child(2n) {
             @include token(background-color, du-bgColor--bgSecondary);
           }
         }

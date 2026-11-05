@@ -30,7 +30,8 @@ $focus-ring: 0 0 5px 1px #7f9fd3;
   @include bordered;
   @include box;
   &:visited { @include token(color, du-color--white); }
-  &:focus, &:hover { background-color: #345996; text-decoration: none; }
+  &:focus,
+  &:hover { background-color: #345996; text-decoration: none; }
   &:focus {
     @include themed(border-color, dc-button-borderColor--focus, rgba(18, 18, 18, .5));
     outline: 0;
@@ -48,11 +49,13 @@ $focus-ring: 0 0 5px 1px #7f9fd3;
   @include box;
   &::before { @include themed(color, dc-button-#{$variant}-icon-color, #757575); }
   &:visited { @include themed(color, dc-button-#{$variant}-color, #4a6da7); }
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     @include themed(background-color, dc-button-#{$variant}-bgColor--hover, #e8effb);
     text-decoration: none;
   }
-  &:focus::before, &:hover::before { @include themed(color, dc-button-#{$variant}-color, #4a6da7); }
+  &:focus::before,
+  &:hover::before { @include themed(color, dc-button-#{$variant}-color, #4a6da7); }
   &:focus {
     @if $bordered {
       @include themed(border-color, dc-button-borderColor--focus, #7f9fd3);
