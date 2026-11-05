@@ -21,14 +21,9 @@
         &--columns {
           td, th {
             &:not(:last-child) {
-              @include bidi((left, right)) using ($s) {
-                & {
-                  border-#{flip($s)}-style: solid;
-                }
-              }
-              @include bidi((left, right)) using ($s) {
-                & {
-                  border-#{flip($s)}-width: 1px;
+              @each $name, $name2 in (style solid, width 1px) {
+                @include bidi((left, right)) using ($s) {
+                  border-#{flip($s)}-#{$name}: $name2;
                 }
               }
             }

@@ -121,28 +121,20 @@
       .flRight, .floatEast {
         &:not(img) {
           @include bidi((left, right)) using ($s) {
-            & {
-              float: #{flip($s)};
-            }
+            float: #{flip($s)};
           }
           @include bidi((left, right)) using ($s) {
-            & {
-              margin-#{$s}: 32px;
-            }
+            margin-#{$s}: 32px;
           }
         }
       }
       .flLeft, .floatWest {
         &:not(img) {
           @include bidi((left, right)) using ($s) {
-            & {
-              float: #{$s};
-            }
+            float: #{$s};
           }
           @include bidi((left, right)) using ($s) {
-            & {
-              margin-#{flip($s)}: 32px;
-            }
+            margin-#{flip($s)}: 32px;
           }
         }
       }
@@ -281,16 +273,10 @@
         &.inline-start {
           width: 50%;
           margin-bottom: 1em;
-        }
-        @include bidi((left, right)) using ($s) {
-          &.inline,
-          &.inline-start {
+          @include bidi((left, right)) using ($s) {
             float: #{$s};
           }
-        }
-        @include bidi((left, right)) using ($s) {
-          &.inline,
-          &.inline-start {
+          @include bidi((left, right)) using ($s) {
             margin-#{flip($s)}: 32px;
           }
         }
@@ -298,14 +284,10 @@
           width: 50%;
           margin-bottom: 1em;
           @include bidi((left, right)) using ($s) {
-            & {
-              float: #{flip($s)};
-            }
+            float: #{flip($s)};
           }
           @include bidi((left, right)) using ($s) {
-            & {
-              margin-#{$s}: 32px;
-            }
+            margin-#{$s}: 32px;
           }
         }
       }
@@ -349,9 +331,7 @@
           display: inline-block;
           min-width: 1.5em;
           @include bidi((left, right)) using ($s) {
-            & {
-              margin-#{$s}: -1.5em;
-            }
+            margin-#{$s}: -1.5em;
           }
         }
       }
@@ -383,9 +363,7 @@
       &.listTitle {
         font-size: 1.21em;
         @include bidi((left, right)) using ($s) {
-          & {
-            margin-#{$s}: -1em;
-          }
+          margin-#{$s}: -1em;
         }
       }
       &.borderDotted--top {
@@ -408,11 +386,6 @@
       &.imgWestEighth,
       &.imgWestQuarter {
         padding: 0;
-      }
-      &.imgEastEighth,
-      &.imgEastQuarter,
-      &.imgWestEighth,
-      &.imgWestQuarter {
         > li {
           &::after,
           &::before {
@@ -427,216 +400,61 @@
           list-style-type: disc;
         }
       }
-    }
-    &.dir-ltr {
-      div, ol, ul {
-        &.imgEastQuarter h2,
-        &.imgEastQuarter h3,
-        &.imgEastQuarter h4,
-        &.imgEastQuarter h5,
-        &.imgEastQuarter ol,
-        &.imgEastQuarter ul,
-        &.imgEastQuarter > li > p,
-        &.imgEastQuarter > p,
-        &.imgWestQuarter h2,
-        &.imgWestQuarter h3,
-        &.imgWestQuarter h4,
-        &.imgWestQuarter h5,
-        &.imgWestQuarter ol,
-        &.imgWestQuarter ul,
-        &.imgWestQuarter > li > p,
-        &.imgWestQuarter > p {
-          margin-left: calc(25% + 16px);
-        }
-        @media #{$desktop-only} {
-          &.imgEastQuarter h2,
-          &.imgEastQuarter h3,
-          &.imgEastQuarter h4,
-          &.imgEastQuarter h5,
-          &.imgEastQuarter ol,
-          &.imgEastQuarter ul,
-          &.imgEastQuarter > li > p,
-          &.imgEastQuarter > p,
-          &.imgWestQuarter h2,
-          &.imgWestQuarter h3,
-          &.imgWestQuarter h4,
-          &.imgWestQuarter h5,
-          &.imgWestQuarter ol,
-          &.imgWestQuarter ul,
-          &.imgWestQuarter > li > p,
-          &.imgWestQuarter > p {
-            margin-left: calc(25% + 32px);
+      @each $name, $value in (Quarter 25%, Eighth 12.5%) {
+        &.imgEast#{$name},
+        &.imgWest#{$name} {
+          @include bidi((left, right)) using ($s) {
+            h2,
+            h3,
+            h4,
+            h5,
+            ol,
+            ul,
+            > li > p,
+            > p {
+              margin-#{$s}: calc($value + 16px);
+            }
+            @media #{$desktop-only} {
+              h2,
+              h3,
+              h4,
+              h5,
+              ol,
+              ul,
+              > li > p,
+              > p {
+                margin-#{$s}: calc($value + 32px);
+              }
+            }
           }
         }
-      }
-    }
-    &.dir-rtl {
-      div, ol, ul {
-        &.imgEastQuarter h2,
-        &.imgEastQuarter h3,
-        &.imgEastQuarter h4,
-        &.imgEastQuarter h5,
-        &.imgEastQuarter ol,
-        &.imgEastQuarter ul,
-        &.imgEastQuarter > li > p,
-        &.imgEastQuarter > p,
-        &.imgWestQuarter h2,
-        &.imgWestQuarter h3,
-        &.imgWestQuarter h4,
-        &.imgWestQuarter h5,
-        &.imgWestQuarter ol,
-        &.imgWestQuarter ul,
-        &.imgWestQuarter > li > p,
-        &.imgWestQuarter > p {
-          margin-right: calc(25% + 16px);
-        }
-        @media #{$desktop-only} {
-          &.imgEastQuarter h2,
-          &.imgEastQuarter h3,
-          &.imgEastQuarter h4,
-          &.imgEastQuarter h5,
-          &.imgEastQuarter ol,
-          &.imgEastQuarter ul,
-          &.imgEastQuarter > li > p,
-          &.imgEastQuarter > p,
-          &.imgWestQuarter h2,
-          &.imgWestQuarter h3,
-          &.imgWestQuarter h4,
-          &.imgWestQuarter h5,
-          &.imgWestQuarter ol,
-          &.imgWestQuarter ul,
-          &.imgWestQuarter > li > p,
-          &.imgWestQuarter > p {
-            margin-right: calc(25% + 32px);
-          }
-        }
-      }
-    }
-    &.dir-ltr {
-      div, ol, ul {
-        &.imgEastEighth h2,
-        &.imgEastEighth h3,
-        &.imgEastEighth h4,
-        &.imgEastEighth h5,
-        &.imgEastEighth ol,
-        &.imgEastEighth ul,
-        &.imgEastEighth > li > p,
-        &.imgEastEighth > p,
-        &.imgWestEighth h2,
-        &.imgWestEighth h3,
-        &.imgWestEighth h4,
-        &.imgWestEighth h5,
-        &.imgWestEighth ol,
-        &.imgWestEighth ul,
-        &.imgWestEighth > li > p,
-        &.imgWestEighth > p {
-          margin-left: calc(12.5% + 16px);
-        }
-        @media #{$desktop-only} {
-          &.imgEastEighth h2,
-          &.imgEastEighth h3,
-          &.imgEastEighth h4,
-          &.imgEastEighth h5,
-          &.imgEastEighth ol,
-          &.imgEastEighth ul,
-          &.imgEastEighth > li > p,
-          &.imgEastEighth > p,
-          &.imgWestEighth h2,
-          &.imgWestEighth h3,
-          &.imgWestEighth h4,
-          &.imgWestEighth h5,
-          &.imgWestEighth ol,
-          &.imgWestEighth ul,
-          &.imgWestEighth > li > p,
-          &.imgWestEighth > p {
-            margin-left: calc(12.5% + 32px);
-          }
-        }
-      }
-    }
-    &.dir-rtl {
-      div, ol, ul {
-        &.imgEastEighth h2,
-        &.imgEastEighth h3,
-        &.imgEastEighth h4,
-        &.imgEastEighth h5,
-        &.imgEastEighth ol,
-        &.imgEastEighth ul,
-        &.imgEastEighth > li > p,
-        &.imgEastEighth > p,
-        &.imgWestEighth h2,
-        &.imgWestEighth h3,
-        &.imgWestEighth h4,
-        &.imgWestEighth h5,
-        &.imgWestEighth ol,
-        &.imgWestEighth ul,
-        &.imgWestEighth > li > p,
-        &.imgWestEighth > p {
-          margin-right: calc(12.5% + 16px);
-        }
-        @media #{$desktop-only} {
-          &.imgEastEighth h2,
-          &.imgEastEighth h3,
-          &.imgEastEighth h4,
-          &.imgEastEighth h5,
-          &.imgEastEighth ol,
-          &.imgEastEighth ul,
-          &.imgEastEighth > li > p,
-          &.imgEastEighth > p,
-          &.imgWestEighth h2,
-          &.imgWestEighth h3,
-          &.imgWestEighth h4,
-          &.imgWestEighth h5,
-          &.imgWestEighth ol,
-          &.imgWestEighth ul,
-          &.imgWestEighth > li > p,
-          &.imgWestEighth > p {
-            margin-right: calc(12.5% + 32px);
-          }
-        }
-      }
-    }
-    &.dir-ltr ol.numberedDiagram.imgWestQuarter > li {
-      ul,
-      > p {
-        margin-left: calc(25% + 16px + 1.5em);
-      }
-      @media #{$desktop-only} {
-        ul,
-        > p {
-          margin-left: calc(25% + 32px + 1.5em);
-        }
-      }
-    }
-    &.dir-rtl ol.numberedDiagram.imgWestQuarter > li {
-      ul,
-      > p {
-        margin-right: calc(25% + 16px + 1.5em);
-      }
-      @media #{$desktop-only} {
-        ul,
-        > p {
-          margin-right: calc(25% + 32px + 1.5em);
-        }
-      }
-    }
-    &.dir-ltr ol.numberedDiagram.imgWestQuarter > li::before {
-      left: calc(25% + 16px);
-      @media #{$desktop-only} {
-        left: calc(25% + 32px);
-      }
-    }
-    &.dir-rtl ol.numberedDiagram.imgWestQuarter > li::before {
-      right: calc(25% + 16px);
-      @media #{$desktop-only} {
-        right: calc(25% + 32px);
       }
     }
     ol.numberedDiagram {
-      @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 0;
+      &.imgWestQuarter > li {
+        @include bidi((left, right)) using ($s) {
+          ul,
+          > p {
+            margin-#{$s}: calc(25% + 16px + 1.5em);
+          }
+          @media #{$desktop-only} {
+            ul,
+            > p {
+              margin-#{$s}: calc(25% + 32px + 1.5em);
+            }
+          }
         }
+        @include bidi((left, right)) using ($s) {
+          &::before {
+            #{$s}: calc(25% + 16px);
+            @media #{$desktop-only} {
+              #{$s}: calc(25% + 32px);
+            }
+          }
+        }
+      }
+      @include bidi((left, right)) using ($s) {
+        padding-#{$s}: 0;
       }
       > li {
         position: relative;
@@ -684,18 +502,14 @@
       letter-spacing: normal;
       @include token(color, du-color--textSubdued);
       @include bidi((left, right)) using ($s) {
-        & {
-          text-align: #{$s};
-          float: #{flip($s)};
-        }
+        text-align: #{$s};
+        float: #{flip($s)};
       }
       &::after {
         content: attr(data-before-text);
         position: relative;
         @include bidi((left, right)) using ($s) {
-          & {
-            #{flip($s)}: -10px;
-          }
+          #{flip($s)}: -10px;
         }
       }
     }
@@ -706,68 +520,19 @@
     &.pub-nwths,
     &.pub-sgd {
       position: relative;
-    }
-    &.pub-bi12 h3.inline>.pageNum,
-    &.pub-bi12.docClass-13 .contextTtl .pageNum,
-    &.pub-bi12.docClass-14 .contextTtl .pageNum,
-    &.pub-bi7 h3.inline>.pageNum,
-    &.pub-bi7.docClass-13 .contextTtl .pageNum,
-    &.pub-bi7.docClass-14 .contextTtl .pageNum,
-    &.pub-igw h3.inline>.pageNum,
-    &.pub-igw.docClass-13 .contextTtl .pageNum,
-    &.pub-igw.docClass-14 .contextTtl .pageNum,
-    &.pub-nwt h3.inline>.pageNum,
-    &.pub-nwt.docClass-13 .contextTtl .pageNum,
-    &.pub-nwt.docClass-14 .contextTtl .pageNum,
-    &.pub-nwths h3.inline>.pageNum,
-    &.pub-nwths.docClass-13 .contextTtl .pageNum,
-    &.pub-nwths.docClass-14 .contextTtl .pageNum,
-    &.pub-sgd h3.inline>.pageNum,
-    &.pub-sgd.docClass-13 .contextTtl .pageNum,
-    &.pub-sgd.docClass-14 .contextTtl .pageNum {
-      width: 0;
-    }
-    &.pub-bi12.dir-ltr h3.inline>.pageNum::after,
-    &.pub-bi12.docClass-13.dir-ltr .contextTtl .pageNum::after,
-    &.pub-bi12.docClass-14.dir-ltr .contextTtl .pageNum::after,
-    &.pub-bi7.dir-ltr h3.inline>.pageNum::after,
-    &.pub-bi7.docClass-13.dir-ltr .contextTtl .pageNum::after,
-    &.pub-bi7.docClass-14.dir-ltr .contextTtl .pageNum::after,
-    &.pub-igw.dir-ltr h3.inline>.pageNum::after,
-    &.pub-igw.docClass-13.dir-ltr .contextTtl .pageNum::after,
-    &.pub-igw.docClass-14.dir-ltr .contextTtl .pageNum::after,
-    &.pub-nwt.dir-ltr h3.inline>.pageNum::after,
-    &.pub-nwt.docClass-13.dir-ltr .contextTtl .pageNum::after,
-    &.pub-nwt.docClass-14.dir-ltr .contextTtl .pageNum::after,
-    &.pub-nwths.dir-ltr h3.inline>.pageNum::after,
-    &.pub-nwths.docClass-13.dir-ltr .contextTtl .pageNum::after,
-    &.pub-nwths.docClass-14.dir-ltr .contextTtl .pageNum::after,
-    &.pub-sgd.dir-ltr h3.inline>.pageNum::after,
-    &.pub-sgd.docClass-13.dir-ltr .contextTtl .pageNum::after,
-    &.pub-sgd.docClass-14.dir-ltr .contextTtl .pageNum::after {
-      position: absolute;
-      right: 4px;
-    }
-    &.pub-bi12.dir-rtl h3.inline>.pageNum::after,
-    &.pub-bi12.docClass-13.dir-rtl .contextTtl .pageNum::after,
-    &.pub-bi12.docClass-14.dir-rtl .contextTtl .pageNum::after,
-    &.pub-bi7.dir-rtl h3.inline>.pageNum::after,
-    &.pub-bi7.docClass-13.dir-rtl .contextTtl .pageNum::after,
-    &.pub-bi7.docClass-14.dir-rtl .contextTtl .pageNum::after,
-    &.pub-igw.dir-rtl h3.inline>.pageNum::after,
-    &.pub-igw.docClass-13.dir-rtl .contextTtl .pageNum::after,
-    &.pub-igw.docClass-14.dir-rtl .contextTtl .pageNum::after,
-    &.pub-nwt.dir-rtl h3.inline>.pageNum::after,
-    &.pub-nwt.docClass-13.dir-rtl .contextTtl .pageNum::after,
-    &.pub-nwt.docClass-14.dir-rtl .contextTtl .pageNum::after,
-    &.pub-nwths.dir-rtl h3.inline>.pageNum::after,
-    &.pub-nwths.docClass-13.dir-rtl .contextTtl .pageNum::after,
-    &.pub-nwths.docClass-14.dir-rtl .contextTtl .pageNum::after,
-    &.pub-sgd.dir-rtl h3.inline>.pageNum::after,
-    &.pub-sgd.docClass-13.dir-rtl .contextTtl .pageNum::after,
-    &.pub-sgd.docClass-14.dir-rtl .contextTtl .pageNum::after {
-      position: absolute;
-      left: 4px;
+      h3.inline > .pageNum,
+      &.docClass-13 .contextTtl .pageNum,
+      &.docClass-14 .contextTtl .pageNum {
+        width: 0;
+      }
+      @each $dir, $side in (ltr right, rtl left) {
+        &.dir-#{$dir} h3.inline > .pageNum::after,
+        &.docClass-13.dir-#{$dir} .contextTtl .pageNum::after,
+        &.docClass-14.dir-#{$dir} .contextTtl .pageNum::after {
+          position: absolute;
+          #{$side}: 4px;
+        }
+      }
     }
     &.pub-lff,
     &.pub-lffi {
@@ -801,12 +566,10 @@
       margin-top: 40px;
       padding-top: 40px;
       @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 0;
-          border-#{$s}-width: 9px;
-          border-#{$s}-style: solid;
-          border-#{$s}-color: #ebebeb;
-        }
+        padding-#{$s}: 0;
+        border-#{$s}-width: 9px;
+        border-#{$s}-style: solid;
+        border-#{$s}-color: #ebebeb;
       }
       h3, p {
         margin: .25em 0;
@@ -818,31 +581,23 @@
         padding-bottom: .5em;
         list-style-type: none;
         @include bidi((left, right)) using ($s) {
-          & {
-            padding-#{$s}: 32px;
-          }
+          padding-#{$s}: 32px;
         }
-        &::after {
+        &::after,
+        &::before {
           content: "";
           position: absolute;
           top: calc(.75em + 1px);
         }
         &::before {
-          content: "";
-          position: absolute;
-          top: calc(.75em + 1px);
-          & {
-            width: 9px;
-            height: 9px;
-            display: inline-block;
-            background-color: #9e9b9a;
-            margin-top: -4px;
-            border-radius: 9px;
-          }
+          width: 9px;
+          height: 9px;
+          display: inline-block;
+          background-color: #9e9b9a;
+          margin-top: -4px;
+          border-radius: 9px;
           @include bidi((left, right)) using ($s) {
-            & {
-              #{$s}: -9px;
-            }
+            #{$s}: -9px;
           }
         }
         &::after {
@@ -852,9 +607,7 @@
           border-top-width: 1px;
           border-top-style: solid;
           @include bidi((left, right)) using ($s) {
-            & {
-              #{$s}: 0;
-            }
+            #{$s}: 0;
           }
         }
         &.timeCirca::after {
@@ -876,9 +629,7 @@
         position: absolute;
         bottom: -9em;
         @include bidi((left, right)) using ($s) {
-          & {
-            #{$s}: -32px;
-          }
+          #{$s}: -32px;
         }
         h4 {
           font-size: 1.75em;
@@ -909,9 +660,7 @@
           border-left-color: transparent;
           border-top-style: solid;
           @include bidi((left, right)) using ($s) {
-            & {
-              #{$s}: -25px;
-            }
+            #{$s}: -25px;
           }
         }
       }
@@ -919,13 +668,11 @@
         margin-top: 0;
       }
     }
-    &.dir-ltr ol.timeline ol.timeline {
-      border-left-width: 0;
-      margin-left: -32px;
-    }
-    &.dir-rtl ol.timeline ol.timeline {
-      border-left-width: 0;
-      margin-right: -32px;
+    @each $dir, $side in (ltr left, rtl right) {
+      &.dir-#{$dir} ol.timeline ol.timeline {
+        border-left-width: 0;
+        margin-#{$side}: -32px;
+      }
     }
     ol.timeline ol.timeline li {
       clear: both;
@@ -937,9 +684,7 @@
         width: 50px;
       }
       @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 64px;
-        }
+        padding-#{$s}: 64px;
       }
     }
     .figcaption {
@@ -1017,22 +762,22 @@
           }
         }
       }
-      &.rowStripe th,
-      &.rowStripe thead tr,
-      &.stripe th,
-      &.stripe thead tr {
-        @include token(background-color, du-bgColor--bgEmphasized);
-        @include token(color, du-color--white);
-        a {
-          color: #9fb9e3;
-          &:visited {
-            color: #a9a7c9;
+      &.rowStripe,
+      &.stripe {
+        th,
+        thead tr {
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+          a {
+            color: #9fb9e3;
+            &:visited {
+              color: #a9a7c9;
+            }
           }
         }
-      }
-      &.rowStripe tr:nth-child(2n),
-      &.stripe tr:nth-child(2n) {
-        @include token(background-color, du-bgColor--bgSecondary);
+        tr:nth-child(2n) {
+          @include token(background-color, du-bgColor--bgSecondary);
+        }
       }
       &.gridlines {
         th,
@@ -1068,20 +813,13 @@
       }
       &.columnBorder {
         td, th {
-          @include bidi((left, right)) using ($s) {
-            & {
-              border-#{$s}-width: 1px;
+          @each $name, $name2 in (width 1px, style solid) {
+            @include bidi((left, right)) using ($s) {
+              border-#{$s}-#{$name}: $name2;
             }
           }
           @include bidi((left, right)) using ($s) {
-            & {
-              border-#{$s}-style: solid;
-            }
-          }
-          @include bidi((left, right)) using ($s) {
-            & {
-              border-#{$s}-color: #a7a7a7;
-            }
+            border-#{$s}-color: #a7a7a7;
           }
           @include bidi((left, right)) using ($s) {
             &:first-child {
@@ -1147,9 +885,6 @@
         padding-bottom: 16px;
         padding-left: 16px;
         padding-right: 16px;
-      }
-      &.dashed,
-      &.rule {
         @media #{$desktop} {
           padding-left: 32px;
           padding-right: 32px;
@@ -1268,27 +1003,18 @@
       table {
         width: 100%;
       }
-      &.rule {
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-width: 1px;
-        border-color: #a7a7a7;
-        background-color: transparent;
-        margin-top: 1.5em;
-        margin-bottom: 1.5em;
-      }
-      &.dashed {
-        border-top-style: dashed;
-        border-right-style: dashed;
-        border-bottom-style: dashed;
-        border-left-style: dashed;
-        border-width: 1px;
-        border-color: #a7a7a7;
-        background-color: transparent;
-        margin-top: 1.5em;
-        margin-bottom: 1.5em;
+      @each $name, $name2 in (rule solid, dashed dashed) {
+        &.#{$name} {
+          border-top-style: $name2;
+          border-right-style: $name2;
+          border-bottom-style: $name2;
+          border-left-style: $name2;
+          border-width: 1px;
+          border-color: #a7a7a7;
+          background-color: transparent;
+          margin-top: 1.5em;
+          margin-bottom: 1.5em;
+        }
       }
       &.bgTransparent {
         background-color: transparent;
@@ -1300,10 +1026,7 @@
           min-width: 25%;
           margin-top: 0;
           margin-bottom: 24px;
-        }
-        @include bidi((left, right)) using ($s) {
-          &.flLeft,
-          &.floatWest {
+          @include bidi((left, right)) using ($s) {
             margin-#{flip($s)}: 24px;
             float: #{$s};
           }
@@ -1314,10 +1037,7 @@
           min-width: 25%;
           margin-top: 0;
           margin-bottom: 24px;
-        }
-        @include bidi((left, right)) using ($s) {
-          &.flRight,
-          &.floatEast {
+          @include bidi((left, right)) using ($s) {
             margin-#{$s}: 24px;
             float: #{flip($s)};
           }
@@ -1341,9 +1061,7 @@
     .sa {
       font-size: 1.21em;
       @include bidi((left, right)) using ($s) {
-        & {
-          margin-#{$s}: 24px;
-        }
+        margin-#{$s}: 24px;
       }
     }
     @include bidi((left, right)) using ($s) {
@@ -1354,9 +1072,7 @@
     ul li > p.sa {
       font-size: 1em;
       @include bidi((left, right)) using ($s) {
-        & {
-          margin-#{$s}: 0;
-        }
+        margin-#{$s}: 0;
       }
     }
     .sc, .sd, .se {
@@ -1392,9 +1108,7 @@
       margin-top: .5em;
       margin-bottom: .5em;
       @include bidi((left, right)) using ($s) {
-        & {
-          margin-#{$s}: 40px;
-        }
+        margin-#{$s}: 40px;
       }
     }
     @include bidi((left, right)) using ($s) {
@@ -1416,9 +1130,7 @@
     .sl {
       text-indent: -40px;
       @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 40px;
-        }
+        padding-#{$s}: 40px;
       }
     }
     .sm, .sn, .so {
@@ -1430,9 +1142,7 @@
     .sp {
       text-indent: -20px;
       @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 40px;
-        }
+        padding-#{$s}: 40px;
       }
       > * {
         text-indent: 0;
@@ -1455,19 +1165,14 @@
         text-indent: 0;
       }
     }
-    .ss {
-      margin-top: 1em;
-      margin-bottom: .25em;
-      font-size: 1.45em;
-      font-weight: 700;
-      line-height: 1.25;
-    }
-    .st {
-      margin-top: 0;
-      margin-bottom: .25em;
-      font-size: 1.75em;
-      font-weight: 700;
-      line-height: 1.25;
+    @each $name, $value, $value2 in (ss 1em 1.45em, st 0 1.75em) {
+      .#{$name} {
+        margin-top: $value;
+        margin-bottom: .25em;
+        font-size: $value2;
+        font-weight: 700;
+        line-height: 1.25;
+      }
     }
     .copyrightInfo .st {
       margin-top: 1em;
@@ -1475,68 +1180,24 @@
       font-size: 1em;
       line-height: 1.5;
     }
-    .su {
-      margin-top: .5em;
-      margin-bottom: .5em;
-      text-indent: -20px;
-      @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 20px;
+    @each $name, $value, $value2 in (su 20px 20px, sv 30px 80px, sx 20px 20px, sy 30px 80px) {
+      .#{$name} {
+        margin-top: .5em;
+        margin-bottom: .5em;
+        text-indent: -#{$value};
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: $value2;
         }
-      }
-      > * {
-        text-indent: 0;
-      }
-    }
-    .sv {
-      margin-top: .5em;
-      margin-bottom: .5em;
-      text-indent: -30px;
-      @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 80px;
+        > * {
+          text-indent: 0;
         }
-      }
-      > * {
-        text-indent: 0;
-      }
-    }
-    .sx {
-      margin-top: .5em;
-      margin-bottom: .5em;
-      text-indent: -20px;
-      @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 20px;
-        }
-      }
-      > * {
-        text-indent: 0;
-      }
-    }
-    .sy {
-      margin-top: .5em;
-      margin-bottom: .5em;
-      text-indent: -30px;
-      @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 80px;
-        }
-      }
-      > * {
-        text-indent: 0;
       }
     }
     .sz {
       text-indent: -20px;
-      @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 20px;
-        }
-      }
-      @include bidi((left, right)) using ($s) {
-        & {
-          margin-#{$s}: 48px;
+      @each $name, $value in (padding 20px, margin 48px) {
+        @include bidi((left, right)) using ($s) {
+          #{$name}-#{$s}: $value;
         }
       }
     }
@@ -1551,34 +1212,11 @@
         margin-top: 0;
       }
     }
-    @include bidi((left, right)) using ($s) {
-      .s5 {
-        margin-#{$s}: 32px;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      .s6 {
-        margin-#{$s}: 64px;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      .s7 {
-        margin-#{$s}: 96px;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      .s8 {
-        margin-#{$s}: 128px;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      .s9 {
-        margin-#{$s}: 160px;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      .s0 {
-        margin-#{$s}: 192px;
+    @each $value, $value2 in (5 32px, 6 64px, 7 96px, 8 128px, 9 160px, 0 192px) {
+      @include bidi((left, right)) using ($s) {
+        .s#{$value} {
+          margin-#{$s}: $value2;
+        }
       }
     }
   }
@@ -1705,11 +1343,10 @@
           margin-bottom: .5em;
         }
       }
-      &.dir-ltr .bodyTxt ol li .sz {
-        margin-left: 1.5em;
-      }
-      &.dir-rtl .bodyTxt ol li .sz {
-        margin-right: 1.5em;
+      @each $dir, $side in (ltr left, rtl right) {
+        &.dir-#{$dir} .bodyTxt ol li .sz {
+          margin-#{$side}: 1.5em;
+        }
       }
       .chorus {
         margin-top: 1em;
@@ -1788,9 +1425,7 @@
           height: 56px;
           width: 56px;
           @include bidi((left, right)) using ($s) {
-            & {
-              margin-#{flip($s)}: 16px;
-            }
+            margin-#{flip($s)}: 16px;
           }
         }
       }
@@ -1851,9 +1486,7 @@
           height: 56px;
           width: 56px;
           @include bidi((left, right)) using ($s) {
-            & {
-              margin-#{flip($s)}: 16px;
-            }
+            margin-#{flip($s)}: 16px;
           }
         }
       }
@@ -1913,9 +1546,7 @@
         height: 56px;
         width: 56px;
         @include bidi((left, right)) using ($s) {
-          & {
-            margin-#{flip($s)}: 16px;
-          }
+          margin-#{flip($s)}: 16px;
         }
       }
     }
@@ -2040,9 +1671,7 @@
         display: block;
         text-indent: -3em;
         @include bidi((left, right)) using ($s) {
-          & {
-            padding-#{$s}: 3em;
-          }
+          padding-#{$s}: 3em;
         }
       }
       .style-z {
@@ -2050,9 +1679,7 @@
         margin: .2em 1em;
         text-indent: -1em;
         @include bidi((left, right)) using ($s) {
-          & {
-            padding-#{$s}: 2.5em;
-          }
+          padding-#{$s}: 2.5em;
         }
       }
       .style-p {
@@ -2180,17 +1807,15 @@
       .cl:not(.tt) {
         font-size: 1.21em;
       }
-      &.dir-ltr .vl:not(.tt):first-child {
-        padding-left: 0;
+      @each $dir, $side in (ltr left, rtl right) {
+        &.dir-#{$dir} .vl:not(.tt):first-child {
+          padding-#{$side}: 0;
+        }
       }
-      &.dir-rtl .vl:not(.tt):first-child {
-        padding-right: 0;
-      }
-      &.dir-ltr .v:not(.tt) + .cl {
-        padding-left: 16px;
-      }
-      &.dir-rtl .v:not(.tt) + .cl {
-        padding-right: 16px;
+      @each $dir, $side in (ltr left, rtl right) {
+        &.dir-#{$dir} .v:not(.tt) + .cl {
+          padding-#{$side}: 16px;
+        }
       }
     }
     .m:not(.tt),
@@ -2204,74 +1829,41 @@
       font-style: italic;
       @include token(color, ds-link-color);
     }
-    .verseNum a {
-      display: -webkit-inline-box;
-      display: inline-flex;
-      -webkit-box-pack: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-      &.addHighlight,
-      &.highlight,
-      &:focus,
-      &:hover {
-        text-decoration: none;
-        &::after {
-          position: absolute;
-          content: " ";
-          width: 1.75em;
-          height: 1.75em;
-          border-radius: 100%;
-          background-color: #4a6da7;
-          @include token(opacity, jwac-footnote-opacity);
-          z-index: -1;
+    @each $name, $value in (verse 1.75em, chapter 1.5em) {
+      .#{$name}Num a {
+        display: -webkit-inline-box;
+        display: inline-flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        &.addHighlight,
+        &.highlight,
+        &:focus,
+        &:hover {
+          text-decoration: none;
+          &::after {
+            position: absolute;
+            content: " ";
+            width: $value;
+            height: $value;
+            border-radius: 100%;
+            background-color: #4a6da7;
+            @include token(opacity, jwac-footnote-opacity);
+            z-index: -1;
+          }
         }
-      }
-      &.highlight.addHighlight {
-        @include token(color, jwac-footnote-link-color--addHighlight);
-        &::after {
-          @include token(opacity, jwac-footnote-opacity--addHighlight);
+        &.highlight.addHighlight {
+          @include token(color, jwac-footnote-link-color--addHighlight);
+          &::after {
+            @include token(opacity, jwac-footnote-opacity--addHighlight);
+          }
         }
-      }
-      &:visited {
-        @include token(color, ds-link-color);
-      }
-    }
-    .chapterNum a {
-      display: -webkit-inline-box;
-      display: inline-flex;
-      -webkit-box-pack: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-      &.addHighlight,
-      &.highlight,
-      &:focus,
-      &:hover {
-        text-decoration: none;
-        &::after {
-          position: absolute;
-          content: " ";
-          width: 1.5em;
-          height: 1.5em;
-          border-radius: 100%;
-          background-color: #4a6da7;
-          @include token(opacity, jwac-footnote-opacity);
-          z-index: -1;
+        &:visited {
+          @include token(color, ds-link-color);
         }
-      }
-      &.highlight.addHighlight {
-        @include token(color, jwac-footnote-link-color--addHighlight);
-        &::after {
-          @include token(opacity, jwac-footnote-opacity--addHighlight);
-        }
-      }
-      &:visited {
-        @include token(color, ds-link-color);
       }
     }
     .style-l, .style-p, .style-z {
@@ -2315,107 +1907,69 @@
         @include token(color, ds-link-color);
       }
     }
-    &.pub-bi12.docClass-11 .contextTtl,
-    &.pub-bi12.docClass-11 h1,
-    &.pub-bi12.docClass-116 .contextTtl,
-    &.pub-bi12.docClass-116 h1,
-    &.pub-bi12.docClass-12 .contextTtl,
-    &.pub-bi12.docClass-12 h1,
-    &.pub-bi12.docClass-125 .contextTtl,
-    &.pub-bi12.docClass-125 h1,
-    &.pub-bi12.docClass-13 .contextTtl,
-    &.pub-bi12.docClass-13 h1,
-    &.pub-bi12.docClass-14 .contextTtl,
-    &.pub-bi12.docClass-14 h1,
-    &.pub-bi7.docClass-11 .contextTtl,
-    &.pub-bi7.docClass-11 h1,
-    &.pub-bi7.docClass-116 .contextTtl,
-    &.pub-bi7.docClass-116 h1,
-    &.pub-bi7.docClass-12 .contextTtl,
-    &.pub-bi7.docClass-12 h1,
-    &.pub-bi7.docClass-125 .contextTtl,
-    &.pub-bi7.docClass-125 h1,
-    &.pub-bi7.docClass-13 .contextTtl,
-    &.pub-bi7.docClass-13 h1,
-    &.pub-bi7.docClass-14 .contextTtl,
-    &.pub-bi7.docClass-14 h1,
-    &.pub-igw.docClass-11 .contextTtl,
-    &.pub-igw.docClass-11 h1,
-    &.pub-igw.docClass-116 .contextTtl,
-    &.pub-igw.docClass-116 h1,
-    &.pub-igw.docClass-12 .contextTtl,
-    &.pub-igw.docClass-12 h1,
-    &.pub-igw.docClass-125 .contextTtl,
-    &.pub-igw.docClass-125 h1,
-    &.pub-igw.docClass-13 .contextTtl,
-    &.pub-igw.docClass-13 h1,
-    &.pub-igw.docClass-14 .contextTtl,
-    &.pub-igw.docClass-14 h1,
-    &.pub-nwt.docClass-11 .contextTtl,
-    &.pub-nwt.docClass-11 h1,
-    &.pub-nwt.docClass-116 .contextTtl,
-    &.pub-nwt.docClass-116 h1,
-    &.pub-nwt.docClass-12 .contextTtl,
-    &.pub-nwt.docClass-12 h1,
-    &.pub-nwt.docClass-125 .contextTtl,
-    &.pub-nwt.docClass-125 h1,
-    &.pub-nwt.docClass-13 .contextTtl,
-    &.pub-nwt.docClass-13 h1,
-    &.pub-nwt.docClass-14 .contextTtl,
-    &.pub-nwt.docClass-14 h1,
-    &.pub-nwths.docClass-11 .contextTtl,
-    &.pub-nwths.docClass-11 h1,
-    &.pub-nwths.docClass-116 .contextTtl,
-    &.pub-nwths.docClass-116 h1,
-    &.pub-nwths.docClass-12 .contextTtl,
-    &.pub-nwths.docClass-12 h1,
-    &.pub-nwths.docClass-125 .contextTtl,
-    &.pub-nwths.docClass-125 h1,
-    &.pub-nwths.docClass-13 .contextTtl,
-    &.pub-nwths.docClass-13 h1,
-    &.pub-nwths.docClass-14 .contextTtl,
-    &.pub-nwths.docClass-14 h1,
-    &.pub-nwtsty.docClass-11 .contextTtl,
-    &.pub-nwtsty.docClass-11 h1,
-    &.pub-nwtsty.docClass-116 .contextTtl,
-    &.pub-nwtsty.docClass-116 h1,
-    &.pub-nwtsty.docClass-12 .contextTtl,
-    &.pub-nwtsty.docClass-12 h1,
-    &.pub-nwtsty.docClass-125 .contextTtl,
-    &.pub-nwtsty.docClass-125 h1,
-    &.pub-nwtsty.docClass-13 .contextTtl,
-    &.pub-nwtsty.docClass-13 h1,
-    &.pub-nwtsty.docClass-14 .contextTtl,
-    &.pub-nwtsty.docClass-14 h1,
-    &.pub-sgd.docClass-11 .contextTtl,
-    &.pub-sgd.docClass-11 h1,
-    &.pub-sgd.docClass-116 .contextTtl,
-    &.pub-sgd.docClass-116 h1,
-    &.pub-sgd.docClass-12 .contextTtl,
-    &.pub-sgd.docClass-12 h1,
-    &.pub-sgd.docClass-125 .contextTtl,
-    &.pub-sgd.docClass-125 h1,
-    &.pub-sgd.docClass-13 .contextTtl,
-    &.pub-sgd.docClass-13 h1,
-    &.pub-sgd.docClass-14 .contextTtl,
-    &.pub-sgd.docClass-14 h1 {
-      @include token(color, du-color--maroon-700);
-    }
-    &.pub-nwt,
-    &.pub-nwtsty,
-    &.pub-sgd {
-      &.docClass-14 .contextTtl {
-        display: inline-block;
-        min-width: 1.2em;
-        padding: .3em .45em;
-        margin: 0;
-        background-color: #801816;
-        @include token(color, du-color--white);
-        font-size: .83em;
-        text-align: center;
-        margin-bottom: .5em;
+    &.pub-bi12.docClass-11,
+    &.pub-bi12.docClass-116,
+    &.pub-bi12.docClass-12,
+    &.pub-bi12.docClass-125,
+    &.pub-bi12.docClass-13,
+    &.pub-bi12.docClass-14,
+    &.pub-bi7.docClass-11,
+    &.pub-bi7.docClass-116,
+    &.pub-bi7.docClass-12,
+    &.pub-bi7.docClass-125,
+    &.pub-bi7.docClass-13,
+    &.pub-bi7.docClass-14,
+    &.pub-igw.docClass-11,
+    &.pub-igw.docClass-116,
+    &.pub-igw.docClass-12,
+    &.pub-igw.docClass-125,
+    &.pub-igw.docClass-13,
+    &.pub-igw.docClass-14,
+    &.pub-nwt.docClass-11,
+    &.pub-nwt.docClass-116,
+    &.pub-nwt.docClass-12,
+    &.pub-nwt.docClass-125,
+    &.pub-nwt.docClass-13,
+    &.pub-nwt.docClass-14,
+    &.pub-nwths.docClass-11,
+    &.pub-nwths.docClass-116,
+    &.pub-nwths.docClass-12,
+    &.pub-nwths.docClass-125,
+    &.pub-nwths.docClass-13,
+    &.pub-nwths.docClass-14,
+    &.pub-nwtsty.docClass-11,
+    &.pub-nwtsty.docClass-116,
+    &.pub-nwtsty.docClass-12,
+    &.pub-nwtsty.docClass-125,
+    &.pub-nwtsty.docClass-13,
+    &.pub-nwtsty.docClass-14,
+    &.pub-sgd.docClass-11,
+    &.pub-sgd.docClass-116,
+    &.pub-sgd.docClass-12,
+    &.pub-sgd.docClass-125,
+    &.pub-sgd.docClass-13,
+    &.pub-sgd.docClass-14 {
+      .contextTtl, h1 {
+        @include token(color, du-color--maroon-700);
       }
-      &.docClass-125 .groupTOC > .source .txtSrcBullet {
+    }
+    &.pub-nwt.docClass-14 .contextTtl,
+    &.pub-nwtsty.docClass-14 .contextTtl,
+    &.pub-sgd.docClass-14 .contextTtl {
+      display: inline-block;
+      min-width: 1.2em;
+      padding: .3em .45em;
+      margin: 0;
+      background-color: #801816;
+      @include token(color, du-color--white);
+      font-size: .83em;
+      text-align: center;
+      margin-bottom: .5em;
+    }
+    &.pub-nwt.docClass-125,
+    &.pub-nwtsty.docClass-125,
+    &.pub-sgd.docClass-125 {
+      .groupTOC > .source .txtSrcBullet {
         display: inline-block;
         min-width: 1.2em;
         padding: .3em .45em;
@@ -2445,9 +1999,7 @@
     .BibleChapterOutline > ul,
     .outline {
       @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 0;
-        }
+        padding-#{$s}: 0;
       }
       > li::before {
         content: "​";
@@ -2467,17 +2019,13 @@
           position: absolute;
         }
         @include bidi((left, right)) using ($s) {
-          & {
-            padding-#{$s}: 0;
-          }
+          padding-#{$s}: 0;
         }
       }
       .L1:not(.chapterNo) p {
         text-indent: -1em;
         @include bidi((left, right)) using ($s) {
-          & {
-            padding-#{$s}: 1em;
-          }
+          padding-#{$s}: 1em;
         }
         .itemLabel {
           text-indent: 0;
@@ -2495,11 +2043,7 @@
         &.L4 {
           margin: .25em 0;
           text-indent: -.75em;
-        }
-        @include bidi((left, right)) using ($s) {
-          &.L2,
-          &.L3,
-          &.L4 {
+          @include bidi((left, right)) using ($s) {
             padding-#{$s}: .75em;
           }
         }
@@ -2515,9 +2059,7 @@
           }
           > ul {
             @include bidi((left, right)) using ($s) {
-              & {
-                padding-#{$s}: .5em;
-              }
+              padding-#{$s}: .5em;
             }
             > li {
               &:first-child {
@@ -2615,9 +2157,7 @@
         position: absolute;
       }
       @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{$s}: 0;
-        }
+        padding-#{$s}: 0;
       }
     }
     .ftnGlossaryTerm h3.inline {
@@ -2625,14 +2165,10 @@
       font-size: 1em;
       line-height: inherit;
       @include bidi((left, right)) using ($s) {
-        & {
-          float: #{$s};
-        }
+        float: #{$s};
       }
       @include bidi((left, right)) using ($s) {
-        & {
-          padding-#{flip($s)}: .25em;
-        }
+        padding-#{flip($s)}: .25em;
       }
     }
     &.docId-1001061220,
@@ -2641,11 +2177,10 @@
       .boxContent ul.noMarker .west_left {
         margin-top: 0;
       }
-      &.dir-ltr .boxContent ul.noMarker .source {
-        margin-left: 64px;
-      }
-      &.dir-rtl .boxContent ul.noMarker .source {
-        margin-right: 64px;
+      @each $dir, $side in (ltr left, rtl right) {
+        &.dir-#{$dir} .boxContent ul.noMarker .source {
+          margin-#{$side}: 64px;
+        }
       }
     }
     .jwac-textHighlight {
@@ -2772,11 +2307,10 @@
 
 @mixin part-21 {
   @include jwac {
-    @at-root .dir-ltr #{$root}.pub-nwt .contextTtl .pageNum::after {
-      padding-right: 16px;
-    }
-    @at-root .dir-rtl #{$root}.pub-nwt .contextTtl .pageNum::after {
-      padding-left: 16px;
+    @each $dir, $side in (ltr right, rtl left) {
+      @at-root .dir-#{$dir} #{$root}.pub-nwt .contextTtl .pageNum::after {
+        padding-#{$side}: 16px;
+      }
     }
     .clearfix {
       &::after,
