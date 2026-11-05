@@ -1,0 +1,3 @@
+@use "lib" as *;
+
+@include content-edge(dc-marginToContentEdge, margin, var(--gutter));

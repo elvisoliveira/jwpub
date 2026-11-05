@@ -1,0 +1,276 @@
+// Written by split.py --convert from reference/jw-site.min.css (plain jw.org CSS,
+// one mixin per piece; _order.scss puts each piece where it was).
+@use "lib" as *;
+
+@mixin part-1 {
+  :where(#reader) main {
+    display: block;
+  }
+  :where(#reader) figure {
+    margin: 0;
+  }
+  :where(#reader) h1 {
+    font-size: 2em;
+    margin: .67em 0;
+  }
+  :where(#reader) hr {
+    color: inherit;
+    overflow: visible;
+  }
+  :where(#reader) table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+  }
+  :where(#reader) img {
+    height: auto;
+    max-width: 100%;
+    vertical-align: bottom;
+    border-style: none;
+  }
+  :where(#reader) pre {
+    font-family: monospace;
+    font-size: 1em;
+  }
+  :where(#reader) audio, :where(#reader) video {
+    display: inline-block;
+  }
+  :where(#reader) audio:not([controls]) {
+    display: none;
+    height: 0;
+  }
+  :where(#reader) svg:not(:root) {
+    overflow: hidden;
+  }
+  :where(#reader) textarea {
+    margin: 0;
+    overflow: auto;
+  }
+  :where(#reader) button, :where(#reader) input, :where(#reader) optgroup, :where(#reader) textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+  }
+  :where(#reader) select {
+    font: inherit;
+    margin: 0;
+  }
+  :where(#reader) button {
+    overflow: visible;
+  }
+  :where(#reader) button, :where(#reader) select {
+    text-transform: none;
+  }
+  :where(#reader) button, :where(#reader) input[type=reset], :where(#reader) input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+  }
+  :where(#reader) button[disabled] {
+    cursor: default;
+  }
+  :where(#reader) button::-moz-focus-inner, :where(#reader) input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+  :where(#reader) input {
+    line-height: normal;
+    overflow: visible;
+  }
+  :where(#reader) input[type=checkbox], :where(#reader) input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+  }
+  :where(#reader) input[type=number]::-webkit-inner-spin-button, :where(#reader) input[type=number]::-webkit-outer-spin-button {
+    height: auto;
+  }
+  :where(#reader) input[type=search] {
+    -webkit-appearance: textfield;
+    box-sizing: content-box;
+  }
+  :where(#reader) input[type=search]::-webkit-search-cancel-button, :where(#reader) input[type=search]::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+}
+
+@mixin part-2 {
+  :where(#reader) p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  :where(#reader) h1 {
+    margin-top: 0;
+    margin-bottom: .25em;
+    font-size: 1.749690125em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  :where(#reader) h2 {
+    margin-top: 1em;
+    margin-bottom: .25em;
+    font-size: 1.452025em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  :where(#reader) h3 {
+    margin-top: 1em;
+    margin-bottom: .25em;
+    font-size: 1.205em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  :where(#reader) h4, :where(#reader) h5, :where(#reader) h6 {
+    margin-top: 1em;
+    margin-bottom: .25em;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  :where(#reader) img {
+    height: auto;
+    max-width: 100%;
+  }
+  :where(#reader) figcaption {
+    @include themed(color, du-color--textSubdued, #626262);
+  }
+  :where(#reader) figcaption p:first-child {
+    margin-top: 0;
+    margin-bottom: .5em;
+  }
+  :where(#reader) figcaption p:last-child {
+    margin-bottom: 0;
+  }
+  :where(#reader) figcaption p+p {
+    margin-top: .5em;
+    margin-bottom: .5em;
+  }
+  :where(#reader) ol, :where(#reader) ul {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+
+@mixin part-3 {
+  :where(#reader) table {
+    border-collapse: collapse;
+    border-color: inherit;
+    text-indent: 0;
+    margin-bottom: 1.5em;
+    font-size: .8298755187em;
+  }
+  :where(#reader) table p {
+    margin: 0;
+  }
+  :where(#reader) table p+p {
+    margin-top: .5em;
+  }
+  :where(#reader) table caption {
+    margin-top: 1em;
+    margin-bottom: .25em;
+    font-size: 1.205em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+}
+
+@mixin part-4 {
+  :where(#reader) table th {
+    min-width: 75px;
+    padding: 8px;
+    vertical-align: bottom;
+  }
+}
+
+@mixin part-5 {
+  :where(#reader) table td {
+    min-width: 75px;
+    padding: 8px;
+    vertical-align: top;
+  }
+  :where(#reader) blockquote {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  :where(#reader) q::after, :where(#reader) q::before {
+    content: "";
+  }
+  :where(#reader) ruby {
+    ruby-align: center;
+  }
+  :where(#reader) fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  :where(#reader) legend {
+    padding: 0;
+  }
+  :where(#reader) a {
+    color: #4a6da7;
+    text-decoration: none;
+  }
+  :where(#reader) a:visited {
+    color: #3f3c6d;
+  }
+}
+
+@mixin part-6 {
+  :where(#reader) strong {
+    font-weight: 700;
+  }
+  :where(#reader) em {
+    font-style: italic;
+  }
+  :where(#reader) hr {
+    border: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #a7a7a7;
+    margin: 1em 0;
+    clear: both;
+  }
+}
+
+@mixin part-7 {
+  :where(#reader) sub, :where(#reader) sup {
+    font-size: .8298755187em;
+    position: relative;
+    vertical-align: baseline;
+  }
+  :where(#reader) sup {
+    top: -.5em;
+  }
+  :where(#reader) sub {
+    bottom: -.25em;
+  }
+}
+
+@mixin part-8 {
+  @media only screen and (min-width:760px) {
+    :where(#reader) [data-tag-presentationintent=Mobile] {
+      display: none;
+    }
+  }
+  @media only screen and (max-width:759px) {
+    :where(#reader) [data-tag-presentationintent=Desktop] {
+      display: none;
+    }
+  }
+}
+
+@mixin part-9 {
+  :where(#reader) a {
+    color: #2878bb;
+  }
+}
+
+@mixin part-10 {
+  :where(#reader) a:visited {
+    color: #2878bb;
+  }
+}
+
+@mixin part-11 {
+  :where(#reader) button, :where(#reader) input {
+    line-height: 1;
+  }
+}

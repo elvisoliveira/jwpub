@@ -1,0 +1,2152 @@
+// Written by split.py --convert from reference/jw-site.min.css (plain jw.org CSS,
+// one mixin per piece; _order.scss puts each piece where it was).
+@use "lib" as *;
+
+@mixin part-1 {
+  @include jwac {
+    & {
+      @include themed(background-color, ds-content-bgColor, #fff);
+      @include themed(color, du-color--textDefault, #292929);
+    }
+    *, ::after, ::before {
+      box-sizing: border-box;
+    }
+  }
+}
+
+@mixin part-2 {
+  @include jwac {
+    &.dir-ltr ol, &.dir-ltr ul {
+      padding-left: 1.5em;
+      padding-right: 0;
+    }
+    &.dir-rtl ol, &.dir-rtl ul {
+      padding-left: 0;
+      padding-right: 1.5em;
+    }
+  }
+}
+
+@mixin part-3 {
+  @include jwac {
+    @include bidi((left, right)) using ($s) {
+      table caption {
+        text-align: #{$s};
+      }
+    }
+  }
+}
+
+@mixin part-4 {
+  @include jwac {
+    @include bidi((left, right)) using ($s) {
+      table th {
+        text-align: #{$s};
+      }
+    }
+  }
+}
+
+@mixin part-5 {
+  @include jwac {
+    a {
+      @include themed(color, ds-link-color, #4a6da7);
+    }
+    a:visited {
+      @include themed(color, ds-link-color--visited, #504d7c);
+    }
+  }
+}
+
+@mixin part-6 {
+  @include jwac {
+    @include bidi((left, right)) using ($s) {
+      hr {
+        text-align: #{$s};
+      }
+    }
+  }
+}
+
+@mixin part-7 {
+  @include jwac {
+    .ruleAbove {
+      border-top-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+      padding-top: .25em;
+      display: flow-root;
+    }
+    .borderSolid--bottom, .bottomRule {
+      border-bottom-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+    }
+    .underline {
+      text-decoration: underline;
+      text-underline-offset: .2ex;
+    }
+    .spacingTop {
+      margin-top: 2em;
+    }
+    .altsize, .small {
+      font-size: .8298755187em;
+    }
+    .big {
+      font-size: 1.205em;
+    }
+    .centered {
+      text-align: center;
+    }
+    .indent {
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+    .flLeft:not(img), .flRight:not(img), .floatEast:not(img), .floatWest:not(img) {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    @media only screen and (min-width:760px) {
+      .flLeft:not(img), .flRight:not(img), .floatEast:not(img), .floatWest:not(img) {
+        max-width: 50%;
+      }
+      @include bidi((left, right)) using ($s) {
+        .flRight:not(img), .floatEast:not(img) {
+          float: #{flip($s)};
+        }
+      }
+      @include bidi((left, right)) using ($s) {
+        .flRight:not(img), .floatEast:not(img) {
+          margin-#{$s}: 32px;
+        }
+      }
+      @include bidi((left, right)) using ($s) {
+        .flLeft:not(img), .floatWest:not(img) {
+          float: #{$s};
+        }
+      }
+      @include bidi((left, right)) using ($s) {
+        .flLeft:not(img), .floatWest:not(img) {
+          margin-#{flip($s)}: 32px;
+        }
+      }
+    }
+    &.dir-ltr .clearLeft {
+      clear: left;
+    }
+    &.dir-rtl .clearLeft, &.dir-ltr .clearRight {
+      clear: right;
+    }
+    &.dir-rtl .clearRight {
+      clear: left;
+    }
+    .clear, .clearBoth {
+      clear: both;
+    }
+    .clearfix::after, .clearfix::before {
+      content: " ";
+      display: table;
+    }
+    .clearfix::after {
+      clear: both;
+    }
+    .displayNone {
+      display: none!important;
+    }
+  }
+}
+
+@mixin part-8 {
+  @include jwac {
+    .boxContent>div.half:first-child, .boxContent>div.quarter:first-child {
+      margin-top: 1em;
+    }
+    .boxSupplement.imgGrid .boxContent, .grpItems.imgGrid, .listImgGrid {
+      display: -webkit-box;
+      display: flex;
+      flex-wrap: wrap;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+    }
+    .boxSupplement.imgGrid .boxContent figure, .grpItems.imgGrid figure, .listImgGrid figure {
+      padding: 8px;
+    }
+    @media screen and (min-width:760px) {
+      .boxSupplement.imgGrid .boxContent figure, .grpItems.imgGrid figure, .listImgGrid figure {
+        padding: 16px;
+      }
+    }
+    .boxSupplement.imgGrid .boxContent li, .grpItems.imgGrid li, .listImgGrid li {
+      list-style-type: none;
+    }
+    .boxSupplement.imgGrid .boxContent div.half, .grpItems.imgGrid div.half, .listImgGrid div.half {
+      flex-basis: 50%;
+      margin: 0;
+    }
+    .boxSupplement.imgGrid .boxContent div.quarter, .grpItems.imgGrid div.quarter, .listImgGrid div.quarter {
+      flex-basis: 25%;
+      margin: 0;
+    }
+    @include bidi((left, right)) using ($s) {
+      .boxSupplement.imgGrid .boxContent.threeColumn, .grpItems.imgGrid.threeColumn, .listImgGrid.threeColumn {
+        padding-#{$s}: 0;
+      }
+    }
+    .boxSupplement.imgGrid .boxContent.threeColumn div.half, .grpItems.imgGrid.threeColumn div.half, .listImgGrid.threeColumn div.half, .boxSupplement.imgGrid .boxContent.threeColumn div.quarter, .grpItems.imgGrid.threeColumn div.quarter, .listImgGrid.threeColumn div.quarter {
+      flex-basis: 33.33%;
+    }
+    @supports (display:grid) {
+      .boxSupplement.imgGrid .boxContent, .grpItems.imgGrid, .listImgGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      @media screen and (min-width:760px) {
+        .boxSupplement.imgGrid .boxContent, .grpItems.imgGrid, .listImgGrid {
+          gap: 32px;
+        }
+      }
+      .boxSupplement.imgGrid .boxContent>:not(div):not(li), .grpItems.imgGrid>:not(div):not(li), .listImgGrid>:not(div):not(li) {
+        grid-column: 1/-1;
+      }
+      .boxSupplement.imgGrid .boxContent.alignBottom, .grpItems.imgGrid.alignBottom, .listImgGrid.alignBottom {
+        -webkit-box-align: end;
+        align-items: end;
+      }
+      .boxSupplement.imgGrid .boxContent figure, .grpItems.imgGrid figure, .listImgGrid figure {
+        padding: 0;
+      }
+      .boxSupplement.imgGrid .boxContent div.half, .grpItems.imgGrid div.half, .listImgGrid div.half, .boxSupplement.imgGrid .boxContent div.quarter, .grpItems.imgGrid div.quarter, .listImgGrid div.quarter {
+        max-width: 100%;
+      }
+      .boxSupplement.imgGrid .boxContent.threeColumn, .grpItems.imgGrid.threeColumn, .listImgGrid.threeColumn {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    div.half {
+      max-width: 50%;
+    }
+    div.quarter {
+      max-width: 25%;
+    }
+    div.eighth {
+      max-width: 12.5%;
+    }
+    @media only screen and (min-width:760px) {
+      .videoModal.inline, .videoModal.inline-start {
+        width: 50%;
+        margin-bottom: 1em;
+      }
+      @include bidi((left, right)) using ($s) {
+        .videoModal.inline, .videoModal.inline-start {
+          float: #{$s};
+        }
+      }
+      @include bidi((left, right)) using ($s) {
+        .videoModal.inline, .videoModal.inline-start {
+          margin-#{flip($s)}: 32px;
+        }
+      }
+      .videoModal.inline-end {
+        width: 50%;
+        margin-bottom: 1em;
+      }
+      @include bidi((left, right)) using ($s) {
+        .videoModal.inline-end {
+          float: #{flip($s)};
+        }
+      }
+      @include bidi((left, right)) using ($s) {
+        .videoModal.inline-end {
+          margin-#{$s}: 32px;
+        }
+      }
+    }
+    &[class*=ml-][class*=ms-] ol.upperAlpha {
+      list-style-type: upper-alpha;
+    }
+    &[class*=ml-][class*=ms-] ol.lowerAlpha {
+      list-style-type: lower-alpha;
+    }
+    &[class*=ml-][class*=ms-] ol.source {
+      list-style-type: none;
+    }
+    &[class*=ml-][class*=ms-] ol.source .txtSrcBullet {
+      display: inline-block;
+      min-width: 1.5em;
+    }
+    &[class*=ml-][class*=ms-].dir-ltr ol.source .txtSrcBullet {
+      margin-left: -1.5em;
+    }
+    &[class*=ml-][class*=ms-].dir-rtl ol.source .txtSrcBullet {
+      margin-right: -1.5em;
+    }
+    &[class*=ml-][class*=ms-] ol.numberedDiagram, &[class*=ml-][class*=ms-] ol.noMarker, &[class*=ml-][class*=ms-] li.listTitle, &[class*=ml-][class*=ms-] ol.imgEastEighth>li, &[class*=ml-][class*=ms-] ol.imgEastQuarter>li, &[class*=ml-][class*=ms-] ol.imgWestEighth>li, &[class*=ml-][class*=ms-] ol.imgWestQuarter>li, ul.source {
+      list-style-type: none;
+    }
+    ul.source .txtSrcBullet {
+      display: inline-block;
+      min-width: 1.5em;
+    }
+    @include bidi((left, right)) using ($s) {
+      ul.source .txtSrcBullet {
+        margin-#{$s}: -1.5em;
+      }
+    }
+    ul.noMarker {
+      list-style-type: none;
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.noIndent, ol.noIndent.noMarker, ul.noIndent, ul.noIndent.noMarker {
+        padding-#{$s}: 0;
+      }
+    }
+    ol.listSpacing li, ul.listSpacing li {
+      margin-top: 4em;
+      margin-bottom: 4em;
+    }
+    ol.listSpacing li:first-of-type, ul.listSpacing li:first-of-type {
+      margin-top: 2em;
+    }
+    ol.listSpacing li:last-of-type, ul.listSpacing li:last-of-type {
+      margin-bottom: 2em;
+    }
+    li.listTitle {
+      font-size: 1.205em;
+    }
+    @include bidi((left, right)) using ($s) {
+      li.listTitle {
+        margin-#{$s}: -1em;
+      }
+    }
+    li.borderDotted--top {
+      border-top-style: dotted;
+      border-width: 1px;
+      border-color: #a7a7a7;
+    }
+    div.imgEastEighth>li, div.imgEastQuarter>li, div.imgWestEighth>li, div.imgWestQuarter>li, ul.imgEastEighth>li, ul.imgEastQuarter>li, ul.imgWestEighth>li, ul.imgWestQuarter>li {
+      list-style-type: none;
+    }
+    div.imgEastEighth, div.imgEastQuarter, div.imgWestEighth, div.imgWestQuarter, ol.imgEastEighth, ol.imgEastQuarter, ol.imgWestEighth, ol.imgWestQuarter, ul.imgEastEighth, ul.imgEastQuarter, ul.imgWestEighth, ul.imgWestQuarter {
+      padding: 0;
+    }
+    div.imgEastEighth>li::after, div.imgEastEighth>li::before, div.imgEastQuarter>li::after, div.imgEastQuarter>li::before, div.imgWestEighth>li::after, div.imgWestEighth>li::before, div.imgWestQuarter>li::after, div.imgWestQuarter>li::before, ol.imgEastEighth>li::after, ol.imgEastEighth>li::before, ol.imgEastQuarter>li::after, ol.imgEastQuarter>li::before, ol.imgWestEighth>li::after, ol.imgWestEighth>li::before, ol.imgWestQuarter>li::after, ol.imgWestQuarter>li::before, ul.imgEastEighth>li::after, ul.imgEastEighth>li::before, ul.imgEastQuarter>li::after, ul.imgEastQuarter>li::before, ul.imgWestEighth>li::after, ul.imgWestEighth>li::before, ul.imgWestQuarter>li::after, ul.imgWestQuarter>li::before {
+      content: " ";
+      display: table;
+    }
+    div.imgEastEighth>li::after, div.imgEastQuarter>li::after, div.imgWestEighth>li::after, div.imgWestQuarter>li::after, ol.imgEastEighth>li::after, ol.imgEastQuarter>li::after, ol.imgWestEighth>li::after, ol.imgWestQuarter>li::after, ul.imgEastEighth>li::after, ul.imgEastQuarter>li::after, ul.imgWestEighth>li::after, ul.imgWestQuarter>li::after {
+      clear: both;
+    }
+    div.imgEastEighth ul li, div.imgEastQuarter ul li, div.imgWestEighth ul li, div.imgWestQuarter ul li, ol.imgEastEighth ul li, ol.imgEastQuarter ul li, ol.imgWestEighth ul li, ol.imgWestQuarter ul li, ul.imgEastEighth ul li, ul.imgEastQuarter ul li, ul.imgWestEighth ul li, ul.imgWestQuarter ul li {
+      list-style-type: disc;
+    }
+    &.dir-ltr div.imgEastQuarter h2, &.dir-ltr div.imgEastQuarter h3, &.dir-ltr div.imgEastQuarter h4, &.dir-ltr div.imgEastQuarter h5, &.dir-ltr div.imgEastQuarter ol, &.dir-ltr div.imgEastQuarter ul, &.dir-ltr div.imgEastQuarter>li>p, &.dir-ltr div.imgEastQuarter>p, &.dir-ltr div.imgWestQuarter h2, &.dir-ltr div.imgWestQuarter h3, &.dir-ltr div.imgWestQuarter h4, &.dir-ltr div.imgWestQuarter h5, &.dir-ltr div.imgWestQuarter ol, &.dir-ltr div.imgWestQuarter ul, &.dir-ltr div.imgWestQuarter>li>p, &.dir-ltr div.imgWestQuarter>p, &.dir-ltr ol.imgEastQuarter h2, &.dir-ltr ol.imgEastQuarter h3, &.dir-ltr ol.imgEastQuarter h4, &.dir-ltr ol.imgEastQuarter h5, &.dir-ltr ol.imgEastQuarter ol, &.dir-ltr ol.imgEastQuarter ul, &.dir-ltr ol.imgEastQuarter>li>p, &.dir-ltr ol.imgEastQuarter>p, &.dir-ltr ol.imgWestQuarter h2, &.dir-ltr ol.imgWestQuarter h3, &.dir-ltr ol.imgWestQuarter h4, &.dir-ltr ol.imgWestQuarter h5, &.dir-ltr ol.imgWestQuarter ol, &.dir-ltr ol.imgWestQuarter ul, &.dir-ltr ol.imgWestQuarter>li>p, &.dir-ltr ol.imgWestQuarter>p, &.dir-ltr ul.imgEastQuarter h2, &.dir-ltr ul.imgEastQuarter h3, &.dir-ltr ul.imgEastQuarter h4, &.dir-ltr ul.imgEastQuarter h5, &.dir-ltr ul.imgEastQuarter ol, &.dir-ltr ul.imgEastQuarter ul, &.dir-ltr ul.imgEastQuarter>li>p, &.dir-ltr ul.imgEastQuarter>p, &.dir-ltr ul.imgWestQuarter h2, &.dir-ltr ul.imgWestQuarter h3, &.dir-ltr ul.imgWestQuarter h4, &.dir-ltr ul.imgWestQuarter h5, &.dir-ltr ul.imgWestQuarter ol, &.dir-ltr ul.imgWestQuarter ul, &.dir-ltr ul.imgWestQuarter>li>p, &.dir-ltr ul.imgWestQuarter>p {
+      margin-left: calc(25% + 16px);
+    }
+    @media screen and (min-width:760px) {
+      &.dir-ltr div.imgEastQuarter h2, &.dir-ltr div.imgEastQuarter h3, &.dir-ltr div.imgEastQuarter h4, &.dir-ltr div.imgEastQuarter h5, &.dir-ltr div.imgEastQuarter ol, &.dir-ltr div.imgEastQuarter ul, &.dir-ltr div.imgEastQuarter>li>p, &.dir-ltr div.imgEastQuarter>p, &.dir-ltr div.imgWestQuarter h2, &.dir-ltr div.imgWestQuarter h3, &.dir-ltr div.imgWestQuarter h4, &.dir-ltr div.imgWestQuarter h5, &.dir-ltr div.imgWestQuarter ol, &.dir-ltr div.imgWestQuarter ul, &.dir-ltr div.imgWestQuarter>li>p, &.dir-ltr div.imgWestQuarter>p, &.dir-ltr ol.imgEastQuarter h2, &.dir-ltr ol.imgEastQuarter h3, &.dir-ltr ol.imgEastQuarter h4, &.dir-ltr ol.imgEastQuarter h5, &.dir-ltr ol.imgEastQuarter ol, &.dir-ltr ol.imgEastQuarter ul, &.dir-ltr ol.imgEastQuarter>li>p, &.dir-ltr ol.imgEastQuarter>p, &.dir-ltr ol.imgWestQuarter h2, &.dir-ltr ol.imgWestQuarter h3, &.dir-ltr ol.imgWestQuarter h4, &.dir-ltr ol.imgWestQuarter h5, &.dir-ltr ol.imgWestQuarter ol, &.dir-ltr ol.imgWestQuarter ul, &.dir-ltr ol.imgWestQuarter>li>p, &.dir-ltr ol.imgWestQuarter>p, &.dir-ltr ul.imgEastQuarter h2, &.dir-ltr ul.imgEastQuarter h3, &.dir-ltr ul.imgEastQuarter h4, &.dir-ltr ul.imgEastQuarter h5, &.dir-ltr ul.imgEastQuarter ol, &.dir-ltr ul.imgEastQuarter ul, &.dir-ltr ul.imgEastQuarter>li>p, &.dir-ltr ul.imgEastQuarter>p, &.dir-ltr ul.imgWestQuarter h2, &.dir-ltr ul.imgWestQuarter h3, &.dir-ltr ul.imgWestQuarter h4, &.dir-ltr ul.imgWestQuarter h5, &.dir-ltr ul.imgWestQuarter ol, &.dir-ltr ul.imgWestQuarter ul, &.dir-ltr ul.imgWestQuarter>li>p, &.dir-ltr ul.imgWestQuarter>p {
+        margin-left: calc(25% + 32px);
+      }
+    }
+    &.dir-rtl div.imgEastQuarter h2, &.dir-rtl div.imgEastQuarter h3, &.dir-rtl div.imgEastQuarter h4, &.dir-rtl div.imgEastQuarter h5, &.dir-rtl div.imgEastQuarter ol, &.dir-rtl div.imgEastQuarter ul, &.dir-rtl div.imgEastQuarter>li>p, &.dir-rtl div.imgEastQuarter>p, &.dir-rtl div.imgWestQuarter h2, &.dir-rtl div.imgWestQuarter h3, &.dir-rtl div.imgWestQuarter h4, &.dir-rtl div.imgWestQuarter h5, &.dir-rtl div.imgWestQuarter ol, &.dir-rtl div.imgWestQuarter ul, &.dir-rtl div.imgWestQuarter>li>p, &.dir-rtl div.imgWestQuarter>p, &.dir-rtl ol.imgEastQuarter h2, &.dir-rtl ol.imgEastQuarter h3, &.dir-rtl ol.imgEastQuarter h4, &.dir-rtl ol.imgEastQuarter h5, &.dir-rtl ol.imgEastQuarter ol, &.dir-rtl ol.imgEastQuarter ul, &.dir-rtl ol.imgEastQuarter>li>p, &.dir-rtl ol.imgEastQuarter>p, &.dir-rtl ol.imgWestQuarter h2, &.dir-rtl ol.imgWestQuarter h3, &.dir-rtl ol.imgWestQuarter h4, &.dir-rtl ol.imgWestQuarter h5, &.dir-rtl ol.imgWestQuarter ol, &.dir-rtl ol.imgWestQuarter ul, &.dir-rtl ol.imgWestQuarter>li>p, &.dir-rtl ol.imgWestQuarter>p, &.dir-rtl ul.imgEastQuarter h2, &.dir-rtl ul.imgEastQuarter h3, &.dir-rtl ul.imgEastQuarter h4, &.dir-rtl ul.imgEastQuarter h5, &.dir-rtl ul.imgEastQuarter ol, &.dir-rtl ul.imgEastQuarter ul, &.dir-rtl ul.imgEastQuarter>li>p, &.dir-rtl ul.imgEastQuarter>p, &.dir-rtl ul.imgWestQuarter h2, &.dir-rtl ul.imgWestQuarter h3, &.dir-rtl ul.imgWestQuarter h4, &.dir-rtl ul.imgWestQuarter h5, &.dir-rtl ul.imgWestQuarter ol, &.dir-rtl ul.imgWestQuarter ul, &.dir-rtl ul.imgWestQuarter>li>p, &.dir-rtl ul.imgWestQuarter>p {
+      margin-right: calc(25% + 16px);
+    }
+    @media screen and (min-width:760px) {
+      &.dir-rtl div.imgEastQuarter h2, &.dir-rtl div.imgEastQuarter h3, &.dir-rtl div.imgEastQuarter h4, &.dir-rtl div.imgEastQuarter h5, &.dir-rtl div.imgEastQuarter ol, &.dir-rtl div.imgEastQuarter ul, &.dir-rtl div.imgEastQuarter>li>p, &.dir-rtl div.imgEastQuarter>p, &.dir-rtl div.imgWestQuarter h2, &.dir-rtl div.imgWestQuarter h3, &.dir-rtl div.imgWestQuarter h4, &.dir-rtl div.imgWestQuarter h5, &.dir-rtl div.imgWestQuarter ol, &.dir-rtl div.imgWestQuarter ul, &.dir-rtl div.imgWestQuarter>li>p, &.dir-rtl div.imgWestQuarter>p, &.dir-rtl ol.imgEastQuarter h2, &.dir-rtl ol.imgEastQuarter h3, &.dir-rtl ol.imgEastQuarter h4, &.dir-rtl ol.imgEastQuarter h5, &.dir-rtl ol.imgEastQuarter ol, &.dir-rtl ol.imgEastQuarter ul, &.dir-rtl ol.imgEastQuarter>li>p, &.dir-rtl ol.imgEastQuarter>p, &.dir-rtl ol.imgWestQuarter h2, &.dir-rtl ol.imgWestQuarter h3, &.dir-rtl ol.imgWestQuarter h4, &.dir-rtl ol.imgWestQuarter h5, &.dir-rtl ol.imgWestQuarter ol, &.dir-rtl ol.imgWestQuarter ul, &.dir-rtl ol.imgWestQuarter>li>p, &.dir-rtl ol.imgWestQuarter>p, &.dir-rtl ul.imgEastQuarter h2, &.dir-rtl ul.imgEastQuarter h3, &.dir-rtl ul.imgEastQuarter h4, &.dir-rtl ul.imgEastQuarter h5, &.dir-rtl ul.imgEastQuarter ol, &.dir-rtl ul.imgEastQuarter ul, &.dir-rtl ul.imgEastQuarter>li>p, &.dir-rtl ul.imgEastQuarter>p, &.dir-rtl ul.imgWestQuarter h2, &.dir-rtl ul.imgWestQuarter h3, &.dir-rtl ul.imgWestQuarter h4, &.dir-rtl ul.imgWestQuarter h5, &.dir-rtl ul.imgWestQuarter ol, &.dir-rtl ul.imgWestQuarter ul, &.dir-rtl ul.imgWestQuarter>li>p, &.dir-rtl ul.imgWestQuarter>p {
+        margin-right: calc(25% + 32px);
+      }
+    }
+    &.dir-ltr div.imgEastEighth h2, &.dir-ltr div.imgEastEighth h3, &.dir-ltr div.imgEastEighth h4, &.dir-ltr div.imgEastEighth h5, &.dir-ltr div.imgEastEighth ol, &.dir-ltr div.imgEastEighth ul, &.dir-ltr div.imgEastEighth>li>p, &.dir-ltr div.imgEastEighth>p, &.dir-ltr div.imgWestEighth h2, &.dir-ltr div.imgWestEighth h3, &.dir-ltr div.imgWestEighth h4, &.dir-ltr div.imgWestEighth h5, &.dir-ltr div.imgWestEighth ol, &.dir-ltr div.imgWestEighth ul, &.dir-ltr div.imgWestEighth>li>p, &.dir-ltr div.imgWestEighth>p, &.dir-ltr ol.imgEastEighth h2, &.dir-ltr ol.imgEastEighth h3, &.dir-ltr ol.imgEastEighth h4, &.dir-ltr ol.imgEastEighth h5, &.dir-ltr ol.imgEastEighth ol, &.dir-ltr ol.imgEastEighth ul, &.dir-ltr ol.imgEastEighth>li>p, &.dir-ltr ol.imgEastEighth>p, &.dir-ltr ol.imgWestEighth h2, &.dir-ltr ol.imgWestEighth h3, &.dir-ltr ol.imgWestEighth h4, &.dir-ltr ol.imgWestEighth h5, &.dir-ltr ol.imgWestEighth ol, &.dir-ltr ol.imgWestEighth ul, &.dir-ltr ol.imgWestEighth>li>p, &.dir-ltr ol.imgWestEighth>p, &.dir-ltr ul.imgEastEighth h2, &.dir-ltr ul.imgEastEighth h3, &.dir-ltr ul.imgEastEighth h4, &.dir-ltr ul.imgEastEighth h5, &.dir-ltr ul.imgEastEighth ol, &.dir-ltr ul.imgEastEighth ul, &.dir-ltr ul.imgEastEighth>li>p, &.dir-ltr ul.imgEastEighth>p, &.dir-ltr ul.imgWestEighth h2, &.dir-ltr ul.imgWestEighth h3, &.dir-ltr ul.imgWestEighth h4, &.dir-ltr ul.imgWestEighth h5, &.dir-ltr ul.imgWestEighth ol, &.dir-ltr ul.imgWestEighth ul, &.dir-ltr ul.imgWestEighth>li>p, &.dir-ltr ul.imgWestEighth>p {
+      margin-left: calc(12.5% + 16px);
+    }
+    @media screen and (min-width:760px) {
+      &.dir-ltr div.imgEastEighth h2, &.dir-ltr div.imgEastEighth h3, &.dir-ltr div.imgEastEighth h4, &.dir-ltr div.imgEastEighth h5, &.dir-ltr div.imgEastEighth ol, &.dir-ltr div.imgEastEighth ul, &.dir-ltr div.imgEastEighth>li>p, &.dir-ltr div.imgEastEighth>p, &.dir-ltr div.imgWestEighth h2, &.dir-ltr div.imgWestEighth h3, &.dir-ltr div.imgWestEighth h4, &.dir-ltr div.imgWestEighth h5, &.dir-ltr div.imgWestEighth ol, &.dir-ltr div.imgWestEighth ul, &.dir-ltr div.imgWestEighth>li>p, &.dir-ltr div.imgWestEighth>p, &.dir-ltr ol.imgEastEighth h2, &.dir-ltr ol.imgEastEighth h3, &.dir-ltr ol.imgEastEighth h4, &.dir-ltr ol.imgEastEighth h5, &.dir-ltr ol.imgEastEighth ol, &.dir-ltr ol.imgEastEighth ul, &.dir-ltr ol.imgEastEighth>li>p, &.dir-ltr ol.imgEastEighth>p, &.dir-ltr ol.imgWestEighth h2, &.dir-ltr ol.imgWestEighth h3, &.dir-ltr ol.imgWestEighth h4, &.dir-ltr ol.imgWestEighth h5, &.dir-ltr ol.imgWestEighth ol, &.dir-ltr ol.imgWestEighth ul, &.dir-ltr ol.imgWestEighth>li>p, &.dir-ltr ol.imgWestEighth>p, &.dir-ltr ul.imgEastEighth h2, &.dir-ltr ul.imgEastEighth h3, &.dir-ltr ul.imgEastEighth h4, &.dir-ltr ul.imgEastEighth h5, &.dir-ltr ul.imgEastEighth ol, &.dir-ltr ul.imgEastEighth ul, &.dir-ltr ul.imgEastEighth>li>p, &.dir-ltr ul.imgEastEighth>p, &.dir-ltr ul.imgWestEighth h2, &.dir-ltr ul.imgWestEighth h3, &.dir-ltr ul.imgWestEighth h4, &.dir-ltr ul.imgWestEighth h5, &.dir-ltr ul.imgWestEighth ol, &.dir-ltr ul.imgWestEighth ul, &.dir-ltr ul.imgWestEighth>li>p, &.dir-ltr ul.imgWestEighth>p {
+        margin-left: calc(12.5% + 32px);
+      }
+    }
+    &.dir-rtl div.imgEastEighth h2, &.dir-rtl div.imgEastEighth h3, &.dir-rtl div.imgEastEighth h4, &.dir-rtl div.imgEastEighth h5, &.dir-rtl div.imgEastEighth ol, &.dir-rtl div.imgEastEighth ul, &.dir-rtl div.imgEastEighth>li>p, &.dir-rtl div.imgEastEighth>p, &.dir-rtl div.imgWestEighth h2, &.dir-rtl div.imgWestEighth h3, &.dir-rtl div.imgWestEighth h4, &.dir-rtl div.imgWestEighth h5, &.dir-rtl div.imgWestEighth ol, &.dir-rtl div.imgWestEighth ul, &.dir-rtl div.imgWestEighth>li>p, &.dir-rtl div.imgWestEighth>p, &.dir-rtl ol.imgEastEighth h2, &.dir-rtl ol.imgEastEighth h3, &.dir-rtl ol.imgEastEighth h4, &.dir-rtl ol.imgEastEighth h5, &.dir-rtl ol.imgEastEighth ol, &.dir-rtl ol.imgEastEighth ul, &.dir-rtl ol.imgEastEighth>li>p, &.dir-rtl ol.imgEastEighth>p, &.dir-rtl ol.imgWestEighth h2, &.dir-rtl ol.imgWestEighth h3, &.dir-rtl ol.imgWestEighth h4, &.dir-rtl ol.imgWestEighth h5, &.dir-rtl ol.imgWestEighth ol, &.dir-rtl ol.imgWestEighth ul, &.dir-rtl ol.imgWestEighth>li>p, &.dir-rtl ol.imgWestEighth>p, &.dir-rtl ul.imgEastEighth h2, &.dir-rtl ul.imgEastEighth h3, &.dir-rtl ul.imgEastEighth h4, &.dir-rtl ul.imgEastEighth h5, &.dir-rtl ul.imgEastEighth ol, &.dir-rtl ul.imgEastEighth ul, &.dir-rtl ul.imgEastEighth>li>p, &.dir-rtl ul.imgEastEighth>p, &.dir-rtl ul.imgWestEighth h2, &.dir-rtl ul.imgWestEighth h3, &.dir-rtl ul.imgWestEighth h4, &.dir-rtl ul.imgWestEighth h5, &.dir-rtl ul.imgWestEighth ol, &.dir-rtl ul.imgWestEighth ul, &.dir-rtl ul.imgWestEighth>li>p, &.dir-rtl ul.imgWestEighth>p {
+      margin-right: calc(12.5% + 16px);
+    }
+    @media screen and (min-width:760px) {
+      &.dir-rtl div.imgEastEighth h2, &.dir-rtl div.imgEastEighth h3, &.dir-rtl div.imgEastEighth h4, &.dir-rtl div.imgEastEighth h5, &.dir-rtl div.imgEastEighth ol, &.dir-rtl div.imgEastEighth ul, &.dir-rtl div.imgEastEighth>li>p, &.dir-rtl div.imgEastEighth>p, &.dir-rtl div.imgWestEighth h2, &.dir-rtl div.imgWestEighth h3, &.dir-rtl div.imgWestEighth h4, &.dir-rtl div.imgWestEighth h5, &.dir-rtl div.imgWestEighth ol, &.dir-rtl div.imgWestEighth ul, &.dir-rtl div.imgWestEighth>li>p, &.dir-rtl div.imgWestEighth>p, &.dir-rtl ol.imgEastEighth h2, &.dir-rtl ol.imgEastEighth h3, &.dir-rtl ol.imgEastEighth h4, &.dir-rtl ol.imgEastEighth h5, &.dir-rtl ol.imgEastEighth ol, &.dir-rtl ol.imgEastEighth ul, &.dir-rtl ol.imgEastEighth>li>p, &.dir-rtl ol.imgEastEighth>p, &.dir-rtl ol.imgWestEighth h2, &.dir-rtl ol.imgWestEighth h3, &.dir-rtl ol.imgWestEighth h4, &.dir-rtl ol.imgWestEighth h5, &.dir-rtl ol.imgWestEighth ol, &.dir-rtl ol.imgWestEighth ul, &.dir-rtl ol.imgWestEighth>li>p, &.dir-rtl ol.imgWestEighth>p, &.dir-rtl ul.imgEastEighth h2, &.dir-rtl ul.imgEastEighth h3, &.dir-rtl ul.imgEastEighth h4, &.dir-rtl ul.imgEastEighth h5, &.dir-rtl ul.imgEastEighth ol, &.dir-rtl ul.imgEastEighth ul, &.dir-rtl ul.imgEastEighth>li>p, &.dir-rtl ul.imgEastEighth>p, &.dir-rtl ul.imgWestEighth h2, &.dir-rtl ul.imgWestEighth h3, &.dir-rtl ul.imgWestEighth h4, &.dir-rtl ul.imgWestEighth h5, &.dir-rtl ul.imgWestEighth ol, &.dir-rtl ul.imgWestEighth ul, &.dir-rtl ul.imgWestEighth>li>p, &.dir-rtl ul.imgWestEighth>p {
+        margin-right: calc(12.5% + 32px);
+      }
+    }
+    &.dir-ltr ol.numberedDiagram.imgWestQuarter>li ul, &.dir-ltr ol.numberedDiagram.imgWestQuarter>li>p {
+      margin-left: calc(25% + 16px + 1.5em);
+    }
+    @media screen and (min-width:760px) {
+      &.dir-ltr ol.numberedDiagram.imgWestQuarter>li ul, &.dir-ltr ol.numberedDiagram.imgWestQuarter>li>p {
+        margin-left: calc(25% + 32px + 1.5em);
+      }
+    }
+    &.dir-rtl ol.numberedDiagram.imgWestQuarter>li ul, &.dir-rtl ol.numberedDiagram.imgWestQuarter>li>p {
+      margin-right: calc(25% + 16px + 1.5em);
+    }
+    @media screen and (min-width:760px) {
+      &.dir-rtl ol.numberedDiagram.imgWestQuarter>li ul, &.dir-rtl ol.numberedDiagram.imgWestQuarter>li>p {
+        margin-right: calc(25% + 32px + 1.5em);
+      }
+    }
+    &.dir-ltr ol.numberedDiagram.imgWestQuarter>li::before {
+      left: calc(25% + 16px);
+    }
+    @media screen and (min-width:760px) {
+      &.dir-ltr ol.numberedDiagram.imgWestQuarter>li::before {
+        left: calc(25% + 32px);
+      }
+    }
+    &.dir-rtl ol.numberedDiagram.imgWestQuarter>li::before {
+      right: calc(25% + 16px);
+    }
+    @media screen and (min-width:760px) {
+      &.dir-rtl ol.numberedDiagram.imgWestQuarter>li::before {
+        right: calc(25% + 32px);
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.numberedDiagram {
+        padding-#{$s}: 0;
+      }
+    }
+    ol.numberedDiagram>li {
+      position: relative;
+      counter-increment: numbered-diagram-counter;
+    }
+    ol.numberedDiagram>li::before {
+      display: block;
+      position: absolute;
+      top: .5em;
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 2em;
+      font-size: .6886933765em;
+      font-weight: 700;
+      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+      @include themed(color, du-color--white, #fff);
+      content: counter(numbered-diagram-counter) " ";
+      line-height: 1.5em;
+      text-align: center;
+    }
+    ol.numberedDiagram>li::before a {
+      color: #9fb9e3;
+    }
+    ol.numberedDiagram>li::before a:visited {
+      color: #a9a7c9;
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.numberedDiagram>li>p {
+        margin-#{$s}: 1.5em;
+      }
+    }
+    p.qu {
+      @include themed(color, du-color--textSubdued, #626262);
+      font-size: .8298755187em;
+    }
+    p.noTopMargin {
+      margin-top: 0;
+    }
+    .pageNum {
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: normal;
+      @include themed(color, du-color--textSubdued, #626262);
+    }
+    @include bidi((left, right)) using ($s) {
+      .pageNum {
+        text-align: #{$s};
+        float: #{flip($s)};
+      }
+    }
+    .pageNum::after {
+      content: attr(data-before-text);
+      position: relative;
+    }
+    @include bidi((left, right)) using ($s) {
+      .pageNum::after {
+        #{flip($s)}: -10px;
+      }
+    }
+    &.pub-bi12, &.pub-bi7, &.pub-igw, &.pub-nwt, &.pub-nwths, &.pub-sgd {
+      position: relative;
+    }
+    &.pub-bi12 h3.inline>.pageNum, &.pub-bi12.docClass-13 .contextTtl .pageNum, &.pub-bi12.docClass-14 .contextTtl .pageNum, &.pub-bi7 h3.inline>.pageNum, &.pub-bi7.docClass-13 .contextTtl .pageNum, &.pub-bi7.docClass-14 .contextTtl .pageNum, &.pub-igw h3.inline>.pageNum, &.pub-igw.docClass-13 .contextTtl .pageNum, &.pub-igw.docClass-14 .contextTtl .pageNum, &.pub-nwt h3.inline>.pageNum, &.pub-nwt.docClass-13 .contextTtl .pageNum, &.pub-nwt.docClass-14 .contextTtl .pageNum, &.pub-nwths h3.inline>.pageNum, &.pub-nwths.docClass-13 .contextTtl .pageNum, &.pub-nwths.docClass-14 .contextTtl .pageNum, &.pub-sgd h3.inline>.pageNum, &.pub-sgd.docClass-13 .contextTtl .pageNum, &.pub-sgd.docClass-14 .contextTtl .pageNum {
+      width: 0;
+    }
+    &.pub-bi12.dir-ltr h3.inline>.pageNum::after, &.pub-bi12.docClass-13.dir-ltr .contextTtl .pageNum::after, &.pub-bi12.docClass-14.dir-ltr .contextTtl .pageNum::after, &.pub-bi7.dir-ltr h3.inline>.pageNum::after, &.pub-bi7.docClass-13.dir-ltr .contextTtl .pageNum::after, &.pub-bi7.docClass-14.dir-ltr .contextTtl .pageNum::after, &.pub-igw.dir-ltr h3.inline>.pageNum::after, &.pub-igw.docClass-13.dir-ltr .contextTtl .pageNum::after, &.pub-igw.docClass-14.dir-ltr .contextTtl .pageNum::after, &.pub-nwt.dir-ltr h3.inline>.pageNum::after, &.pub-nwt.docClass-13.dir-ltr .contextTtl .pageNum::after, &.pub-nwt.docClass-14.dir-ltr .contextTtl .pageNum::after, &.pub-nwths.dir-ltr h3.inline>.pageNum::after, &.pub-nwths.docClass-13.dir-ltr .contextTtl .pageNum::after, &.pub-nwths.docClass-14.dir-ltr .contextTtl .pageNum::after, &.pub-sgd.dir-ltr h3.inline>.pageNum::after, &.pub-sgd.docClass-13.dir-ltr .contextTtl .pageNum::after, &.pub-sgd.docClass-14.dir-ltr .contextTtl .pageNum::after {
+      position: absolute;
+      right: 4px;
+    }
+    &.pub-bi12.dir-rtl h3.inline>.pageNum::after, &.pub-bi12.docClass-13.dir-rtl .contextTtl .pageNum::after, &.pub-bi12.docClass-14.dir-rtl .contextTtl .pageNum::after, &.pub-bi7.dir-rtl h3.inline>.pageNum::after, &.pub-bi7.docClass-13.dir-rtl .contextTtl .pageNum::after, &.pub-bi7.docClass-14.dir-rtl .contextTtl .pageNum::after, &.pub-igw.dir-rtl h3.inline>.pageNum::after, &.pub-igw.docClass-13.dir-rtl .contextTtl .pageNum::after, &.pub-igw.docClass-14.dir-rtl .contextTtl .pageNum::after, &.pub-nwt.dir-rtl h3.inline>.pageNum::after, &.pub-nwt.docClass-13.dir-rtl .contextTtl .pageNum::after, &.pub-nwt.docClass-14.dir-rtl .contextTtl .pageNum::after, &.pub-nwths.dir-rtl h3.inline>.pageNum::after, &.pub-nwths.docClass-13.dir-rtl .contextTtl .pageNum::after, &.pub-nwths.docClass-14.dir-rtl .contextTtl .pageNum::after, &.pub-sgd.dir-rtl h3.inline>.pageNum::after, &.pub-sgd.docClass-13.dir-rtl .contextTtl .pageNum::after, &.pub-sgd.docClass-14.dir-rtl .contextTtl .pageNum::after {
+      position: absolute;
+      left: 4px;
+    }
+    &.pub-lff, &.pub-lffi {
+      position: relative;
+    }
+  }
+}
+
+@mixin part-9 {
+  @include jwac {
+    .unstyled .pageNum, .pageNum+.pageNum, &.docClass-115 .pageNum, &.bible .pageNum, table .pageNum, aside .pageNum, .blockTeach .pageNum, .boxSupplement .pageNum, .chart .pageNum, .closingContent .pageNum, .diagram .pageNum, .mapElement .pageNum {
+      display: none;
+    }
+    .wide ol.timeline.arrowCap {
+      width: 100%;
+    }
+    ol.timeline {
+      list-style-type: none;
+      margin-left: 0;
+      margin-top: 40px;
+      padding-top: 40px;
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.timeline {
+        padding-#{$s}: 0;
+        border-#{$s}-width: 9px;
+        border-#{$s}-style: solid;
+        border-#{$s}-color: #ebebeb;
+      }
+    }
+    ol.timeline h3, ol.timeline p {
+      margin: .25em 0;
+    }
+    ol.timeline>li {
+      clear: both;
+      position: relative;
+      min-height: 3em;
+      padding-bottom: .5em;
+      list-style-type: none;
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.timeline>li {
+        padding-#{$s}: 32px;
+      }
+    }
+    ol.timeline>li::after, ol.timeline>li::before {
+      content: "";
+      position: absolute;
+      top: calc(.75em + 1px);
+    }
+    ol.timeline>li::before {
+      width: 9px;
+      height: 9px;
+      display: inline-block;
+      background-color: #9e9b9a;
+      margin-top: -4px;
+      border-radius: 9px;
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.timeline>li::before {
+        #{$s}: -9px;
+      }
+    }
+    ol.timeline>li::after {
+      width: 20px;
+      height: 1px;
+      border-top-color: #c5c3c2;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.timeline>li::after {
+        #{$s}: 0;
+      }
+    }
+    ol.timeline>li.timeCirca::after {
+      border-top-width: 1px;
+      border-top-style: dashed;
+      border-top-color: #c5c3c2;
+    }
+    ol.timeline>li.timeBCE::before {
+      border-color: #ffae00;
+      background-color: #ffae00;
+    }
+    ol.timeline>li.timeCE::before {
+      border-color: #3fa2bf;
+      background-color: #3fa2bf;
+    }
+    ol.timeline li.timeline-bigFinish {
+      padding-bottom: 1em;
+      position: absolute;
+      bottom: -9em;
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.timeline li.timeline-bigFinish {
+        #{$s}: -32px;
+      }
+    }
+    ol.timeline li.timeline-bigFinish h4 {
+      font-size: 1.749690125em;
+      font-weight: 700;
+    }
+    ol.timeline.arrowCap {
+      position: relative;
+      margin-left: 16px;
+      margin-right: 16px;
+      margin-bottom: 40px;
+    }
+    @media only screen and (min-width:760px) {
+      ol.timeline.arrowCap {
+        margin-left: 32px;
+        margin-right: 32px;
+      }
+    }
+    ol.timeline.arrowCap::after {
+      position: absolute;
+      content: "";
+      height: 0;
+      width: 0;
+      border-top-color: #ebebeb;
+      border-top-width: 20px;
+      border-right-style: inset;
+      border-right-width: 20px;
+      border-right-color: transparent;
+      border-left-style: inset;
+      border-left-width: 20px;
+      border-left-color: transparent;
+      border-top-style: solid;
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.timeline.arrowCap::after {
+        #{$s}: -25px;
+      }
+    }
+    ol.timeline ol.timeline {
+      margin-top: 0;
+    }
+    &.dir-ltr ol.timeline ol.timeline {
+      border-left-width: 0;
+      margin-left: -32px;
+    }
+    &.dir-rtl ol.timeline ol.timeline {
+      border-left-width: 0;
+      margin-right: -32px;
+    }
+    ol.timeline ol.timeline li {
+      clear: both;
+      width: 92%;
+    }
+    ol.timeline ol.timeline li::before {
+      display: none;
+    }
+    ol.timeline ol.timeline li::after {
+      width: 50px;
+    }
+    @include bidi((left, right)) using ($s) {
+      ol.timeline ol.timeline li {
+        padding-#{$s}: 64px;
+      }
+    }
+    .figcaption {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+    .boxSupplement .fullBleed .figcaption, .boxSupplement .fullBleed .imgCredit {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+    @media only screen and (min-width:760px) {
+      .boxSupplement .fullBleed .figcaption, .boxSupplement .fullBleed .imgCredit {
+        margin-left: 32px;
+        margin-right: 32px;
+      }
+    }
+    figcaption {
+      @include themed(color, du-color--textSubdued, #626262);
+      font-size: .8298755187em;
+    }
+    .imgCredit {
+      @include themed(color, du-color--textSubdued, #626262);
+      font-size: .6886933765em;
+    }
+    .tableDiv.gridDefault table, .tableDiv.gridDefault td, .tableDiv.gridDefault th, .tableDiv.gridlines table, .tableDiv.gridlines td, .tableDiv.gridlines th, .tableDiv.tableBorder table, .tableDiv.tableGrid table, .tableDiv.tableGrid td, .tableDiv.tableGrid th {
+      border-width: 1px;
+      border-style: solid;
+      border-color: #a7a7a7;
+    }
+    .tableDiv.rowBorder tr {
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: #a7a7a7;
+    }
+    .tableDiv.rowBorder tr:first-child, .tableDiv.rowBorder tr.shaded, .tableDiv.rowBorder tr.shaded+tr, .tableDiv.rowBorder tr.shaded th {
+      border-top-style: none;
+    }
+    .tableDiv tr.emphasized th {
+      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+      @include themed(color, du-color--white, #fff);
+    }
+    .tableDiv tr.emphasized th a {
+      color: #9fb9e3;
+    }
+    .tableDiv tr.emphasized th a:visited {
+      color: #a9a7c9;
+    }
+    .tableDiv tr.shaded th {
+      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+      @include themed(color, du-color--white, #fff);
+    }
+    .tableDiv tr.shaded th a {
+      color: #9fb9e3;
+    }
+    .tableDiv tr.shaded th a:visited {
+      color: #a9a7c9;
+    }
+    .tableDiv tr.shaded td {
+      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+    }
+    .tableDiv.rowStripe th, .tableDiv.rowStripe thead tr, .tableDiv.stripe th, .tableDiv.stripe thead tr {
+      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+      @include themed(color, du-color--white, #fff);
+    }
+    .tableDiv.rowStripe th a, .tableDiv.rowStripe thead tr a, .tableDiv.stripe th a, .tableDiv.stripe thead tr a {
+      color: #9fb9e3;
+    }
+    .tableDiv.rowStripe th a:visited, .tableDiv.rowStripe thead tr a:visited, .tableDiv.stripe th a:visited, .tableDiv.stripe thead tr a:visited {
+      color: #a9a7c9;
+    }
+    .tableDiv.rowStripe tr:nth-child(2n), .tableDiv.stripe tr:nth-child(2n) {
+      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+    }
+    .tableDiv.gridlines th, .tableDiv.gridlines thead tr {
+      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+      @include themed(color, du-color--white, #fff);
+    }
+    .tableDiv.gridlines th a, .tableDiv.gridlines thead tr a {
+      color: #9fb9e3;
+    }
+    .tableDiv.gridlines th a:visited, .tableDiv.gridlines thead tr a:visited {
+      color: #a9a7c9;
+    }
+    .tableDiv.gridlines td.shaded {
+      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+    }
+    .tableDiv.columnStripe th, .tableDiv.columnStripe thead tr {
+      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+      @include themed(color, du-color--white, #fff);
+    }
+    .tableDiv.columnStripe th a, .tableDiv.columnStripe thead tr a {
+      color: #9fb9e3;
+    }
+    .tableDiv.columnStripe th a:visited, .tableDiv.columnStripe thead tr a:visited {
+      color: #a9a7c9;
+    }
+    .tableDiv.columnStripe td:nth-child(odd) {
+      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+    }
+    @include bidi((left, right)) using ($s) {
+      .tableDiv.columnBorder td, .tableDiv.columnBorder th {
+        border-#{$s}-width: 1px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .tableDiv.columnBorder td, .tableDiv.columnBorder th {
+        border-#{$s}-style: solid;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .tableDiv.columnBorder td, .tableDiv.columnBorder th {
+        border-#{$s}-color: #a7a7a7;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .tableDiv.columnBorder td:first-child, .tableDiv.columnBorder th:first-child {
+        border-#{$s}-style: none;
+      }
+    }
+    .tableDiv.full table {
+      width: 100%;
+    }
+    @media screen and (max-width:759px) {
+      .tableDiv.half {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+    .tableDiv.half table {
+      width: 100%;
+    }
+    .tableDiv.wide {
+      position: relative;
+      overflow: auto;
+    }
+    .tableDiv.wide>* {
+      min-width: 650px;
+      max-width: 750px;
+    }
+    @media screen and (min-width:760px) {
+      .tableDiv.wide>* {
+        min-width: 750px;
+        max-width: 960px;
+      }
+    }
+  }
+}
+
+@mixin part-10 {
+  @include jwac {
+    .mapElement {
+      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      padding: 16px;
+    }
+    .mapElement>:first-child:not(aside), .mapElement>aside:first-child>:first-child {
+      margin-top: 0;
+    }
+    .mapElement>:last-child:not(aside), .mapElement>aside:first-child>:last-child {
+      margin-bottom: 8px;
+    }
+    @media only screen and (min-width:760px) {
+      .mapElement>:last-child:not(aside), .mapElement>aside:first-child>:last-child {
+        margin-bottom: 16px;
+      }
+    }
+    .closingContent.dashed, .closingContent.rule {
+      padding-top: 16px;
+      padding-bottom: 16px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    @media only screen and (min-width:760px) {
+      .closingContent.dashed, .closingContent.rule {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+    }
+    .closingContent.dashed>:first-child, .closingContent.rule>:first-child {
+      margin-top: 0;
+    }
+    .closingContent.dashed>:last-child, .closingContent.rule>:last-child {
+      margin-bottom: 8px;
+    }
+    @media only screen and (min-width:760px) {
+      .closingContent.dashed>:last-child, .closingContent.rule>:last-child {
+        margin-bottom: 16px;
+      }
+    }
+    .closingContent.dashed .boxTtl, .closingContent.rule .boxTtl {
+      margin-top: -16px;
+      margin-left: -16px;
+      margin-right: -16px;
+    }
+    @media only screen and (min-width:760px) {
+      .closingContent.dashed .boxTtl, .closingContent.rule .boxTtl {
+        margin-left: -32px;
+        margin-right: -32px;
+      }
+    }
+    .closingContent.dashed .boxSubTtl, .closingContent.rule .boxSubTtl {
+      margin-left: -16px;
+      margin-right: -16px;
+    }
+    @media only screen and (min-width:760px) {
+      .closingContent.dashed .boxSubTtl, .closingContent.rule .boxSubTtl {
+        margin-left: -32px;
+        margin-right: -32px;
+      }
+    }
+    .closingContent.dashed .boxContent, .closingContent.rule .boxContent {
+      margin-bottom: -16px;
+      margin-left: -16px;
+      margin-right: -16px;
+    }
+    @media only screen and (min-width:760px) {
+      .closingContent.dashed .boxContent, .closingContent.rule .boxContent {
+        margin-left: -32px;
+        margin-right: -32px;
+      }
+    }
+    .closingContent:not(.rule):not(.dashed) .boxTtl {
+      border-top-style: solid;
+      border-right-style: solid;
+      border-left-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+    }
+    .closingContent:not(.rule):not(.dashed) .boxTtl+.boxContent {
+      border-right-style: solid;
+      border-bottom-style: solid;
+      border-left-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+    }
+    .closingContent:not(.rule):not(.dashed)>.boxContent:first-child {
+      border-top-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+    }
+    .diagram {
+      border-top-style: solid;
+      border-right-style: solid;
+      border-bottom-style: solid;
+      border-left-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+      background-color: transparent;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      padding: 16px;
+    }
+    .diagram>:first-child:not(aside), .diagram>aside:first-child>:first-child {
+      margin-top: 0;
+    }
+    .diagram>:last-child:not(aside), .diagram>aside:first-child>:last-child {
+      margin-bottom: 8px;
+    }
+    @media only screen and (min-width:760px) {
+      .diagram>:last-child:not(aside), .diagram>aside:first-child>:last-child {
+        margin-bottom: 16px;
+      }
+    }
+    .chart {
+      padding: 16px;
+    }
+    .chart>:first-child:not(aside), .chart>aside:first-child>:first-child {
+      margin-top: 0;
+    }
+    .chart>:last-child:not(aside), .chart>aside:first-child>:last-child {
+      margin-bottom: 8px;
+    }
+    @media only screen and (min-width:760px) {
+      .chart>:last-child:not(aside), .chart>aside:first-child>:last-child {
+        margin-bottom: 16px;
+      }
+    }
+    .blockTeach, .boxSupplement, .chart, .closingContent, .diagram, .mapElement {
+      clear: both;
+    }
+    .blockTeach::after, .blockTeach::before, .boxSupplement::after, .boxSupplement::before, .chart::after, .chart::before, .closingContent::after, .closingContent::before, .diagram::after, .diagram::before, .mapElement::after, .mapElement::before {
+      content: " ";
+      display: table;
+    }
+    .blockTeach::after, .boxSupplement::after, .chart::after, .closingContent::after, .diagram::after, .mapElement::after {
+      clear: both;
+    }
+    .blockTeach table, .boxSupplement table, .chart table, .closingContent table, .diagram table, .mapElement table {
+      width: 100%;
+    }
+    .blockTeach.rule, .boxSupplement.rule, .chart.rule, .closingContent.rule, .diagram.rule, .mapElement.rule {
+      border-top-style: solid;
+      border-right-style: solid;
+      border-bottom-style: solid;
+      border-left-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+      background-color: transparent;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+    .blockTeach.dashed, .boxSupplement.dashed, .chart.dashed, .closingContent.dashed, .diagram.dashed, .mapElement.dashed {
+      border-top-style: dashed;
+      border-right-style: dashed;
+      border-bottom-style: dashed;
+      border-left-style: dashed;
+      border-width: 1px;
+      border-color: #a7a7a7;
+      background-color: transparent;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+    .blockTeach.bgTransparent, .boxSupplement.bgTransparent, .chart.bgTransparent, .closingContent.bgTransparent, .diagram.bgTransparent, .mapElement.bgTransparent {
+      background-color: transparent;
+    }
+    @media only screen and (min-width:760px) {
+      .blockTeach.flLeft, .blockTeach.floatWest, .boxSupplement.flLeft, .boxSupplement.floatWest, .chart.flLeft, .chart.floatWest, .closingContent.flLeft, .closingContent.floatWest, .diagram.flLeft, .diagram.floatWest, .mapElement.flLeft, .mapElement.floatWest {
+        max-width: 50%;
+        min-width: 25%;
+        margin-top: 0;
+        margin-bottom: 24px;
+      }
+      @include bidi((left, right)) using ($s) {
+        .blockTeach.flLeft, .blockTeach.floatWest, .boxSupplement.flLeft, .boxSupplement.floatWest, .chart.flLeft, .chart.floatWest, .closingContent.flLeft, .closingContent.floatWest, .diagram.flLeft, .diagram.floatWest, .mapElement.flLeft, .mapElement.floatWest {
+          margin-#{flip($s)}: 24px;
+          float: #{$s};
+        }
+      }
+      .blockTeach.flRight, .blockTeach.floatEast, .boxSupplement.flRight, .boxSupplement.floatEast, .chart.flRight, .chart.floatEast, .closingContent.flRight, .closingContent.floatEast, .diagram.flRight, .diagram.floatEast, .mapElement.flRight, .mapElement.floatEast {
+        max-width: 50%;
+        min-width: 25%;
+        margin-top: 0;
+        margin-bottom: 24px;
+      }
+      @include bidi((left, right)) using ($s) {
+        .blockTeach.flRight, .blockTeach.floatEast, .boxSupplement.flRight, .boxSupplement.floatEast, .chart.flRight, .chart.floatEast, .closingContent.flRight, .closingContent.floatEast, .diagram.flRight, .diagram.floatEast, .mapElement.flRight, .mapElement.floatEast {
+          margin-#{$s}: 24px;
+          float: #{flip($s)};
+        }
+      }
+    }
+    .blockTeach.wide, .boxSupplement.wide, .chart.wide, .closingContent.wide, .diagram.wide, .mapElement.wide {
+      position: relative;
+      overflow: auto;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .blockTeach.wide>*, .boxSupplement.wide>*, .chart.wide>*, .closingContent.wide>*, .diagram.wide>*, .mapElement.wide>* {
+      min-width: 650px;
+      max-width: 750px;
+    }
+    @media screen and (min-width:760px) {
+      .blockTeach.wide>*, .boxSupplement.wide>*, .chart.wide>*, .closingContent.wide>*, .diagram.wide>*, .mapElement.wide>* {
+        min-width: 750px;
+        max-width: 960px;
+      }
+    }
+    .sa {
+      font-size: 1.205em;
+    }
+    @include bidi((left, right)) using ($s) {
+      .sa {
+        margin-#{$s}: 24px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      blockquote .sa {
+        margin-#{$s}: 0;
+      }
+    }
+    ul li>p.sa {
+      font-size: 1em;
+    }
+    @include bidi((left, right)) using ($s) {
+      ul li>p.sa {
+        margin-#{$s}: 0;
+      }
+    }
+    .sc, .sc>*, .sd, .sd>*, .se, .se>* {
+      text-indent: 0;
+    }
+    .sf {
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: #a7a7a7;
+      @include themed(color, du-color--textSubdued, #626262);
+      padding-top: .5em;
+      text-indent: 0;
+    }
+    .sf>*, .sg, .sg>*, .sh, .sh>* {
+      text-indent: 0;
+    }
+    .si {
+      margin-top: .5em;
+      margin-bottom: .5em;
+    }
+    @include bidi((left, right)) using ($s) {
+      .si {
+        margin-#{$s}: 40px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .boxContent .si {
+        margin-#{$s}: 0;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .sj {
+        margin-#{$s}: 40%;
+      }
+    }
+    .sk {
+      text-indent: 1.5em;
+    }
+    .sk>* {
+      text-indent: 0;
+    }
+    .sl {
+      text-indent: -40px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .sl {
+        padding-#{$s}: 40px;
+      }
+    }
+    .sm, .sm>*, .sn, .sn>*, .so, .so>* {
+      text-indent: 0;
+    }
+    .sp {
+      text-indent: -20px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .sp {
+        padding-#{$s}: 40px;
+      }
+    }
+    .sp>* {
+      text-indent: 0;
+    }
+    .sq {
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: #a7a7a7;
+      @include themed(color, du-color--textSubdued, #626262);
+      padding-top: .5em;
+      text-indent: 0;
+    }
+    .sq>*, .sr, .sr>* {
+      text-indent: 0;
+    }
+    .ss {
+      margin-top: 1em;
+      margin-bottom: .25em;
+      font-size: 1.452025em;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .st {
+      margin-top: 0;
+      margin-bottom: .25em;
+      font-size: 1.749690125em;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .copyrightInfo .st {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1em;
+      line-height: 1.5;
+    }
+    .su {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      text-indent: -20px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .su {
+        padding-#{$s}: 20px;
+      }
+    }
+    .su>* {
+      text-indent: 0;
+    }
+    .sv {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      text-indent: -30px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .sv {
+        padding-#{$s}: 80px;
+      }
+    }
+    .sv>* {
+      text-indent: 0;
+    }
+    .sx {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      text-indent: -20px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .sx {
+        padding-#{$s}: 20px;
+      }
+    }
+    .sx>* {
+      text-indent: 0;
+    }
+    .sy {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      text-indent: -30px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .sy {
+        padding-#{$s}: 80px;
+      }
+    }
+    .sy>* {
+      text-indent: 0;
+    }
+    .sz {
+      text-indent: -20px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .sz {
+        padding-#{$s}: 20px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .sz {
+        margin-#{$s}: 48px;
+      }
+    }
+    .s1, .s2, .s3, .s4 {
+      margin-top: 0;
+      margin-bottom: 0;
+      text-indent: 0;
+    }
+    .s1>*, .s2>*, .s3>*, .s4>* {
+      text-indent: 0;
+    }
+    .s1 p, .s2 p, .s3 p, .s4 p {
+      margin-top: 0;
+    }
+    @include bidi((left, right)) using ($s) {
+      .s5 {
+        margin-#{$s}: 32px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .s6 {
+        margin-#{$s}: 64px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .s7 {
+        margin-#{$s}: 96px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .s8 {
+        margin-#{$s}: 128px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .s9 {
+        margin-#{$s}: 160px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .s0 {
+        margin-#{$s}: 192px;
+      }
+    }
+  }
+}
+
+@mixin part-11 {
+  @include jwac {
+    @at-root body:not(.noJS) #{$root}:not(.showRuby):not(.pub-int) ruby>rt {
+      display: none;
+    }
+    &.pub-int ruby>rt, &.showRuby ruby>rt {
+      font-size: .8298755187em;
+    }
+    @at-root body.noJS #{$root} ruby>rt {
+      font-size: .8298755187em;
+    }
+    &.pub-int ruby {
+      font-family: NotoSans,Arial,"Arial Unicode MS",sans-serif;
+      line-height: 3;
+      @include themed(color, du-color--gray-400, #8e8e8e);
+    }
+    &.pub-int ruby>rt {
+      padding-left: 4px;
+      padding-right: 4px;
+      font-family: WTClearText,serif;
+      @include themed(color, du-color--textDefault, #292929);
+    }
+    @supports not (ruby-align:center) {
+      &.showRuby.ms-CHINESE ruby {
+        display: -webkit-inline-box;
+        display: inline-flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: reverse;
+        flex-direction: column-reverse;
+        baseline-source: last;
+        text-align: center;
+        line-height: 1!important;
+        text-indent: 0;
+      }
+      @at-root body.noJS.ms-CHINESE #{$root} ruby {
+        display: -webkit-inline-box;
+        display: inline-flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: reverse;
+        flex-direction: column-reverse;
+        baseline-source: last;
+        text-align: center;
+        line-height: 1!important;
+        text-indent: 0;
+      }
+      &.showRuby.ms-CHINESE ruby>rt {
+        display: inline;
+        line-height: normal!important;
+        padding-left: .25em;
+        padding-right: .25em;
+        margin-top: .1em;
+        margin-bottom: .1em;
+      }
+      @at-root body.noJS.ms-CHINESE #{$root} ruby>rt {
+        display: inline;
+        line-height: normal!important;
+        padding-left: .25em;
+        padding-right: .25em;
+        margin-top: .1em;
+        margin-bottom: .1em;
+      }
+      &.showRuby.ms-CHINESE p ruby {
+        margin-bottom: .5em;
+      }
+      @at-root body.noJS.ms-CHINESE #{$root} p ruby {
+        margin-bottom: .5em;
+      }
+    }
+    &.showRuby.ms-CHINESE ruby {
+      line-height: 3;
+    }
+    @at-root body.noJS.ms-CHINESE #{$root} ruby {
+      line-height: 3;
+    }
+    &.showRuby.ms-CHINESE ruby>rt {
+      padding-left: 4px;
+      padding-right: 4px;
+      margin-bottom: 1px;
+      line-height: 3;
+    }
+    @at-root body.noJS.ms-CHINESE #{$root} ruby>rt {
+      padding-left: 4px;
+      padding-right: 4px;
+      margin-bottom: 1px;
+      line-height: 3;
+    }
+    &.showRuby.ms-CHINESE .qu ruby, &.showRuby.ms-CHINESE .w_question {
+      font-size: 1.205em;
+    }
+    @at-root body.noJS.ms-CHINESE #{$root} .qu ruby, body.noJS.ms-CHINESE #{$root} .w_question {
+      font-size: 1.205em;
+    }
+    &.showRuby.ms-JAPANESE ruby {
+      line-height: 2;
+    }
+    @at-root body.noJS.ms-JAPANESE #{$root} ruby {
+      line-height: 2;
+    }
+    &.showRuby.ms-JAPANESE ruby>rt {
+      margin-bottom: -.25em;
+      line-height: 2;
+      font-size: .571529773em;
+    }
+    @at-root body.noJS.ms-JAPANESE #{$root} ruby>rt {
+      margin-bottom: -.25em;
+      line-height: 2;
+      font-size: .571529773em;
+    }
+    &.docClass-31 .bodyTxt ol li {
+      margin-bottom: 1em;
+    }
+    &.docClass-31 .bodyTxt ol li p {
+      margin-top: .5em;
+      margin-bottom: .5em;
+    }
+    &.docClass-31.dir-ltr .bodyTxt ol li .sz {
+      margin-left: 1.5em;
+    }
+    &.docClass-31.dir-rtl .bodyTxt ol li .sz {
+      margin-right: 1.5em;
+    }
+    &.docClass-31 .chorus {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    &.docClass-31 .se {
+      @include themed(color, du-color--textSubdued, #626262);
+    }
+    header h1+h2 {
+      margin-top: 0;
+    }
+    h2.headingRuleBottom {
+      border-bottom-style: solid;
+      border-color: #a7a7a7;
+      border-width: 1px;
+      padding-bottom: .25em;
+    }
+    h2.shadedHeader {
+      padding: .25em .5em;
+      font-size: 1.452025em;
+      @include themed(color, du-color--white, #fff);
+    }
+    h2.shadedHeader.treasures {
+      background-color: #626262;
+    }
+    h2.shadedHeader.ministry {
+      background-color: #c48430;
+    }
+    h2.shadedHeader.christianLiving {
+      background-color: #942926;
+    }
+    .treasures--rev2021.mwbHeadingIcon {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+    }
+    .treasures--rev2021.mwbHeadingIcon h1, .treasures--rev2021.mwbHeadingIcon h2, .treasures--rev2021.mwbHeadingIcon h3, .treasures--rev2021.mwbHeadingIcon h4, .treasures--rev2021.mwbHeadingIcon h5, .treasures--rev2021.mwbHeadingIcon h6, .treasures--rev2021.mwbHeadingIcon>p {
+      margin: 0;
+    }
+    .treasures--rev2021.mwbHeadingIcon::before {
+      content: "\e720";
+      font-family: jw-icons-all;
+      speak: none;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: -webkit-inline-box;
+      display: inline-flex;
+      font-size: inherit;
+      @include themed(color, du-color--white, #fff);
+      font-size: 40px;
+      line-height: 40px;
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-flex: 0;
+      flex: 0 0 auto;
+      height: 56px;
+      width: 56px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .treasures--rev2021.mwbHeadingIcon::before {
+        margin-#{flip($s)}: 16px;
+      }
+    }
+    .treasures--rev2021 h1, .treasures--rev2021 h2, .treasures--rev2021 h3, .treasures--rev2021 h4, .treasures--rev2021 h5, .treasures--rev2021 h6, .treasures--rev2021>p {
+      @include themed(color, du-color--gray-600, #626262);
+    }
+    .treasures--rev2021.mwbHeadingIcon::before {
+      background-color: #626262;
+    }
+    .ministry--rev2021.mwbHeadingIcon {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+    }
+    .ministry--rev2021.mwbHeadingIcon h1, .ministry--rev2021.mwbHeadingIcon h2, .ministry--rev2021.mwbHeadingIcon h3, .ministry--rev2021.mwbHeadingIcon h4, .ministry--rev2021.mwbHeadingIcon h5, .ministry--rev2021.mwbHeadingIcon h6, .ministry--rev2021.mwbHeadingIcon>p {
+      margin: 0;
+    }
+    .ministry--rev2021.mwbHeadingIcon::before {
+      content: "\e898";
+      font-family: jw-icons-all;
+      speak: none;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: -webkit-inline-box;
+      display: inline-flex;
+      font-size: inherit;
+      @include themed(color, du-color--white, #fff);
+      font-size: 40px;
+      line-height: 40px;
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-flex: 0;
+      flex: 0 0 auto;
+      height: 56px;
+      width: 56px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .ministry--rev2021.mwbHeadingIcon::before {
+        margin-#{flip($s)}: 16px;
+      }
+    }
+    .ministry--rev2021 h1, .ministry--rev2021 h2, .ministry--rev2021 h3, .ministry--rev2021 h4, .ministry--rev2021 h5, .ministry--rev2021 h6, .ministry--rev2021>p {
+      @include themed(color, du-color--amber-700, #9d5d07);
+    }
+    .ministry--rev2021.mwbHeadingIcon::before {
+      background-color: #c48430;
+    }
+    .christianLiving--rev2021.mwbHeadingIcon {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+    }
+    .christianLiving--rev2021.mwbHeadingIcon h1, .christianLiving--rev2021.mwbHeadingIcon h2, .christianLiving--rev2021.mwbHeadingIcon h3, .christianLiving--rev2021.mwbHeadingIcon h4, .christianLiving--rev2021.mwbHeadingIcon h5, .christianLiving--rev2021.mwbHeadingIcon h6, .christianLiving--rev2021.mwbHeadingIcon>p {
+      margin: 0;
+    }
+    .christianLiving--rev2021.mwbHeadingIcon::before {
+      content: "\e800";
+      font-family: jw-icons-all;
+      speak: none;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: -webkit-inline-box;
+      display: inline-flex;
+      font-size: inherit;
+      @include themed(color, du-color--white, #fff);
+      font-size: 40px;
+      line-height: 40px;
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-flex: 0;
+      flex: 0 0 auto;
+      height: 56px;
+      width: 56px;
+    }
+    @include bidi((left, right)) using ($s) {
+      .christianLiving--rev2021.mwbHeadingIcon::before {
+        margin-#{flip($s)}: 16px;
+      }
+    }
+    &.dir-rtl .christianLiving--rev2021.mwbHeadingIcon::before {
+      -webkit-transform: scale(-1,1);
+      transform: scale(-1,1);
+    }
+    .christianLiving--rev2021 h1, .christianLiving--rev2021 h2, .christianLiving--rev2021 h3, .christianLiving--rev2021 h4, .christianLiving--rev2021 h5, .christianLiving--rev2021 h6, .christianLiving--rev2021>p {
+      @include themed(color, du-color--maroon-600, #942926);
+    }
+    .christianLiving--rev2021.mwbHeadingIcon::before {
+      background-color: #942926;
+    }
+    .contextTtl, .featureTtl {
+      margin-top: .25em;
+      margin-bottom: .25em;
+      @include themed(color, du-color--textSubdued, #626262);
+    }
+  }
+}
+
+@mixin part-12 {
+  @include jwac {
+    blockquote+blockquote {
+      clear: both;
+    }
+  }
+}
+
+@mixin part-13 {
+  @include jwac {
+    .groupEndnote, .groupFootnote, .relatedContent {
+      margin: 1em 0;
+      font-size: .8298755187em;
+      @include themed(color, du-color--textSubdued, #626262);
+      border-top-style: solid;
+      border-top-width: 1px;
+      border-color: #a7a7a7;
+      clear: both;
+    }
+    .groupEndnote .footnoteref, .groupFootnote .footnoteref, .relatedContent .footnoteref, &.pub-Rbi8 .groupEndnote, &.pub-Rbi8 .groupFootnote, &.pub-bi10 .groupEndnote, &.pub-bi10 .groupFootnote, &.pub-bi12 .groupEndnote, &.pub-bi12 .groupFootnote, &.pub-bi22 .groupEndnote, &.pub-bi22 .groupFootnote, &.pub-bi7 .groupEndnote, &.pub-bi7 .groupFootnote, &.pub-bi7ls .groupEndnote, &.pub-bi7ls .groupFootnote, &.pub-bi8 .groupEndnote, &.pub-bi8 .groupFootnote, &.pub-biFgn .groupEndnote, &.pub-biFgn .groupFootnote, &.pub-biMt .groupEndnote, &.pub-biMt .groupFootnote, &.pub-by .groupEndnote, &.pub-by .groupFootnote, &.pub-ijw .groupEndnote, &.pub-ijw .groupFootnote, &.pub-int .groupEndnote, &.pub-int .groupFootnote, &.pub-nwt .groupEndnote, &.pub-nwt .groupFootnote, &.pub-nwths .groupEndnote, &.pub-nwths .groupFootnote, &.pub-nwtmt .groupEndnote, &.pub-nwtmt .groupFootnote, &.pub-nwtp .groupEndnote, &.pub-nwtp .groupFootnote, &.pub-nwtsty .groupEndnote, &.pub-nwtsty .groupFootnote, &.pub-rh .groupEndnote, &.pub-rh .groupFootnote, &.pub-sbi1 .groupEndnote, &.pub-sbi1 .groupFootnote, &.pub-sbi1p .groupEndnote, &.pub-sbi1p .groupFootnote, &.pub-sbi2 .groupEndnote, &.pub-sbi2 .groupFootnote, &.pub-sbi2p .groupEndnote, &.pub-sbi2p .groupFootnote, &.pub-sbi3 .groupEndnote, &.pub-sbi3 .groupFootnote, &.pub-sbi3p .groupEndnote, &.pub-sbi3p .groupFootnote, &.pub-sbi4 .groupEndnote, &.pub-sbi4 .groupFootnote {
+      display: none;
+    }
+    .groupExtScrpCite aside:first-child {
+      padding-top: 2em;
+    }
+  }
+}
+
+@mixin part-14 {
+  @include jwac {
+    @include bidi((left, right)) using ($s) {
+      .verse .style-b+.parabreak+.style-b, .verse .style-b.first {
+        padding-#{$s}: 1em;
+      }
+    }
+    .verse .style-l {
+      display: block;
+      text-indent: -3em;
+    }
+    @include bidi((left, right)) using ($s) {
+      .verse .style-l {
+        padding-#{$s}: 3em;
+      }
+    }
+    .verse .style-z {
+      display: block;
+      margin: .2em 1em;
+      text-indent: -1em;
+    }
+    @include bidi((left, right)) using ($s) {
+      .verse .style-z {
+        padding-#{$s}: 2.5em;
+      }
+    }
+    .verse .style-p {
+      display: block;
+      text-indent: -2.5em;
+    }
+    &.dir-ltr .verse .style-p {
+      padding-left: 4em;
+    }
+    &.dir-rtl .verse .style-p {
+      padding-right: 3em;
+    }
+    sup.superscription {
+      position: static;
+      font-size: 1em;
+    }
+    sup.superscription .style-s, sup.superscription .style-w {
+      display: block;
+      font-size: .8298755187em;
+      margin: .75em 0 .25em 0;
+      text-align: center;
+      text-indent: 0;
+    }
+    sup.superscription .style-s ruby, sup.superscription .style-w ruby {
+      text-indent: 0;
+    }
+    sup.superscription .parabreak, sup.superscription br.para, sup.superscription span.verse>br.para:first-child, sup.superscription span.verse>span.parabreak:first-child {
+      display: none;
+    }
+    .parabreak {
+      display: block;
+      height: 0;
+    }
+    @at-root .verse>#{$root} .parabreak:last-child {
+      height: .25em;
+    }
+    .newblock {
+      display: block;
+      height: 0;
+    }
+    &.bible p, &.bibleCitation p, &.docClass-1 p {
+      margin: 0;
+    }
+    &.bible .sb, &.bibleCitation .sb, &.docClass-1 .sb {
+      text-indent: 1em;
+    }
+    &.bible .sb:first-child, &.bible .sb:first-of-type, &.bible .sb>*, &.bibleCitation .sb:first-child, &.bibleCitation .sb:first-of-type, &.bibleCitation .sb>*, &.docClass-1 .sb:first-child, &.docClass-1 .sb:first-of-type, &.docClass-1 .sb>* {
+      text-indent: 0;
+    }
+    &.bible .ss, &.bible .sw, &.bibleCitation .ss, &.bibleCitation .sw, &.docClass-1 .ss, &.docClass-1 .sw {
+      font-size: .8298755187em;
+      margin: .75em 0 .25em 0;
+      text-align: center;
+      text-indent: 0;
+    }
+    &.bible .ss ruby, &.bible .sw ruby, &.bibleCitation .ss ruby, &.bibleCitation .sw ruby, &.docClass-1 .ss ruby, &.docClass-1 .sw ruby {
+      text-indent: 0;
+    }
+    &.bible .ss, &.bibleCitation .ss, &.docClass-1 .ss {
+      font-weight: 400;
+    }
+    &.bible .sl, &.bibleCitation .sl, &.docClass-1 .sl {
+      display: block;
+      text-indent: -3em;
+    }
+    &.bible.dir-ltr .sl, &.bibleCitation.dir-ltr .sl, &.docClass-1.dir-ltr .sl {
+      padding-left: 3em;
+    }
+    &.bible.dir-rtl .sl, &.bibleCitation.dir-rtl .sl, &.docClass-1.dir-rtl .sl {
+      padding-right: 3em;
+    }
+    &.bible .sz, &.bibleCitation .sz, &.docClass-1 .sz {
+      display: block;
+      margin: .2em 1em;
+      text-indent: -1em;
+    }
+    &.bible.dir-ltr .sz, &.bibleCitation.dir-ltr .sz, &.docClass-1.dir-ltr .sz {
+      padding-left: 2.5em;
+    }
+    &.bible.dir-rtl .sz, &.bibleCitation.dir-rtl .sz, &.docClass-1.dir-rtl .sz {
+      padding-right: 2.5em;
+    }
+    &.bible .sp, &.bibleCitation .sp, &.docClass-1 .sp {
+      display: block;
+      text-indent: -2.5em;
+    }
+    &.bible.dir-ltr .sp, &.bibleCitation.dir-ltr .sp, &.docClass-1.dir-ltr .sp {
+      padding-left: 4em;
+    }
+    &.bible.dir-rtl .sp, &.bibleCitation.dir-rtl .sp, &.docClass-1.dir-rtl .sp {
+      padding-right: 3em;
+    }
+    .chapterNum, .cl:not(.tt) {
+      font-size: 1.749690125em;
+      line-height: 1;
+    }
+    .verseNum, .vl:not(.tt) {
+      padding: 0 .25em;
+      font-size: 1em;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .verseNum {
+      position: static;
+    }
+    .chapterNum a, .cl:not(.tt), .verseNum a, .vl:not(.tt) {
+      @include themed(color, du-color--blue-500, #4a6da7);
+    }
+    &.bibleCitation .cl:not(.tt) {
+      font-size: 1.205em;
+    }
+    &.bibleCitation.dir-ltr .vl:not(.tt):first-child {
+      padding-left: 0;
+    }
+    &.bibleCitation.dir-rtl .vl:not(.tt):first-child {
+      padding-right: 0;
+    }
+    &.bibleCitation.dir-ltr .v:not(.tt)+.cl {
+      padding-left: 16px;
+    }
+    &.bibleCitation.dir-rtl .v:not(.tt)+.cl {
+      padding-right: 16px;
+    }
+    .m:not(.tt), .xrefLink {
+      position: relative;
+      top: -.5em;
+      text-indent: 0;
+      padding-left: 4px;
+      padding-right: 4px;
+      font-size: .6886933765em;
+      font-style: italic;
+      @include themed(color, ds-link-color, #4a6da7);
+    }
+    .verseNum a {
+      display: -webkit-inline-box;
+      display: inline-flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .verseNum a.addHighlight, .verseNum a.highlight, .verseNum a:focus, .verseNum a:hover {
+      text-decoration: none;
+    }
+    .verseNum a.addHighlight::after, .verseNum a.highlight::after, .verseNum a:focus::after, .verseNum a:hover::after {
+      position: absolute;
+      content: " ";
+      width: 1.75em;
+      height: 1.75em;
+      border-radius: 100%;
+      background-color: #4a6da7;
+      @include themed(opacity, jwac-footnote-opacity, .2);
+      z-index: -1;
+    }
+    .verseNum a.highlight.addHighlight {
+      @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
+    }
+    .verseNum a.highlight.addHighlight::after {
+      @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
+    }
+    .verseNum a:visited {
+      @include themed(color, ds-link-color, #4a6da7);
+    }
+    .chapterNum a {
+      display: -webkit-inline-box;
+      display: inline-flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .chapterNum a.addHighlight, .chapterNum a.highlight, .chapterNum a:focus, .chapterNum a:hover {
+      text-decoration: none;
+    }
+    .chapterNum a.addHighlight::after, .chapterNum a.highlight::after, .chapterNum a:focus::after, .chapterNum a:hover::after {
+      position: absolute;
+      content: " ";
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 100%;
+      background-color: #4a6da7;
+      @include themed(opacity, jwac-footnote-opacity, .2);
+      z-index: -1;
+    }
+    .chapterNum a.highlight.addHighlight {
+      @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
+    }
+    .chapterNum a.highlight.addHighlight::after {
+      @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
+    }
+    .chapterNum a:visited {
+      @include themed(color, ds-link-color, #4a6da7);
+    }
+    .style-l .chapterNum a, .style-l .verseNum a, .style-p .chapterNum a, .style-p .verseNum a, .style-z .chapterNum a, .style-z .verseNum a {
+      text-indent: 0;
+    }
+    .xrefLink {
+      display: -webkit-inline-box;
+      display: inline-flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .xrefLink.addHighlight, .xrefLink.highlight, .xrefLink:focus, .xrefLink:hover {
+      text-decoration: none;
+    }
+    .xrefLink.addHighlight::after, .xrefLink.highlight::after, .xrefLink:focus::after, .xrefLink:hover::after {
+      position: absolute;
+      content: " ";
+      width: 2.5em;
+      height: 2.5em;
+      border-radius: 100%;
+      background-color: #4a6da7;
+      @include themed(opacity, jwac-footnote-opacity, .2);
+      z-index: -1;
+    }
+    .xrefLink.highlight.addHighlight {
+      @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
+    }
+    .xrefLink.highlight.addHighlight::after {
+      @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
+    }
+    .xrefLink:visited {
+      @include themed(color, ds-link-color, #4a6da7);
+    }
+    &.pub-bi12.docClass-11 .contextTtl, &.pub-bi12.docClass-11 h1, &.pub-bi12.docClass-116 .contextTtl, &.pub-bi12.docClass-116 h1, &.pub-bi12.docClass-12 .contextTtl, &.pub-bi12.docClass-12 h1, &.pub-bi12.docClass-125 .contextTtl, &.pub-bi12.docClass-125 h1, &.pub-bi12.docClass-13 .contextTtl, &.pub-bi12.docClass-13 h1, &.pub-bi12.docClass-14 .contextTtl, &.pub-bi12.docClass-14 h1, &.pub-bi7.docClass-11 .contextTtl, &.pub-bi7.docClass-11 h1, &.pub-bi7.docClass-116 .contextTtl, &.pub-bi7.docClass-116 h1, &.pub-bi7.docClass-12 .contextTtl, &.pub-bi7.docClass-12 h1, &.pub-bi7.docClass-125 .contextTtl, &.pub-bi7.docClass-125 h1, &.pub-bi7.docClass-13 .contextTtl, &.pub-bi7.docClass-13 h1, &.pub-bi7.docClass-14 .contextTtl, &.pub-bi7.docClass-14 h1, &.pub-igw.docClass-11 .contextTtl, &.pub-igw.docClass-11 h1, &.pub-igw.docClass-116 .contextTtl, &.pub-igw.docClass-116 h1, &.pub-igw.docClass-12 .contextTtl, &.pub-igw.docClass-12 h1, &.pub-igw.docClass-125 .contextTtl, &.pub-igw.docClass-125 h1, &.pub-igw.docClass-13 .contextTtl, &.pub-igw.docClass-13 h1, &.pub-igw.docClass-14 .contextTtl, &.pub-igw.docClass-14 h1, &.pub-nwt.docClass-11 .contextTtl, &.pub-nwt.docClass-11 h1, &.pub-nwt.docClass-116 .contextTtl, &.pub-nwt.docClass-116 h1, &.pub-nwt.docClass-12 .contextTtl, &.pub-nwt.docClass-12 h1, &.pub-nwt.docClass-125 .contextTtl, &.pub-nwt.docClass-125 h1, &.pub-nwt.docClass-13 .contextTtl, &.pub-nwt.docClass-13 h1, &.pub-nwt.docClass-14 .contextTtl, &.pub-nwt.docClass-14 h1, &.pub-nwths.docClass-11 .contextTtl, &.pub-nwths.docClass-11 h1, &.pub-nwths.docClass-116 .contextTtl, &.pub-nwths.docClass-116 h1, &.pub-nwths.docClass-12 .contextTtl, &.pub-nwths.docClass-12 h1, &.pub-nwths.docClass-125 .contextTtl, &.pub-nwths.docClass-125 h1, &.pub-nwths.docClass-13 .contextTtl, &.pub-nwths.docClass-13 h1, &.pub-nwths.docClass-14 .contextTtl, &.pub-nwths.docClass-14 h1, &.pub-nwtsty.docClass-11 .contextTtl, &.pub-nwtsty.docClass-11 h1, &.pub-nwtsty.docClass-116 .contextTtl, &.pub-nwtsty.docClass-116 h1, &.pub-nwtsty.docClass-12 .contextTtl, &.pub-nwtsty.docClass-12 h1, &.pub-nwtsty.docClass-125 .contextTtl, &.pub-nwtsty.docClass-125 h1, &.pub-nwtsty.docClass-13 .contextTtl, &.pub-nwtsty.docClass-13 h1, &.pub-nwtsty.docClass-14 .contextTtl, &.pub-nwtsty.docClass-14 h1, &.pub-sgd.docClass-11 .contextTtl, &.pub-sgd.docClass-11 h1, &.pub-sgd.docClass-116 .contextTtl, &.pub-sgd.docClass-116 h1, &.pub-sgd.docClass-12 .contextTtl, &.pub-sgd.docClass-12 h1, &.pub-sgd.docClass-125 .contextTtl, &.pub-sgd.docClass-125 h1, &.pub-sgd.docClass-13 .contextTtl, &.pub-sgd.docClass-13 h1, &.pub-sgd.docClass-14 .contextTtl, &.pub-sgd.docClass-14 h1 {
+      @include themed(color, du-color--maroon-700, #801816);
+    }
+    &.pub-nwt.docClass-14 .contextTtl, &.pub-nwtsty.docClass-14 .contextTtl, &.pub-sgd.docClass-14 .contextTtl {
+      display: inline-block;
+      min-width: 1.2em;
+      padding: .3em .45em;
+      margin: 0;
+      background-color: #801816;
+      @include themed(color, du-color--white, #fff);
+      font-size: .8298755187em;
+      text-align: center;
+      margin-bottom: .5em;
+    }
+    &.pub-nwt.docClass-125 .groupTOC>.source .txtSrcBullet, &.pub-nwtsty.docClass-125 .groupTOC>.source .txtSrcBullet, &.pub-sgd.docClass-125 .groupTOC>.source .txtSrcBullet {
+      display: inline-block;
+      min-width: 1.2em;
+      padding: .3em .45em;
+      margin: 0;
+      background-color: #801816;
+      @include themed(color, du-color--white, #fff);
+      font-size: .8298755187em;
+      text-align: center;
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 8px;
+    }
+    &.pub-nwt.docClass-125 .groupTOC>.source .txtSrcBullet+*, &.pub-nwtsty.docClass-125 .groupTOC>.source .txtSrcBullet+*, &.pub-sgd.docClass-125 .groupTOC>.source .txtSrcBullet+* {
+      display: block;
+    }
+  }
+}
+
+@mixin part-15 {
+  @include jwac {
+    .BibleChapterOutline>ul, .outline {
+      margin: 0;
+      list-style-type: none;
+    }
+    @include bidi((left, right)) using ($s) {
+      .BibleChapterOutline>ul, .outline {
+        padding-#{$s}: 0;
+      }
+    }
+    .BibleChapterOutline>ul>li::before, .outline>li::before {
+      content: "​";
+      position: absolute;
+    }
+    .BibleChapterOutline>ul p, .outline p {
+      margin: 0;
+    }
+    .BibleChapterOutline>ul p+p, .outline p+p {
+      margin-top: .25em;
+    }
+    .BibleChapterOutline>ul ul, .outline ul {
+      list-style-type: none;
+      margin: 0;
+    }
+    .BibleChapterOutline>ul ul>li::before, .outline ul>li::before {
+      content: "​";
+      position: absolute;
+    }
+    @include bidi((left, right)) using ($s) {
+      .BibleChapterOutline>ul ul, .outline ul {
+        padding-#{$s}: 0;
+      }
+    }
+    .BibleChapterOutline>ul .L1:not(.chapterNo) p, .outline .L1:not(.chapterNo) p {
+      text-indent: -1em;
+    }
+    @include bidi((left, right)) using ($s) {
+      .BibleChapterOutline>ul .L1:not(.chapterNo) p, .outline .L1:not(.chapterNo) p {
+        padding-#{$s}: 1em;
+      }
+    }
+    .BibleChapterOutline>ul .L1:not(.chapterNo) p .itemLabel, .outline .L1:not(.chapterNo) p .itemLabel {
+      text-indent: 0;
+    }
+    .BibleChapterOutline>ul .L2 ul, .outline .L2 ul {
+      padding: 0;
+    }
+    .BibleChapterOutline>ul li.L1, .outline li.L1 {
+      margin: 1em 0;
+    }
+    .BibleChapterOutline>ul li.L2, .BibleChapterOutline>ul li.L3, .BibleChapterOutline>ul li.L4, .outline li.L2, .outline li.L3, .outline li.L4 {
+      margin: .25em 0;
+      text-indent: -.75em;
+    }
+    @include bidi((left, right)) using ($s) {
+      .BibleChapterOutline>ul li.L2, .BibleChapterOutline>ul li.L3, .BibleChapterOutline>ul li.L4, .outline li.L2, .outline li.L3, .outline li.L4 {
+        padding-#{$s}: .75em;
+      }
+    }
+    .BibleChapterOutline>ul li.chapterNo, .outline li.chapterNo {
+      display: -webkit-box;
+      display: flex;
+    }
+    .BibleChapterOutline>ul li.chapterNo>p, .outline li.chapterNo>p {
+      font-size: 1.452025em;
+      -webkit-box-flex: 0;
+      flex: 0 0 auto;
+      line-height: 1.25;
+      min-width: 1.5em;
+    }
+    @include bidi((left, right)) using ($s) {
+      .BibleChapterOutline>ul li.chapterNo>ul, .outline li.chapterNo>ul {
+        padding-#{$s}: .5em;
+      }
+    }
+    .BibleChapterOutline>ul li.chapterNo>ul>li:first-child, .outline li.chapterNo>ul>li:first-child {
+      margin-top: 0;
+    }
+    .BibleChapterOutline>ul li.chapterNo>ul>li:last-child, .outline li.chapterNo>ul>li:last-child {
+      margin-bottom: 0;
+    }
+    &.pub-igw.docClass-11 .groupTOC>.source .txtSrcBullet, &.pub-nwt.docClass-11 .groupTOC>.source .txtSrcBullet, &.pub-nwtsty.docClass-11 .groupTOC>.source .txtSrcBullet {
+      @include themed(color, du-color--maroon-700, #801816);
+    }
+    &.docClass-116 h3.inline, &.docClass-12 h3.inline {
+      margin: 0;
+      font-size: 1em;
+      line-height: inherit;
+    }
+    &.docClass-116.dir-ltr h3.inline, &.docClass-12.dir-ltr h3.inline {
+      float: left;
+    }
+    &.docClass-116.dir-rtl h3.inline, &.docClass-12.dir-rtl h3.inline {
+      float: right;
+    }
+    &.docClass-116.dir-ltr h3.inline, &.docClass-12.dir-ltr h3.inline {
+      padding-right: .25em;
+    }
+    &.docClass-116.dir-rtl h3.inline, &.docClass-12.dir-rtl h3.inline {
+      padding-left: .25em;
+    }
+    &.docClass-116 p.sk, &.docClass-116 p.sm, &.docClass-12 p.sk, &.docClass-12 p.sm {
+      margin: 0;
+    }
+    &.docClass-116.dir-ltr p.sk, &.docClass-116.dir-ltr p.sm, &.docClass-12.dir-ltr p.sk, &.docClass-12.dir-ltr p.sm {
+      padding-left: 1em;
+    }
+    &.docClass-116.dir-rtl p.sk, &.docClass-116.dir-rtl p.sm, &.docClass-12.dir-rtl p.sk, &.docClass-12.dir-rtl p.sm {
+      padding-right: 1em;
+    }
+    &.docClass-116 .docNav a, &.docClass-12 .docNav a {
+      @include themed(color, dc-button-tertiary-color, #4a6da7);
+      display: -webkit-inline-box;
+      display: inline-flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      vertical-align: middle;
+      min-width: 53px;
+      padding: .5em;
+    }
+    &.docClass-116 .docNav a::before, &.docClass-12 .docNav a::before {
+      @include themed(color, dc-button-tertiary-icon-color, #757575);
+    }
+    &.docClass-116 .docNav a:visited, &.docClass-12 .docNav a:visited {
+      @include themed(color, dc-button-tertiary-color, #4a6da7);
+    }
+    &.docClass-116 .docNav a:focus, &.docClass-116 .docNav a:hover, &.docClass-12 .docNav a:focus, &.docClass-12 .docNav a:hover {
+      @include themed(background-color, dc-button-tertiary-bgColor--hover, #e8effb);
+      text-decoration: none;
+    }
+    &.docClass-116 .docNav a:focus::before, &.docClass-116 .docNav a:hover::before, &.docClass-12 .docNav a:focus::before, &.docClass-12 .docNav a:hover::before {
+      @include themed(color, dc-button-tertiary-color, #4a6da7);
+    }
+    &.docClass-116 .docNav a:focus, &.docClass-12 .docNav a:focus {
+      border-color: #7f9fd3;
+      outline: 0;
+      box-shadow: 0 0 5px 1px #7f9fd3;
+    }
+    &.docClass-116 .docNav a::before, &.docClass-12 .docNav a::before {
+      align-self: center;
+    }
+    ul.dl {
+      list-style-type: none;
+    }
+    ul.dl>li::before {
+      content: "​";
+      position: absolute;
+    }
+    @include bidi((left, right)) using ($s) {
+      ul.dl {
+        padding-#{$s}: 0;
+      }
+    }
+    .ftnGlossaryTerm h3.inline {
+      margin: 0;
+      font-size: 1em;
+      line-height: inherit;
+    }
+    @include bidi((left, right)) using ($s) {
+      .ftnGlossaryTerm h3.inline {
+        float: #{$s};
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .ftnGlossaryTerm h3.inline {
+        padding-#{flip($s)}: .25em;
+      }
+    }
+    &.docId-1001061220 .boxContent ul.noMarker .west_left, &.docId-1001070220 .boxContent ul.noMarker .west_left, &.docId-1102013694 .boxContent ul.noMarker .west_left {
+      margin-top: 0;
+    }
+    &.docId-1001061220.dir-ltr .boxContent ul.noMarker .source, &.docId-1001070220.dir-ltr .boxContent ul.noMarker .source, &.docId-1102013694.dir-ltr .boxContent ul.noMarker .source {
+      margin-left: 64px;
+    }
+    &.docId-1001061220.dir-rtl .boxContent ul.noMarker .source, &.docId-1001070220.dir-rtl .boxContent ul.noMarker .source, &.docId-1102013694.dir-rtl .boxContent ul.noMarker .source {
+      margin-right: 64px;
+    }
+    .jwac-textHighlight, .jwac-textHighlight ruby {
+      text-underline-offset: .4ex;
+      -webkit-text-decoration-style: dotted;
+      text-decoration-style: dotted;
+      -webkit-text-decoration-line: underline;
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      -webkit-text-decoration-color: #8e8e8e;
+      text-decoration-color: #8e8e8e;
+    }
+  }
+}
+
+@mixin part-16 {
+  @include jwac {
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+    details>summary {
+      list-style: none;
+      cursor: pointer;
+    }
+    details>summary::before {
+      -webkit-transition: -webkit-transform .25s ease-in-out;
+      transition: -webkit-transform .25s ease-in-out;
+      transition: transform .25s ease-in-out;
+      transition: transform .25s ease-in-out,-webkit-transform .25s ease-in-out;
+    }
+    details>summary:active, details>summary:focus, details>summary:hover {
+      background-image: -webkit-linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+      background-image: linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+    }
+  }
+}
+
+@mixin part-17 {
+  @include jwac {
+    details[open]>summary::before {
+      -webkit-transform: rotate(-180deg);
+      transform: rotate(-180deg);
+    }
+    details[open]>summary .details-summary--show, details:not([open])>summary .details-summary--hide {
+      display: none;
+    }
+    &.dir-rtl .pm-link-helpContent .pm-replacementIcon-help::before {
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+    &.dir-ltr [class*=pm-textIcon]::before {
+      margin-right: 5px;
+    }
+    &.dir-rtl [class*=pm-textIcon]::before, &.dir-ltr .pm-buttonIcon-arrowRight--end a::after {
+      margin-left: 5px;
+    }
+    &.dir-rtl .pm-buttonIcon-arrowRight--end a::after {
+      margin-right: 5px;
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+  }
+}
+
+@mixin part-18 {
+  @include jwac {
+    table .pageNum {
+      display: none!important;
+    }
+    a, a:visited {
+      color: #2878bb;
+    }
+  }
+}
+
+@mixin part-19 {
+  @include jwac {
+    @at-root a#{$root} {
+      color: #2878bb;
+    }
+  }
+}
+
+@mixin part-20 {
+  @include jwac {
+    .footnoteResult .groupEndnote, .footnoteResult .groupFootnote {
+      display: block;
+      color: inherit;
+      border: none;
+      font-size: 1em;
+      margin: 0;
+      padding: 0;
+    }
+    @at-root .tooltipContent #{$root} .groupEndnote, .tooltipContent #{$root} .groupFootnote {
+      display: block;
+      color: inherit;
+      border: none;
+      font-size: 1em;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+@mixin part-21 {
+  @include jwac {
+    @at-root .dir-ltr #{$root}.pub-nwt .contextTtl .pageNum::after {
+      padding-right: 16px;
+    }
+    @at-root .dir-rtl #{$root}.pub-nwt .contextTtl .pageNum::after {
+      padding-left: 16px;
+    }
+    .clearfix::after, .clearfix::before {
+      max-width: 0;
+    }
+    &.pub-int .hl rt, &.pub-int .hl ruby {
+      color: inherit;
+    }
+    @at-root #searchResultsForm .searchResult#{$root}.pub-lff, #searchResultsForm .searchResult#{$root}.pub-lffi {
+      background: 0 0;
+    }
+    textarea {
+      height: 42px;
+      line-height: 24px;
+      font-size: 16px;
+    }
+  }
+}

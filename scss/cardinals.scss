@@ -1,0 +1,49 @@
+@use "sass:list";
+@use "sass:map";
+@use "lib" as *;
+
+// Figure positions ("cardinals") of the jw.org content CSS; reference/cardinals.css.
+// north_/south_ figures sit above/below the text; east_/west_ (and .floatEast/.floatWest)
+// float beside it, on the right/left in ltr and mirrored in rtl.
+
+$desktop: "only screen and (min-width:760px)";
+$gap: 16px;          // between a figure and the text / box edge
+$gap-desktop: 32px;
+
+// Above/below the text, also inside supplement boxes.
+$stacked: north_center, north_left, north_right, south_center, south_left, south_right;
+$in-box: list.join(sel(".boxSupplement aside>div.", $stacked), sel(".boxSupplement>div.", $stacked));
+
+// Beside the text: side it floats to (ltr) → figures.
+$floating: (
+  right: (east_center, east_left, east_right, "north_center.floatEast", "north_right.floatEast",
+          "south_center.floatEast", "south_right.floatEast"),
+  left: ("north_center.floatWest", "north_left.floatWest", "south_center.floatWest",
+         "south_left.floatWest", west_center, west_left, west_right),
+);
+
+@include jwac {
+  #{sel("div.", $stacked)} { margin-top: 2em; margin-bottom: 2em; }
+  #{$in-box} { margin-bottom: 0; margin-left: $gap; margin-right: $gap; }
+  @media #{$desktop} {
+    #{$in-box} { margin-left: $gap-desktop; margin-right: $gap-desktop; }
+  }
+  #{list.join(sel(".boxSupplement aside>div.", $stacked, ".fullBleed"),
+              sel(".boxSupplement>div.", $stacked, ".fullBleed"))} { margin: 0; }
+
+  @each $side, $names in $floating {
+    $figures: sel("div.", $names);
+    #{$figures} { max-width: 50%; margin-top: 1em; margin-bottom: 1em; }
+    @include mirrored($figures, float, $side);
+    @include mirrored($figures, clear, $side);
+    @include mirrored($figures, margin, map.get($opposite, $side), $gap);
+    @media #{$desktop} { @include mirrored($figures, margin, map.get($opposite, $side), $gap-desktop); }
+  }
+
+  // A floating figure right after a box title keeps off the box edge on its own side.
+  @each $side, $names in (right: (east_center, east_left, east_right), left: (west_center, west_left, west_right)) {
+    $figures: sel(".boxTtl+.", $names);
+    @include mirrored($figures, margin, $side, $gap);
+    @media #{$desktop} { @include mirrored($figures, margin, $side, $gap-desktop); }
+  }
+}

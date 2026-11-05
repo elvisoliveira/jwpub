@@ -1,0 +1,18 @@
+// Bundle served as /styles.css (built by dev.sh and .github/workflows/pages.yml).
+
+// The jw.org CSS, family by family in its original order (_order.scss).
+@use "order";
+
+// The same font family names, served from open-source files (not the jw.org CDN)
+@use "fonts-oss";
+
+// No reference in the jw.org bundle: built on the reader gutter (see _lib.scss)
+@use "dc-bleedToArticleEdge";
+@use "dc-paddingToContentEdge";
+@use "dc-marginToContentEdge";
+
+// dc-icon glyphs from Material Design Icons (the jw.org icon font is not reachable)
+@use "icons-oss";
+
+// App UI last, so content rules do not restyle it.
+@use "app";

@@ -3,12 +3,18 @@ const wasm = fetch('crypto.wasm')
     .then((b) => WebAssembly.instantiate(b))
     .then((w) => w.instance.exports);
 
+// MepsLanguageIndex → jw.org language code (.ml-*). styles.css keys fonts and
+// letter-spacing off .ml-*/.ms-* (script) and .dir-* on the .jwac element.
+// ponytail: Latin, left-to-right languages only; add { ml, ms, dir } entries
+// (e.g. ARABIC/rtl) when other publications matter. 6 = O is assumed, untested.
+const LANGUAGES = { 0: 'E', 1: 'S', 2: 'X', 3: 'F', 4: 'I', 5: 'T', 6: 'O' };
+
 // Opens a .jwpub (a zip whose "contents" entry is itself a zip) and renders
 // each publication document into the page.
 async function displayFile(file) {
     const container = document.createElement('div');
-    container.classList.add('contentOnly');
-    document.querySelector('.container').append(container);
+    document.querySelector('#reader').append(container);
+    document.body.classList.add('loaded');
 
     try {
         const outer = await JSZip.loadAsync(await file.arrayBuffer());
@@ -35,22 +41,39 @@ async function renderDocuments(db, container) {
         'raw', material.subarray(0, 16), { name: 'AES-CBC' }, false, ['decrypt']);
     const iv = material.subarray(16, 32);
 
-    for (const content of getDocuments(db)) {
-        const plaintext = await crypto.subtle.decrypt({ name: 'AES-CBC', iv }, key, content);
+    const pub = getPublication(db);
+    const ml = LANGUAGES[pub.MepsLanguageIndex];
+    for (const doc of getDocuments(db)) {
+        const plaintext = await crypto.subtle.decrypt({ name: 'AES-CBC', iv }, key, doc.Content);
 
-        const entry = document.createElement('div');
-        entry.classList.add('pub-mwb');
+        // Same hooks jw.org puts on its article element.
+        const entry = document.createElement('article');
+        entry.dir = 'ltr';
+        entry.classList.add('jwac', 'dir-ltr', 'ms-ROMAN', 'layout-reading',
+            `pub-${pub.UndatedSymbol}`, `docClass-${doc.Class}`, `docId-${doc.MepsDocumentId}`);
+        if (ml) entry.classList.add(`ml-${ml}`);
         entry.innerHTML = new TextDecoder().decode(await inflate(plaintext));
         container.append(entry);
     }
 }
 
 // Replaces jwpub-media:// image references with the inline base64 data.
+const IMAGE_TYPES = { jpg: 'jpeg', jpeg: 'jpeg', png: 'png', gif: 'gif', svg: 'svg+xml' };
+
 async function inlineImages(files) {
-    for (const image of files.filter((name) => name.endsWith('.jpg'))) {
-        const element = document.querySelector(`img[src='jwpub-media://${image.name}']`);
-        if (element) element.src = `data:image/jpg;base64,${await image.async('base64')}`;
+    for (const image of files.filter((name) => name.split('.').pop().toLowerCase() in IMAGE_TYPES)) {
+        const elements = document.querySelectorAll(`img[src='jwpub-media://${CSS.escape(image.name)}']`);
+        if (!elements.length) continue;
+        const type = IMAGE_TYPES[image.name.split('.').pop().toLowerCase()];
+        const src = `data:image/${type};base64,${await image.async('base64')}`;
+        elements.forEach((element) => { element.src = src; });
     }
+}
+
+function getPublication(db) {
+    const stmt = db.prepare('SELECT MepsLanguageIndex, UndatedSymbol FROM Publication');
+    stmt.step();
+    return stmt.getAsObject();
 }
 
 function getPublicationInfo(db) {
@@ -63,10 +86,10 @@ function getPublicationInfo(db) {
 }
 
 function getDocuments(db) {
-    const stmt = db.prepare('SELECT Content FROM Document ORDER BY DocumentId ASC');
+    const stmt = db.prepare('SELECT Class, MepsDocumentId, Content FROM Document ORDER BY DocumentId ASC');
     const documents = [];
     while (stmt.step()) {
-        documents.push(stmt.getAsObject().Content);
+        documents.push(stmt.getAsObject());
     }
     return documents;
 }

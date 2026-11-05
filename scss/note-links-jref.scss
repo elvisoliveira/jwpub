@@ -1,0 +1,54 @@
+@use "sass:list";
+@use "lib" as *;
+@use "note-link-states" as *;
+
+// Bible-reference footnotes, colour-coded by kind (reference/note-links-jref.css).
+$jref-colors: (Hebrew: #8aa643, English: #c561b7, Other: #3fa0c1, Reference: #d8be00);
+
+// List items get a coloured dot…
+@include jwac {
+  @each $kind, $color in $jref-colors {
+    li.jRef-#{$kind} {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: start;
+      align-items: flex-start;
+
+      p { margin-top: 0; }
+      &::before {
+        display: block;
+        content: "";
+        flex-shrink: 0;
+        height: 0.85em;
+        width: 0.85em;
+        border-radius: 100%;
+        background-color: $color;
+        margin: 0.3em 10px 0;
+      }
+    }
+  }
+
+  // …and their footnote markers a coloured disc.
+  @each $kind, $color in $jref-colors {
+    $markers: ".jRef-#{$kind} .fn:not(.tt)", ".jRef-#{$kind} .footnoteLink";
+    #{$markers} { margin-left: 4px; margin-right: 4px; }
+    @include mirrored(with($markers, ":last-child"), margin, right, 0);
+    #{with($markers, "::before")} {
+      position: absolute;
+      content: " ";
+      width: 1em;
+      height: 1em;
+      border-radius: 100%;
+      background-color: $color;
+      -webkit-transform: translateY(-0.1em);
+      transform: translateY(-0.1em);
+      color: $color;
+    }
+  }
+
+  // Same link states as the plain footnotes; the original sorts the kinds alphabetically.
+  $kinds: English, Hebrew, Other, Reference;
+  $links: ();
+  @each $kind in $kinds { $links: list.append($links, ".jRef-#{$kind} .footnoteLink", comma); }
+  @include note-link-states($links, $lift: -0.1em);
+}

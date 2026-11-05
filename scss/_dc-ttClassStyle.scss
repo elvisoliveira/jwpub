@@ -1,0 +1,174 @@
+// Written by split.py --convert from reference/jw-site.min.css (plain jw.org CSS,
+// one mixin per piece; _order.scss puts each piece where it was).
+@use "lib" as *;
+
+@mixin part-1 {
+  @include jwac {
+    .boxTtl:not(.dc-ttClassStyle--unset) {
+      padding-top: 16px;
+      padding-bottom: 8px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    @media only screen and (min-width:760px) {
+      .boxTtl:not(.dc-ttClassStyle--unset) {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+    }
+    .boxSubTtl:not(.dc-ttClassStyle--unset) {
+      padding-top: 0;
+      padding-bottom: 8px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    @media only screen and (min-width:760px) {
+      .boxSubTtl:not(.dc-ttClassStyle--unset) {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+    }
+    .boxSubTtl:not(.dc-ttClassStyle--unset) p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .boxSubTtl:not(.dc-ttClassStyle--unset) h2, .boxSubTtl:not(.dc-ttClassStyle--unset) h3, .boxSubTtl:not(.dc-ttClassStyle--unset) h4, .boxSubTtl:not(.dc-ttClassStyle--unset) h5, .boxSubTtl:not(.dc-ttClassStyle--unset) h6, .boxTtl:not(.dc-ttClassStyle--unset) h2, .boxTtl:not(.dc-ttClassStyle--unset) h3, .boxTtl:not(.dc-ttClassStyle--unset) h4, .boxTtl:not(.dc-ttClassStyle--unset) h5, .boxTtl:not(.dc-ttClassStyle--unset) h6 {
+      margin: 0;
+    }
+    .boxSubTtl:not(.dc-ttClassStyle--unset).rule, .boxTtl:not(.dc-ttClassStyle--unset).rule {
+      border-bottom-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+    }
+    .boxSubTtl:not(.dc-ttClassStyle--unset).emphasized, .boxTtl:not(.dc-ttClassStyle--unset).emphasized {
+      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+      @include themed(color, du-color--white, #fff);
+    }
+    .boxSubTtl:not(.dc-ttClassStyle--unset).emphasized a, .boxTtl:not(.dc-ttClassStyle--unset).emphasized a {
+      color: #9fb9e3;
+    }
+    .boxSubTtl:not(.dc-ttClassStyle--unset).emphasized a:visited, .boxTtl:not(.dc-ttClassStyle--unset).emphasized a:visited {
+      color: #a9a7c9;
+    }
+    .boxContent:not(.dc-ttClassStyle--unset) {
+      padding-top: 16px;
+      padding-bottom: 16px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    @media only screen and (min-width:760px) {
+      .boxContent:not(.dc-ttClassStyle--unset) {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+    }
+    .boxContent:not(.dc-ttClassStyle--unset)>:first-child {
+      margin-top: 0;
+    }
+    .boxContent:not(.dc-ttClassStyle--unset)>:last-child {
+      margin-bottom: 8px;
+    }
+    @media only screen and (min-width:760px) {
+      .boxContent:not(.dc-ttClassStyle--unset)>:last-child {
+        margin-bottom: 16px;
+      }
+    }
+    .boxContent:not(.dc-ttClassStyle--unset)::after, .boxContent:not(.dc-ttClassStyle--unset)::before {
+      content: " ";
+      display: table;
+    }
+    .boxContent:not(.dc-ttClassStyle--unset)::after {
+      clear: both;
+    }
+    @include bidi((left, right)) using ($s) {
+      .boxContent:not(.dc-ttClassStyle--unset) .noMarker {
+        padding-#{$s}: 0;
+      }
+    }
+    .boxContent:not(.dc-ttClassStyle--unset)+.groupFootnote {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    @media only screen and (min-width:760px) {
+      .boxContent:not(.dc-ttClassStyle--unset)+.groupFootnote {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+    }
+    .blockTeach:not(.dc-ttClassStyle--unset), .boxSupplement:not(.dc-ttClassStyle--unset) {
+      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+    .blockTeach:not(.dc-ttClassStyle--unset)::after, .blockTeach:not(.dc-ttClassStyle--unset)::before, .boxSupplement:not(.dc-ttClassStyle--unset)::after, .boxSupplement:not(.dc-ttClassStyle--unset)::before {
+      content: " ";
+      display: table;
+    }
+    .blockTeach:not(.dc-ttClassStyle--unset)::after, .boxSupplement:not(.dc-ttClassStyle--unset)::after {
+      clear: both;
+    }
+  }
+}
+
+@mixin part-2 {
+  @include jwac {
+    .openingContent:not(.dc-ttClassStyle--unset) {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.205em;
+      @include themed(color, du-color--textSubdued, #626262);
+    }
+    .openingContent:not(.dc-ttClassStyle--unset).metaIntro h2 {
+      font-size: .8298755187em;
+    }
+    .openingContent:not(.dc-ttClassStyle--unset).metaIntro p {
+      margin: 0;
+    }
+    .openingContent:not(.dc-ttClassStyle--unset).metaIntro.bottomRule p {
+      margin-bottom: .5em;
+    }
+    .openingContent:not(.dc-ttClassStyle--unset).txtSizeDefault, .openingContent:not(.dc-ttClassStyle--unset) .sa {
+      font-size: 1em;
+    }
+    @include bidi((left, right)) using ($s) {
+      .openingContent:not(.dc-ttClassStyle--unset) .sa {
+        margin-#{$s}: 0;
+      }
+    }
+    .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset), blockquote:not(.dc-ttClassStyle--unset) {
+      margin-left: 0;
+      margin-right: 0;
+      @include themed(color, du-color--textSubdued, #626262);
+    }
+    @include bidi((left, right)) using ($s) {
+      .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset), blockquote:not(.dc-ttClassStyle--unset) {
+        padding-#{$s}: 1.5em;
+      }
+    }
+    @media screen and (min-width:760px) {
+      @include bidi((left, right)) using ($s) {
+        .blockTxt[class*=float]:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule[class*=float]:not(.dc-ttClassStyle--unset), .stdCaption[class*=float]:not(.dc-ttClassStyle--unset), .stdPullQuote[class*=float]:not(.dc-ttClassStyle--unset), blockquote[class*=float]:not(.dc-ttClassStyle--unset) {
+          padding-#{$s}: 0;
+        }
+      }
+    }
+  }
+}
+
+@mixin part-3 {
+  @include jwac {
+    .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset) {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset), blockquote.rule:not(.dc-ttClassStyle--unset) {
+      border-top-style: solid;
+      border-bottom-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+      @include themed(color, du-color--textSubdued, #626262);
+      font-size: 1em;
+      clear: both;
+    }
+  }
+}

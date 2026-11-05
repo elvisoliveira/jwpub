@@ -1,0 +1,99 @@
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:string";
+@use "lib" as *;
+
+// Base palette shared by du-color, du-bgColor, du-borderColor, dc-icon-color, dc-icon-bgColor.
+// Each hue is one base colour (its 500 tone); the ten tones are generated from it by
+// scaling HSL lightness: +18% per step lighter (50–400), −16% per step darker (600–900).
+// The curve was fitted to the jw.org palette (mean error ≈ 10/255 per channel), so the
+// colours are close to, not equal to, the originals.
+// Order matters: rules are emitted hue by hue, tone by tone.
+$hues: (
+  "gray": #757575, "coolGray": #597477, "warmGray": #5e543f, "blue": #4a6da7,
+  "cyan": #4aa1dd, "teal": #51919d, "turquoise": #37a5af, "mint": #138a7a,
+  "jade": #2bac66, "green": #66a333, "lime": #9fbb00, "sage": #76a282,
+  "brown": #755c3a, "yellow": #e9c600, "amber": #c48430, "gold": #f1a100,
+  "orange": #e96d00, "coral": #c3673c, "red": #cf462b, "maroon": #a43d3b,
+  "pink": #c64677, "purple": #965c88, "violet": #7b57a7, "indigo": #504d7c,
+);
+$tones: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900;
+
+// #rrggbb text, so generated colours print like the literal ones (also inside var() fallbacks)
+@function hex($c) {
+  $digits: "0123456789abcdef";
+  $out: "#";
+  @each $channel in "red", "green", "blue" {
+    $v: math.round(color.channel(color.to-space($c, rgb), $channel));
+    $out: $out + string.slice($digits, math.floor(math.div($v, 16)) + 1, math.floor(math.div($v, 16)) + 1)
+               + string.slice($digits, $v % 16 + 1, $v % 16 + 1);
+  }
+  @return string.unquote($out);
+}
+
+@function tone($base, $tone) {
+  $steps: list.index($tones, 500) - list.index($tones, $tone);  // +5 … −4
+  $step: 18%;
+  @if $steps < 0 { $step: 16%; }
+  @return hex(color.scale($base, $lightness: $steps * $step, $space: hsl));
+}
+
+$palette: ();
+@each $hue, $base in $hues {
+  @each $t in $tones {
+    $palette: map.set($palette, "#{$hue}-#{$t}", tone($base, $t));
+  }
+}
+
+// Not ramps: kept as they are.
+$palette: map.merge($palette, (
+  "black": #121212, "white": #ffffff, "jworgBlue": #4a6da7, "jwLibraryPurple": #5b3c88,
+  "jwLibraryOrange": #e48515, "jwLanguageGreen": #28b04b, "wolBlue": #799fcc,
+  "wtLibraryMaroon": #723535, "jwStreamTeal": #3599a7, "jwAppsOrange": #e36600,
+  "jwDocsMaroon": #a43d3b,
+));
+
+// $class: du-bgColor or dc-icon-bgColor; $pseudo/$imp differ between the two.
+// Call it inside @include jwac.
+@mixin bg-colors($class, $pseudo: "", $imp: true) {
+  $i: if(sass($imp): !important; else: null);
+  @each $name, $hex in $palette {
+    .#{$class}--#{$name}#{$pseudo} { background-color: $hex $i; }
+  }
+  .#{$class}--bgSecondary#{$pseudo} { @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1, $imp); }
+  .#{$class}--bgEmphasized#{$pseudo} {
+    @include themed(background-color, du-bgColor--bgEmphasized, #757575, $imp);
+    @include themed(color, du-color--white, #ffffff, $imp);
+  }
+  .#{$class}--bgEmphasized#{$pseudo} a { color: #9fb9e3 $i; }
+  .#{$class}--bgEmphasized#{$pseudo} a:visited { color: #a9a7c9 $i; }
+  @each $name in "black", "white" {
+    @for $n from 1 through 9 {
+      .#{$class}--#{$name}.#{$class}Opacity--#{$n * 10}#{$pseudo} {
+        background: rgba(map.get($palette, $name), $n * 0.1) $i;
+      }
+    }
+  }
+}
+
+// Light tones (50–400, white): du-color recolours their links, for use on dark backgrounds.
+@function light($name) {
+  $i: string.index($name, "-");
+  @if not $i { @return $name == "white"; }
+  @return list.index(("50", "100", "200", "300", "400"), string.slice($name, $i + 1)) != null;
+}
+
+// $class: du-color or dc-icon-color. Every palette colour plus the two text colours,
+// each overridable by its --du-color--<name> property. Call it inside @include jwac.
+@mixin text-colors($class, $pseudo: "", $imp: true, $links: false) {
+  $i: if(sass($imp): !important; else: null);
+  @each $name, $hex in map.merge($palette, ("textDefault": #292929, "textSubdued": #626262)) {
+    .#{$class}--#{$name}#{$pseudo} { @include themed(color, du-color--#{$name}, $hex, $imp); }
+    @if $links and light($name) {
+      .#{$class}--#{$name} a { color: #9fb9e3 $i; }
+      .#{$class}--#{$name} a:visited { color: #a9a7c9 $i; }
+    }
+  }
+}

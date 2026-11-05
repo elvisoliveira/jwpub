@@ -9,10 +9,10 @@ static mut IN: [u8; 32] = [0; 32];
 static mut OUT: [u8; 32] = [0; 32];
 
 #[no_mangle]
-pub extern "C" fn in_ptr() -> *mut u8 { unsafe { IN.as_mut_ptr() } }
+pub extern "C" fn in_ptr() -> *mut u8 { &raw mut IN as *mut u8 }
 
 #[no_mangle]
-pub extern "C" fn out_ptr() -> *const u8 { unsafe { OUT.as_ptr() } }
+pub extern "C" fn out_ptr() -> *const u8 { &raw const OUT as *const u8 }
 
 #[no_mangle]
 pub extern "C" fn xor32() {

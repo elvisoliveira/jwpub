@@ -1,0 +1,73 @@
+@use "sass:list";
+@use "lib" as *;
+@use "icons" as *;
+
+// Also generates dc-iconOverlay (same glyphs, drawn over an image).
+
+@mixin flip {
+  -webkit-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+
+@include jwac {
+  @each $name, $code in $icons {
+    .dc-icon--#{$name}::before { content: $code; }
+    @if list.index($rtl-flipped, $name) {
+      &.dir-rtl .dc-icon--#{$name}::before { @include flip; }
+    }
+  }
+
+  [class*=" dc-icon--"]::before,
+  [class^=dc-icon--]::before {
+    @include icon-font;
+    display: -webkit-inline-box;
+    display: inline-flex;
+    font-size: inherit;
+  }
+
+  .dc-icon-order--inlineEnd { display: -webkit-box; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; flex-direction: row; }
+  .dc-icon-order--inlineEnd::before { -webkit-box-ordinal-group: 2; order: 1; }
+
+  @each $name, $align in (top: (start, flex-start), verticalCenter: (center, center), bottom: (end, flex-end)) {
+    @include variants($responsive) using ($s) {
+      .dc-icon-layout#{$s}--#{$name} {
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-align: list.nth($align, 1);
+        align-items: list.nth($align, 2);
+      }
+    }
+  }
+
+  [class*=" dc-iconOverlay--"],
+  [class^=dc-iconOverlay--] {
+    position: relative;
+    line-height: 1;
+    vertical-align: middle;
+
+    &::before {
+      @include icon-font;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      padding: 8px;
+      font-size: 1.205em;
+      @include themed(color, du-color--white, #ffffff);
+      background: rgba(18, 18, 18, 0.6);
+    }
+  }
+  @include bidi((left, right)) using ($side) {
+    [class*=" dc-iconOverlay--"]::before, [class^=dc-iconOverlay--]::before { #{$side}: 0; }
+  }
+  [class*=" dc-iconOverlay--"]:focus::before, [class*=" dc-iconOverlay--"]:hover::before,
+  [class^=dc-iconOverlay--]:focus::before, [class^=dc-iconOverlay--]:hover::before { background: rgba(18, 18, 18, 0.8); }
+
+  @each $name, $code in $icons {
+    @include variants($responsive) using ($s) {
+      .dc-iconOverlay#{$s}--#{$name}::before { content: $code; }
+      @if list.index($rtl-flipped, $name) {
+        &.dir-rtl .dc-iconOverlay#{$s}--#{$name}::before { @include flip; }
+      }
+    }
+  }
+}

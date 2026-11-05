@@ -1,0 +1,53 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:string";
+@use "lib" as *;
+
+// horizontal item → (ltr, rtl) keyword
+$h: (left: (left, left), inlineStart: (left, right), center: (center, center),
+     right: (right, right), inlineEnd: (right, left));
+
+// One layout × ("", mobileOnly, desktopOnly). $v null = no background-position;
+// inline* items move background-position into .dir-ltr/.dir-rtl rules.
+@mixin layout($name, $size, $repeat, $v: null, $item: center) {
+  $ltr: list.nth(map.get($h, $item), 1);
+  $rtl: list.nth(map.get($h, $item), 2);
+  @include variants($responsive) using ($s) {
+    $sel: ".dc-bgImageLayout#{$s}--#{$name}";
+    @if $v == null or $ltr != $rtl {
+      #{$sel} { background-size: $size; background-repeat: $repeat; }
+    }
+    @if $v != null and $ltr == $rtl {
+      #{$sel} { background-size: $size; background-position: $v $ltr; background-repeat: $repeat; }
+    } @else if $v != null {
+      @include bidi(map.get($h, $item)) using ($side) { #{$sel} { background-position: $v $side; } }
+    }
+  }
+}
+
+$vs: top, center, bottom;
+// repeatVertical / matchContainerHeight list inlineStart first
+$h-order: inlineStart, left, center, right, inlineEnd;
+
+@function to-upper-first($s) {
+  @return string.to-upper-case(string.slice($s, 1, 1)) + string.slice($s, 2);
+}
+
+// crop-topLeft … fitImage-bottomInlineEnd: 3 × 5 grid
+@mixin grid($kind, $size) {
+  @each $v in $vs {
+    @each $item in map.keys($h) {
+      @include layout("#{$kind}-#{$v}#{to-upper-first($item)}", $size, no-repeat, $v, $item);
+    }
+  }
+}
+
+@include jwac {
+  @include grid(crop, auto);
+  @each $v in $vs { @include layout(crop-repeatHorizontal-#{$v}, auto, repeat-x, $v); }
+  @each $item in $h-order { @include layout(crop-repeatVertical-#{$item}, auto, repeat-y, center, $item); }
+  @include grid(fitImage, contain);
+  @each $v in $vs { @include layout(matchContainerWidth-#{$v}, 100% auto, no-repeat, $v); }
+  @each $item in $h-order { @include layout(matchContainerHeight-#{$item}, auto 100%, no-repeat, center, $item); }
+  @include layout(matchContainerWidthAndHeight, 100% 100%, no-repeat);
+}
