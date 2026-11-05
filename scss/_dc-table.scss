@@ -9,42 +9,57 @@
         border-color: #a7a7a7;
         border-width: 1px;
       }
-      &.dc-table-border--rows {
-        tbody tr:not(:last-child), thead, > tr:not(:last-child) {
-          border-bottom-style: solid;
-          border-bottom-width: 1px;
-        }
-      }
-      &.dc-table-border--columns {
-        @include bidi((left, right)) using ($s) {
-          td:not(:last-child), th:not(:last-child) {
-            border-#{flip($s)}-style: solid;
+      &.dc-table-border {
+        &--rows {
+          tbody tr:not(:last-child), thead, > tr:not(:last-child) {
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
           }
         }
-        @include bidi((left, right)) using ($s) {
-          td:not(:last-child), th:not(:last-child) {
-            border-#{flip($s)}-width: 1px;
+        &--columns {
+          td, th {
+            &:not(:last-child) {
+              @include bidi((left, right)) using ($s) {
+                & {
+                  border-#{flip($s)}-style: solid;
+                }
+              }
+              @include bidi((left, right)) using ($s) {
+                & {
+                  border-#{flip($s)}-width: 1px;
+                }
+              }
+            }
           }
         }
-      }
-      &.dc-table-border--cells {
-        td, th {
-          border-style: solid;
-          border-width: 1px;
-        }
-      }
-      &.dc-table-stripe--rows thead tr {
-        @include token(background-color, du-bgColor--bgEmphasized);
-        @include token(color, du-color--white);
-        a {
-          color: #9fb9e3;
-          &:visited {
-            color: #a9a7c9;
+        &--cells {
+          td, th {
+            border-style: solid;
+            border-width: 1px;
           }
         }
       }
-      &.dc-table-stripe--rows tbody tr:nth-child(2n), &.dc-table-stripe--rows > tr:nth-child(2n), &.dc-table-stripe--columns td:nth-child(2n), &.dc-table-stripe--columns th:nth-child(2n) {
-        @include token(background-color, du-bgColor--bgSecondary);
+      &.dc-table-stripe {
+        &--rows {
+          thead tr {
+            @include token(background-color, du-bgColor--bgEmphasized);
+            @include token(color, du-color--white);
+            a {
+              color: #9fb9e3;
+              &:visited {
+                color: #a9a7c9;
+              }
+            }
+          }
+          tbody tr:nth-child(2n), > tr:nth-child(2n) {
+            @include token(background-color, du-bgColor--bgSecondary);
+          }
+        }
+        &--columns {
+          td:nth-child(2n), th:nth-child(2n) {
+            @include token(background-color, du-bgColor--bgSecondary);
+          }
+        }
       }
     }
   }

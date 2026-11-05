@@ -106,32 +106,42 @@
       margin-left: 40px;
       margin-right: 40px;
     }
-    .flLeft:not(img), .flRight:not(img), .floatEast:not(img), .floatWest:not(img) {
-      margin-top: 1em;
-      margin-bottom: 1em;
+    .flLeft, .flRight, .floatEast, .floatWest {
+      &:not(img) {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        @media #{$desktop} {
+          max-width: 50%;
+        }
+      }
     }
     @media #{$desktop} {
-      .flLeft:not(img), .flRight:not(img), .floatEast:not(img), .floatWest:not(img) {
-        max-width: 50%;
-      }
-      @include bidi((left, right)) using ($s) {
-        .flRight:not(img), .floatEast:not(img) {
-          float: #{flip($s)};
+      .flRight, .floatEast {
+        &:not(img) {
+          @include bidi((left, right)) using ($s) {
+            & {
+              float: #{flip($s)};
+            }
+          }
+          @include bidi((left, right)) using ($s) {
+            & {
+              margin-#{$s}: 32px;
+            }
+          }
         }
       }
-      @include bidi((left, right)) using ($s) {
-        .flRight:not(img), .floatEast:not(img) {
-          margin-#{$s}: 32px;
-        }
-      }
-      @include bidi((left, right)) using ($s) {
-        .flLeft:not(img), .floatWest:not(img) {
-          float: #{$s};
-        }
-      }
-      @include bidi((left, right)) using ($s) {
-        .flLeft:not(img), .floatWest:not(img) {
-          margin-#{flip($s)}: 32px;
+      .flLeft, .floatWest {
+        &:not(img) {
+          @include bidi((left, right)) using ($s) {
+            & {
+              float: #{$s};
+            }
+          }
+          @include bidi((left, right)) using ($s) {
+            & {
+              margin-#{flip($s)}: 32px;
+            }
+          }
         }
       }
     }
@@ -300,17 +310,20 @@
       &.dir-rtl ol.source .txtSrcBullet {
         margin-right: -1.5em;
       }
-    }
-    &[class*=ml-][class*=ms-] ol.numberedDiagram, &[class*=ml-][class*=ms-] ol.noMarker, &[class*=ml-][class*=ms-] li.listTitle, &[class*=ml-][class*=ms-] ol.imgEastEighth>li, &[class*=ml-][class*=ms-] ol.imgEastQuarter>li, &[class*=ml-][class*=ms-] ol.imgWestEighth>li, &[class*=ml-][class*=ms-] ol.imgWestQuarter>li, ul.source {
-      list-style-type: none;
+      ol.numberedDiagram, ol.noMarker, li.listTitle, ol.imgEastEighth > li, ol.imgEastQuarter > li, ol.imgWestEighth > li, ol.imgWestQuarter > li {
+        list-style-type: none;
+      }
     }
     ul {
-      &.source .txtSrcBullet {
-        display: inline-block;
-        min-width: 1.5em;
-        @include bidi((left, right)) using ($s) {
-          & {
-            margin-#{$s}: -1.5em;
+      &.source {
+        list-style-type: none;
+        .txtSrcBullet {
+          display: inline-block;
+          min-width: 1.5em;
+          @include bidi((left, right)) using ($s) {
+            & {
+              margin-#{$s}: -1.5em;
+            }
           }
         }
       }
@@ -318,20 +331,24 @@
         list-style-type: none;
       }
     }
-    @include bidi((left, right)) using ($s) {
-      ol.noIndent, ol.noIndent.noMarker, ul.noIndent, ul.noIndent.noMarker {
-        padding-#{$s}: 0;
+    ol, ul {
+      &.noIndent {
+        @include bidi((left, right)) using ($s) {
+          &, &.noMarker {
+            padding-#{$s}: 0;
+          }
+        }
       }
-    }
-    ol.listSpacing li, ul.listSpacing li {
-      margin-top: 4em;
-      margin-bottom: 4em;
-    }
-    ol.listSpacing li:first-of-type, ul.listSpacing li:first-of-type {
-      margin-top: 2em;
-    }
-    ol.listSpacing li:last-of-type, ul.listSpacing li:last-of-type {
-      margin-bottom: 2em;
+      &.listSpacing li {
+        margin-top: 4em;
+        margin-bottom: 4em;
+        &:first-of-type {
+          margin-top: 2em;
+        }
+        &:last-of-type {
+          margin-bottom: 2em;
+        }
+      }
     }
     li {
       &.listTitle {
@@ -348,59 +365,71 @@
         border-color: #a7a7a7;
       }
     }
-    div.imgEastEighth>li, div.imgEastQuarter>li, div.imgWestEighth>li, div.imgWestQuarter>li, ul.imgEastEighth>li, ul.imgEastQuarter>li, ul.imgWestEighth>li, ul.imgWestQuarter>li {
-      list-style-type: none;
+    div, ul {
+      &.imgEastEighth > li, &.imgEastQuarter > li, &.imgWestEighth > li, &.imgWestQuarter > li {
+        list-style-type: none;
+      }
     }
-    div.imgEastEighth, div.imgEastQuarter, div.imgWestEighth, div.imgWestQuarter, ol.imgEastEighth, ol.imgEastQuarter, ol.imgWestEighth, ol.imgWestQuarter, ul.imgEastEighth, ul.imgEastQuarter, ul.imgWestEighth, ul.imgWestQuarter {
-      padding: 0;
-    }
-    div.imgEastEighth>li::after, div.imgEastEighth>li::before, div.imgEastQuarter>li::after, div.imgEastQuarter>li::before, div.imgWestEighth>li::after, div.imgWestEighth>li::before, div.imgWestQuarter>li::after, div.imgWestQuarter>li::before, ol.imgEastEighth>li::after, ol.imgEastEighth>li::before, ol.imgEastQuarter>li::after, ol.imgEastQuarter>li::before, ol.imgWestEighth>li::after, ol.imgWestEighth>li::before, ol.imgWestQuarter>li::after, ol.imgWestQuarter>li::before, ul.imgEastEighth>li::after, ul.imgEastEighth>li::before, ul.imgEastQuarter>li::after, ul.imgEastQuarter>li::before, ul.imgWestEighth>li::after, ul.imgWestEighth>li::before, ul.imgWestQuarter>li::after, ul.imgWestQuarter>li::before {
-      content: " ";
-      display: table;
-    }
-    div.imgEastEighth>li::after, div.imgEastQuarter>li::after, div.imgWestEighth>li::after, div.imgWestQuarter>li::after, ol.imgEastEighth>li::after, ol.imgEastQuarter>li::after, ol.imgWestEighth>li::after, ol.imgWestQuarter>li::after, ul.imgEastEighth>li::after, ul.imgEastQuarter>li::after, ul.imgWestEighth>li::after, ul.imgWestQuarter>li::after {
-      clear: both;
-    }
-    div.imgEastEighth ul li, div.imgEastQuarter ul li, div.imgWestEighth ul li, div.imgWestQuarter ul li, ol.imgEastEighth ul li, ol.imgEastQuarter ul li, ol.imgWestEighth ul li, ol.imgWestQuarter ul li, ul.imgEastEighth ul li, ul.imgEastQuarter ul li, ul.imgWestEighth ul li, ul.imgWestQuarter ul li {
-      list-style-type: disc;
+    div, ol, ul {
+      &.imgEastEighth, &.imgEastQuarter, &.imgWestEighth, &.imgWestQuarter {
+        padding: 0;
+      }
+      &.imgEastEighth > li::after, &.imgEastEighth > li::before, &.imgEastQuarter > li::after, &.imgEastQuarter > li::before, &.imgWestEighth > li::after, &.imgWestEighth > li::before, &.imgWestQuarter > li::after, &.imgWestQuarter > li::before {
+        content: " ";
+        display: table;
+      }
+      &.imgEastEighth > li::after, &.imgEastQuarter > li::after, &.imgWestEighth > li::after, &.imgWestQuarter > li::after {
+        clear: both;
+      }
+      &.imgEastEighth ul li, &.imgEastQuarter ul li, &.imgWestEighth ul li, &.imgWestQuarter ul li {
+        list-style-type: disc;
+      }
     }
     &.dir-ltr {
-      div.imgEastQuarter h2, div.imgEastQuarter h3, div.imgEastQuarter h4, div.imgEastQuarter h5, div.imgEastQuarter ol, div.imgEastQuarter ul, div.imgEastQuarter > li > p, div.imgEastQuarter > p, div.imgWestQuarter h2, div.imgWestQuarter h3, div.imgWestQuarter h4, div.imgWestQuarter h5, div.imgWestQuarter ol, div.imgWestQuarter ul, div.imgWestQuarter > li > p, div.imgWestQuarter > p, ol.imgEastQuarter h2, ol.imgEastQuarter h3, ol.imgEastQuarter h4, ol.imgEastQuarter h5, ol.imgEastQuarter ol, ol.imgEastQuarter ul, ol.imgEastQuarter > li > p, ol.imgEastQuarter > p, ol.imgWestQuarter h2, ol.imgWestQuarter h3, ol.imgWestQuarter h4, ol.imgWestQuarter h5, ol.imgWestQuarter ol, ol.imgWestQuarter ul, ol.imgWestQuarter > li > p, ol.imgWestQuarter > p, ul.imgEastQuarter h2, ul.imgEastQuarter h3, ul.imgEastQuarter h4, ul.imgEastQuarter h5, ul.imgEastQuarter ol, ul.imgEastQuarter ul, ul.imgEastQuarter > li > p, ul.imgEastQuarter > p, ul.imgWestQuarter h2, ul.imgWestQuarter h3, ul.imgWestQuarter h4, ul.imgWestQuarter h5, ul.imgWestQuarter ol, ul.imgWestQuarter ul, ul.imgWestQuarter > li > p, ul.imgWestQuarter > p {
-        margin-left: calc(25% + 16px);
-      }
-      @media #{$desktop-only} {
-        div.imgEastQuarter h2, div.imgEastQuarter h3, div.imgEastQuarter h4, div.imgEastQuarter h5, div.imgEastQuarter ol, div.imgEastQuarter ul, div.imgEastQuarter > li > p, div.imgEastQuarter > p, div.imgWestQuarter h2, div.imgWestQuarter h3, div.imgWestQuarter h4, div.imgWestQuarter h5, div.imgWestQuarter ol, div.imgWestQuarter ul, div.imgWestQuarter > li > p, div.imgWestQuarter > p, ol.imgEastQuarter h2, ol.imgEastQuarter h3, ol.imgEastQuarter h4, ol.imgEastQuarter h5, ol.imgEastQuarter ol, ol.imgEastQuarter ul, ol.imgEastQuarter > li > p, ol.imgEastQuarter > p, ol.imgWestQuarter h2, ol.imgWestQuarter h3, ol.imgWestQuarter h4, ol.imgWestQuarter h5, ol.imgWestQuarter ol, ol.imgWestQuarter ul, ol.imgWestQuarter > li > p, ol.imgWestQuarter > p, ul.imgEastQuarter h2, ul.imgEastQuarter h3, ul.imgEastQuarter h4, ul.imgEastQuarter h5, ul.imgEastQuarter ol, ul.imgEastQuarter ul, ul.imgEastQuarter > li > p, ul.imgEastQuarter > p, ul.imgWestQuarter h2, ul.imgWestQuarter h3, ul.imgWestQuarter h4, ul.imgWestQuarter h5, ul.imgWestQuarter ol, ul.imgWestQuarter ul, ul.imgWestQuarter > li > p, ul.imgWestQuarter > p {
-          margin-left: calc(25% + 32px);
+      div, ol, ul {
+        &.imgEastQuarter h2, &.imgEastQuarter h3, &.imgEastQuarter h4, &.imgEastQuarter h5, &.imgEastQuarter ol, &.imgEastQuarter ul, &.imgEastQuarter > li > p, &.imgEastQuarter > p, &.imgWestQuarter h2, &.imgWestQuarter h3, &.imgWestQuarter h4, &.imgWestQuarter h5, &.imgWestQuarter ol, &.imgWestQuarter ul, &.imgWestQuarter > li > p, &.imgWestQuarter > p {
+          margin-left: calc(25% + 16px);
+        }
+        @media #{$desktop-only} {
+          &.imgEastQuarter h2, &.imgEastQuarter h3, &.imgEastQuarter h4, &.imgEastQuarter h5, &.imgEastQuarter ol, &.imgEastQuarter ul, &.imgEastQuarter > li > p, &.imgEastQuarter > p, &.imgWestQuarter h2, &.imgWestQuarter h3, &.imgWestQuarter h4, &.imgWestQuarter h5, &.imgWestQuarter ol, &.imgWestQuarter ul, &.imgWestQuarter > li > p, &.imgWestQuarter > p {
+            margin-left: calc(25% + 32px);
+          }
         }
       }
     }
     &.dir-rtl {
-      div.imgEastQuarter h2, div.imgEastQuarter h3, div.imgEastQuarter h4, div.imgEastQuarter h5, div.imgEastQuarter ol, div.imgEastQuarter ul, div.imgEastQuarter > li > p, div.imgEastQuarter > p, div.imgWestQuarter h2, div.imgWestQuarter h3, div.imgWestQuarter h4, div.imgWestQuarter h5, div.imgWestQuarter ol, div.imgWestQuarter ul, div.imgWestQuarter > li > p, div.imgWestQuarter > p, ol.imgEastQuarter h2, ol.imgEastQuarter h3, ol.imgEastQuarter h4, ol.imgEastQuarter h5, ol.imgEastQuarter ol, ol.imgEastQuarter ul, ol.imgEastQuarter > li > p, ol.imgEastQuarter > p, ol.imgWestQuarter h2, ol.imgWestQuarter h3, ol.imgWestQuarter h4, ol.imgWestQuarter h5, ol.imgWestQuarter ol, ol.imgWestQuarter ul, ol.imgWestQuarter > li > p, ol.imgWestQuarter > p, ul.imgEastQuarter h2, ul.imgEastQuarter h3, ul.imgEastQuarter h4, ul.imgEastQuarter h5, ul.imgEastQuarter ol, ul.imgEastQuarter ul, ul.imgEastQuarter > li > p, ul.imgEastQuarter > p, ul.imgWestQuarter h2, ul.imgWestQuarter h3, ul.imgWestQuarter h4, ul.imgWestQuarter h5, ul.imgWestQuarter ol, ul.imgWestQuarter ul, ul.imgWestQuarter > li > p, ul.imgWestQuarter > p {
-        margin-right: calc(25% + 16px);
-      }
-      @media #{$desktop-only} {
-        div.imgEastQuarter h2, div.imgEastQuarter h3, div.imgEastQuarter h4, div.imgEastQuarter h5, div.imgEastQuarter ol, div.imgEastQuarter ul, div.imgEastQuarter > li > p, div.imgEastQuarter > p, div.imgWestQuarter h2, div.imgWestQuarter h3, div.imgWestQuarter h4, div.imgWestQuarter h5, div.imgWestQuarter ol, div.imgWestQuarter ul, div.imgWestQuarter > li > p, div.imgWestQuarter > p, ol.imgEastQuarter h2, ol.imgEastQuarter h3, ol.imgEastQuarter h4, ol.imgEastQuarter h5, ol.imgEastQuarter ol, ol.imgEastQuarter ul, ol.imgEastQuarter > li > p, ol.imgEastQuarter > p, ol.imgWestQuarter h2, ol.imgWestQuarter h3, ol.imgWestQuarter h4, ol.imgWestQuarter h5, ol.imgWestQuarter ol, ol.imgWestQuarter ul, ol.imgWestQuarter > li > p, ol.imgWestQuarter > p, ul.imgEastQuarter h2, ul.imgEastQuarter h3, ul.imgEastQuarter h4, ul.imgEastQuarter h5, ul.imgEastQuarter ol, ul.imgEastQuarter ul, ul.imgEastQuarter > li > p, ul.imgEastQuarter > p, ul.imgWestQuarter h2, ul.imgWestQuarter h3, ul.imgWestQuarter h4, ul.imgWestQuarter h5, ul.imgWestQuarter ol, ul.imgWestQuarter ul, ul.imgWestQuarter > li > p, ul.imgWestQuarter > p {
-          margin-right: calc(25% + 32px);
+      div, ol, ul {
+        &.imgEastQuarter h2, &.imgEastQuarter h3, &.imgEastQuarter h4, &.imgEastQuarter h5, &.imgEastQuarter ol, &.imgEastQuarter ul, &.imgEastQuarter > li > p, &.imgEastQuarter > p, &.imgWestQuarter h2, &.imgWestQuarter h3, &.imgWestQuarter h4, &.imgWestQuarter h5, &.imgWestQuarter ol, &.imgWestQuarter ul, &.imgWestQuarter > li > p, &.imgWestQuarter > p {
+          margin-right: calc(25% + 16px);
+        }
+        @media #{$desktop-only} {
+          &.imgEastQuarter h2, &.imgEastQuarter h3, &.imgEastQuarter h4, &.imgEastQuarter h5, &.imgEastQuarter ol, &.imgEastQuarter ul, &.imgEastQuarter > li > p, &.imgEastQuarter > p, &.imgWestQuarter h2, &.imgWestQuarter h3, &.imgWestQuarter h4, &.imgWestQuarter h5, &.imgWestQuarter ol, &.imgWestQuarter ul, &.imgWestQuarter > li > p, &.imgWestQuarter > p {
+            margin-right: calc(25% + 32px);
+          }
         }
       }
     }
     &.dir-ltr {
-      div.imgEastEighth h2, div.imgEastEighth h3, div.imgEastEighth h4, div.imgEastEighth h5, div.imgEastEighth ol, div.imgEastEighth ul, div.imgEastEighth > li > p, div.imgEastEighth > p, div.imgWestEighth h2, div.imgWestEighth h3, div.imgWestEighth h4, div.imgWestEighth h5, div.imgWestEighth ol, div.imgWestEighth ul, div.imgWestEighth > li > p, div.imgWestEighth > p, ol.imgEastEighth h2, ol.imgEastEighth h3, ol.imgEastEighth h4, ol.imgEastEighth h5, ol.imgEastEighth ol, ol.imgEastEighth ul, ol.imgEastEighth > li > p, ol.imgEastEighth > p, ol.imgWestEighth h2, ol.imgWestEighth h3, ol.imgWestEighth h4, ol.imgWestEighth h5, ol.imgWestEighth ol, ol.imgWestEighth ul, ol.imgWestEighth > li > p, ol.imgWestEighth > p, ul.imgEastEighth h2, ul.imgEastEighth h3, ul.imgEastEighth h4, ul.imgEastEighth h5, ul.imgEastEighth ol, ul.imgEastEighth ul, ul.imgEastEighth > li > p, ul.imgEastEighth > p, ul.imgWestEighth h2, ul.imgWestEighth h3, ul.imgWestEighth h4, ul.imgWestEighth h5, ul.imgWestEighth ol, ul.imgWestEighth ul, ul.imgWestEighth > li > p, ul.imgWestEighth > p {
-        margin-left: calc(12.5% + 16px);
-      }
-      @media #{$desktop-only} {
-        div.imgEastEighth h2, div.imgEastEighth h3, div.imgEastEighth h4, div.imgEastEighth h5, div.imgEastEighth ol, div.imgEastEighth ul, div.imgEastEighth > li > p, div.imgEastEighth > p, div.imgWestEighth h2, div.imgWestEighth h3, div.imgWestEighth h4, div.imgWestEighth h5, div.imgWestEighth ol, div.imgWestEighth ul, div.imgWestEighth > li > p, div.imgWestEighth > p, ol.imgEastEighth h2, ol.imgEastEighth h3, ol.imgEastEighth h4, ol.imgEastEighth h5, ol.imgEastEighth ol, ol.imgEastEighth ul, ol.imgEastEighth > li > p, ol.imgEastEighth > p, ol.imgWestEighth h2, ol.imgWestEighth h3, ol.imgWestEighth h4, ol.imgWestEighth h5, ol.imgWestEighth ol, ol.imgWestEighth ul, ol.imgWestEighth > li > p, ol.imgWestEighth > p, ul.imgEastEighth h2, ul.imgEastEighth h3, ul.imgEastEighth h4, ul.imgEastEighth h5, ul.imgEastEighth ol, ul.imgEastEighth ul, ul.imgEastEighth > li > p, ul.imgEastEighth > p, ul.imgWestEighth h2, ul.imgWestEighth h3, ul.imgWestEighth h4, ul.imgWestEighth h5, ul.imgWestEighth ol, ul.imgWestEighth ul, ul.imgWestEighth > li > p, ul.imgWestEighth > p {
-          margin-left: calc(12.5% + 32px);
+      div, ol, ul {
+        &.imgEastEighth h2, &.imgEastEighth h3, &.imgEastEighth h4, &.imgEastEighth h5, &.imgEastEighth ol, &.imgEastEighth ul, &.imgEastEighth > li > p, &.imgEastEighth > p, &.imgWestEighth h2, &.imgWestEighth h3, &.imgWestEighth h4, &.imgWestEighth h5, &.imgWestEighth ol, &.imgWestEighth ul, &.imgWestEighth > li > p, &.imgWestEighth > p {
+          margin-left: calc(12.5% + 16px);
+        }
+        @media #{$desktop-only} {
+          &.imgEastEighth h2, &.imgEastEighth h3, &.imgEastEighth h4, &.imgEastEighth h5, &.imgEastEighth ol, &.imgEastEighth ul, &.imgEastEighth > li > p, &.imgEastEighth > p, &.imgWestEighth h2, &.imgWestEighth h3, &.imgWestEighth h4, &.imgWestEighth h5, &.imgWestEighth ol, &.imgWestEighth ul, &.imgWestEighth > li > p, &.imgWestEighth > p {
+            margin-left: calc(12.5% + 32px);
+          }
         }
       }
     }
     &.dir-rtl {
-      div.imgEastEighth h2, div.imgEastEighth h3, div.imgEastEighth h4, div.imgEastEighth h5, div.imgEastEighth ol, div.imgEastEighth ul, div.imgEastEighth > li > p, div.imgEastEighth > p, div.imgWestEighth h2, div.imgWestEighth h3, div.imgWestEighth h4, div.imgWestEighth h5, div.imgWestEighth ol, div.imgWestEighth ul, div.imgWestEighth > li > p, div.imgWestEighth > p, ol.imgEastEighth h2, ol.imgEastEighth h3, ol.imgEastEighth h4, ol.imgEastEighth h5, ol.imgEastEighth ol, ol.imgEastEighth ul, ol.imgEastEighth > li > p, ol.imgEastEighth > p, ol.imgWestEighth h2, ol.imgWestEighth h3, ol.imgWestEighth h4, ol.imgWestEighth h5, ol.imgWestEighth ol, ol.imgWestEighth ul, ol.imgWestEighth > li > p, ol.imgWestEighth > p, ul.imgEastEighth h2, ul.imgEastEighth h3, ul.imgEastEighth h4, ul.imgEastEighth h5, ul.imgEastEighth ol, ul.imgEastEighth ul, ul.imgEastEighth > li > p, ul.imgEastEighth > p, ul.imgWestEighth h2, ul.imgWestEighth h3, ul.imgWestEighth h4, ul.imgWestEighth h5, ul.imgWestEighth ol, ul.imgWestEighth ul, ul.imgWestEighth > li > p, ul.imgWestEighth > p {
-        margin-right: calc(12.5% + 16px);
-      }
-      @media #{$desktop-only} {
-        div.imgEastEighth h2, div.imgEastEighth h3, div.imgEastEighth h4, div.imgEastEighth h5, div.imgEastEighth ol, div.imgEastEighth ul, div.imgEastEighth > li > p, div.imgEastEighth > p, div.imgWestEighth h2, div.imgWestEighth h3, div.imgWestEighth h4, div.imgWestEighth h5, div.imgWestEighth ol, div.imgWestEighth ul, div.imgWestEighth > li > p, div.imgWestEighth > p, ol.imgEastEighth h2, ol.imgEastEighth h3, ol.imgEastEighth h4, ol.imgEastEighth h5, ol.imgEastEighth ol, ol.imgEastEighth ul, ol.imgEastEighth > li > p, ol.imgEastEighth > p, ol.imgWestEighth h2, ol.imgWestEighth h3, ol.imgWestEighth h4, ol.imgWestEighth h5, ol.imgWestEighth ol, ol.imgWestEighth ul, ol.imgWestEighth > li > p, ol.imgWestEighth > p, ul.imgEastEighth h2, ul.imgEastEighth h3, ul.imgEastEighth h4, ul.imgEastEighth h5, ul.imgEastEighth ol, ul.imgEastEighth ul, ul.imgEastEighth > li > p, ul.imgEastEighth > p, ul.imgWestEighth h2, ul.imgWestEighth h3, ul.imgWestEighth h4, ul.imgWestEighth h5, ul.imgWestEighth ol, ul.imgWestEighth ul, ul.imgWestEighth > li > p, ul.imgWestEighth > p {
-          margin-right: calc(12.5% + 32px);
+      div, ol, ul {
+        &.imgEastEighth h2, &.imgEastEighth h3, &.imgEastEighth h4, &.imgEastEighth h5, &.imgEastEighth ol, &.imgEastEighth ul, &.imgEastEighth > li > p, &.imgEastEighth > p, &.imgWestEighth h2, &.imgWestEighth h3, &.imgWestEighth h4, &.imgWestEighth h5, &.imgWestEighth ol, &.imgWestEighth ul, &.imgWestEighth > li > p, &.imgWestEighth > p {
+          margin-right: calc(12.5% + 16px);
+        }
+        @media #{$desktop-only} {
+          &.imgEastEighth h2, &.imgEastEighth h3, &.imgEastEighth h4, &.imgEastEighth h5, &.imgEastEighth ol, &.imgEastEighth ul, &.imgEastEighth > li > p, &.imgEastEighth > p, &.imgWestEighth h2, &.imgWestEighth h3, &.imgWestEighth h4, &.imgWestEighth h5, &.imgWestEighth ol, &.imgWestEighth ul, &.imgWestEighth > li > p, &.imgWestEighth > p {
+            margin-right: calc(12.5% + 32px);
+          }
         }
       }
     }
@@ -558,18 +587,23 @@
             padding-#{$s}: 32px;
           }
         }
-        &::after, &::before {
+        &::after {
           content: "";
           position: absolute;
           top: calc(.75em + 1px);
         }
         &::before {
-          width: 9px;
-          height: 9px;
-          display: inline-block;
-          background-color: #9e9b9a;
-          margin-top: -4px;
-          border-radius: 9px;
+          content: "";
+          position: absolute;
+          top: calc(.75em + 1px);
+          & {
+            width: 9px;
+            height: 9px;
+            display: inline-block;
+            background-color: #9e9b9a;
+            margin-top: -4px;
+            border-radius: 9px;
+          }
           @include bidi((left, right)) using ($s) {
             & {
               #{$s}: -9px;
@@ -681,9 +715,7 @@
       .figcaption, .imgCredit {
         margin-left: 16px;
         margin-right: 16px;
-      }
-      @media #{$desktop} {
-        .figcaption, .imgCredit {
+        @media #{$desktop} {
           margin-left: 32px;
           margin-right: 32px;
         }
@@ -782,24 +814,26 @@
         }
       }
       &.columnBorder {
-        @include bidi((left, right)) using ($s) {
-          td, th {
-            border-#{$s}-width: 1px;
+        td, th {
+          @include bidi((left, right)) using ($s) {
+            & {
+              border-#{$s}-width: 1px;
+            }
           }
-        }
-        @include bidi((left, right)) using ($s) {
-          td, th {
-            border-#{$s}-style: solid;
+          @include bidi((left, right)) using ($s) {
+            & {
+              border-#{$s}-style: solid;
+            }
           }
-        }
-        @include bidi((left, right)) using ($s) {
-          td, th {
-            border-#{$s}-color: #a7a7a7;
+          @include bidi((left, right)) using ($s) {
+            & {
+              border-#{$s}-color: #a7a7a7;
+            }
           }
-        }
-        @include bidi((left, right)) using ($s) {
-          td:first-child, th:first-child {
-            border-#{$s}-style: none;
+          @include bidi((left, right)) using ($s) {
+            &:first-child {
+              border-#{$s}-style: none;
+            }
           }
         }
       }
@@ -967,82 +1001,80 @@
     }
     .blockTeach, .boxSupplement, .chart, .closingContent, .diagram, .mapElement {
       clear: both;
-    }
-    .blockTeach::after, .blockTeach::before, .boxSupplement::after, .boxSupplement::before, .chart::after, .chart::before, .closingContent::after, .closingContent::before, .diagram::after, .diagram::before, .mapElement::after, .mapElement::before {
-      content: " ";
-      display: table;
-    }
-    .blockTeach::after, .boxSupplement::after, .chart::after, .closingContent::after, .diagram::after, .mapElement::after {
-      clear: both;
-    }
-    .blockTeach table, .boxSupplement table, .chart table, .closingContent table, .diagram table, .mapElement table {
-      width: 100%;
-    }
-    .blockTeach.rule, .boxSupplement.rule, .chart.rule, .closingContent.rule, .diagram.rule, .mapElement.rule {
-      border-top-style: solid;
-      border-right-style: solid;
-      border-bottom-style: solid;
-      border-left-style: solid;
-      border-width: 1px;
-      border-color: #a7a7a7;
-      background-color: transparent;
-      margin-top: 1.5em;
-      margin-bottom: 1.5em;
-    }
-    .blockTeach.dashed, .boxSupplement.dashed, .chart.dashed, .closingContent.dashed, .diagram.dashed, .mapElement.dashed {
-      border-top-style: dashed;
-      border-right-style: dashed;
-      border-bottom-style: dashed;
-      border-left-style: dashed;
-      border-width: 1px;
-      border-color: #a7a7a7;
-      background-color: transparent;
-      margin-top: 1.5em;
-      margin-bottom: 1.5em;
-    }
-    .blockTeach.bgTransparent, .boxSupplement.bgTransparent, .chart.bgTransparent, .closingContent.bgTransparent, .diagram.bgTransparent, .mapElement.bgTransparent {
-      background-color: transparent;
-    }
-    @media #{$desktop} {
-      .blockTeach.flLeft, .blockTeach.floatWest, .boxSupplement.flLeft, .boxSupplement.floatWest, .chart.flLeft, .chart.floatWest, .closingContent.flLeft, .closingContent.floatWest, .diagram.flLeft, .diagram.floatWest, .mapElement.flLeft, .mapElement.floatWest {
-        max-width: 50%;
-        min-width: 25%;
-        margin-top: 0;
-        margin-bottom: 24px;
+      &::after, &::before {
+        content: " ";
+        display: table;
       }
-      @include bidi((left, right)) using ($s) {
-        .blockTeach.flLeft, .blockTeach.floatWest, .boxSupplement.flLeft, .boxSupplement.floatWest, .chart.flLeft, .chart.floatWest, .closingContent.flLeft, .closingContent.floatWest, .diagram.flLeft, .diagram.floatWest, .mapElement.flLeft, .mapElement.floatWest {
-          margin-#{flip($s)}: 24px;
-          float: #{$s};
+      &::after {
+        clear: both;
+      }
+      table {
+        width: 100%;
+      }
+      &.rule {
+        border-top-style: solid;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        border-left-style: solid;
+        border-width: 1px;
+        border-color: #a7a7a7;
+        background-color: transparent;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+      }
+      &.dashed {
+        border-top-style: dashed;
+        border-right-style: dashed;
+        border-bottom-style: dashed;
+        border-left-style: dashed;
+        border-width: 1px;
+        border-color: #a7a7a7;
+        background-color: transparent;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+      }
+      &.bgTransparent {
+        background-color: transparent;
+      }
+      @media #{$desktop} {
+        &.flLeft, &.floatWest {
+          max-width: 50%;
+          min-width: 25%;
+          margin-top: 0;
+          margin-bottom: 24px;
+        }
+        @include bidi((left, right)) using ($s) {
+          &.flLeft, &.floatWest {
+            margin-#{flip($s)}: 24px;
+            float: #{$s};
+          }
+        }
+        &.flRight, &.floatEast {
+          max-width: 50%;
+          min-width: 25%;
+          margin-top: 0;
+          margin-bottom: 24px;
+        }
+        @include bidi((left, right)) using ($s) {
+          &.flRight, &.floatEast {
+            margin-#{$s}: 24px;
+            float: #{flip($s)};
+          }
         }
       }
-      .blockTeach.flRight, .blockTeach.floatEast, .boxSupplement.flRight, .boxSupplement.floatEast, .chart.flRight, .chart.floatEast, .closingContent.flRight, .closingContent.floatEast, .diagram.flRight, .diagram.floatEast, .mapElement.flRight, .mapElement.floatEast {
-        max-width: 50%;
-        min-width: 25%;
-        margin-top: 0;
-        margin-bottom: 24px;
-      }
-      @include bidi((left, right)) using ($s) {
-        .blockTeach.flRight, .blockTeach.floatEast, .boxSupplement.flRight, .boxSupplement.floatEast, .chart.flRight, .chart.floatEast, .closingContent.flRight, .closingContent.floatEast, .diagram.flRight, .diagram.floatEast, .mapElement.flRight, .mapElement.floatEast {
-          margin-#{$s}: 24px;
-          float: #{flip($s)};
+      &.wide {
+        position: relative;
+        overflow: auto;
+        padding-top: 0;
+        padding-bottom: 0;
+        > * {
+          min-width: 650px;
+          max-width: 750px;
+          @media #{$desktop-only} {
+            min-width: 750px;
+            max-width: 960px;
+          }
         }
-      }
-    }
-    .blockTeach.wide, .boxSupplement.wide, .chart.wide, .closingContent.wide, .diagram.wide, .mapElement.wide {
-      position: relative;
-      overflow: auto;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-    .blockTeach.wide>*, .boxSupplement.wide>*, .chart.wide>*, .closingContent.wide>*, .diagram.wide>*, .mapElement.wide>* {
-      min-width: 650px;
-      max-width: 750px;
-    }
-    @media #{$desktop-only} {
-      .blockTeach.wide>*, .boxSupplement.wide>*, .chart.wide>*, .closingContent.wide>*, .diagram.wide>*, .mapElement.wide>* {
-        min-width: 750px;
-        max-width: 960px;
       }
     }
     .sa {
@@ -1066,8 +1098,10 @@
         }
       }
     }
-    .sc, .sc>*, .sd, .sd>*, .se, .se>* {
-      text-indent: 0;
+    .sc, .sd, .se {
+      &, > * {
+        text-indent: 0;
+      }
     }
     .sf {
       border-top-width: 1px;
@@ -1076,9 +1110,19 @@
       @include token(color, du-color--textSubdued);
       padding-top: .5em;
       text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
     }
-    .sf>*, .sg, .sg>*, .sh, .sh>* {
-      text-indent: 0;
+    .sg {
+      &, > * {
+        text-indent: 0;
+      }
+    }
+    .sh {
+      &, > * {
+        text-indent: 0;
+      }
     }
     .si {
       margin-top: .5em;
@@ -1113,8 +1157,10 @@
         }
       }
     }
-    .sm, .sm>*, .sn, .sn>*, .so, .so>* {
-      text-indent: 0;
+    .sm, .sn, .so {
+      &, > * {
+        text-indent: 0;
+      }
     }
     .sp {
       text-indent: -20px;
@@ -1134,9 +1180,14 @@
       @include token(color, du-color--textSubdued);
       padding-top: .5em;
       text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
     }
-    .sq>*, .sr, .sr>* {
-      text-indent: 0;
+    .sr {
+      &, > * {
+        text-indent: 0;
+      }
     }
     .ss {
       margin-top: 1em;
@@ -1227,12 +1278,12 @@
       margin-top: 0;
       margin-bottom: 0;
       text-indent: 0;
-    }
-    .s1>*, .s2>*, .s3>*, .s4>* {
-      text-indent: 0;
-    }
-    .s1 p, .s2 p, .s3 p, .s4 p {
-      margin-top: 0;
+      > * {
+        text-indent: 0;
+      }
+      p {
+        margin-top: 0;
+      }
     }
     @include bidi((left, right)) using ($s) {
       .s5 {
@@ -1666,9 +1717,9 @@
         margin: .75em 0 .25em 0;
         text-align: center;
         text-indent: 0;
-      }
-      .style-s ruby, .style-w ruby {
-        text-indent: 0;
+        ruby {
+          text-indent: 0;
+        }
       }
       .parabreak, br.para, span.verse > br.para:first-child, span.verse > span.parabreak:first-child {
         display: none;
@@ -1844,8 +1895,10 @@
         @include token(color, ds-link-color);
       }
     }
-    .style-l .chapterNum a, .style-l .verseNum a, .style-p .chapterNum a, .style-p .verseNum a, .style-z .chapterNum a, .style-z .verseNum a {
-      text-indent: 0;
+    .style-l, .style-p, .style-z {
+      .chapterNum a, .verseNum a {
+        text-indent: 0;
+      }
     }
     .xrefLink {
       display: -webkit-inline-box;
@@ -2134,11 +2187,16 @@
 @mixin part-17 {
   @include jwac {
     details {
-      &[open] > summary::before {
-        -webkit-transform: rotate(-180deg);
-        transform: rotate(-180deg);
+      &[open] > summary {
+        &::before {
+          -webkit-transform: rotate(-180deg);
+          transform: rotate(-180deg);
+        }
+        .details-summary--show {
+          display: none;
+        }
       }
-      &[open] > summary .details-summary--show, &:not([open]) > summary .details-summary--hide {
+      &:not([open]) > summary .details-summary--hide {
         display: none;
       }
     }

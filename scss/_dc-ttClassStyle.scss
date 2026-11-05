@@ -28,23 +28,27 @@
         margin-bottom: 0;
       }
     }
-    .boxSubTtl:not(.dc-ttClassStyle--unset) h2, .boxSubTtl:not(.dc-ttClassStyle--unset) h3, .boxSubTtl:not(.dc-ttClassStyle--unset) h4, .boxSubTtl:not(.dc-ttClassStyle--unset) h5, .boxSubTtl:not(.dc-ttClassStyle--unset) h6, .boxTtl:not(.dc-ttClassStyle--unset) h2, .boxTtl:not(.dc-ttClassStyle--unset) h3, .boxTtl:not(.dc-ttClassStyle--unset) h4, .boxTtl:not(.dc-ttClassStyle--unset) h5, .boxTtl:not(.dc-ttClassStyle--unset) h6 {
-      margin: 0;
-    }
-    .boxSubTtl:not(.dc-ttClassStyle--unset).rule, .boxTtl:not(.dc-ttClassStyle--unset).rule {
-      border-bottom-style: solid;
-      border-width: 1px;
-      border-color: #a7a7a7;
-    }
-    .boxSubTtl:not(.dc-ttClassStyle--unset).emphasized, .boxTtl:not(.dc-ttClassStyle--unset).emphasized {
-      @include token(background-color, du-bgColor--bgEmphasized);
-      @include token(color, du-color--white);
-    }
-    .boxSubTtl:not(.dc-ttClassStyle--unset).emphasized a, .boxTtl:not(.dc-ttClassStyle--unset).emphasized a {
-      color: #9fb9e3;
-    }
-    .boxSubTtl:not(.dc-ttClassStyle--unset).emphasized a:visited, .boxTtl:not(.dc-ttClassStyle--unset).emphasized a:visited {
-      color: #a9a7c9;
+    .boxSubTtl, .boxTtl {
+      &:not(.dc-ttClassStyle--unset) {
+        h2, h3, h4, h5, h6 {
+          margin: 0;
+        }
+        &.rule {
+          border-bottom-style: solid;
+          border-width: 1px;
+          border-color: #a7a7a7;
+        }
+        &.emphasized {
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+          a {
+            color: #9fb9e3;
+            &:visited {
+              color: #a9a7c9;
+            }
+          }
+        }
+      }
     }
     .boxContent:not(.dc-ttClassStyle--unset) {
       padding-top: 16px;
@@ -85,17 +89,19 @@
         }
       }
     }
-    .blockTeach:not(.dc-ttClassStyle--unset), .boxSupplement:not(.dc-ttClassStyle--unset) {
-      @include token(background-color, du-bgColor--bgSecondary);
-      margin-top: 1.5em;
-      margin-bottom: 1.5em;
-    }
-    .blockTeach:not(.dc-ttClassStyle--unset)::after, .blockTeach:not(.dc-ttClassStyle--unset)::before, .boxSupplement:not(.dc-ttClassStyle--unset)::after, .boxSupplement:not(.dc-ttClassStyle--unset)::before {
-      content: " ";
-      display: table;
-    }
-    .blockTeach:not(.dc-ttClassStyle--unset)::after, .boxSupplement:not(.dc-ttClassStyle--unset)::after {
-      clear: both;
+    .blockTeach, .boxSupplement {
+      &:not(.dc-ttClassStyle--unset) {
+        @include token(background-color, du-bgColor--bgSecondary);
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+        &::after, &::before {
+          content: " ";
+          display: table;
+        }
+        &::after {
+          clear: both;
+        }
+      }
     }
   }
 }
@@ -118,12 +124,15 @@
           margin-bottom: .5em;
         }
       }
-      &.txtSizeDefault, .sa {
+      &.txtSizeDefault {
         font-size: 1em;
       }
-      @include bidi((left, right)) using ($s) {
-        .sa {
-          margin-#{$s}: 0;
+      .sa {
+        font-size: 1em;
+        @include bidi((left, right)) using ($s) {
+          & {
+            margin-#{$s}: 0;
+          }
         }
       }
     }
