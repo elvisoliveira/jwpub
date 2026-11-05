@@ -3,6 +3,8 @@ name: Deploy to Pages
 on:
   push:
     branches: [master, main]
+  pull_request:   # build only, to check the site builds before merging
+    branches: [master, main]
   workflow_dispatch:
 
 permissions:
@@ -45,6 +47,7 @@ jobs:
           path: _site
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
