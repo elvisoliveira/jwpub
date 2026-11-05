@@ -4,8 +4,10 @@
 
 @mixin rules {
   @include jwac {
-    .du-fontStyle--normal, .du-fontStyle--normal>em {
-      font-style: normal!important;
+    .du-fontStyle--normal {
+      &, > em {
+        font-style: normal!important;
+      }
     }
     .du-fontStyle--italic {
       font-style: italic!important;

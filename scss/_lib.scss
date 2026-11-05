@@ -1,6 +1,7 @@
 @use "sass:math";
 @use "sass:list";
 @use "sass:map";
+@use "sass:selector";
 
 // Every rule of the reader's content hangs from this class (set on each <article>).
 $root: ".jwac";
@@ -13,16 +14,22 @@ $root: ".jwac";
 
 // A value per text direction: $pair is (ltr value, rtl value). Write the block once; it
 // gets its direction's value. Same value → one rule; different → .dir-ltr + .dir-rtl rules.
-// Emits from the root (@at-root), like the mixins below.
+// Works anywhere: inside a block the direction goes on the root of the current selector
+// (.jwac .x → .jwac.dir-ltr .x); at the top level it emits from the root.
 //   @include bidi((left, right)) using ($side) { .x { float: $side; } }
 @mixin bidi($pair) {
   $ltr: list.nth($pair, 1);
   $rtl: list.nth($pair, 2);
   @if $ltr == $rtl {
-    @at-root #{$root} { @content($ltr); }
+    @if & { @content($ltr); } @else { @at-root #{$root} { @content($ltr); } }
   } @else {
-    @at-root #{$root}.dir-ltr { @content($ltr); }
-    @at-root #{$root}.dir-rtl { @content($rtl); }
+    @each $dir, $value in (ltr: $ltr, rtl: $rtl) {
+      @if & {
+        @at-root #{selector.replace(&, $root, "#{$root}.dir-#{$dir}")} { @content($value); }
+      } @else {
+        @at-root #{$root}.dir-#{$dir} { @content($value); }
+      }
+    }
   }
 }
 

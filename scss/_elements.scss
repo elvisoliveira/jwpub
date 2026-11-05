@@ -80,8 +80,10 @@
         box-sizing: border-box;
         padding: 0;
       }
-      &[type=number]::-webkit-inner-spin-button, &[type=number]::-webkit-outer-spin-button {
-        height: auto;
+      &[type=number] {
+        &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+          height: auto;
+        }
       }
       &[type=search] {
         -webkit-appearance: textfield;
@@ -197,8 +199,10 @@
       margin-top: 1em;
       margin-bottom: 1em;
     }
-    q::after, q::before {
-      content: "";
+    q {
+      &::after, &::before {
+        content: "";
+      }
     }
     ruby {
       ruby-align: center;
@@ -257,14 +261,16 @@
 }
 
 @mixin part-8 {
-  @media #{$desktop} {
-    :where(#reader) [data-tag-presentationintent=Mobile] {
-      display: none;
+  :where(#reader) {
+    @media #{$desktop} {
+      [data-tag-presentationintent=Mobile] {
+        display: none;
+      }
     }
-  }
-  @media #{$mobile} {
-    :where(#reader) [data-tag-presentationintent=Desktop] {
-      display: none;
+    @media #{$mobile} {
+      [data-tag-presentationintent=Desktop] {
+        display: none;
+      }
     }
   }
 }
@@ -282,7 +288,9 @@
 }
 
 @mixin part-11 {
-  :where(#reader) button, :where(#reader) input {
-    line-height: 1;
+  :where(#reader) {
+    button, input {
+      line-height: 1;
+    }
   }
 }

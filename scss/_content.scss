@@ -16,13 +16,17 @@
 
 @mixin part-2 {
   @include jwac {
-    &.dir-ltr ol, &.dir-ltr ul {
-      padding-left: 1.5em;
-      padding-right: 0;
+    &.dir-ltr {
+      ol, ul {
+        padding-left: 1.5em;
+        padding-right: 0;
+      }
     }
-    &.dir-rtl ol, &.dir-rtl ul {
-      padding-left: 0;
-      padding-right: 1.5em;
+    &.dir-rtl {
+      ol, ul {
+        padding-left: 0;
+        padding-right: 1.5em;
+      }
     }
   }
 }
@@ -160,8 +164,10 @@
 
 @mixin part-8 {
   @include jwac {
-    .boxContent>div.half:first-child, .boxContent>div.quarter:first-child {
-      margin-top: 1em;
+    .boxContent > div {
+      &.half:first-child, &.quarter:first-child {
+        margin-top: 1em;
+      }
     }
     .boxSupplement.imgGrid .boxContent, .grpItems.imgGrid, .listImgGrid {
       display: -webkit-box;
@@ -203,11 +209,15 @@
         grid-template-columns: 1fr 1fr;
         gap: 16px;
       }
+    }
+    @supports (display:grid) {
       @media #{$desktop-only} {
         .boxSupplement.imgGrid .boxContent, .grpItems.imgGrid, .listImgGrid {
           gap: 32px;
         }
       }
+    }
+    @supports (display:grid) {
       .boxSupplement.imgGrid .boxContent>:not(div):not(li), .grpItems.imgGrid>:not(div):not(li), .listImgGrid>:not(div):not(li) {
         grid-column: 1/-1;
       }
@@ -237,32 +247,34 @@
       }
     }
     @media #{$desktop} {
-      .videoModal.inline, .videoModal.inline-start {
-        width: 50%;
-        margin-bottom: 1em;
-      }
-      @include bidi((left, right)) using ($s) {
-        .videoModal.inline, .videoModal.inline-start {
-          float: #{$s};
+      .videoModal {
+        &.inline, &.inline-start {
+          width: 50%;
+          margin-bottom: 1em;
         }
-      }
-      @include bidi((left, right)) using ($s) {
-        .videoModal.inline, .videoModal.inline-start {
-          margin-#{flip($s)}: 32px;
+        @include bidi((left, right)) using ($s) {
+          &.inline, &.inline-start {
+            float: #{$s};
+          }
         }
-      }
-      .videoModal.inline-end {
-        width: 50%;
-        margin-bottom: 1em;
-      }
-      @include bidi((left, right)) using ($s) {
-        .videoModal.inline-end {
-          float: #{flip($s)};
+        @include bidi((left, right)) using ($s) {
+          &.inline, &.inline-start {
+            margin-#{flip($s)}: 32px;
+          }
         }
-      }
-      @include bidi((left, right)) using ($s) {
-        .videoModal.inline-end {
-          margin-#{$s}: 32px;
+        &.inline-end {
+          width: 50%;
+          margin-bottom: 1em;
+          @include bidi((left, right)) using ($s) {
+            & {
+              float: #{flip($s)};
+            }
+          }
+          @include bidi((left, right)) using ($s) {
+            & {
+              margin-#{$s}: 32px;
+            }
+          }
         }
       }
     }
@@ -292,17 +304,19 @@
     &[class*=ml-][class*=ms-] ol.numberedDiagram, &[class*=ml-][class*=ms-] ol.noMarker, &[class*=ml-][class*=ms-] li.listTitle, &[class*=ml-][class*=ms-] ol.imgEastEighth>li, &[class*=ml-][class*=ms-] ol.imgEastQuarter>li, &[class*=ml-][class*=ms-] ol.imgWestEighth>li, &[class*=ml-][class*=ms-] ol.imgWestQuarter>li, ul.source {
       list-style-type: none;
     }
-    ul.source .txtSrcBullet {
-      display: inline-block;
-      min-width: 1.5em;
-    }
-    @include bidi((left, right)) using ($s) {
-      ul.source .txtSrcBullet {
-        margin-#{$s}: -1.5em;
+    ul {
+      &.source .txtSrcBullet {
+        display: inline-block;
+        min-width: 1.5em;
+        @include bidi((left, right)) using ($s) {
+          & {
+            margin-#{$s}: -1.5em;
+          }
+        }
       }
-    }
-    ul.noMarker {
-      list-style-type: none;
+      &.noMarker {
+        list-style-type: none;
+      }
     }
     @include bidi((left, right)) using ($s) {
       ol.noIndent, ol.noIndent.noMarker, ul.noIndent, ul.noIndent.noMarker {
@@ -319,18 +333,20 @@
     ol.listSpacing li:last-of-type, ul.listSpacing li:last-of-type {
       margin-bottom: 2em;
     }
-    li.listTitle {
-      font-size: 1.21em;
-    }
-    @include bidi((left, right)) using ($s) {
-      li.listTitle {
-        margin-#{$s}: -1em;
+    li {
+      &.listTitle {
+        font-size: 1.21em;
+        @include bidi((left, right)) using ($s) {
+          & {
+            margin-#{$s}: -1em;
+          }
+        }
       }
-    }
-    li.borderDotted--top {
-      border-top-style: dotted;
-      border-width: 1px;
-      border-color: #a7a7a7;
+      &.borderDotted--top {
+        border-top-style: dotted;
+        border-width: 1px;
+        border-color: #a7a7a7;
+      }
     }
     div.imgEastEighth>li, div.imgEastQuarter>li, div.imgWestEighth>li, div.imgWestQuarter>li, ul.imgEastEighth>li, ul.imgEastQuarter>li, ul.imgWestEighth>li, ul.imgWestQuarter>li {
       list-style-type: none;
@@ -348,103 +364,113 @@
     div.imgEastEighth ul li, div.imgEastQuarter ul li, div.imgWestEighth ul li, div.imgWestQuarter ul li, ol.imgEastEighth ul li, ol.imgEastQuarter ul li, ol.imgWestEighth ul li, ol.imgWestQuarter ul li, ul.imgEastEighth ul li, ul.imgEastQuarter ul li, ul.imgWestEighth ul li, ul.imgWestQuarter ul li {
       list-style-type: disc;
     }
-    &.dir-ltr div.imgEastQuarter h2, &.dir-ltr div.imgEastQuarter h3, &.dir-ltr div.imgEastQuarter h4, &.dir-ltr div.imgEastQuarter h5, &.dir-ltr div.imgEastQuarter ol, &.dir-ltr div.imgEastQuarter ul, &.dir-ltr div.imgEastQuarter>li>p, &.dir-ltr div.imgEastQuarter>p, &.dir-ltr div.imgWestQuarter h2, &.dir-ltr div.imgWestQuarter h3, &.dir-ltr div.imgWestQuarter h4, &.dir-ltr div.imgWestQuarter h5, &.dir-ltr div.imgWestQuarter ol, &.dir-ltr div.imgWestQuarter ul, &.dir-ltr div.imgWestQuarter>li>p, &.dir-ltr div.imgWestQuarter>p, &.dir-ltr ol.imgEastQuarter h2, &.dir-ltr ol.imgEastQuarter h3, &.dir-ltr ol.imgEastQuarter h4, &.dir-ltr ol.imgEastQuarter h5, &.dir-ltr ol.imgEastQuarter ol, &.dir-ltr ol.imgEastQuarter ul, &.dir-ltr ol.imgEastQuarter>li>p, &.dir-ltr ol.imgEastQuarter>p, &.dir-ltr ol.imgWestQuarter h2, &.dir-ltr ol.imgWestQuarter h3, &.dir-ltr ol.imgWestQuarter h4, &.dir-ltr ol.imgWestQuarter h5, &.dir-ltr ol.imgWestQuarter ol, &.dir-ltr ol.imgWestQuarter ul, &.dir-ltr ol.imgWestQuarter>li>p, &.dir-ltr ol.imgWestQuarter>p, &.dir-ltr ul.imgEastQuarter h2, &.dir-ltr ul.imgEastQuarter h3, &.dir-ltr ul.imgEastQuarter h4, &.dir-ltr ul.imgEastQuarter h5, &.dir-ltr ul.imgEastQuarter ol, &.dir-ltr ul.imgEastQuarter ul, &.dir-ltr ul.imgEastQuarter>li>p, &.dir-ltr ul.imgEastQuarter>p, &.dir-ltr ul.imgWestQuarter h2, &.dir-ltr ul.imgWestQuarter h3, &.dir-ltr ul.imgWestQuarter h4, &.dir-ltr ul.imgWestQuarter h5, &.dir-ltr ul.imgWestQuarter ol, &.dir-ltr ul.imgWestQuarter ul, &.dir-ltr ul.imgWestQuarter>li>p, &.dir-ltr ul.imgWestQuarter>p {
-      margin-left: calc(25% + 16px);
-    }
-    @media #{$desktop-only} {
-      &.dir-ltr div.imgEastQuarter h2, &.dir-ltr div.imgEastQuarter h3, &.dir-ltr div.imgEastQuarter h4, &.dir-ltr div.imgEastQuarter h5, &.dir-ltr div.imgEastQuarter ol, &.dir-ltr div.imgEastQuarter ul, &.dir-ltr div.imgEastQuarter>li>p, &.dir-ltr div.imgEastQuarter>p, &.dir-ltr div.imgWestQuarter h2, &.dir-ltr div.imgWestQuarter h3, &.dir-ltr div.imgWestQuarter h4, &.dir-ltr div.imgWestQuarter h5, &.dir-ltr div.imgWestQuarter ol, &.dir-ltr div.imgWestQuarter ul, &.dir-ltr div.imgWestQuarter>li>p, &.dir-ltr div.imgWestQuarter>p, &.dir-ltr ol.imgEastQuarter h2, &.dir-ltr ol.imgEastQuarter h3, &.dir-ltr ol.imgEastQuarter h4, &.dir-ltr ol.imgEastQuarter h5, &.dir-ltr ol.imgEastQuarter ol, &.dir-ltr ol.imgEastQuarter ul, &.dir-ltr ol.imgEastQuarter>li>p, &.dir-ltr ol.imgEastQuarter>p, &.dir-ltr ol.imgWestQuarter h2, &.dir-ltr ol.imgWestQuarter h3, &.dir-ltr ol.imgWestQuarter h4, &.dir-ltr ol.imgWestQuarter h5, &.dir-ltr ol.imgWestQuarter ol, &.dir-ltr ol.imgWestQuarter ul, &.dir-ltr ol.imgWestQuarter>li>p, &.dir-ltr ol.imgWestQuarter>p, &.dir-ltr ul.imgEastQuarter h2, &.dir-ltr ul.imgEastQuarter h3, &.dir-ltr ul.imgEastQuarter h4, &.dir-ltr ul.imgEastQuarter h5, &.dir-ltr ul.imgEastQuarter ol, &.dir-ltr ul.imgEastQuarter ul, &.dir-ltr ul.imgEastQuarter>li>p, &.dir-ltr ul.imgEastQuarter>p, &.dir-ltr ul.imgWestQuarter h2, &.dir-ltr ul.imgWestQuarter h3, &.dir-ltr ul.imgWestQuarter h4, &.dir-ltr ul.imgWestQuarter h5, &.dir-ltr ul.imgWestQuarter ol, &.dir-ltr ul.imgWestQuarter ul, &.dir-ltr ul.imgWestQuarter>li>p, &.dir-ltr ul.imgWestQuarter>p {
-        margin-left: calc(25% + 32px);
+    &.dir-ltr {
+      div.imgEastQuarter h2, div.imgEastQuarter h3, div.imgEastQuarter h4, div.imgEastQuarter h5, div.imgEastQuarter ol, div.imgEastQuarter ul, div.imgEastQuarter > li > p, div.imgEastQuarter > p, div.imgWestQuarter h2, div.imgWestQuarter h3, div.imgWestQuarter h4, div.imgWestQuarter h5, div.imgWestQuarter ol, div.imgWestQuarter ul, div.imgWestQuarter > li > p, div.imgWestQuarter > p, ol.imgEastQuarter h2, ol.imgEastQuarter h3, ol.imgEastQuarter h4, ol.imgEastQuarter h5, ol.imgEastQuarter ol, ol.imgEastQuarter ul, ol.imgEastQuarter > li > p, ol.imgEastQuarter > p, ol.imgWestQuarter h2, ol.imgWestQuarter h3, ol.imgWestQuarter h4, ol.imgWestQuarter h5, ol.imgWestQuarter ol, ol.imgWestQuarter ul, ol.imgWestQuarter > li > p, ol.imgWestQuarter > p, ul.imgEastQuarter h2, ul.imgEastQuarter h3, ul.imgEastQuarter h4, ul.imgEastQuarter h5, ul.imgEastQuarter ol, ul.imgEastQuarter ul, ul.imgEastQuarter > li > p, ul.imgEastQuarter > p, ul.imgWestQuarter h2, ul.imgWestQuarter h3, ul.imgWestQuarter h4, ul.imgWestQuarter h5, ul.imgWestQuarter ol, ul.imgWestQuarter ul, ul.imgWestQuarter > li > p, ul.imgWestQuarter > p {
+        margin-left: calc(25% + 16px);
       }
-    }
-    &.dir-rtl div.imgEastQuarter h2, &.dir-rtl div.imgEastQuarter h3, &.dir-rtl div.imgEastQuarter h4, &.dir-rtl div.imgEastQuarter h5, &.dir-rtl div.imgEastQuarter ol, &.dir-rtl div.imgEastQuarter ul, &.dir-rtl div.imgEastQuarter>li>p, &.dir-rtl div.imgEastQuarter>p, &.dir-rtl div.imgWestQuarter h2, &.dir-rtl div.imgWestQuarter h3, &.dir-rtl div.imgWestQuarter h4, &.dir-rtl div.imgWestQuarter h5, &.dir-rtl div.imgWestQuarter ol, &.dir-rtl div.imgWestQuarter ul, &.dir-rtl div.imgWestQuarter>li>p, &.dir-rtl div.imgWestQuarter>p, &.dir-rtl ol.imgEastQuarter h2, &.dir-rtl ol.imgEastQuarter h3, &.dir-rtl ol.imgEastQuarter h4, &.dir-rtl ol.imgEastQuarter h5, &.dir-rtl ol.imgEastQuarter ol, &.dir-rtl ol.imgEastQuarter ul, &.dir-rtl ol.imgEastQuarter>li>p, &.dir-rtl ol.imgEastQuarter>p, &.dir-rtl ol.imgWestQuarter h2, &.dir-rtl ol.imgWestQuarter h3, &.dir-rtl ol.imgWestQuarter h4, &.dir-rtl ol.imgWestQuarter h5, &.dir-rtl ol.imgWestQuarter ol, &.dir-rtl ol.imgWestQuarter ul, &.dir-rtl ol.imgWestQuarter>li>p, &.dir-rtl ol.imgWestQuarter>p, &.dir-rtl ul.imgEastQuarter h2, &.dir-rtl ul.imgEastQuarter h3, &.dir-rtl ul.imgEastQuarter h4, &.dir-rtl ul.imgEastQuarter h5, &.dir-rtl ul.imgEastQuarter ol, &.dir-rtl ul.imgEastQuarter ul, &.dir-rtl ul.imgEastQuarter>li>p, &.dir-rtl ul.imgEastQuarter>p, &.dir-rtl ul.imgWestQuarter h2, &.dir-rtl ul.imgWestQuarter h3, &.dir-rtl ul.imgWestQuarter h4, &.dir-rtl ul.imgWestQuarter h5, &.dir-rtl ul.imgWestQuarter ol, &.dir-rtl ul.imgWestQuarter ul, &.dir-rtl ul.imgWestQuarter>li>p, &.dir-rtl ul.imgWestQuarter>p {
-      margin-right: calc(25% + 16px);
-    }
-    @media #{$desktop-only} {
-      &.dir-rtl div.imgEastQuarter h2, &.dir-rtl div.imgEastQuarter h3, &.dir-rtl div.imgEastQuarter h4, &.dir-rtl div.imgEastQuarter h5, &.dir-rtl div.imgEastQuarter ol, &.dir-rtl div.imgEastQuarter ul, &.dir-rtl div.imgEastQuarter>li>p, &.dir-rtl div.imgEastQuarter>p, &.dir-rtl div.imgWestQuarter h2, &.dir-rtl div.imgWestQuarter h3, &.dir-rtl div.imgWestQuarter h4, &.dir-rtl div.imgWestQuarter h5, &.dir-rtl div.imgWestQuarter ol, &.dir-rtl div.imgWestQuarter ul, &.dir-rtl div.imgWestQuarter>li>p, &.dir-rtl div.imgWestQuarter>p, &.dir-rtl ol.imgEastQuarter h2, &.dir-rtl ol.imgEastQuarter h3, &.dir-rtl ol.imgEastQuarter h4, &.dir-rtl ol.imgEastQuarter h5, &.dir-rtl ol.imgEastQuarter ol, &.dir-rtl ol.imgEastQuarter ul, &.dir-rtl ol.imgEastQuarter>li>p, &.dir-rtl ol.imgEastQuarter>p, &.dir-rtl ol.imgWestQuarter h2, &.dir-rtl ol.imgWestQuarter h3, &.dir-rtl ol.imgWestQuarter h4, &.dir-rtl ol.imgWestQuarter h5, &.dir-rtl ol.imgWestQuarter ol, &.dir-rtl ol.imgWestQuarter ul, &.dir-rtl ol.imgWestQuarter>li>p, &.dir-rtl ol.imgWestQuarter>p, &.dir-rtl ul.imgEastQuarter h2, &.dir-rtl ul.imgEastQuarter h3, &.dir-rtl ul.imgEastQuarter h4, &.dir-rtl ul.imgEastQuarter h5, &.dir-rtl ul.imgEastQuarter ol, &.dir-rtl ul.imgEastQuarter ul, &.dir-rtl ul.imgEastQuarter>li>p, &.dir-rtl ul.imgEastQuarter>p, &.dir-rtl ul.imgWestQuarter h2, &.dir-rtl ul.imgWestQuarter h3, &.dir-rtl ul.imgWestQuarter h4, &.dir-rtl ul.imgWestQuarter h5, &.dir-rtl ul.imgWestQuarter ol, &.dir-rtl ul.imgWestQuarter ul, &.dir-rtl ul.imgWestQuarter>li>p, &.dir-rtl ul.imgWestQuarter>p {
-        margin-right: calc(25% + 32px);
-      }
-    }
-    &.dir-ltr div.imgEastEighth h2, &.dir-ltr div.imgEastEighth h3, &.dir-ltr div.imgEastEighth h4, &.dir-ltr div.imgEastEighth h5, &.dir-ltr div.imgEastEighth ol, &.dir-ltr div.imgEastEighth ul, &.dir-ltr div.imgEastEighth>li>p, &.dir-ltr div.imgEastEighth>p, &.dir-ltr div.imgWestEighth h2, &.dir-ltr div.imgWestEighth h3, &.dir-ltr div.imgWestEighth h4, &.dir-ltr div.imgWestEighth h5, &.dir-ltr div.imgWestEighth ol, &.dir-ltr div.imgWestEighth ul, &.dir-ltr div.imgWestEighth>li>p, &.dir-ltr div.imgWestEighth>p, &.dir-ltr ol.imgEastEighth h2, &.dir-ltr ol.imgEastEighth h3, &.dir-ltr ol.imgEastEighth h4, &.dir-ltr ol.imgEastEighth h5, &.dir-ltr ol.imgEastEighth ol, &.dir-ltr ol.imgEastEighth ul, &.dir-ltr ol.imgEastEighth>li>p, &.dir-ltr ol.imgEastEighth>p, &.dir-ltr ol.imgWestEighth h2, &.dir-ltr ol.imgWestEighth h3, &.dir-ltr ol.imgWestEighth h4, &.dir-ltr ol.imgWestEighth h5, &.dir-ltr ol.imgWestEighth ol, &.dir-ltr ol.imgWestEighth ul, &.dir-ltr ol.imgWestEighth>li>p, &.dir-ltr ol.imgWestEighth>p, &.dir-ltr ul.imgEastEighth h2, &.dir-ltr ul.imgEastEighth h3, &.dir-ltr ul.imgEastEighth h4, &.dir-ltr ul.imgEastEighth h5, &.dir-ltr ul.imgEastEighth ol, &.dir-ltr ul.imgEastEighth ul, &.dir-ltr ul.imgEastEighth>li>p, &.dir-ltr ul.imgEastEighth>p, &.dir-ltr ul.imgWestEighth h2, &.dir-ltr ul.imgWestEighth h3, &.dir-ltr ul.imgWestEighth h4, &.dir-ltr ul.imgWestEighth h5, &.dir-ltr ul.imgWestEighth ol, &.dir-ltr ul.imgWestEighth ul, &.dir-ltr ul.imgWestEighth>li>p, &.dir-ltr ul.imgWestEighth>p {
-      margin-left: calc(12.5% + 16px);
-    }
-    @media #{$desktop-only} {
-      &.dir-ltr div.imgEastEighth h2, &.dir-ltr div.imgEastEighth h3, &.dir-ltr div.imgEastEighth h4, &.dir-ltr div.imgEastEighth h5, &.dir-ltr div.imgEastEighth ol, &.dir-ltr div.imgEastEighth ul, &.dir-ltr div.imgEastEighth>li>p, &.dir-ltr div.imgEastEighth>p, &.dir-ltr div.imgWestEighth h2, &.dir-ltr div.imgWestEighth h3, &.dir-ltr div.imgWestEighth h4, &.dir-ltr div.imgWestEighth h5, &.dir-ltr div.imgWestEighth ol, &.dir-ltr div.imgWestEighth ul, &.dir-ltr div.imgWestEighth>li>p, &.dir-ltr div.imgWestEighth>p, &.dir-ltr ol.imgEastEighth h2, &.dir-ltr ol.imgEastEighth h3, &.dir-ltr ol.imgEastEighth h4, &.dir-ltr ol.imgEastEighth h5, &.dir-ltr ol.imgEastEighth ol, &.dir-ltr ol.imgEastEighth ul, &.dir-ltr ol.imgEastEighth>li>p, &.dir-ltr ol.imgEastEighth>p, &.dir-ltr ol.imgWestEighth h2, &.dir-ltr ol.imgWestEighth h3, &.dir-ltr ol.imgWestEighth h4, &.dir-ltr ol.imgWestEighth h5, &.dir-ltr ol.imgWestEighth ol, &.dir-ltr ol.imgWestEighth ul, &.dir-ltr ol.imgWestEighth>li>p, &.dir-ltr ol.imgWestEighth>p, &.dir-ltr ul.imgEastEighth h2, &.dir-ltr ul.imgEastEighth h3, &.dir-ltr ul.imgEastEighth h4, &.dir-ltr ul.imgEastEighth h5, &.dir-ltr ul.imgEastEighth ol, &.dir-ltr ul.imgEastEighth ul, &.dir-ltr ul.imgEastEighth>li>p, &.dir-ltr ul.imgEastEighth>p, &.dir-ltr ul.imgWestEighth h2, &.dir-ltr ul.imgWestEighth h3, &.dir-ltr ul.imgWestEighth h4, &.dir-ltr ul.imgWestEighth h5, &.dir-ltr ul.imgWestEighth ol, &.dir-ltr ul.imgWestEighth ul, &.dir-ltr ul.imgWestEighth>li>p, &.dir-ltr ul.imgWestEighth>p {
-        margin-left: calc(12.5% + 32px);
-      }
-    }
-    &.dir-rtl div.imgEastEighth h2, &.dir-rtl div.imgEastEighth h3, &.dir-rtl div.imgEastEighth h4, &.dir-rtl div.imgEastEighth h5, &.dir-rtl div.imgEastEighth ol, &.dir-rtl div.imgEastEighth ul, &.dir-rtl div.imgEastEighth>li>p, &.dir-rtl div.imgEastEighth>p, &.dir-rtl div.imgWestEighth h2, &.dir-rtl div.imgWestEighth h3, &.dir-rtl div.imgWestEighth h4, &.dir-rtl div.imgWestEighth h5, &.dir-rtl div.imgWestEighth ol, &.dir-rtl div.imgWestEighth ul, &.dir-rtl div.imgWestEighth>li>p, &.dir-rtl div.imgWestEighth>p, &.dir-rtl ol.imgEastEighth h2, &.dir-rtl ol.imgEastEighth h3, &.dir-rtl ol.imgEastEighth h4, &.dir-rtl ol.imgEastEighth h5, &.dir-rtl ol.imgEastEighth ol, &.dir-rtl ol.imgEastEighth ul, &.dir-rtl ol.imgEastEighth>li>p, &.dir-rtl ol.imgEastEighth>p, &.dir-rtl ol.imgWestEighth h2, &.dir-rtl ol.imgWestEighth h3, &.dir-rtl ol.imgWestEighth h4, &.dir-rtl ol.imgWestEighth h5, &.dir-rtl ol.imgWestEighth ol, &.dir-rtl ol.imgWestEighth ul, &.dir-rtl ol.imgWestEighth>li>p, &.dir-rtl ol.imgWestEighth>p, &.dir-rtl ul.imgEastEighth h2, &.dir-rtl ul.imgEastEighth h3, &.dir-rtl ul.imgEastEighth h4, &.dir-rtl ul.imgEastEighth h5, &.dir-rtl ul.imgEastEighth ol, &.dir-rtl ul.imgEastEighth ul, &.dir-rtl ul.imgEastEighth>li>p, &.dir-rtl ul.imgEastEighth>p, &.dir-rtl ul.imgWestEighth h2, &.dir-rtl ul.imgWestEighth h3, &.dir-rtl ul.imgWestEighth h4, &.dir-rtl ul.imgWestEighth h5, &.dir-rtl ul.imgWestEighth ol, &.dir-rtl ul.imgWestEighth ul, &.dir-rtl ul.imgWestEighth>li>p, &.dir-rtl ul.imgWestEighth>p {
-      margin-right: calc(12.5% + 16px);
-    }
-    @media #{$desktop-only} {
-      &.dir-rtl div.imgEastEighth h2, &.dir-rtl div.imgEastEighth h3, &.dir-rtl div.imgEastEighth h4, &.dir-rtl div.imgEastEighth h5, &.dir-rtl div.imgEastEighth ol, &.dir-rtl div.imgEastEighth ul, &.dir-rtl div.imgEastEighth>li>p, &.dir-rtl div.imgEastEighth>p, &.dir-rtl div.imgWestEighth h2, &.dir-rtl div.imgWestEighth h3, &.dir-rtl div.imgWestEighth h4, &.dir-rtl div.imgWestEighth h5, &.dir-rtl div.imgWestEighth ol, &.dir-rtl div.imgWestEighth ul, &.dir-rtl div.imgWestEighth>li>p, &.dir-rtl div.imgWestEighth>p, &.dir-rtl ol.imgEastEighth h2, &.dir-rtl ol.imgEastEighth h3, &.dir-rtl ol.imgEastEighth h4, &.dir-rtl ol.imgEastEighth h5, &.dir-rtl ol.imgEastEighth ol, &.dir-rtl ol.imgEastEighth ul, &.dir-rtl ol.imgEastEighth>li>p, &.dir-rtl ol.imgEastEighth>p, &.dir-rtl ol.imgWestEighth h2, &.dir-rtl ol.imgWestEighth h3, &.dir-rtl ol.imgWestEighth h4, &.dir-rtl ol.imgWestEighth h5, &.dir-rtl ol.imgWestEighth ol, &.dir-rtl ol.imgWestEighth ul, &.dir-rtl ol.imgWestEighth>li>p, &.dir-rtl ol.imgWestEighth>p, &.dir-rtl ul.imgEastEighth h2, &.dir-rtl ul.imgEastEighth h3, &.dir-rtl ul.imgEastEighth h4, &.dir-rtl ul.imgEastEighth h5, &.dir-rtl ul.imgEastEighth ol, &.dir-rtl ul.imgEastEighth ul, &.dir-rtl ul.imgEastEighth>li>p, &.dir-rtl ul.imgEastEighth>p, &.dir-rtl ul.imgWestEighth h2, &.dir-rtl ul.imgWestEighth h3, &.dir-rtl ul.imgWestEighth h4, &.dir-rtl ul.imgWestEighth h5, &.dir-rtl ul.imgWestEighth ol, &.dir-rtl ul.imgWestEighth ul, &.dir-rtl ul.imgWestEighth>li>p, &.dir-rtl ul.imgWestEighth>p {
-        margin-right: calc(12.5% + 32px);
-      }
-    }
-    &.dir-ltr ol.numberedDiagram.imgWestQuarter>li ul, &.dir-ltr ol.numberedDiagram.imgWestQuarter>li>p {
-      margin-left: calc(25% + 16px + 1.5em);
-    }
-    @media #{$desktop-only} {
-      &.dir-ltr ol.numberedDiagram.imgWestQuarter>li ul, &.dir-ltr ol.numberedDiagram.imgWestQuarter>li>p {
-        margin-left: calc(25% + 32px + 1.5em);
-      }
-    }
-    &.dir-rtl ol.numberedDiagram.imgWestQuarter>li ul, &.dir-rtl ol.numberedDiagram.imgWestQuarter>li>p {
-      margin-right: calc(25% + 16px + 1.5em);
-    }
-    @media #{$desktop-only} {
-      &.dir-rtl ol.numberedDiagram.imgWestQuarter>li ul, &.dir-rtl ol.numberedDiagram.imgWestQuarter>li>p {
-        margin-right: calc(25% + 32px + 1.5em);
-      }
-    }
-    &.dir-ltr ol.numberedDiagram.imgWestQuarter>li::before {
-      left: calc(25% + 16px);
-    }
-    @media #{$desktop-only} {
-      &.dir-ltr ol.numberedDiagram.imgWestQuarter>li::before {
-        left: calc(25% + 32px);
-      }
-    }
-    &.dir-rtl ol.numberedDiagram.imgWestQuarter>li::before {
-      right: calc(25% + 16px);
-    }
-    @media #{$desktop-only} {
-      &.dir-rtl ol.numberedDiagram.imgWestQuarter>li::before {
-        right: calc(25% + 32px);
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      ol.numberedDiagram {
-        padding-#{$s}: 0;
-      }
-    }
-    ol.numberedDiagram > li {
-      position: relative;
-      counter-increment: numbered-diagram-counter;
-      &::before {
-        display: block;
-        position: absolute;
-        top: .5em;
-        width: 1.5em;
-        height: 1.5em;
-        border-radius: 2em;
-        font-size: .69em;
-        font-weight: 700;
-        @include token(background-color, du-bgColor--bgEmphasized);
-        @include token(color, du-color--white);
-        content: counter(numbered-diagram-counter) " ";
-        line-height: 1.5em;
-        text-align: center;
-        a {
-          color: #9fb9e3;
-          &:visited {
-            color: #a9a7c9;
-          }
+      @media #{$desktop-only} {
+        div.imgEastQuarter h2, div.imgEastQuarter h3, div.imgEastQuarter h4, div.imgEastQuarter h5, div.imgEastQuarter ol, div.imgEastQuarter ul, div.imgEastQuarter > li > p, div.imgEastQuarter > p, div.imgWestQuarter h2, div.imgWestQuarter h3, div.imgWestQuarter h4, div.imgWestQuarter h5, div.imgWestQuarter ol, div.imgWestQuarter ul, div.imgWestQuarter > li > p, div.imgWestQuarter > p, ol.imgEastQuarter h2, ol.imgEastQuarter h3, ol.imgEastQuarter h4, ol.imgEastQuarter h5, ol.imgEastQuarter ol, ol.imgEastQuarter ul, ol.imgEastQuarter > li > p, ol.imgEastQuarter > p, ol.imgWestQuarter h2, ol.imgWestQuarter h3, ol.imgWestQuarter h4, ol.imgWestQuarter h5, ol.imgWestQuarter ol, ol.imgWestQuarter ul, ol.imgWestQuarter > li > p, ol.imgWestQuarter > p, ul.imgEastQuarter h2, ul.imgEastQuarter h3, ul.imgEastQuarter h4, ul.imgEastQuarter h5, ul.imgEastQuarter ol, ul.imgEastQuarter ul, ul.imgEastQuarter > li > p, ul.imgEastQuarter > p, ul.imgWestQuarter h2, ul.imgWestQuarter h3, ul.imgWestQuarter h4, ul.imgWestQuarter h5, ul.imgWestQuarter ol, ul.imgWestQuarter ul, ul.imgWestQuarter > li > p, ul.imgWestQuarter > p {
+          margin-left: calc(25% + 32px);
         }
       }
     }
-    @include bidi((left, right)) using ($s) {
-      ol.numberedDiagram>li>p {
-        margin-#{$s}: 1.5em;
+    &.dir-rtl {
+      div.imgEastQuarter h2, div.imgEastQuarter h3, div.imgEastQuarter h4, div.imgEastQuarter h5, div.imgEastQuarter ol, div.imgEastQuarter ul, div.imgEastQuarter > li > p, div.imgEastQuarter > p, div.imgWestQuarter h2, div.imgWestQuarter h3, div.imgWestQuarter h4, div.imgWestQuarter h5, div.imgWestQuarter ol, div.imgWestQuarter ul, div.imgWestQuarter > li > p, div.imgWestQuarter > p, ol.imgEastQuarter h2, ol.imgEastQuarter h3, ol.imgEastQuarter h4, ol.imgEastQuarter h5, ol.imgEastQuarter ol, ol.imgEastQuarter ul, ol.imgEastQuarter > li > p, ol.imgEastQuarter > p, ol.imgWestQuarter h2, ol.imgWestQuarter h3, ol.imgWestQuarter h4, ol.imgWestQuarter h5, ol.imgWestQuarter ol, ol.imgWestQuarter ul, ol.imgWestQuarter > li > p, ol.imgWestQuarter > p, ul.imgEastQuarter h2, ul.imgEastQuarter h3, ul.imgEastQuarter h4, ul.imgEastQuarter h5, ul.imgEastQuarter ol, ul.imgEastQuarter ul, ul.imgEastQuarter > li > p, ul.imgEastQuarter > p, ul.imgWestQuarter h2, ul.imgWestQuarter h3, ul.imgWestQuarter h4, ul.imgWestQuarter h5, ul.imgWestQuarter ol, ul.imgWestQuarter ul, ul.imgWestQuarter > li > p, ul.imgWestQuarter > p {
+        margin-right: calc(25% + 16px);
+      }
+      @media #{$desktop-only} {
+        div.imgEastQuarter h2, div.imgEastQuarter h3, div.imgEastQuarter h4, div.imgEastQuarter h5, div.imgEastQuarter ol, div.imgEastQuarter ul, div.imgEastQuarter > li > p, div.imgEastQuarter > p, div.imgWestQuarter h2, div.imgWestQuarter h3, div.imgWestQuarter h4, div.imgWestQuarter h5, div.imgWestQuarter ol, div.imgWestQuarter ul, div.imgWestQuarter > li > p, div.imgWestQuarter > p, ol.imgEastQuarter h2, ol.imgEastQuarter h3, ol.imgEastQuarter h4, ol.imgEastQuarter h5, ol.imgEastQuarter ol, ol.imgEastQuarter ul, ol.imgEastQuarter > li > p, ol.imgEastQuarter > p, ol.imgWestQuarter h2, ol.imgWestQuarter h3, ol.imgWestQuarter h4, ol.imgWestQuarter h5, ol.imgWestQuarter ol, ol.imgWestQuarter ul, ol.imgWestQuarter > li > p, ol.imgWestQuarter > p, ul.imgEastQuarter h2, ul.imgEastQuarter h3, ul.imgEastQuarter h4, ul.imgEastQuarter h5, ul.imgEastQuarter ol, ul.imgEastQuarter ul, ul.imgEastQuarter > li > p, ul.imgEastQuarter > p, ul.imgWestQuarter h2, ul.imgWestQuarter h3, ul.imgWestQuarter h4, ul.imgWestQuarter h5, ul.imgWestQuarter ol, ul.imgWestQuarter ul, ul.imgWestQuarter > li > p, ul.imgWestQuarter > p {
+          margin-right: calc(25% + 32px);
+        }
+      }
+    }
+    &.dir-ltr {
+      div.imgEastEighth h2, div.imgEastEighth h3, div.imgEastEighth h4, div.imgEastEighth h5, div.imgEastEighth ol, div.imgEastEighth ul, div.imgEastEighth > li > p, div.imgEastEighth > p, div.imgWestEighth h2, div.imgWestEighth h3, div.imgWestEighth h4, div.imgWestEighth h5, div.imgWestEighth ol, div.imgWestEighth ul, div.imgWestEighth > li > p, div.imgWestEighth > p, ol.imgEastEighth h2, ol.imgEastEighth h3, ol.imgEastEighth h4, ol.imgEastEighth h5, ol.imgEastEighth ol, ol.imgEastEighth ul, ol.imgEastEighth > li > p, ol.imgEastEighth > p, ol.imgWestEighth h2, ol.imgWestEighth h3, ol.imgWestEighth h4, ol.imgWestEighth h5, ol.imgWestEighth ol, ol.imgWestEighth ul, ol.imgWestEighth > li > p, ol.imgWestEighth > p, ul.imgEastEighth h2, ul.imgEastEighth h3, ul.imgEastEighth h4, ul.imgEastEighth h5, ul.imgEastEighth ol, ul.imgEastEighth ul, ul.imgEastEighth > li > p, ul.imgEastEighth > p, ul.imgWestEighth h2, ul.imgWestEighth h3, ul.imgWestEighth h4, ul.imgWestEighth h5, ul.imgWestEighth ol, ul.imgWestEighth ul, ul.imgWestEighth > li > p, ul.imgWestEighth > p {
+        margin-left: calc(12.5% + 16px);
+      }
+      @media #{$desktop-only} {
+        div.imgEastEighth h2, div.imgEastEighth h3, div.imgEastEighth h4, div.imgEastEighth h5, div.imgEastEighth ol, div.imgEastEighth ul, div.imgEastEighth > li > p, div.imgEastEighth > p, div.imgWestEighth h2, div.imgWestEighth h3, div.imgWestEighth h4, div.imgWestEighth h5, div.imgWestEighth ol, div.imgWestEighth ul, div.imgWestEighth > li > p, div.imgWestEighth > p, ol.imgEastEighth h2, ol.imgEastEighth h3, ol.imgEastEighth h4, ol.imgEastEighth h5, ol.imgEastEighth ol, ol.imgEastEighth ul, ol.imgEastEighth > li > p, ol.imgEastEighth > p, ol.imgWestEighth h2, ol.imgWestEighth h3, ol.imgWestEighth h4, ol.imgWestEighth h5, ol.imgWestEighth ol, ol.imgWestEighth ul, ol.imgWestEighth > li > p, ol.imgWestEighth > p, ul.imgEastEighth h2, ul.imgEastEighth h3, ul.imgEastEighth h4, ul.imgEastEighth h5, ul.imgEastEighth ol, ul.imgEastEighth ul, ul.imgEastEighth > li > p, ul.imgEastEighth > p, ul.imgWestEighth h2, ul.imgWestEighth h3, ul.imgWestEighth h4, ul.imgWestEighth h5, ul.imgWestEighth ol, ul.imgWestEighth ul, ul.imgWestEighth > li > p, ul.imgWestEighth > p {
+          margin-left: calc(12.5% + 32px);
+        }
+      }
+    }
+    &.dir-rtl {
+      div.imgEastEighth h2, div.imgEastEighth h3, div.imgEastEighth h4, div.imgEastEighth h5, div.imgEastEighth ol, div.imgEastEighth ul, div.imgEastEighth > li > p, div.imgEastEighth > p, div.imgWestEighth h2, div.imgWestEighth h3, div.imgWestEighth h4, div.imgWestEighth h5, div.imgWestEighth ol, div.imgWestEighth ul, div.imgWestEighth > li > p, div.imgWestEighth > p, ol.imgEastEighth h2, ol.imgEastEighth h3, ol.imgEastEighth h4, ol.imgEastEighth h5, ol.imgEastEighth ol, ol.imgEastEighth ul, ol.imgEastEighth > li > p, ol.imgEastEighth > p, ol.imgWestEighth h2, ol.imgWestEighth h3, ol.imgWestEighth h4, ol.imgWestEighth h5, ol.imgWestEighth ol, ol.imgWestEighth ul, ol.imgWestEighth > li > p, ol.imgWestEighth > p, ul.imgEastEighth h2, ul.imgEastEighth h3, ul.imgEastEighth h4, ul.imgEastEighth h5, ul.imgEastEighth ol, ul.imgEastEighth ul, ul.imgEastEighth > li > p, ul.imgEastEighth > p, ul.imgWestEighth h2, ul.imgWestEighth h3, ul.imgWestEighth h4, ul.imgWestEighth h5, ul.imgWestEighth ol, ul.imgWestEighth ul, ul.imgWestEighth > li > p, ul.imgWestEighth > p {
+        margin-right: calc(12.5% + 16px);
+      }
+      @media #{$desktop-only} {
+        div.imgEastEighth h2, div.imgEastEighth h3, div.imgEastEighth h4, div.imgEastEighth h5, div.imgEastEighth ol, div.imgEastEighth ul, div.imgEastEighth > li > p, div.imgEastEighth > p, div.imgWestEighth h2, div.imgWestEighth h3, div.imgWestEighth h4, div.imgWestEighth h5, div.imgWestEighth ol, div.imgWestEighth ul, div.imgWestEighth > li > p, div.imgWestEighth > p, ol.imgEastEighth h2, ol.imgEastEighth h3, ol.imgEastEighth h4, ol.imgEastEighth h5, ol.imgEastEighth ol, ol.imgEastEighth ul, ol.imgEastEighth > li > p, ol.imgEastEighth > p, ol.imgWestEighth h2, ol.imgWestEighth h3, ol.imgWestEighth h4, ol.imgWestEighth h5, ol.imgWestEighth ol, ol.imgWestEighth ul, ol.imgWestEighth > li > p, ol.imgWestEighth > p, ul.imgEastEighth h2, ul.imgEastEighth h3, ul.imgEastEighth h4, ul.imgEastEighth h5, ul.imgEastEighth ol, ul.imgEastEighth ul, ul.imgEastEighth > li > p, ul.imgEastEighth > p, ul.imgWestEighth h2, ul.imgWestEighth h3, ul.imgWestEighth h4, ul.imgWestEighth h5, ul.imgWestEighth ol, ul.imgWestEighth ul, ul.imgWestEighth > li > p, ul.imgWestEighth > p {
+          margin-right: calc(12.5% + 32px);
+        }
+      }
+    }
+    &.dir-ltr ol.numberedDiagram.imgWestQuarter > li {
+      ul, > p {
+        margin-left: calc(25% + 16px + 1.5em);
+      }
+      @media #{$desktop-only} {
+        ul, > p {
+          margin-left: calc(25% + 32px + 1.5em);
+        }
+      }
+    }
+    &.dir-rtl ol.numberedDiagram.imgWestQuarter > li {
+      ul, > p {
+        margin-right: calc(25% + 16px + 1.5em);
+      }
+      @media #{$desktop-only} {
+        ul, > p {
+          margin-right: calc(25% + 32px + 1.5em);
+        }
+      }
+    }
+    &.dir-ltr ol.numberedDiagram.imgWestQuarter > li::before {
+      left: calc(25% + 16px);
+      @media #{$desktop-only} {
+        left: calc(25% + 32px);
+      }
+    }
+    &.dir-rtl ol.numberedDiagram.imgWestQuarter > li::before {
+      right: calc(25% + 16px);
+      @media #{$desktop-only} {
+        right: calc(25% + 32px);
+      }
+    }
+    ol.numberedDiagram {
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 0;
+        }
+      }
+      > li {
+        position: relative;
+        counter-increment: numbered-diagram-counter;
+        &::before {
+          display: block;
+          position: absolute;
+          top: .5em;
+          width: 1.5em;
+          height: 1.5em;
+          border-radius: 2em;
+          font-size: .69em;
+          font-weight: 700;
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+          content: counter(numbered-diagram-counter) " ";
+          line-height: 1.5em;
+          text-align: center;
+          a {
+            color: #9fb9e3;
+            &:visited {
+              color: #a9a7c9;
+            }
+          }
+        }
+        @include bidi((left, right)) using ($s) {
+          > p {
+            margin-#{$s}: 1.5em;
+          }
+        }
       }
     }
     p {
@@ -461,20 +487,20 @@
       font-size: 13px;
       letter-spacing: normal;
       @include token(color, du-color--textSubdued);
-    }
-    @include bidi((left, right)) using ($s) {
-      .pageNum {
-        text-align: #{$s};
-        float: #{flip($s)};
+      @include bidi((left, right)) using ($s) {
+        & {
+          text-align: #{$s};
+          float: #{flip($s)};
+        }
       }
-    }
-    .pageNum::after {
-      content: attr(data-before-text);
-      position: relative;
-    }
-    @include bidi((left, right)) using ($s) {
-      .pageNum::after {
-        #{flip($s)}: -10px;
+      &::after {
+        content: attr(data-before-text);
+        position: relative;
+        @include bidi((left, right)) using ($s) {
+          & {
+            #{flip($s)}: -10px;
+          }
+        }
       }
     }
     &.pub-bi12, &.pub-bi7, &.pub-igw, &.pub-nwt, &.pub-nwths, &.pub-sgd {
@@ -510,16 +536,14 @@
       margin-left: 0;
       margin-top: 40px;
       padding-top: 40px;
-    }
-    @include bidi((left, right)) using ($s) {
-      ol.timeline {
-        padding-#{$s}: 0;
-        border-#{$s}-width: 9px;
-        border-#{$s}-style: solid;
-        border-#{$s}-color: #ebebeb;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 0;
+          border-#{$s}-width: 9px;
+          border-#{$s}-style: solid;
+          border-#{$s}-color: #ebebeb;
+        }
       }
-    }
-    ol.timeline {
       h3, p {
         margin: .25em 0;
       }
@@ -529,47 +553,41 @@
         min-height: 3em;
         padding-bottom: .5em;
         list-style-type: none;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      ol.timeline>li {
-        padding-#{$s}: 32px;
-      }
-    }
-    ol.timeline > li {
-      &::after, &::before {
-        content: "";
-        position: absolute;
-        top: calc(.75em + 1px);
-      }
-      &::before {
-        width: 9px;
-        height: 9px;
-        display: inline-block;
-        background-color: #9e9b9a;
-        margin-top: -4px;
-        border-radius: 9px;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      ol.timeline>li::before {
-        #{$s}: -9px;
-      }
-    }
-    ol.timeline>li::after {
-      width: 20px;
-      height: 1px;
-      border-top-color: #c5c3c2;
-      border-top-width: 1px;
-      border-top-style: solid;
-    }
-    @include bidi((left, right)) using ($s) {
-      ol.timeline>li::after {
-        #{$s}: 0;
-      }
-    }
-    ol.timeline {
-       > li {
+        @include bidi((left, right)) using ($s) {
+          & {
+            padding-#{$s}: 32px;
+          }
+        }
+        &::after, &::before {
+          content: "";
+          position: absolute;
+          top: calc(.75em + 1px);
+        }
+        &::before {
+          width: 9px;
+          height: 9px;
+          display: inline-block;
+          background-color: #9e9b9a;
+          margin-top: -4px;
+          border-radius: 9px;
+          @include bidi((left, right)) using ($s) {
+            & {
+              #{$s}: -9px;
+            }
+          }
+        }
+        &::after {
+          width: 20px;
+          height: 1px;
+          border-top-color: #c5c3c2;
+          border-top-width: 1px;
+          border-top-style: solid;
+          @include bidi((left, right)) using ($s) {
+            & {
+              #{$s}: 0;
+            }
+          }
+        }
         &.timeCirca::after {
           border-top-width: 1px;
           border-top-style: dashed;
@@ -588,53 +606,49 @@
         padding-bottom: 1em;
         position: absolute;
         bottom: -9em;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      ol.timeline li.timeline-bigFinish {
-        #{$s}: -32px;
-      }
-    }
-    ol.timeline {
-      li.timeline-bigFinish h4 {
-        font-size: 1.75em;
-        font-weight: 700;
+        @include bidi((left, right)) using ($s) {
+          & {
+            #{$s}: -32px;
+          }
+        }
+        h4 {
+          font-size: 1.75em;
+          font-weight: 700;
+        }
       }
       &.arrowCap {
         position: relative;
         margin-left: 16px;
         margin-right: 16px;
         margin-bottom: 40px;
+        @media #{$desktop} {
+          margin-left: 32px;
+          margin-right: 32px;
+        }
+        &::after {
+          position: absolute;
+          content: "";
+          height: 0;
+          width: 0;
+          border-top-color: #ebebeb;
+          border-top-width: 20px;
+          border-right-style: inset;
+          border-right-width: 20px;
+          border-right-color: transparent;
+          border-left-style: inset;
+          border-left-width: 20px;
+          border-left-color: transparent;
+          border-top-style: solid;
+          @include bidi((left, right)) using ($s) {
+            & {
+              #{$s}: -25px;
+            }
+          }
+        }
       }
-    }
-    @media #{$desktop} {
-      ol.timeline.arrowCap {
-        margin-left: 32px;
-        margin-right: 32px;
+      ol.timeline {
+        margin-top: 0;
       }
-    }
-    ol.timeline.arrowCap::after {
-      position: absolute;
-      content: "";
-      height: 0;
-      width: 0;
-      border-top-color: #ebebeb;
-      border-top-width: 20px;
-      border-right-style: inset;
-      border-right-width: 20px;
-      border-right-color: transparent;
-      border-left-style: inset;
-      border-left-width: 20px;
-      border-left-color: transparent;
-      border-top-style: solid;
-    }
-    @include bidi((left, right)) using ($s) {
-      ol.timeline.arrowCap::after {
-        #{$s}: -25px;
-      }
-    }
-    ol.timeline ol.timeline {
-      margin-top: 0;
     }
     &.dir-ltr ol.timeline ol.timeline {
       border-left-width: 0;
@@ -653,24 +667,26 @@
       &::after {
         width: 50px;
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      ol.timeline ol.timeline li {
-        padding-#{$s}: 64px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 64px;
+        }
       }
     }
     .figcaption {
       margin-top: 12px;
       margin-bottom: 12px;
     }
-    .boxSupplement .fullBleed .figcaption, .boxSupplement .fullBleed .imgCredit {
-      margin-left: 16px;
-      margin-right: 16px;
-    }
-    @media #{$desktop} {
-      .boxSupplement .fullBleed .figcaption, .boxSupplement .fullBleed .imgCredit {
-        margin-left: 32px;
-        margin-right: 32px;
+    .boxSupplement .fullBleed {
+      .figcaption, .imgCredit {
+        margin-left: 16px;
+        margin-right: 16px;
+      }
+      @media #{$desktop} {
+        .figcaption, .imgCredit {
+          margin-left: 32px;
+          margin-right: 32px;
+        }
       }
     }
     figcaption {
@@ -699,12 +715,12 @@
         &.emphasized th {
           @include token(background-color, du-bgColor--bgEmphasized);
           @include token(color, du-color--white);
-        }
-        &.emphasized th a {
-          color: #9fb9e3;
-        }
-        &.emphasized th a:visited {
-          color: #a9a7c9;
+          a {
+            color: #9fb9e3;
+            &:visited {
+              color: #a9a7c9;
+            }
+          }
         }
         &.shaded {
           th {
@@ -735,18 +751,20 @@
       &.rowStripe tr:nth-child(2n), &.stripe tr:nth-child(2n) {
         @include token(background-color, du-bgColor--bgSecondary);
       }
-      &.gridlines th, &.gridlines thead tr {
-        @include token(background-color, du-bgColor--bgEmphasized);
-        @include token(color, du-color--white);
-      }
-      &.gridlines th a, &.gridlines thead tr a {
-        color: #9fb9e3;
-      }
-      &.gridlines th a:visited, &.gridlines thead tr a:visited {
-        color: #a9a7c9;
-      }
-      &.gridlines td.shaded {
-        @include token(background-color, du-bgColor--bgSecondary);
+      &.gridlines {
+        th, thead tr {
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+        }
+        th a, thead tr a {
+          color: #9fb9e3;
+        }
+        th a:visited, thead tr a:visited {
+          color: #a9a7c9;
+        }
+        td.shaded {
+          @include token(background-color, du-bgColor--bgSecondary);
+        }
       }
       &.columnStripe {
         th, thead tr {
@@ -763,39 +781,39 @@
           @include token(background-color, du-bgColor--bgSecondary);
         }
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      .tableDiv.columnBorder td, .tableDiv.columnBorder th {
-        border-#{$s}-width: 1px;
+      &.columnBorder {
+        @include bidi((left, right)) using ($s) {
+          td, th {
+            border-#{$s}-width: 1px;
+          }
+        }
+        @include bidi((left, right)) using ($s) {
+          td, th {
+            border-#{$s}-style: solid;
+          }
+        }
+        @include bidi((left, right)) using ($s) {
+          td, th {
+            border-#{$s}-color: #a7a7a7;
+          }
+        }
+        @include bidi((left, right)) using ($s) {
+          td:first-child, th:first-child {
+            border-#{$s}-style: none;
+          }
+        }
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      .tableDiv.columnBorder td, .tableDiv.columnBorder th {
-        border-#{$s}-style: solid;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      .tableDiv.columnBorder td, .tableDiv.columnBorder th {
-        border-#{$s}-color: #a7a7a7;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      .tableDiv.columnBorder td:first-child, .tableDiv.columnBorder th:first-child {
-        border-#{$s}-style: none;
-      }
-    }
-    .tableDiv.full table {
-      width: 100%;
-    }
-    @media #{$mobile-only} {
-      .tableDiv.half {
+      &.full table {
         width: 100%;
-        max-width: 100%;
       }
-    }
-    .tableDiv {
-      &.half table {
-        width: 100%;
+      &.half {
+        @media #{$mobile-only} {
+          width: 100%;
+          max-width: 100%;
+        }
+        table {
+          width: 100%;
+        }
       }
       &.wide {
         position: relative;
@@ -803,13 +821,11 @@
         > * {
           min-width: 650px;
           max-width: 750px;
+          @media #{$desktop-only} {
+            min-width: 750px;
+            max-width: 960px;
+          }
         }
-      }
-    }
-    @media #{$desktop-only} {
-      .tableDiv.wide>* {
-        min-width: 750px;
-        max-width: 960px;
       }
     }
   }
@@ -828,88 +844,88 @@
       > :last-child:not(aside), > aside:first-child > :last-child {
         margin-bottom: 8px;
       }
-    }
-    @media #{$desktop} {
-      .mapElement>:last-child:not(aside), .mapElement>aside:first-child>:last-child {
-        margin-bottom: 16px;
-      }
-    }
-    .closingContent.dashed, .closingContent.rule {
-      padding-top: 16px;
-      padding-bottom: 16px;
-      padding-left: 16px;
-      padding-right: 16px;
-    }
-    @media #{$desktop} {
-      .closingContent.dashed, .closingContent.rule {
-        padding-left: 32px;
-        padding-right: 32px;
+      @media #{$desktop} {
+        > :last-child:not(aside), > aside:first-child > :last-child {
+          margin-bottom: 16px;
+        }
       }
     }
     .closingContent {
+      &.dashed, &.rule {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      @media #{$desktop} {
+        &.dashed, &.rule {
+          padding-left: 32px;
+          padding-right: 32px;
+        }
+      }
       &.dashed > :first-child, &.rule > :first-child {
         margin-top: 0;
       }
       &.dashed > :last-child, &.rule > :last-child {
         margin-bottom: 8px;
       }
-    }
-    @media #{$desktop} {
-      .closingContent.dashed>:last-child, .closingContent.rule>:last-child {
-        margin-bottom: 16px;
+      @media #{$desktop} {
+        &.dashed > :last-child, &.rule > :last-child {
+          margin-bottom: 16px;
+        }
       }
-    }
-    .closingContent.dashed .boxTtl, .closingContent.rule .boxTtl {
-      margin-top: -16px;
-      margin-left: -16px;
-      margin-right: -16px;
-    }
-    @media #{$desktop} {
-      .closingContent.dashed .boxTtl, .closingContent.rule .boxTtl {
-        margin-left: -32px;
-        margin-right: -32px;
+      &.dashed .boxTtl, &.rule .boxTtl {
+        margin-top: -16px;
+        margin-left: -16px;
+        margin-right: -16px;
       }
-    }
-    .closingContent.dashed .boxSubTtl, .closingContent.rule .boxSubTtl {
-      margin-left: -16px;
-      margin-right: -16px;
-    }
-    @media #{$desktop} {
-      .closingContent.dashed .boxSubTtl, .closingContent.rule .boxSubTtl {
-        margin-left: -32px;
-        margin-right: -32px;
+      @media #{$desktop} {
+        &.dashed .boxTtl, &.rule .boxTtl {
+          margin-left: -32px;
+          margin-right: -32px;
+        }
       }
-    }
-    .closingContent.dashed .boxContent, .closingContent.rule .boxContent {
-      margin-bottom: -16px;
-      margin-left: -16px;
-      margin-right: -16px;
-    }
-    @media #{$desktop} {
-      .closingContent.dashed .boxContent, .closingContent.rule .boxContent {
-        margin-left: -32px;
-        margin-right: -32px;
+      &.dashed .boxSubTtl, &.rule .boxSubTtl {
+        margin-left: -16px;
+        margin-right: -16px;
       }
-    }
-    .closingContent:not(.rule):not(.dashed) {
-      .boxTtl {
-        border-top-style: solid;
-        border-right-style: solid;
-        border-left-style: solid;
-        border-width: 1px;
-        border-color: #a7a7a7;
-        + .boxContent {
+      @media #{$desktop} {
+        &.dashed .boxSubTtl, &.rule .boxSubTtl {
+          margin-left: -32px;
+          margin-right: -32px;
+        }
+      }
+      &.dashed .boxContent, &.rule .boxContent {
+        margin-bottom: -16px;
+        margin-left: -16px;
+        margin-right: -16px;
+      }
+      @media #{$desktop} {
+        &.dashed .boxContent, &.rule .boxContent {
+          margin-left: -32px;
+          margin-right: -32px;
+        }
+      }
+      &:not(.rule):not(.dashed) {
+        .boxTtl {
+          border-top-style: solid;
           border-right-style: solid;
-          border-bottom-style: solid;
           border-left-style: solid;
           border-width: 1px;
           border-color: #a7a7a7;
+          + .boxContent {
+            border-right-style: solid;
+            border-bottom-style: solid;
+            border-left-style: solid;
+            border-width: 1px;
+            border-color: #a7a7a7;
+          }
         }
-      }
-      > .boxContent:first-child {
-        border-top-style: solid;
-        border-width: 1px;
-        border-color: #a7a7a7;
+        > .boxContent:first-child {
+          border-top-style: solid;
+          border-width: 1px;
+          border-color: #a7a7a7;
+        }
       }
     }
     .diagram {
@@ -929,10 +945,10 @@
       > :last-child:not(aside), > aside:first-child > :last-child {
         margin-bottom: 8px;
       }
-    }
-    @media #{$desktop} {
-      .diagram>:last-child:not(aside), .diagram>aside:first-child>:last-child {
-        margin-bottom: 16px;
+      @media #{$desktop} {
+        > :last-child:not(aside), > aside:first-child > :last-child {
+          margin-bottom: 16px;
+        }
       }
     }
     .chart {
@@ -943,10 +959,10 @@
       > :last-child:not(aside), > aside:first-child > :last-child {
         margin-bottom: 8px;
       }
-    }
-    @media #{$desktop} {
-      .chart>:last-child:not(aside), .chart>aside:first-child>:last-child {
-        margin-bottom: 16px;
+      @media #{$desktop} {
+        > :last-child:not(aside), > aside:first-child > :last-child {
+          margin-bottom: 16px;
+        }
       }
     }
     .blockTeach, .boxSupplement, .chart, .closingContent, .diagram, .mapElement {
@@ -1031,10 +1047,10 @@
     }
     .sa {
       font-size: 1.21em;
-    }
-    @include bidi((left, right)) using ($s) {
-      .sa {
-        margin-#{$s}: 24px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          margin-#{$s}: 24px;
+        }
       }
     }
     @include bidi((left, right)) using ($s) {
@@ -1042,12 +1058,12 @@
         margin-#{$s}: 0;
       }
     }
-    ul li>p.sa {
+    ul li > p.sa {
       font-size: 1em;
-    }
-    @include bidi((left, right)) using ($s) {
-      ul li>p.sa {
-        margin-#{$s}: 0;
+      @include bidi((left, right)) using ($s) {
+        & {
+          margin-#{$s}: 0;
+        }
       }
     }
     .sc, .sc>*, .sd, .sd>*, .se, .se>* {
@@ -1067,10 +1083,10 @@
     .si {
       margin-top: .5em;
       margin-bottom: .5em;
-    }
-    @include bidi((left, right)) using ($s) {
-      .si {
-        margin-#{$s}: 40px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          margin-#{$s}: 40px;
+        }
       }
     }
     @include bidi((left, right)) using ($s) {
@@ -1091,10 +1107,10 @@
     }
     .sl {
       text-indent: -40px;
-    }
-    @include bidi((left, right)) using ($s) {
-      .sl {
-        padding-#{$s}: 40px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 40px;
+        }
       }
     }
     .sm, .sm>*, .sn, .sn>*, .so, .so>* {
@@ -1102,14 +1118,14 @@
     }
     .sp {
       text-indent: -20px;
-    }
-    @include bidi((left, right)) using ($s) {
-      .sp {
-        padding-#{$s}: 40px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 40px;
+        }
       }
-    }
-    .sp>* {
-      text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
     }
     .sq {
       border-top-width: 1px;
@@ -1146,65 +1162,65 @@
       margin-top: .5em;
       margin-bottom: .5em;
       text-indent: -20px;
-    }
-    @include bidi((left, right)) using ($s) {
-      .su {
-        padding-#{$s}: 20px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 20px;
+        }
       }
-    }
-    .su>* {
-      text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
     }
     .sv {
       margin-top: .5em;
       margin-bottom: .5em;
       text-indent: -30px;
-    }
-    @include bidi((left, right)) using ($s) {
-      .sv {
-        padding-#{$s}: 80px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 80px;
+        }
       }
-    }
-    .sv>* {
-      text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
     }
     .sx {
       margin-top: .5em;
       margin-bottom: .5em;
       text-indent: -20px;
-    }
-    @include bidi((left, right)) using ($s) {
-      .sx {
-        padding-#{$s}: 20px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 20px;
+        }
       }
-    }
-    .sx>* {
-      text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
     }
     .sy {
       margin-top: .5em;
       margin-bottom: .5em;
       text-indent: -30px;
-    }
-    @include bidi((left, right)) using ($s) {
-      .sy {
-        padding-#{$s}: 80px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 80px;
+        }
       }
-    }
-    .sy>* {
-      text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
     }
     .sz {
       text-indent: -20px;
-    }
-    @include bidi((left, right)) using ($s) {
-      .sz {
-        padding-#{$s}: 20px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 20px;
+        }
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      .sz {
-        margin-#{$s}: 48px;
+      @include bidi((left, right)) using ($s) {
+        & {
+          margin-#{$s}: 48px;
+        }
       }
     }
     .s1, .s2, .s3, .s4 {
@@ -1337,8 +1353,10 @@
       margin-bottom: 1px;
       line-height: 3;
     }
-    &.showRuby.ms-CHINESE .qu ruby, &.showRuby.ms-CHINESE .w_question {
-      font-size: 1.21em;
+    &.showRuby.ms-CHINESE {
+      .qu ruby, .w_question {
+        font-size: 1.21em;
+      }
     }
     @at-root body.noJS.ms-CHINESE #{$root} .qu ruby, body.noJS.ms-CHINESE #{$root} .w_question {
       font-size: 1.21em;
@@ -1406,50 +1424,50 @@
         }
       }
     }
-    .treasures--rev2021.mwbHeadingIcon {
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      h1, h2, h3, h4, h5, h6, > p {
-        margin: 0;
-      }
-      &::before {
-        content: "\e720";
-        font-family: jw-icons-all;
-        speak: none;
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 400;
-        font-variant: normal;
-        text-transform: none;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        display: -webkit-inline-box;
-        display: inline-flex;
-        font-size: inherit;
-        @include token(color, du-color--white);
-        font-size: 40px;
-        line-height: 40px;
+    .treasures--rev2021 {
+      &.mwbHeadingIcon {
         display: -webkit-box;
         display: flex;
         -webkit-box-align: center;
         align-items: center;
-        -webkit-box-pack: center;
-        justify-content: center;
-        -webkit-box-flex: 0;
-        flex: 0 0 auto;
-        height: 56px;
-        width: 56px;
+        h1, h2, h3, h4, h5, h6, > p {
+          margin: 0;
+        }
+        &::before {
+          content: "\e720";
+          font-family: jw-icons-all;
+          speak: none;
+          font-size: 24px;
+          font-style: normal;
+          font-weight: 400;
+          font-variant: normal;
+          text-transform: none;
+          line-height: 1;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          display: -webkit-inline-box;
+          display: inline-flex;
+          font-size: inherit;
+          @include token(color, du-color--white);
+          font-size: 40px;
+          line-height: 40px;
+          display: -webkit-box;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          -webkit-box-flex: 0;
+          flex: 0 0 auto;
+          height: 56px;
+          width: 56px;
+          @include bidi((left, right)) using ($s) {
+            & {
+              margin-#{flip($s)}: 16px;
+            }
+          }
+        }
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      .treasures--rev2021.mwbHeadingIcon::before {
-        margin-#{flip($s)}: 16px;
-      }
-    }
-    .treasures--rev2021 {
       h1, h2, h3, h4, h5, h6, > p {
         @include themed(color, du-color--gray-600, #626262);
       }
@@ -1457,50 +1475,50 @@
         background-color: #626262;
       }
     }
-    .ministry--rev2021.mwbHeadingIcon {
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      h1, h2, h3, h4, h5, h6, > p {
-        margin: 0;
-      }
-      &::before {
-        content: "\e898";
-        font-family: jw-icons-all;
-        speak: none;
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 400;
-        font-variant: normal;
-        text-transform: none;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        display: -webkit-inline-box;
-        display: inline-flex;
-        font-size: inherit;
-        @include token(color, du-color--white);
-        font-size: 40px;
-        line-height: 40px;
+    .ministry--rev2021 {
+      &.mwbHeadingIcon {
         display: -webkit-box;
         display: flex;
         -webkit-box-align: center;
         align-items: center;
-        -webkit-box-pack: center;
-        justify-content: center;
-        -webkit-box-flex: 0;
-        flex: 0 0 auto;
-        height: 56px;
-        width: 56px;
+        h1, h2, h3, h4, h5, h6, > p {
+          margin: 0;
+        }
+        &::before {
+          content: "\e898";
+          font-family: jw-icons-all;
+          speak: none;
+          font-size: 24px;
+          font-style: normal;
+          font-weight: 400;
+          font-variant: normal;
+          text-transform: none;
+          line-height: 1;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          display: -webkit-inline-box;
+          display: inline-flex;
+          font-size: inherit;
+          @include token(color, du-color--white);
+          font-size: 40px;
+          line-height: 40px;
+          display: -webkit-box;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          -webkit-box-flex: 0;
+          flex: 0 0 auto;
+          height: 56px;
+          width: 56px;
+          @include bidi((left, right)) using ($s) {
+            & {
+              margin-#{flip($s)}: 16px;
+            }
+          }
+        }
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      .ministry--rev2021.mwbHeadingIcon::before {
-        margin-#{flip($s)}: 16px;
-      }
-    }
-    .ministry--rev2021 {
       h1, h2, h3, h4, h5, h6, > p {
         @include themed(color, du-color--amber-700, #9d5d07);
       }
@@ -1544,11 +1562,11 @@
         flex: 0 0 auto;
         height: 56px;
         width: 56px;
-      }
-    }
-    @include bidi((left, right)) using ($s) {
-      .christianLiving--rev2021.mwbHeadingIcon::before {
-        margin-#{flip($s)}: 16px;
+        @include bidi((left, right)) using ($s) {
+          & {
+            margin-#{flip($s)}: 16px;
+          }
+        }
       }
     }
     &.dir-rtl .christianLiving--rev2021.mwbHeadingIcon::before {
@@ -1601,33 +1619,37 @@
 
 @mixin part-14 {
   @include jwac {
-    @include bidi((left, right)) using ($s) {
-      .verse .style-b+.parabreak+.style-b, .verse .style-b.first {
-        padding-#{$s}: 1em;
+    .verse {
+      .style-b {
+        @include bidi((left, right)) using ($s) {
+          + .parabreak + .style-b, &.first {
+            padding-#{$s}: 1em;
+          }
+        }
       }
-    }
-    .verse .style-l {
-      display: block;
-      text-indent: -3em;
-    }
-    @include bidi((left, right)) using ($s) {
-      .verse .style-l {
-        padding-#{$s}: 3em;
+      .style-l {
+        display: block;
+        text-indent: -3em;
+        @include bidi((left, right)) using ($s) {
+          & {
+            padding-#{$s}: 3em;
+          }
+        }
       }
-    }
-    .verse .style-z {
-      display: block;
-      margin: .2em 1em;
-      text-indent: -1em;
-    }
-    @include bidi((left, right)) using ($s) {
-      .verse .style-z {
-        padding-#{$s}: 2.5em;
+      .style-z {
+        display: block;
+        margin: .2em 1em;
+        text-indent: -1em;
+        @include bidi((left, right)) using ($s) {
+          & {
+            padding-#{$s}: 2.5em;
+          }
+        }
       }
-    }
-    .verse .style-p {
-      display: block;
-      text-indent: -2.5em;
+      .style-p {
+        display: block;
+        text-indent: -2.5em;
+      }
     }
     &.dir-ltr .verse .style-p {
       padding-left: 4em;
@@ -1782,9 +1804,9 @@
       }
       &.highlight.addHighlight {
         @include token(color, jwac-footnote-link-color--addHighlight);
-      }
-      &.highlight.addHighlight::after {
-        @include token(opacity, jwac-footnote-opacity--addHighlight);
+        &::after {
+          @include token(opacity, jwac-footnote-opacity--addHighlight);
+        }
       }
       &:visited {
         @include token(color, ds-link-color);
@@ -1814,9 +1836,9 @@
       }
       &.highlight.addHighlight {
         @include token(color, jwac-footnote-link-color--addHighlight);
-      }
-      &.highlight.addHighlight::after {
-        @include token(opacity, jwac-footnote-opacity--addHighlight);
+        &::after {
+          @include token(opacity, jwac-footnote-opacity--addHighlight);
+        }
       }
       &:visited {
         @include token(color, ds-link-color);
@@ -1849,9 +1871,9 @@
       }
       &.highlight.addHighlight {
         @include token(color, jwac-footnote-link-color--addHighlight);
-      }
-      &.highlight.addHighlight::after {
-        @include token(opacity, jwac-footnote-opacity--addHighlight);
+        &::after {
+          @include token(opacity, jwac-footnote-opacity--addHighlight);
+        }
       }
       &:visited {
         @include token(color, ds-link-color);
@@ -2040,25 +2062,25 @@
         content: "​";
         position: absolute;
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      ul.dl {
-        padding-#{$s}: 0;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{$s}: 0;
+        }
       }
     }
     .ftnGlossaryTerm h3.inline {
       margin: 0;
       font-size: 1em;
       line-height: inherit;
-    }
-    @include bidi((left, right)) using ($s) {
-      .ftnGlossaryTerm h3.inline {
-        float: #{$s};
+      @include bidi((left, right)) using ($s) {
+        & {
+          float: #{$s};
+        }
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      .ftnGlossaryTerm h3.inline {
-        padding-#{flip($s)}: .25em;
+      @include bidi((left, right)) using ($s) {
+        & {
+          padding-#{flip($s)}: .25em;
+        }
       }
     }
     &.docId-1001061220 .boxContent ul.noMarker .west_left, &.docId-1001070220 .boxContent ul.noMarker .west_left, &.docId-1102013694 .boxContent ul.noMarker .west_left {
@@ -2070,15 +2092,17 @@
     &.docId-1001061220.dir-rtl .boxContent ul.noMarker .source, &.docId-1001070220.dir-rtl .boxContent ul.noMarker .source, &.docId-1102013694.dir-rtl .boxContent ul.noMarker .source {
       margin-right: 64px;
     }
-    .jwac-textHighlight, .jwac-textHighlight ruby {
-      text-underline-offset: .4ex;
-      -webkit-text-decoration-style: dotted;
-      text-decoration-style: dotted;
-      -webkit-text-decoration-line: underline;
-      text-decoration-line: underline;
-      text-decoration-thickness: 1px;
-      -webkit-text-decoration-color: #8e8e8e;
-      text-decoration-color: #8e8e8e;
+    .jwac-textHighlight {
+      &, ruby {
+        text-underline-offset: .4ex;
+        -webkit-text-decoration-style: dotted;
+        text-decoration-style: dotted;
+        -webkit-text-decoration-line: underline;
+        text-decoration-line: underline;
+        text-decoration-thickness: 1px;
+        -webkit-text-decoration-color: #8e8e8e;
+        text-decoration-color: #8e8e8e;
+      }
     }
   }
 }
@@ -2089,7 +2113,7 @@
       summary::-webkit-details-marker {
         display: none;
       }
-       > summary {
+      > summary {
         list-style: none;
         cursor: pointer;
         &::before {
@@ -2141,8 +2165,10 @@
     table .pageNum {
       display: none!important;
     }
-    a, a:visited {
-      color: #2878bb;
+    a {
+      &, &:visited {
+        color: #2878bb;
+      }
     }
   }
 }
@@ -2157,13 +2183,15 @@
 
 @mixin part-20 {
   @include jwac {
-    .footnoteResult .groupEndnote, .footnoteResult .groupFootnote {
-      display: block;
-      color: inherit;
-      border: none;
-      font-size: 1em;
-      margin: 0;
-      padding: 0;
+    .footnoteResult {
+      .groupEndnote, .groupFootnote {
+        display: block;
+        color: inherit;
+        border: none;
+        font-size: 1em;
+        margin: 0;
+        padding: 0;
+      }
     }
     @at-root .tooltipContent #{$root} .groupEndnote, .tooltipContent #{$root} .groupFootnote {
       display: block;
@@ -2184,11 +2212,15 @@
     @at-root .dir-rtl #{$root}.pub-nwt .contextTtl .pageNum::after {
       padding-left: 16px;
     }
-    .clearfix::after, .clearfix::before {
-      max-width: 0;
+    .clearfix {
+      &::after, &::before {
+        max-width: 0;
+      }
     }
-    &.pub-int .hl rt, &.pub-int .hl ruby {
-      color: inherit;
+    &.pub-int .hl {
+      rt, ruby {
+        color: inherit;
+      }
     }
     @at-root #searchResultsForm .searchResult#{$root}.pub-lff, #searchResultsForm .searchResult#{$root}.pub-lffi {
       background: 0 0;

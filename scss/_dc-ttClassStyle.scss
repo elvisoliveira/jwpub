@@ -9,9 +9,7 @@
       padding-bottom: 8px;
       padding-left: 16px;
       padding-right: 16px;
-    }
-    @media #{$desktop} {
-      .boxTtl:not(.dc-ttClassStyle--unset) {
+      @media #{$desktop} {
         padding-left: 32px;
         padding-right: 32px;
       }
@@ -21,16 +19,14 @@
       padding-bottom: 8px;
       padding-left: 16px;
       padding-right: 16px;
-    }
-    @media #{$desktop} {
-      .boxSubTtl:not(.dc-ttClassStyle--unset) {
+      @media #{$desktop} {
         padding-left: 32px;
         padding-right: 32px;
       }
-    }
-    .boxSubTtl:not(.dc-ttClassStyle--unset) p {
-      margin-top: 0;
-      margin-bottom: 0;
+      p {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
     }
     .boxSubTtl:not(.dc-ttClassStyle--unset) h2, .boxSubTtl:not(.dc-ttClassStyle--unset) h3, .boxSubTtl:not(.dc-ttClassStyle--unset) h4, .boxSubTtl:not(.dc-ttClassStyle--unset) h5, .boxSubTtl:not(.dc-ttClassStyle--unset) h6, .boxTtl:not(.dc-ttClassStyle--unset) h2, .boxTtl:not(.dc-ttClassStyle--unset) h3, .boxTtl:not(.dc-ttClassStyle--unset) h4, .boxTtl:not(.dc-ttClassStyle--unset) h5, .boxTtl:not(.dc-ttClassStyle--unset) h6 {
       margin: 0;
@@ -55,27 +51,19 @@
       padding-bottom: 16px;
       padding-left: 16px;
       padding-right: 16px;
-    }
-    @media #{$desktop} {
-      .boxContent:not(.dc-ttClassStyle--unset) {
+      @media #{$desktop} {
         padding-left: 32px;
         padding-right: 32px;
       }
-    }
-    .boxContent:not(.dc-ttClassStyle--unset) {
       > :first-child {
         margin-top: 0;
       }
       > :last-child {
         margin-bottom: 8px;
+        @media #{$desktop} {
+          margin-bottom: 16px;
+        }
       }
-    }
-    @media #{$desktop} {
-      .boxContent:not(.dc-ttClassStyle--unset)>:last-child {
-        margin-bottom: 16px;
-      }
-    }
-    .boxContent:not(.dc-ttClassStyle--unset) {
       &::after, &::before {
         content: " ";
         display: table;
@@ -83,20 +71,18 @@
       &::after {
         clear: both;
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      .boxContent:not(.dc-ttClassStyle--unset) .noMarker {
-        padding-#{$s}: 0;
+      @include bidi((left, right)) using ($s) {
+        .noMarker {
+          padding-#{$s}: 0;
+        }
       }
-    }
-    .boxContent:not(.dc-ttClassStyle--unset)+.groupFootnote {
-      padding-left: 16px;
-      padding-right: 16px;
-    }
-    @media #{$desktop} {
-      .boxContent:not(.dc-ttClassStyle--unset)+.groupFootnote {
-        padding-left: 32px;
-        padding-right: 32px;
+      + .groupFootnote {
+        padding-left: 16px;
+        padding-right: 16px;
+        @media #{$desktop} {
+          padding-left: 32px;
+          padding-right: 32px;
+        }
       }
     }
     .blockTeach:not(.dc-ttClassStyle--unset), .boxSupplement:not(.dc-ttClassStyle--unset) {
@@ -135,10 +121,10 @@
       &.txtSizeDefault, .sa {
         font-size: 1em;
       }
-    }
-    @include bidi((left, right)) using ($s) {
-      .openingContent:not(.dc-ttClassStyle--unset) .sa {
-        margin-#{$s}: 0;
+      @include bidi((left, right)) using ($s) {
+        .sa {
+          margin-#{$s}: 0;
+        }
       }
     }
     .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset), blockquote:not(.dc-ttClassStyle--unset) {

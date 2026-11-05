@@ -4,8 +4,10 @@
 
 @mixin rules {
   @include jwac {
-    .du-fontWeight--normal, .du-fontWeight--normal>strong {
-      font-weight: 400!important;
+    .du-fontWeight--normal {
+      &, > strong {
+        font-weight: 400!important;
+      }
     }
     .du-fontWeight--bold {
       font-weight: 700!important;
