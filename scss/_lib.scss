@@ -22,9 +22,26 @@ $reader: ":where(#reader)";
 
 // A value per text direction: $pair is (ltr value, rtl value). Write the block once; it
 // gets its direction's value. Same value → one rule; different → .dir-ltr + .dir-rtl rules.
-// Works anywhere: inside a block the direction goes on the root of the current selector
-// (.jwac .x → .jwac.dir-ltr .x); at the top level it emits from the root.
+// Works anywhere: inside a block the direction goes at the end of the root's compound in
+// the current selector (.jwac .x → .jwac.dir-ltr .x, .jwac.bible .x → .jwac.bible.dir-ltr .x);
+// at the top level it emits from the root.
 //   @include bidi((left, right)) using ($side) { .x { float: $side; } }
+// $sel with $class added to the compound holding the root (.jwac.bible .x → .jwac.bible.dir-ltr .x).
+@function on-root($sel, $class) {
+  $out: ();
+  @each $complex in $sel {
+    $parts: ();
+    @each $part in $complex {
+      @if not list.index((">", "+", "~"), $part) and list.index(selector.simple-selectors($part), $root) {
+        $part: "#{$part}#{$class}";
+      }
+      $parts: list.append($parts, $part, space);
+    }
+    $out: list.append($out, $parts, comma);
+  }
+  @return $out;
+}
+
 @mixin bidi($pair) {
   $ltr: list.nth($pair, 1);
   $rtl: list.nth($pair, 2);
@@ -33,7 +50,7 @@ $reader: ":where(#reader)";
   } @else {
     @each $dir, $value in (ltr: $ltr, rtl: $rtl) {
       @if & {
-        @at-root #{selector.replace(&, $root, "#{$root}.dir-#{$dir}")} { @content($value); }
+        @at-root #{on-root(&, ".dir-#{$dir}")} { @content($value); }
       } @else {
         @at-root #{$root}.dir-#{$dir} { @content($value); }
       }

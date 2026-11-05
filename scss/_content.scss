@@ -305,23 +305,26 @@
           .txtSrcBullet {
             display: inline-block;
             min-width: 1.5em;
+            @include bidi((left, right)) using ($s) {
+              margin-#{$s}: -1.5em;
+            }
           }
         }
+        &.numberedDiagram,
+        &.noMarker {
+          list-style-type: none;
+        }
       }
-      &.dir-ltr ol.source .txtSrcBullet {
-        margin-left: -1.5em;
-      }
-      &.dir-rtl ol.source .txtSrcBullet {
-        margin-right: -1.5em;
-      }
-      ol.numberedDiagram,
-      ol.noMarker,
-      li.listTitle,
-      ol.imgEastEighth > li,
-      ol.imgEastQuarter > li,
-      ol.imgWestEighth > li,
-      ol.imgWestQuarter > li {
+      li.listTitle {
         list-style-type: none;
+      }
+      ol {
+        &.imgEastEighth > li,
+        &.imgEastQuarter > li,
+        &.imgWestEighth > li,
+        &.imgWestQuarter > li {
+          list-style-type: none;
+        }
       }
     }
     ul {
@@ -1224,14 +1227,12 @@
 
 @mixin part-11 {
   @include jwac {
-    @at-root body:not(.noJS) #{$root}:not(.showRuby):not(.pub-int) ruby>rt {
+    body:not(.noJS) &:not(.showRuby):not(.pub-int) ruby>rt {
       display: none;
     }
     &.pub-int ruby>rt,
-    &.showRuby ruby>rt {
-      font-size: .83em;
-    }
-    @at-root body.noJS #{$root} ruby>rt {
+    &.showRuby ruby>rt,
+    body.noJS & ruby>rt {
       font-size: .83em;
     }
     &.pub-int ruby {
@@ -1246,7 +1247,8 @@
       }
     }
     @supports not (ruby-align:center) {
-      &.showRuby.ms-CHINESE ruby {
+      &.showRuby.ms-CHINESE ruby,
+      body.noJS.ms-CHINESE & ruby {
         display: -webkit-inline-box;
         display: inline-flex;
         -webkit-box-orient: vertical;
@@ -1257,18 +1259,8 @@
         line-height: 1!important;
         text-indent: 0;
       }
-      @at-root body.noJS.ms-CHINESE #{$root} ruby {
-        display: -webkit-inline-box;
-        display: inline-flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: reverse;
-        flex-direction: column-reverse;
-        baseline-source: last;
-        text-align: center;
-        line-height: 1!important;
-        text-indent: 0;
-      }
-      &.showRuby.ms-CHINESE ruby>rt {
+      &.showRuby.ms-CHINESE ruby>rt,
+      body.noJS.ms-CHINESE & ruby>rt {
         display: inline;
         line-height: normal!important;
         padding-left: .25em;
@@ -1276,61 +1268,34 @@
         margin-top: .1em;
         margin-bottom: .1em;
       }
-      @at-root body.noJS.ms-CHINESE #{$root} ruby>rt {
-        display: inline;
-        line-height: normal!important;
-        padding-left: .25em;
-        padding-right: .25em;
-        margin-top: .1em;
-        margin-bottom: .1em;
-      }
-      &.showRuby.ms-CHINESE p ruby {
-        margin-bottom: .5em;
-      }
-      @at-root body.noJS.ms-CHINESE #{$root} p ruby {
+      &.showRuby.ms-CHINESE p ruby,
+      body.noJS.ms-CHINESE & p ruby {
         margin-bottom: .5em;
       }
     }
-    &.showRuby.ms-CHINESE ruby {
+    &.showRuby.ms-CHINESE ruby,
+    body.noJS.ms-CHINESE & ruby {
       line-height: 3;
     }
-    @at-root body.noJS.ms-CHINESE #{$root} ruby {
-      line-height: 3;
-    }
-    &.showRuby.ms-CHINESE ruby>rt {
+    &.showRuby.ms-CHINESE ruby>rt,
+    body.noJS.ms-CHINESE & ruby>rt {
       padding-left: 4px;
       padding-right: 4px;
       margin-bottom: 1px;
       line-height: 3;
     }
-    @at-root body.noJS.ms-CHINESE #{$root} ruby>rt {
-      padding-left: 4px;
-      padding-right: 4px;
-      margin-bottom: 1px;
-      line-height: 3;
-    }
-    &.showRuby.ms-CHINESE {
-      .qu ruby,
-      .w_question {
-        font-size: 1.21em;
-      }
-    }
-    @at-root body.noJS.ms-CHINESE #{$root} .qu ruby,
-             body.noJS.ms-CHINESE #{$root} .w_question {
+    &.showRuby.ms-CHINESE .qu ruby,
+    &.showRuby.ms-CHINESE .w_question,
+    body.noJS.ms-CHINESE & .qu ruby,
+    body.noJS.ms-CHINESE & .w_question {
       font-size: 1.21em;
     }
-    &.showRuby.ms-JAPANESE ruby {
+    &.showRuby.ms-JAPANESE ruby,
+    body.noJS.ms-JAPANESE & ruby {
       line-height: 2;
     }
-    @at-root body.noJS.ms-JAPANESE #{$root} ruby {
-      line-height: 2;
-    }
-    &.showRuby.ms-JAPANESE ruby>rt {
-      margin-bottom: -.25em;
-      line-height: 2;
-      font-size: .57em;
-    }
-    @at-root body.noJS.ms-JAPANESE #{$root} ruby>rt {
+    &.showRuby.ms-JAPANESE ruby>rt,
+    body.noJS.ms-JAPANESE & ruby>rt {
       margin-bottom: -.25em;
       line-height: 2;
       font-size: .57em;
@@ -1342,10 +1307,10 @@
           margin-top: .5em;
           margin-bottom: .5em;
         }
-      }
-      @each $dir, $side in (ltr left, rtl right) {
-        &.dir-#{$dir} .bodyTxt ol li .sz {
-          margin-#{$side}: 1.5em;
+        @include bidi((left, right)) using ($s) {
+          .sz {
+            margin-#{$s}: 1.5em;
+          }
         }
       }
       .chorus {
@@ -1594,61 +1559,38 @@
       border-top-width: 1px;
       border-color: #a7a7a7;
       clear: both;
+      .footnoteref {
+        display: none;
+      }
     }
-    .groupEndnote .footnoteref,
-    .groupFootnote .footnoteref,
-    .relatedContent .footnoteref,
-    &.pub-Rbi8 .groupEndnote,
-    &.pub-Rbi8 .groupFootnote,
-    &.pub-bi10 .groupEndnote,
-    &.pub-bi10 .groupFootnote,
-    &.pub-bi12 .groupEndnote,
-    &.pub-bi12 .groupFootnote,
-    &.pub-bi22 .groupEndnote,
-    &.pub-bi22 .groupFootnote,
-    &.pub-bi7 .groupEndnote,
-    &.pub-bi7 .groupFootnote,
-    &.pub-bi7ls .groupEndnote,
-    &.pub-bi7ls .groupFootnote,
-    &.pub-bi8 .groupEndnote,
-    &.pub-bi8 .groupFootnote,
-    &.pub-biFgn .groupEndnote,
-    &.pub-biFgn .groupFootnote,
-    &.pub-biMt .groupEndnote,
-    &.pub-biMt .groupFootnote,
-    &.pub-by .groupEndnote,
-    &.pub-by .groupFootnote,
-    &.pub-ijw .groupEndnote,
-    &.pub-ijw .groupFootnote,
-    &.pub-int .groupEndnote,
-    &.pub-int .groupFootnote,
-    &.pub-nwt .groupEndnote,
-    &.pub-nwt .groupFootnote,
-    &.pub-nwths .groupEndnote,
-    &.pub-nwths .groupFootnote,
-    &.pub-nwtmt .groupEndnote,
-    &.pub-nwtmt .groupFootnote,
-    &.pub-nwtp .groupEndnote,
-    &.pub-nwtp .groupFootnote,
-    &.pub-nwtsty .groupEndnote,
-    &.pub-nwtsty .groupFootnote,
-    &.pub-rh .groupEndnote,
-    &.pub-rh .groupFootnote,
-    &.pub-sbi1 .groupEndnote,
-    &.pub-sbi1 .groupFootnote,
-    &.pub-sbi1p .groupEndnote,
-    &.pub-sbi1p .groupFootnote,
-    &.pub-sbi2 .groupEndnote,
-    &.pub-sbi2 .groupFootnote,
-    &.pub-sbi2p .groupEndnote,
-    &.pub-sbi2p .groupFootnote,
-    &.pub-sbi3 .groupEndnote,
-    &.pub-sbi3 .groupFootnote,
-    &.pub-sbi3p .groupEndnote,
-    &.pub-sbi3p .groupFootnote,
-    &.pub-sbi4 .groupEndnote,
-    &.pub-sbi4 .groupFootnote {
-      display: none;
+    &.pub-Rbi8,
+    &.pub-bi10,
+    &.pub-bi12,
+    &.pub-bi22,
+    &.pub-bi7,
+    &.pub-bi7ls,
+    &.pub-bi8,
+    &.pub-biFgn,
+    &.pub-biMt,
+    &.pub-by,
+    &.pub-ijw,
+    &.pub-int,
+    &.pub-nwt,
+    &.pub-nwths,
+    &.pub-nwtmt,
+    &.pub-nwtp,
+    &.pub-nwtsty,
+    &.pub-rh,
+    &.pub-sbi1,
+    &.pub-sbi1p,
+    &.pub-sbi2,
+    &.pub-sbi2p,
+    &.pub-sbi3,
+    &.pub-sbi3p,
+    &.pub-sbi4 {
+      .groupEndnote, .groupFootnote {
+        display: none;
+      }
     }
     .groupExtScrpCite aside:first-child {
       padding-top: 2em;
@@ -1717,7 +1659,7 @@
       display: block;
       height: 0;
     }
-    @at-root .verse>#{$root} .parabreak:last-child {
+    .verse>& .parabreak:last-child {
       height: .25em;
     }
     .newblock {
@@ -1753,23 +1695,17 @@
       .sl {
         display: block;
         text-indent: -3em;
-      }
-      &.dir-ltr .sl {
-        padding-left: 3em;
-      }
-      &.dir-rtl .sl {
-        padding-right: 3em;
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: 3em;
+        }
       }
       .sz {
         display: block;
         margin: .2em 1em;
         text-indent: -1em;
-      }
-      &.dir-ltr .sz {
-        padding-left: 2.5em;
-      }
-      &.dir-rtl .sz {
-        padding-right: 2.5em;
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: 2.5em;
+        }
       }
       .sp {
         display: block;
@@ -1807,14 +1743,14 @@
       .cl:not(.tt) {
         font-size: 1.21em;
       }
-      @each $dir, $side in (ltr left, rtl right) {
-        &.dir-#{$dir} .vl:not(.tt):first-child {
-          padding-#{$side}: 0;
+      @include bidi((left, right)) using ($s) {
+        .vl:not(.tt):first-child {
+          padding-#{$s}: 0;
         }
       }
-      @each $dir, $side in (ltr left, rtl right) {
-        &.dir-#{$dir} .v:not(.tt) + .cl {
-          padding-#{$side}: 16px;
+      @include bidi((left, right)) using ($s) {
+        .v:not(.tt) + .cl {
+          padding-#{$s}: 16px;
         }
       }
     }
@@ -1907,69 +1843,39 @@
         @include token(color, ds-link-color);
       }
     }
-    &.pub-bi12.docClass-11,
-    &.pub-bi12.docClass-116,
-    &.pub-bi12.docClass-12,
-    &.pub-bi12.docClass-125,
-    &.pub-bi12.docClass-13,
-    &.pub-bi12.docClass-14,
-    &.pub-bi7.docClass-11,
-    &.pub-bi7.docClass-116,
-    &.pub-bi7.docClass-12,
-    &.pub-bi7.docClass-125,
-    &.pub-bi7.docClass-13,
-    &.pub-bi7.docClass-14,
-    &.pub-igw.docClass-11,
-    &.pub-igw.docClass-116,
-    &.pub-igw.docClass-12,
-    &.pub-igw.docClass-125,
-    &.pub-igw.docClass-13,
-    &.pub-igw.docClass-14,
-    &.pub-nwt.docClass-11,
-    &.pub-nwt.docClass-116,
-    &.pub-nwt.docClass-12,
-    &.pub-nwt.docClass-125,
-    &.pub-nwt.docClass-13,
-    &.pub-nwt.docClass-14,
-    &.pub-nwths.docClass-11,
-    &.pub-nwths.docClass-116,
-    &.pub-nwths.docClass-12,
-    &.pub-nwths.docClass-125,
-    &.pub-nwths.docClass-13,
-    &.pub-nwths.docClass-14,
-    &.pub-nwtsty.docClass-11,
-    &.pub-nwtsty.docClass-116,
-    &.pub-nwtsty.docClass-12,
-    &.pub-nwtsty.docClass-125,
-    &.pub-nwtsty.docClass-13,
-    &.pub-nwtsty.docClass-14,
-    &.pub-sgd.docClass-11,
-    &.pub-sgd.docClass-116,
-    &.pub-sgd.docClass-12,
-    &.pub-sgd.docClass-125,
-    &.pub-sgd.docClass-13,
-    &.pub-sgd.docClass-14 {
-      .contextTtl, h1 {
-        @include token(color, du-color--maroon-700);
+    &.pub-bi12,
+    &.pub-bi7,
+    &.pub-igw,
+    &.pub-nwt,
+    &.pub-nwths,
+    &.pub-nwtsty,
+    &.pub-sgd {
+      &.docClass-11,
+      &.docClass-116,
+      &.docClass-12,
+      &.docClass-125,
+      &.docClass-13,
+      &.docClass-14 {
+        .contextTtl, h1 {
+          @include token(color, du-color--maroon-700);
+        }
       }
     }
-    &.pub-nwt.docClass-14 .contextTtl,
-    &.pub-nwtsty.docClass-14 .contextTtl,
-    &.pub-sgd.docClass-14 .contextTtl {
-      display: inline-block;
-      min-width: 1.2em;
-      padding: .3em .45em;
-      margin: 0;
-      background-color: #801816;
-      @include token(color, du-color--white);
-      font-size: .83em;
-      text-align: center;
-      margin-bottom: .5em;
-    }
-    &.pub-nwt.docClass-125,
-    &.pub-nwtsty.docClass-125,
-    &.pub-sgd.docClass-125 {
-      .groupTOC > .source .txtSrcBullet {
+    &.pub-nwt,
+    &.pub-nwtsty,
+    &.pub-sgd {
+      &.docClass-14 .contextTtl {
+        display: inline-block;
+        min-width: 1.2em;
+        padding: .3em .45em;
+        margin: 0;
+        background-color: #801816;
+        @include token(color, du-color--white);
+        font-size: .83em;
+        text-align: center;
+        margin-bottom: .5em;
+      }
+      &.docClass-125 .groupTOC > .source .txtSrcBullet {
         display: inline-block;
         min-width: 1.2em;
         padding: .3em .45em;
@@ -2084,35 +1990,20 @@
         margin: 0;
         font-size: 1em;
         line-height: inherit;
-      }
-      &.dir-ltr h3.inline {
-        float: left;
-      }
-      &.dir-rtl h3.inline {
-        float: right;
-      }
-      &.dir-ltr h3.inline {
-        padding-right: .25em;
-      }
-      &.dir-rtl h3.inline {
-        padding-left: .25em;
+        @include bidi((left, right)) using ($s) {
+          float: #{$s};
+        }
+        @include bidi((left, right)) using ($s) {
+          padding-#{flip($s)}: .25em;
+        }
       }
       p {
         &.sk,
         &.sm {
           margin: 0;
-        }
-      }
-      &.dir-ltr p {
-        &.sk,
-        &.sm {
-          padding-left: 1em;
-        }
-      }
-      &.dir-rtl p {
-        &.sk,
-        &.sm {
-          padding-right: 1em;
+          @include bidi((left, right)) using ($s) {
+            padding-#{$s}: 1em;
+          }
         }
       }
       .docNav a {
@@ -2174,12 +2065,14 @@
     &.docId-1001061220,
     &.docId-1001070220,
     &.docId-1102013694 {
-      .boxContent ul.noMarker .west_left {
-        margin-top: 0;
-      }
-      @each $dir, $side in (ltr left, rtl right) {
-        &.dir-#{$dir} .boxContent ul.noMarker .source {
-          margin-#{$side}: 64px;
+      .boxContent ul.noMarker {
+        .west_left {
+          margin-top: 0;
+        }
+        @include bidi((left, right)) using ($s) {
+          .source {
+            margin-#{$s}: 64px;
+          }
         }
       }
     }
@@ -2283,18 +2176,10 @@
 
 @mixin part-20 {
   @include jwac {
-    .footnoteResult {
-      .groupEndnote, .groupFootnote {
-        display: block;
-        color: inherit;
-        border: none;
-        font-size: 1em;
-        margin: 0;
-        padding: 0;
-      }
-    }
-    @at-root .tooltipContent #{$root} .groupEndnote,
-             .tooltipContent #{$root} .groupFootnote {
+    .footnoteResult .groupEndnote,
+    .footnoteResult .groupFootnote,
+    .tooltipContent & .groupEndnote,
+    .tooltipContent & .groupFootnote {
       display: block;
       color: inherit;
       border: none;
@@ -2308,7 +2193,7 @@
 @mixin part-21 {
   @include jwac {
     @each $dir, $side in (ltr right, rtl left) {
-      @at-root .dir-#{$dir} #{$root}.pub-nwt .contextTtl .pageNum::after {
+      .dir-#{$dir} &.pub-nwt .contextTtl .pageNum::after {
         padding-#{$side}: 16px;
       }
     }
