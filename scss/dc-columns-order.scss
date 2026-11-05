@@ -1,0 +1,11 @@
+@use "lib" as *;
+
+// No !important here, unlike the du- utilities.
+@include jwac {
+  @include variants($responsive) using ($s) {
+    .dc-columns-order#{$s}--reverse {
+      @include flex-direction(row-reverse);
+      @include justify-content(flex-end);
+    }
+  }
+}

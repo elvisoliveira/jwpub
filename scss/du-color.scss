@@ -1,0 +1,14 @@
+@use "palette" as *;
+@use "lib" as *;
+
+@include jwac {
+  @include text-colors(du-color, $links: true);
+  // the reference repeats textDefault, with its own link colours
+  .du-color--textDefault {
+    @include token(color, du-color--textDefault, true);
+    a {
+      @include token(color, ds-link-color, true);
+      &:visited { @include token(color, ds-link-color--visited, true); }
+    }
+  }
+}

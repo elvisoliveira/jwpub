@@ -1,0 +1,208 @@
+@use "sass:map";
+
+// Typography per script (.ms-*) and language (.ml-*), from the jw.org content CSS.
+// Used by scripts-typography.scss, scripts-bible.scss and du-fontFamily.scss.
+
+// Font stacks shared by several locales.
+$latin: (NotoSans, Arial, "Arial Unicode MS", sans-serif);
+$dejavu: (DejaVuSans, sans-serif);
+$chinese-sc: (NotoSansSC, "Microsoft YaHei", "Heiti SC", "Arial Unicode", "Arial Unicode MS", NotoSans);
+$chinese-tc: (NotoSansTC, "Microsoft YaHei", "Heiti SC", "Arial Unicode", "Arial Unicode MS", NotoSans);
+$naskh: (NotoNaskhArabic, NotoSans, "Simplified Arabic", sans-serif);
+$persian-font: (WTXBZSpecial, "Geeza Pro", "Simplified Arabic");
+$uyghur: (WTUKIJSpecial, sans-serif);
+$karen: (WTMannaSansKaren, Padauk, Zawgyi, sans-serif);
+$tahoma: (Tahoma, NotoSans, sans-serif);
+$clear-text: (WTClearText, serif);
+$noto-serif: (NotoSerif, Georgia, serif);
+
+// The Noto font of a script, then Noto Sans/Serif:
+// sans(Armenian) → NotoSansArmenian, NotoSans, sans-serif.
+@function sans($script) { @return (NotoSans#{$script}, NotoSans, sans-serif); }
+@function serif($script) { @return (NotoSerif#{$script}, NotoSerif, serif); }
+
+// A script's typography: font stack and line-height of .jwac.ms-X, line-height of h1–h6,
+// line breaking (normal | keep-all | wrap = break long words) and font of .naskh.
+@function script($font, $line: 1.5, $h: 1.25, $break: normal, $naskh: null) {
+  $breaking: (word-break: $break);
+  @if $break == wrap { $breaking: (word-wrap: break-word, overflow-wrap: break-word); }
+  $out: (self: map.merge((font-family: $font, line-height: $line), $breaking), h: $h);
+  @if $naskh { $out: map.merge($out, (naskh: $naskh)); }
+  @return $out;
+}
+
+// A language that only changes the font, or turns on OpenType features ("salt", "ss01").
+@function font($stack) { @return (self: (font-family: $stack)); }
+@function features($tag) {
+  @return (self: (-webkit-font-feature-settings: $tag on, font-feature-settings: $tag on));
+}
+$persian: (self: (font-family: $persian-font), h: 1.4, ol: persian);
+$arabic-digits: (ol: arabic-indic);
+
+// Every locale: self = declarations on .jwac.<locale> (font-family is its own, sans stack),
+// h = line-height of h1–h6, ol = list-style-type, naskh = font of .naskh.
+$locales: (
+  "ms-ARABIC":          script($naskh, $line: 1.7, $h: 1.7),
+  "ms-ARMENIAN":        script(sans(Armenian), $h: 1.45),
+  "ms-ASSYRIAN":        script(WTJonathan),
+  "ms-BENGALI":         script(sans(Bengali)),
+  "ms-CAMBODIAN":       script(sans(Khmer), $line: 1.6, $h: 1.55, $break: wrap),
+  "ms-CHINESE":         script($chinese-sc),
+  "ms-CYRILLIC":        script($latin),
+  "ms-DEVANAGARI":      script(sans(Devanagari), $h: 1.45),
+  "ms-ETHIOPIC":        script((AbyssinicaSIL, sans-serif)),
+  "ms-GEORGIAN":        script(sans(Georgian)),
+  "ms-GREEK":           script($latin),
+  "ms-GUJARATI":        script((NotoSansGujarati, NotoSans, Shruti, "Lohit Gujarati"), $line: 1.6, $h: 1.5),
+  "ms-GURMUKHI":        script((NotoSansGurmukhi, NotoSans, Raavi), $line: 1.6, $h: 1.6),
+  "ms-HEBREW":          script(sans(Hebrew)),
+  "ms-JAPANESE":        script((NotoSansJP, Meiryo, Geneva, sans-serif), $line: 1.6),
+  "ms-KANNADA":         script((NotoSansKannada, NotoSans, Tunga, Gautami, sans-serif), $line: 1.6, $h: 1.45),
+  "ms-KOREAN":          script((NotoSansKR, sans-serif), $line: 1.6, $break: keep-all),
+  "ms-LAOTIAN":         script((WTSetthaSpecial, "Dok Champa", sans-serif), $line: 1.65, $h: 1.55, $break: wrap),
+  "ms-MALAYALAM":       script((NotoSansMalayalamSemiCondensed, NotoSans, Kartika, sans-serif), $line: 1.6, $h: 1.5),
+  "ms-MONGOLIAN":       script((WTMannaSansMongolian, NotoSansSC, "Microsoft YaHei", NotoSans)),
+  "ms-MYANMAR":         script((WTMannaSansMyanmar, NotoSans, "Myanmar Sangam MN", sans-serif), $line: 2, $h: 2),
+  "ms-ORIYA":           script((NotoSansOriya, NotoSans, "Oriya Sangam MN", sans-serif)),
+  "ms-ROMAN":           script($latin),
+  "ms-SINDHI":          script((NafeesNaskh, sans-serif), $line: 2.2, $h: 2),
+  "ms-SINHALESE":       script(sans(Sinhala)),
+  "ms-TAMIL":           script((NotoSansTamil, NotoSans, Latha, "Inai Mathi", "Arial Unicode MS", sans-serif), $line: 1.7, $h: 1.6),
+  "ms-TIBETAN":         script((WTMannaSansTibetan, NotoSans, sans-serif), $line: 2.2, $h: 2),
+  "ms-TELUGU":          script((NotoSansTelugu, NotoSans, Gautami, Vani, sans-serif), $line: 1.6, $h: 1.45),
+  "ms-THAI":            script((Sukhumvit, Thonburi, NotoSans, sans-serif), $line: 1.6, $h: 1.5),
+  "ms-URDU":            script((NotoNastaliqUrdu, NotoSans, "Jameel Noori Nastaleeq"), $line: 2.5, $h: 2.2, $naskh: $naskh),
+  "ms-ARABIC.ml-ADZ":   $arabic-digits,
+  "ms-ARABIC.ml-AEY":   $arabic-digits,
+  "ms-ROMAN.ml-AI":     font($chinese-sc),
+  "ms-ARABIC.ml-AJD":   $arabic-digits,
+  "ms-ARABIC.ml-ALN":   $arabic-digits,
+  "ms-CYRILLIC.ml-ALT": features("salt"),
+  "ms-ARABIC.ml-AMO":   $arabic-digits,
+  "ms-ARABIC.ml-ARQ":   $arabic-digits,
+  "ms-ARABIC.ml-ASR":   $arabic-digits,
+  "ms-ARABIC.ml-ATN":   $arabic-digits,
+  "ms-ASSYRIAN.ml-AS":  (h: 1.5, ol: arabic-indic),
+  "ms-ARABIC.ml-AJA":   $persian,
+  "ms-ROMAN.ml-BH":     font($dejavu),
+  "ms-TAMIL.ml-BDG":    font(sans(Tamil)),
+  "ms-CHINESE.ml-CHC":  font($chinese-tc),
+  "ms-CHINESE.ml-CH":   font($chinese-tc),
+  "ms-CHINESE.ml-CHH":  font($chinese-tc),
+  "ms-CHINESE.ml-CHW":  font($chinese-tc),
+  "ms-ROMAN.ml-DA":     font($dejavu),
+  "ms-ARABIC.ml-DAR":   $persian,
+  "ms-ROMAN.ml-DG":     font($dejavu),
+  "ms-ROMAN.ml-DGB":    font($dejavu),
+  "ms-ROMAN.ml-DI":     font($dejavu),
+  "ms-ROMAN.ml-E":      font($latin),
+  "ms-ROMAN.ml-ET":     font($dejavu),
+  "ms-ROMAN.ml-EW":     font($dejavu),
+  "ms-ROMAN.ml-GA":     font($dejavu),
+  "ms-ROMAN.ml-GRC":    font($dejavu),
+  "ms-CHINESE.ml-HSL":  font($chinese-tc),
+  "ms-ROMAN.ml-KKB":    font($dejavu),
+  "ms-MYANMAR.ml-KR":   font($karen),
+  "ms-MYANMAR.ml-PK":   font($karen),
+  "ms-ARABIC.ml-AZA":   (self: (font-family: $uyghur, line-height: normal), h: normal),
+  "ms-ARABIC.ml-RDA":   $persian,
+  "ms-ROMAN.ml-LU":     font($dejavu),
+  "ms-CYRILLIC.ml-MC":  font($tahoma),
+  "ms-ROMAN.ml-MZH":    font((WTOmerSansMazahua, NotoSans, sans-serif)),
+  "ms-ROMAN.ml-NZ":     font($dejavu),
+  "ms-ARABIC.ml-PH":    $persian,
+  "ms-ARABIC.ml-PR":    $persian,
+  "ms-CYRILLIC.ml-RMB": features("ss01"),
+  "ms-CYRILLIC.ml-RMC": font($tahoma),
+  "ms-ROMAN.ml-RMY":    features("ss01"),
+  "ms-CHINESE.ml-TSL":  font($chinese-tc),
+  "ms-ROMAN.ml-TW":     font($dejavu),
+  "ms-ARABIC.ml-UGA":   (self: (font-family: $uyghur, line-height: normal), h: normal),
+  "ms-URDU.ml-UD":      (self: (line-height: normal), h: normal, ol: urdu),
+  "ms-ROMAN.ml-VE":     font($dejavu),
+  "ms-ROMAN.ml-WO":     font($dejavu),
+);
+
+// Bible text font per locale: a stack, `own` (the locale's own font) or `refs` (only the
+// verse/chapter references change, to the locale's own font). When the text font is not
+// the locale's own, the references keep the own font.
+@function bible($texts) {
+  $out: ();
+  @each $locale, $text in $texts {
+    $own: map.get($locales, $locale, self, font-family);
+    $fonts: (text: $text, refs: $own);
+    @if $text == own { $fonts: (text: $own); }
+    @if $text == refs { $fonts: (refs: $own); }
+    $out: map.merge($out, ($locale: $fonts));
+  }
+  @return $out;
+}
+
+$bible: bible((
+  "ms-ARABIC":          (NotoNaskhArabic, NotoSerif, "Simplified Arabic", serif),
+  "ms-ARMENIAN":        serif(Armenian),
+  "ms-ASSYRIAN":        $noto-serif,
+  "ms-BENGALI":         serif(Bengali),
+  "ms-CAMBODIAN":       serif(Khmer),
+  "ms-CHINESE":         own,
+  "ms-CYRILLIC":        $clear-text,
+  "ms-DEVANAGARI":      serif(Devanagari),
+  "ms-ETHIOPIC":        own,
+  "ms-GEORGIAN":        (WTClearTextGeorgian, NotoSerif, serif),
+  "ms-GREEK":           $clear-text,
+  "ms-GUJARATI":        serif(Gujarati),
+  "ms-GURMUKHI":        own,
+  "ms-HEBREW":          serif(Hebrew),
+  "ms-JAPANESE":        (WTClearTextJapanese, serif),
+  "ms-KANNADA":         serif(Kannada),
+  "ms-KOREAN":          (WTBaeumMyungjo, serif),
+  "ms-LAOTIAN":         own,
+  "ms-MALAYALAM":       own,
+  "ms-MONGOLIAN":       own,
+  "ms-MYANMAR":         own,
+  "ms-ORIYA":           own,
+  "ms-ROMAN":           $clear-text,
+  "ms-SINDHI":          $noto-serif,
+  "ms-SINHALESE":       serif(Sinhala),
+  "ms-TAMIL":           own,
+  "ms-TIBETAN":         own,
+  "ms-TELUGU":          own,
+  "ms-THAI":            (WTTextNew, serif),
+  "ms-URDU":            own,
+  "ms-ROMAN.ml-AI":     refs,
+  "ms-ARABIC.ml-AJA":   own,
+  "ms-ROMAN.ml-BH":     refs,
+  "ms-TAMIL.ml-BDG":    refs,
+  "ms-CHINESE.ml-CHC":  own,
+  "ms-CHINESE.ml-CH":   own,
+  "ms-CHINESE.ml-CHH":  own,
+  "ms-CHINESE.ml-CHW":  own,
+  "ms-ROMAN.ml-DA":     refs,
+  "ms-ARABIC.ml-DAR":   own,
+  "ms-ROMAN.ml-DG":     refs,
+  "ms-ROMAN.ml-DGB":    refs,
+  "ms-ROMAN.ml-DI":     refs,
+  "ms-ROMAN.ml-E":      refs,
+  "ms-ROMAN.ml-ET":     refs,
+  "ms-ROMAN.ml-EW":     refs,
+  "ms-ROMAN.ml-GA":     refs,
+  "ms-ROMAN.ml-GRC":    refs,
+  "ms-CHINESE.ml-HSL":  own,
+  "ms-ROMAN.ml-KKB":    refs,
+  "ms-MYANMAR.ml-KR":   own,
+  "ms-MYANMAR.ml-PK":   own,
+  "ms-ARABIC.ml-AZA":   own,
+  "ms-ARABIC.ml-RDA":   own,
+  "ms-ROMAN.ml-LU":     refs,
+  "ms-CYRILLIC.ml-MC":  refs,
+  "ms-ROMAN.ml-MZH":    refs,
+  "ms-ROMAN.ml-NZ":     refs,
+  "ms-ARABIC.ml-PH":    own,
+  "ms-ARABIC.ml-PR":    own,
+  "ms-CYRILLIC.ml-RMC": refs,
+  "ms-CHINESE.ml-TSL":  own,
+  "ms-ROMAN.ml-TW":     refs,
+  "ms-ARABIC.ml-UGA":   own,
+  "ms-ROMAN.ml-VE":     refs,
+  "ms-ROMAN.ml-WO":     refs,
+));

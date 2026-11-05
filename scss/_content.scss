@@ -1,0 +1,2070 @@
+// Written by split.py --convert from reference/jw-site.min.css (plain jw.org CSS,
+// one mixin per piece; _order.scss puts each piece where it was).
+@use "lib" as *;
+@use "icons" as *;
+
+// Publications that hide their footnote and endnote groups.
+$pubs-without-notes: Rbi8, bi10, bi12, bi22, bi7, bi7ls, bi8, biFgn, biMt, by, ijw, int, nwt, nwths,
+  nwtmt, nwtp, nwtsty, rh, sbi1, sbi1p, sbi2, sbi2p, sbi3, sbi3p, sbi4;
+// Publications with maroon titles on their Bible pages.
+$pubs-maroon-titles: bi12, bi7, igw, nwt, nwths, nwtsty, sgd;
+// Publications whose page numbers sit beside the heading.
+$pubs-page-nums: bi12, bi7, igw, nwt, nwths, sgd;
+// Publications with a chapter-number badge.
+$pubs-chapter-badges: nwt, nwtsty, sgd;
+// Lists and boxes with images in a side column.
+$img-columns: imgEastEighth, imgEastQuarter, imgWestEighth, imgWestQuarter;
+// What keeps clear of that column.
+$img-column-text: h2, h3, h4, h5, ol, ul, "> li > p", "> p";
+// Image grids.
+$img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid;
+
+// The round icon before a meeting workbook heading.
+@mixin mwb-heading-icon {
+  @include icon-font;
+  @include display(inline-flex);
+  font-size: inherit;
+  @include token(color, du-color--white);
+  font-size: 40px;
+  line-height: 40px;
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+  @include flex(0 0 auto);
+  height: 56px;
+  width: 56px;
+}
+
+// A chapter number in a maroon box.
+@mixin chapter-badge {
+  display: inline-block;
+  min-width: 1.2em;
+  padding: .3em .45em;
+  margin: 0;
+  background-color: #801816;
+  @include token(color, du-color--white);
+  font-size: .83em;
+  text-align: center;
+}
+
+@mixin part-1 {
+  @include jwac {
+    & {
+      @include themed(background-color, ds-content-bgColor, #fff);
+      @include token(color, du-color--textDefault);
+    }
+    *,
+    ::after,
+    ::before {
+      box-sizing: border-box;
+    }
+  }
+}
+
+@mixin part-2 {
+  @include jwac {
+    &.dir-ltr {
+      ol, ul {
+        padding-left: 1.5em;
+        padding-right: 0;
+      }
+    }
+    &.dir-rtl {
+      ol, ul {
+        padding-left: 0;
+        padding-right: 1.5em;
+      }
+    }
+  }
+}
+
+@mixin part-3 {
+  @include jwac {
+    @include bidi((left, right)) using ($s) {
+      table caption {
+        text-align: #{$s};
+      }
+    }
+  }
+}
+
+@mixin part-4 {
+  @include jwac {
+    @include bidi((left, right)) using ($s) {
+      table th {
+        text-align: #{$s};
+      }
+    }
+  }
+}
+
+@mixin part-5 {
+  @include jwac {
+    a {
+      @include token(color, ds-link-color);
+      &:visited {
+        @include token(color, ds-link-color--visited);
+      }
+    }
+  }
+}
+
+@mixin part-6 {
+  @include jwac {
+    @include bidi((left, right)) using ($s) {
+      hr {
+        text-align: #{$s};
+      }
+    }
+  }
+}
+
+@mixin part-7 {
+  @include jwac {
+    .ruleAbove {
+      border-top-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+      padding-top: .25em;
+      display: flow-root;
+    }
+    .borderSolid--bottom, .bottomRule {
+      border-bottom-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+    }
+    .underline {
+      text-decoration: underline;
+      text-underline-offset: .2ex;
+    }
+    .spacingTop {
+      margin-top: 2em;
+    }
+    .altsize, .small {
+      font-size: .83em;
+    }
+    .big {
+      font-size: 1.21em;
+    }
+    .centered {
+      text-align: center;
+    }
+    .indent {
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+    .flLeft, .flRight, .floatEast, .floatWest {
+      &:not(img) {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        @media #{$desktop} {
+          max-width: 50%;
+        }
+      }
+    }
+    @media #{$desktop} {
+      .flRight, .floatEast {
+        &:not(img) {
+          @include bidi((left, right)) using ($s) {
+            float: #{flip($s)};
+          }
+          @include bidi((left, right)) using ($s) {
+            margin-#{$s}: 32px;
+          }
+        }
+      }
+      .flLeft, .floatWest {
+        &:not(img) {
+          @include bidi((left, right)) using ($s) {
+            float: #{$s};
+          }
+          @include bidi((left, right)) using ($s) {
+            margin-#{flip($s)}: 32px;
+          }
+        }
+      }
+    }
+    &.dir-ltr .clearLeft {
+      clear: left;
+    }
+    &.dir-rtl .clearLeft,
+    &.dir-ltr .clearRight {
+      clear: right;
+    }
+    &.dir-rtl .clearRight {
+      clear: left;
+    }
+    .clear, .clearBoth {
+      clear: both;
+    }
+    .clearfix {
+      &::after,
+      &::before {
+        content: " ";
+        display: table;
+      }
+      &::after {
+        clear: both;
+      }
+    }
+    .displayNone {
+      display: none!important;
+    }
+  }
+}
+
+@mixin part-8 {
+  @include jwac {
+    .boxContent > div {
+      &.half:first-child,
+      &.quarter:first-child {
+        margin-top: 1em;
+      }
+    }
+    #{sel(".", $img-grids)} {
+      @include display(flex);
+      flex-wrap: wrap;
+      @include justify-content(space-between);
+      figure {
+        padding: 8px;
+        @media #{$desktop-only} {
+          padding: 16px;
+        }
+      }
+      li {
+        list-style-type: none;
+      }
+      div {
+        &.half {
+          flex-basis: 50%;
+          margin: 0;
+        }
+        &.quarter {
+          flex-basis: 25%;
+          margin: 0;
+        }
+      }
+      @include bidi((left, right)) using ($s) {
+        &.threeColumn {
+          padding-#{$s}: 0;
+        }
+      }
+    }
+    #{sel(".", $img-grids, ".threeColumn div.half")},
+    #{sel(".", $img-grids, ".threeColumn div.quarter")} {
+      flex-basis: 33.33%;
+    }
+    @supports (display:grid) {
+      #{sel(".", $img-grids)} {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      #{sel(".", $img-grids)} {
+        @media #{$desktop-only} {
+          gap: 32px;
+        }
+        > :not(div):not(li) {
+          grid-column: 1/-1;
+        }
+        &.alignBottom {
+          @include align-items(end);
+        }
+        figure {
+          padding: 0;
+        }
+      }
+      #{sel(".", $img-grids, " div.half")},
+      #{sel(".", $img-grids, " div.quarter")} {
+        max-width: 100%;
+      }
+      #{sel(".", $img-grids, ".threeColumn")} {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    div {
+      &.half {
+        max-width: 50%;
+      }
+      &.quarter {
+        max-width: 25%;
+      }
+      &.eighth {
+        max-width: 12.5%;
+      }
+    }
+    @media #{$desktop} {
+      .videoModal {
+        &.inline,
+        &.inline-start {
+          width: 50%;
+          margin-bottom: 1em;
+          @include bidi((left, right)) using ($s) {
+            float: #{$s};
+          }
+          @include bidi((left, right)) using ($s) {
+            margin-#{flip($s)}: 32px;
+          }
+        }
+        &.inline-end {
+          width: 50%;
+          margin-bottom: 1em;
+          @include bidi((left, right)) using ($s) {
+            float: #{flip($s)};
+          }
+          @include bidi((left, right)) using ($s) {
+            margin-#{$s}: 32px;
+          }
+        }
+      }
+    }
+    &[class*=ml-][class*=ms-] {
+      ol {
+        &.upperAlpha {
+          list-style-type: upper-alpha;
+        }
+        &.lowerAlpha {
+          list-style-type: lower-alpha;
+        }
+        &.source {
+          list-style-type: none;
+          .txtSrcBullet {
+            display: inline-block;
+            min-width: 1.5em;
+            @include bidi((left, right)) using ($s) {
+              margin-#{$s}: -1.5em;
+            }
+          }
+        }
+        &.numberedDiagram,
+        &.noMarker {
+          list-style-type: none;
+        }
+      }
+      li.listTitle {
+        list-style-type: none;
+      }
+      ol {
+        #{sel("&.", $img-columns, " > li")} {
+          list-style-type: none;
+        }
+      }
+    }
+    ul {
+      &.source {
+        list-style-type: none;
+        .txtSrcBullet {
+          display: inline-block;
+          min-width: 1.5em;
+          @include bidi((left, right)) using ($s) {
+            margin-#{$s}: -1.5em;
+          }
+        }
+      }
+      &.noMarker {
+        list-style-type: none;
+      }
+    }
+    ol, ul {
+      &.noIndent {
+        @include bidi((left, right)) using ($s) {
+          &,
+          &.noMarker {
+            padding-#{$s}: 0;
+          }
+        }
+      }
+      &.listSpacing li {
+        margin-top: 4em;
+        margin-bottom: 4em;
+        &:first-of-type {
+          margin-top: 2em;
+        }
+        &:last-of-type {
+          margin-bottom: 2em;
+        }
+      }
+    }
+    li {
+      &.listTitle {
+        font-size: 1.21em;
+        @include bidi((left, right)) using ($s) {
+          margin-#{$s}: -1em;
+        }
+      }
+      &.borderDotted--top {
+        border-top-style: dotted;
+        border-width: 1px;
+        border-color: #a7a7a7;
+      }
+    }
+    div, ul {
+      #{sel("&.", $img-columns, " > li")} {
+        list-style-type: none;
+      }
+    }
+    div, ol, ul {
+      #{sel("&.", $img-columns)} {
+        padding: 0;
+        > li {
+          &::after,
+          &::before {
+            content: " ";
+            display: table;
+          }
+          &::after {
+            clear: both;
+          }
+        }
+        ul li {
+          list-style-type: disc;
+        }
+      }
+      @each $name, $value in (Quarter 25%, Eighth 12.5%) {
+        &.imgEast#{$name},
+        &.imgWest#{$name} {
+          @include bidi((left, right)) using ($s) {
+            #{$img-column-text} {
+              margin-#{$s}: calc($value + 16px);
+            }
+            @media #{$desktop-only} {
+              #{$img-column-text} {
+                margin-#{$s}: calc($value + 32px);
+              }
+            }
+          }
+        }
+      }
+    }
+    ol.numberedDiagram {
+      &.imgWestQuarter > li {
+        @include bidi((left, right)) using ($s) {
+          ul,
+          > p {
+            margin-#{$s}: calc(25% + 16px + 1.5em);
+          }
+          @media #{$desktop-only} {
+            ul,
+            > p {
+              margin-#{$s}: calc(25% + 32px + 1.5em);
+            }
+          }
+        }
+        @include bidi((left, right)) using ($s) {
+          &::before {
+            #{$s}: calc(25% + 16px);
+            @media #{$desktop-only} {
+              #{$s}: calc(25% + 32px);
+            }
+          }
+        }
+      }
+      @include bidi((left, right)) using ($s) {
+        padding-#{$s}: 0;
+      }
+      > li {
+        position: relative;
+        counter-increment: numbered-diagram-counter;
+        &::before {
+          display: block;
+          position: absolute;
+          top: .5em;
+          width: 1.5em;
+          height: 1.5em;
+          border-radius: 2em;
+          font-size: .69em;
+          font-weight: 700;
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+          content: counter(numbered-diagram-counter) " ";
+          line-height: 1.5em;
+          text-align: center;
+          a {
+            color: #9fb9e3;
+            &:visited {
+              color: #a9a7c9;
+            }
+          }
+        }
+        @include bidi((left, right)) using ($s) {
+          > p {
+            margin-#{$s}: 1.5em;
+          }
+        }
+      }
+    }
+    p {
+      &.qu {
+        @include token(color, du-color--textSubdued);
+        font-size: .83em;
+      }
+      &.noTopMargin {
+        margin-top: 0;
+      }
+    }
+    .pageNum {
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: normal;
+      @include token(color, du-color--textSubdued);
+      @include bidi((left, right)) using ($s) {
+        text-align: #{$s};
+        float: #{flip($s)};
+      }
+      &::after {
+        content: attr(data-before-text);
+        position: relative;
+        @include bidi((left, right)) using ($s) {
+          #{flip($s)}: -10px;
+        }
+      }
+    }
+    #{sel("&.pub-", $pubs-page-nums)} {
+      position: relative;
+      h3.inline > .pageNum,
+      &.docClass-13 .contextTtl .pageNum,
+      &.docClass-14 .contextTtl .pageNum {
+        width: 0;
+      }
+      @each $dir, $side in (ltr right, rtl left) {
+        &.dir-#{$dir} h3.inline > .pageNum::after,
+        &.docClass-13.dir-#{$dir} .contextTtl .pageNum::after,
+        &.docClass-14.dir-#{$dir} .contextTtl .pageNum::after {
+          position: absolute;
+          #{$side}: 4px;
+        }
+      }
+    }
+    &.pub-lff,
+    &.pub-lffi {
+      position: relative;
+    }
+  }
+}
+
+@mixin part-9 {
+  @include jwac {
+    .unstyled .pageNum,
+    .pageNum+.pageNum,
+    &.docClass-115 .pageNum,
+    &.bible .pageNum,
+    table .pageNum,
+    aside .pageNum,
+    .blockTeach .pageNum,
+    .boxSupplement .pageNum,
+    .chart .pageNum,
+    .closingContent .pageNum,
+    .diagram .pageNum,
+    .mapElement .pageNum {
+      display: none;
+    }
+    .wide ol.timeline.arrowCap {
+      width: 100%;
+    }
+    ol.timeline {
+      list-style-type: none;
+      margin-left: 0;
+      margin-top: 40px;
+      padding-top: 40px;
+      @include bidi((left, right)) using ($s) {
+        padding-#{$s}: 0;
+        border-#{$s}-width: 9px;
+        border-#{$s}-style: solid;
+        border-#{$s}-color: #ebebeb;
+      }
+      h3, p {
+        margin: .25em 0;
+      }
+      > li {
+        clear: both;
+        position: relative;
+        min-height: 3em;
+        padding-bottom: .5em;
+        list-style-type: none;
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: 32px;
+        }
+        &::after,
+        &::before {
+          content: "";
+          position: absolute;
+          top: calc(.75em + 1px);
+        }
+        &::before {
+          width: 9px;
+          height: 9px;
+          display: inline-block;
+          background-color: #9e9b9a;
+          margin-top: -4px;
+          border-radius: 9px;
+          @include bidi((left, right)) using ($s) {
+            #{$s}: -9px;
+          }
+        }
+        &::after {
+          width: 20px;
+          height: 1px;
+          border-top-color: #c5c3c2;
+          border-top-width: 1px;
+          border-top-style: solid;
+          @include bidi((left, right)) using ($s) {
+            #{$s}: 0;
+          }
+        }
+        &.timeCirca::after {
+          border-top-width: 1px;
+          border-top-style: dashed;
+          border-top-color: #c5c3c2;
+        }
+        &.timeBCE::before {
+          border-color: #ffae00;
+          background-color: #ffae00;
+        }
+        &.timeCE::before {
+          border-color: #3fa2bf;
+          background-color: #3fa2bf;
+        }
+      }
+      li.timeline-bigFinish {
+        padding-bottom: 1em;
+        position: absolute;
+        bottom: -9em;
+        @include bidi((left, right)) using ($s) {
+          #{$s}: -32px;
+        }
+        h4 {
+          font-size: 1.75em;
+          font-weight: 700;
+        }
+      }
+      &.arrowCap {
+        position: relative;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-bottom: 40px;
+        @media #{$desktop} {
+          margin-left: 32px;
+          margin-right: 32px;
+        }
+        &::after {
+          position: absolute;
+          content: "";
+          height: 0;
+          width: 0;
+          border-top-color: #ebebeb;
+          border-top-width: 20px;
+          border-right-style: inset;
+          border-right-width: 20px;
+          border-right-color: transparent;
+          border-left-style: inset;
+          border-left-width: 20px;
+          border-left-color: transparent;
+          border-top-style: solid;
+          @include bidi((left, right)) using ($s) {
+            #{$s}: -25px;
+          }
+        }
+      }
+      ol.timeline {
+        margin-top: 0;
+      }
+    }
+    @each $dir, $side in (ltr left, rtl right) {
+      &.dir-#{$dir} ol.timeline ol.timeline {
+        border-left-width: 0;
+        margin-#{$side}: -32px;
+      }
+    }
+    ol.timeline ol.timeline li {
+      clear: both;
+      width: 92%;
+      &::before {
+        display: none;
+      }
+      &::after {
+        width: 50px;
+      }
+      @include bidi((left, right)) using ($s) {
+        padding-#{$s}: 64px;
+      }
+    }
+    .figcaption {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+    .boxSupplement .fullBleed {
+      .figcaption, .imgCredit {
+        margin-left: 16px;
+        margin-right: 16px;
+        @media #{$desktop} {
+          margin-left: 32px;
+          margin-right: 32px;
+        }
+      }
+    }
+    figcaption {
+      @include token(color, du-color--textSubdued);
+      font-size: .83em;
+    }
+    .imgCredit {
+      @include token(color, du-color--textSubdued);
+      font-size: .69em;
+    }
+    .tableDiv {
+      &.gridDefault table,
+      &.gridDefault td,
+      &.gridDefault th,
+      &.gridlines table,
+      &.gridlines td,
+      &.gridlines th,
+      &.tableBorder table,
+      &.tableGrid table,
+      &.tableGrid td,
+      &.tableGrid th {
+        border-width: 1px;
+        border-style: solid;
+        border-color: #a7a7a7;
+      }
+      &.rowBorder tr {
+        border-top-width: 1px;
+        border-top-style: solid;
+        border-top-color: #a7a7a7;
+        &:first-child,
+        &.shaded,
+        &.shaded + tr,
+        &.shaded th {
+          border-top-style: none;
+        }
+      }
+      tr {
+        &.emphasized th {
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+          a {
+            color: #9fb9e3;
+            &:visited {
+              color: #a9a7c9;
+            }
+          }
+        }
+        &.shaded {
+          th {
+            @include token(background-color, du-bgColor--bgEmphasized);
+            @include token(color, du-color--white);
+            a {
+              color: #9fb9e3;
+              &:visited {
+                color: #a9a7c9;
+              }
+            }
+          }
+          td {
+            @include token(background-color, du-bgColor--bgSecondary);
+          }
+        }
+      }
+      &.rowStripe,
+      &.stripe {
+        th,
+        thead tr {
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+          a {
+            color: #9fb9e3;
+            &:visited {
+              color: #a9a7c9;
+            }
+          }
+        }
+        tr:nth-child(2n) {
+          @include token(background-color, du-bgColor--bgSecondary);
+        }
+      }
+      &.gridlines {
+        th,
+        thead tr {
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+          a {
+            color: #9fb9e3;
+            &:visited {
+              color: #a9a7c9;
+            }
+          }
+        }
+        td.shaded {
+          @include token(background-color, du-bgColor--bgSecondary);
+        }
+      }
+      &.columnStripe {
+        th,
+        thead tr {
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+          a {
+            color: #9fb9e3;
+            &:visited {
+              color: #a9a7c9;
+            }
+          }
+        }
+        td:nth-child(odd) {
+          @include token(background-color, du-bgColor--bgSecondary);
+        }
+      }
+      &.columnBorder {
+        td, th {
+          @each $name, $name2 in (width 1px, style solid) {
+            @include bidi((left, right)) using ($s) {
+              border-#{$s}-#{$name}: $name2;
+            }
+          }
+          @include bidi((left, right)) using ($s) {
+            border-#{$s}-color: #a7a7a7;
+          }
+          @include bidi((left, right)) using ($s) {
+            &:first-child {
+              border-#{$s}-style: none;
+            }
+          }
+        }
+      }
+      &.full table {
+        width: 100%;
+      }
+      &.half {
+        @media #{$mobile-only} {
+          width: 100%;
+          max-width: 100%;
+        }
+        table {
+          width: 100%;
+        }
+      }
+      &.wide {
+        position: relative;
+        overflow: auto;
+        > * {
+          min-width: 650px;
+          max-width: 750px;
+          @media #{$desktop-only} {
+            min-width: 750px;
+            max-width: 960px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin part-10 {
+  @include jwac {
+    .mapElement {
+      @include token(background-color, du-bgColor--bgSecondary);
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      padding: 16px;
+      > :first-child:not(aside),
+      > aside:first-child > :first-child {
+        margin-top: 0;
+      }
+      > :last-child:not(aside),
+      > aside:first-child > :last-child {
+        margin-bottom: 8px;
+      }
+      @media #{$desktop} {
+        > :last-child:not(aside),
+        > aside:first-child > :last-child {
+          margin-bottom: 16px;
+        }
+      }
+    }
+    .closingContent {
+      &.dashed,
+      &.rule {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        padding-left: 16px;
+        padding-right: 16px;
+        @media #{$desktop} {
+          padding-left: 32px;
+          padding-right: 32px;
+        }
+        > :first-child {
+          margin-top: 0;
+        }
+        > :last-child {
+          margin-bottom: 8px;
+          @media #{$desktop} {
+            margin-bottom: 16px;
+          }
+        }
+        .boxTtl {
+          margin-top: -16px;
+          margin-left: -16px;
+          margin-right: -16px;
+          @media #{$desktop} {
+            margin-left: -32px;
+            margin-right: -32px;
+          }
+        }
+        .boxSubTtl {
+          margin-left: -16px;
+          margin-right: -16px;
+          @media #{$desktop} {
+            margin-left: -32px;
+            margin-right: -32px;
+          }
+        }
+        .boxContent {
+          margin-bottom: -16px;
+          margin-left: -16px;
+          margin-right: -16px;
+          @media #{$desktop} {
+            margin-left: -32px;
+            margin-right: -32px;
+          }
+        }
+      }
+      &:not(.rule):not(.dashed) {
+        .boxTtl {
+          border-top-style: solid;
+          border-right-style: solid;
+          border-left-style: solid;
+          border-width: 1px;
+          border-color: #a7a7a7;
+          + .boxContent {
+            border-right-style: solid;
+            border-bottom-style: solid;
+            border-left-style: solid;
+            border-width: 1px;
+            border-color: #a7a7a7;
+          }
+        }
+        > .boxContent:first-child {
+          border-top-style: solid;
+          border-width: 1px;
+          border-color: #a7a7a7;
+        }
+      }
+    }
+    .diagram {
+      border-top-style: solid;
+      border-right-style: solid;
+      border-bottom-style: solid;
+      border-left-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+      background-color: transparent;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      padding: 16px;
+      > :first-child:not(aside),
+      > aside:first-child > :first-child {
+        margin-top: 0;
+      }
+      > :last-child:not(aside),
+      > aside:first-child > :last-child {
+        margin-bottom: 8px;
+      }
+      @media #{$desktop} {
+        > :last-child:not(aside),
+        > aside:first-child > :last-child {
+          margin-bottom: 16px;
+        }
+      }
+    }
+    .chart {
+      padding: 16px;
+      > :first-child:not(aside),
+      > aside:first-child > :first-child {
+        margin-top: 0;
+      }
+      > :last-child:not(aside),
+      > aside:first-child > :last-child {
+        margin-bottom: 8px;
+      }
+      @media #{$desktop} {
+        > :last-child:not(aside),
+        > aside:first-child > :last-child {
+          margin-bottom: 16px;
+        }
+      }
+    }
+    .blockTeach, .boxSupplement, .chart, .closingContent, .diagram, .mapElement {
+      clear: both;
+      &::after,
+      &::before {
+        content: " ";
+        display: table;
+      }
+      &::after {
+        clear: both;
+      }
+      table {
+        width: 100%;
+      }
+      @each $name, $name2 in (rule solid, dashed dashed) {
+        &.#{$name} {
+          border-top-style: $name2;
+          border-right-style: $name2;
+          border-bottom-style: $name2;
+          border-left-style: $name2;
+          border-width: 1px;
+          border-color: #a7a7a7;
+          background-color: transparent;
+          margin-top: 1.5em;
+          margin-bottom: 1.5em;
+        }
+      }
+      &.bgTransparent {
+        background-color: transparent;
+      }
+      @media #{$desktop} {
+        &.flLeft,
+        &.floatWest {
+          max-width: 50%;
+          min-width: 25%;
+          margin-top: 0;
+          margin-bottom: 24px;
+          @include bidi((left, right)) using ($s) {
+            margin-#{flip($s)}: 24px;
+            float: #{$s};
+          }
+        }
+        &.flRight,
+        &.floatEast {
+          max-width: 50%;
+          min-width: 25%;
+          margin-top: 0;
+          margin-bottom: 24px;
+          @include bidi((left, right)) using ($s) {
+            margin-#{$s}: 24px;
+            float: #{flip($s)};
+          }
+        }
+      }
+      &.wide {
+        position: relative;
+        overflow: auto;
+        padding-top: 0;
+        padding-bottom: 0;
+        > * {
+          min-width: 650px;
+          max-width: 750px;
+          @media #{$desktop-only} {
+            min-width: 750px;
+            max-width: 960px;
+          }
+        }
+      }
+    }
+    .sa {
+      font-size: 1.21em;
+      @include bidi((left, right)) using ($s) {
+        margin-#{$s}: 24px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      blockquote .sa {
+        margin-#{$s}: 0;
+      }
+    }
+    ul li > p.sa {
+      font-size: 1em;
+      @include bidi((left, right)) using ($s) {
+        margin-#{$s}: 0;
+      }
+    }
+    .sc, .sd, .se {
+      &,
+      > * {
+        text-indent: 0;
+      }
+    }
+    .sf {
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: #a7a7a7;
+      @include token(color, du-color--textSubdued);
+      padding-top: .5em;
+      text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
+    }
+    .sg {
+      &,
+      > * {
+        text-indent: 0;
+      }
+    }
+    .sh {
+      &,
+      > * {
+        text-indent: 0;
+      }
+    }
+    .si {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      @include bidi((left, right)) using ($s) {
+        margin-#{$s}: 40px;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .boxContent .si {
+        margin-#{$s}: 0;
+      }
+    }
+    @include bidi((left, right)) using ($s) {
+      .sj {
+        margin-#{$s}: 40%;
+      }
+    }
+    .sk {
+      text-indent: 1.5em;
+      > * {
+        text-indent: 0;
+      }
+    }
+    .sl {
+      text-indent: -40px;
+      @include bidi((left, right)) using ($s) {
+        padding-#{$s}: 40px;
+      }
+    }
+    .sm, .sn, .so {
+      &,
+      > * {
+        text-indent: 0;
+      }
+    }
+    .sp {
+      text-indent: -20px;
+      @include bidi((left, right)) using ($s) {
+        padding-#{$s}: 40px;
+      }
+      > * {
+        text-indent: 0;
+      }
+    }
+    .sq {
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: #a7a7a7;
+      @include token(color, du-color--textSubdued);
+      padding-top: .5em;
+      text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
+    }
+    .sr {
+      &,
+      > * {
+        text-indent: 0;
+      }
+    }
+    @each $name, $value, $value2 in (ss 1em 1.45em, st 0 1.75em) {
+      .#{$name} {
+        margin-top: $value;
+        margin-bottom: .25em;
+        font-size: $value2;
+        font-weight: 700;
+        line-height: 1.25;
+      }
+    }
+    .copyrightInfo .st {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1em;
+      line-height: 1.5;
+    }
+    @each $name, $value, $value2 in (su 20px 20px, sv 30px 80px, sx 20px 20px, sy 30px 80px) {
+      .#{$name} {
+        margin-top: .5em;
+        margin-bottom: .5em;
+        text-indent: -#{$value};
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: $value2;
+        }
+        > * {
+          text-indent: 0;
+        }
+      }
+    }
+    .sz {
+      text-indent: -20px;
+      @each $name, $value in (padding 20px, margin 48px) {
+        @include bidi((left, right)) using ($s) {
+          #{$name}-#{$s}: $value;
+        }
+      }
+    }
+    .s1, .s2, .s3, .s4 {
+      margin-top: 0;
+      margin-bottom: 0;
+      text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
+      p {
+        margin-top: 0;
+      }
+    }
+    @each $value, $value2 in (5 32px, 6 64px, 7 96px, 8 128px, 9 160px, 0 192px) {
+      @include bidi((left, right)) using ($s) {
+        .s#{$value} {
+          margin-#{$s}: $value2;
+        }
+      }
+    }
+  }
+}
+
+@mixin part-11 {
+  @include jwac {
+    body:not(.noJS) &:not(.showRuby):not(.pub-int) ruby>rt {
+      display: none;
+    }
+    &.pub-int ruby>rt,
+    &.showRuby ruby>rt,
+    body.noJS & ruby>rt {
+      font-size: .83em;
+    }
+    &.pub-int ruby {
+      font-family: NotoSans,Arial,"Arial Unicode MS",sans-serif;
+      line-height: 3;
+      @include themed(color, du-color--gray-400, #8e8e8e);
+      > rt {
+        padding-left: 4px;
+        padding-right: 4px;
+        font-family: WTClearText,serif;
+        @include token(color, du-color--textDefault);
+      }
+    }
+    @supports not (ruby-align:center) {
+      &.showRuby.ms-CHINESE ruby,
+      body.noJS.ms-CHINESE & ruby {
+        @include display(inline-flex);
+        @include flex-direction(column-reverse);
+        baseline-source: last;
+        text-align: center;
+        line-height: 1!important;
+        text-indent: 0;
+      }
+      &.showRuby.ms-CHINESE ruby>rt,
+      body.noJS.ms-CHINESE & ruby>rt {
+        display: inline;
+        line-height: normal!important;
+        padding-left: .25em;
+        padding-right: .25em;
+        margin-top: .1em;
+        margin-bottom: .1em;
+      }
+      &.showRuby.ms-CHINESE p ruby,
+      body.noJS.ms-CHINESE & p ruby {
+        margin-bottom: .5em;
+      }
+    }
+    &.showRuby.ms-CHINESE ruby,
+    body.noJS.ms-CHINESE & ruby {
+      line-height: 3;
+    }
+    &.showRuby.ms-CHINESE ruby>rt,
+    body.noJS.ms-CHINESE & ruby>rt {
+      padding-left: 4px;
+      padding-right: 4px;
+      margin-bottom: 1px;
+      line-height: 3;
+    }
+    &.showRuby.ms-CHINESE .qu ruby,
+    &.showRuby.ms-CHINESE .w_question,
+    body.noJS.ms-CHINESE & .qu ruby,
+    body.noJS.ms-CHINESE & .w_question {
+      font-size: 1.21em;
+    }
+    &.showRuby.ms-JAPANESE ruby,
+    body.noJS.ms-JAPANESE & ruby {
+      line-height: 2;
+    }
+    &.showRuby.ms-JAPANESE ruby>rt,
+    body.noJS.ms-JAPANESE & ruby>rt {
+      margin-bottom: -.25em;
+      line-height: 2;
+      font-size: .57em;
+    }
+    &.docClass-31 {
+      .bodyTxt ol li {
+        margin-bottom: 1em;
+        p {
+          margin-top: .5em;
+          margin-bottom: .5em;
+        }
+        @include bidi((left, right)) using ($s) {
+          .sz {
+            margin-#{$s}: 1.5em;
+          }
+        }
+      }
+      .chorus {
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+      .se {
+        @include token(color, du-color--textSubdued);
+      }
+    }
+    header h1+h2 {
+      margin-top: 0;
+    }
+    h2 {
+      &.headingRuleBottom {
+        border-bottom-style: solid;
+        border-color: #a7a7a7;
+        border-width: 1px;
+        padding-bottom: .25em;
+      }
+      &.shadedHeader {
+        padding: .25em .5em;
+        font-size: 1.45em;
+        @include token(color, du-color--white);
+        &.treasures {
+          background-color: #626262;
+        }
+        &.ministry {
+          background-color: #c48430;
+        }
+        &.christianLiving {
+          background-color: #942926;
+        }
+      }
+    }
+    .treasures--rev2021 {
+      &.mwbHeadingIcon {
+        @include display(flex);
+        @include align-items(center);
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        > p {
+          margin: 0;
+        }
+        &::before {
+          content: "\e720";
+          @include mwb-heading-icon;
+          @include bidi((left, right)) using ($s) {
+            margin-#{flip($s)}: 16px;
+          }
+        }
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      > p {
+        @include themed(color, du-color--gray-600, #626262);
+      }
+      &.mwbHeadingIcon::before {
+        background-color: #626262;
+      }
+    }
+    .ministry--rev2021 {
+      &.mwbHeadingIcon {
+        @include display(flex);
+        @include align-items(center);
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        > p {
+          margin: 0;
+        }
+        &::before {
+          content: "\e898";
+          @include mwb-heading-icon;
+          @include bidi((left, right)) using ($s) {
+            margin-#{flip($s)}: 16px;
+          }
+        }
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      > p {
+        @include themed(color, du-color--amber-700, #9d5d07);
+      }
+      &.mwbHeadingIcon::before {
+        background-color: #c48430;
+      }
+    }
+    .christianLiving--rev2021.mwbHeadingIcon {
+      @include display(flex);
+      @include align-items(center);
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      > p {
+        margin: 0;
+      }
+      &::before {
+        content: "\e800";
+        @include mwb-heading-icon;
+        @include bidi((left, right)) using ($s) {
+          margin-#{flip($s)}: 16px;
+        }
+      }
+    }
+    &.dir-rtl .christianLiving--rev2021.mwbHeadingIcon::before {
+      @include webkit(transform, scale(-1,1));
+    }
+    .christianLiving--rev2021 {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      > p {
+        @include themed(color, du-color--maroon-600, #942926);
+      }
+      &.mwbHeadingIcon::before {
+        background-color: #942926;
+      }
+    }
+    .contextTtl, .featureTtl {
+      margin-top: .25em;
+      margin-bottom: .25em;
+      @include token(color, du-color--textSubdued);
+    }
+  }
+}
+
+@mixin part-12 {
+  @include jwac {
+    blockquote+blockquote {
+      clear: both;
+    }
+  }
+}
+
+@mixin part-13 {
+  @include jwac {
+    .groupEndnote, .groupFootnote, .relatedContent {
+      margin: 1em 0;
+      font-size: .83em;
+      @include token(color, du-color--textSubdued);
+      border-top-style: solid;
+      border-top-width: 1px;
+      border-color: #a7a7a7;
+      clear: both;
+      .footnoteref {
+        display: none;
+      }
+    }
+    #{sel("&.pub-", $pubs-without-notes)} {
+      .groupEndnote, .groupFootnote {
+        display: none;
+      }
+    }
+    .groupExtScrpCite aside:first-child {
+      padding-top: 2em;
+    }
+  }
+}
+
+@mixin part-14 {
+  @include jwac {
+    .verse {
+      .style-b {
+        @include bidi((left, right)) using ($s) {
+          + .parabreak + .style-b,
+          &.first {
+            padding-#{$s}: 1em;
+          }
+        }
+      }
+      .style-l {
+        display: block;
+        text-indent: -3em;
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: 3em;
+        }
+      }
+      .style-z {
+        display: block;
+        margin: .2em 1em;
+        text-indent: -1em;
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: 2.5em;
+        }
+      }
+      .style-p {
+        display: block;
+        text-indent: -2.5em;
+      }
+    }
+    &.dir-ltr .verse .style-p {
+      padding-left: 4em;
+    }
+    &.dir-rtl .verse .style-p {
+      padding-right: 3em;
+    }
+    sup.superscription {
+      position: static;
+      font-size: 1em;
+      .style-s, .style-w {
+        display: block;
+        font-size: .83em;
+        margin: .75em 0 .25em 0;
+        text-align: center;
+        text-indent: 0;
+        ruby {
+          text-indent: 0;
+        }
+      }
+      .parabreak,
+      br.para,
+      span.verse > br.para:first-child,
+      span.verse > span.parabreak:first-child {
+        display: none;
+      }
+    }
+    .parabreak {
+      display: block;
+      height: 0;
+    }
+    .verse>& .parabreak:last-child {
+      height: .25em;
+    }
+    .newblock {
+      display: block;
+      height: 0;
+    }
+    &.bible,
+    &.bibleCitation,
+    &.docClass-1 {
+      p {
+        margin: 0;
+      }
+      .sb {
+        text-indent: 1em;
+        &:first-child,
+        &:first-of-type,
+        > * {
+          text-indent: 0;
+        }
+      }
+      .ss, .sw {
+        font-size: .83em;
+        margin: .75em 0 .25em 0;
+        text-align: center;
+        text-indent: 0;
+        ruby {
+          text-indent: 0;
+        }
+      }
+      .ss {
+        font-weight: 400;
+      }
+      .sl {
+        display: block;
+        text-indent: -3em;
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: 3em;
+        }
+      }
+      .sz {
+        display: block;
+        margin: .2em 1em;
+        text-indent: -1em;
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: 2.5em;
+        }
+      }
+      .sp {
+        display: block;
+        text-indent: -2.5em;
+      }
+      &.dir-ltr .sp {
+        padding-left: 4em;
+      }
+      &.dir-rtl .sp {
+        padding-right: 3em;
+      }
+    }
+    .chapterNum,
+    .cl:not(.tt) {
+      font-size: 1.75em;
+      line-height: 1;
+    }
+    .verseNum,
+    .vl:not(.tt) {
+      padding: 0 .25em;
+      font-size: 1em;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .verseNum {
+      position: static;
+    }
+    .chapterNum a,
+    .cl:not(.tt),
+    .verseNum a,
+    .vl:not(.tt) {
+      @include themed(color, du-color--blue-500, #4a6da7);
+    }
+    &.bibleCitation {
+      .cl:not(.tt) {
+        font-size: 1.21em;
+      }
+      @include bidi((left, right)) using ($s) {
+        .vl:not(.tt):first-child {
+          padding-#{$s}: 0;
+        }
+      }
+      @include bidi((left, right)) using ($s) {
+        .v:not(.tt) + .cl {
+          padding-#{$s}: 16px;
+        }
+      }
+    }
+    .m:not(.tt),
+    .xrefLink {
+      position: relative;
+      top: -.5em;
+      text-indent: 0;
+      padding-left: 4px;
+      padding-right: 4px;
+      font-size: .69em;
+      font-style: italic;
+      @include token(color, ds-link-color);
+    }
+    @each $name, $value in (verse 1.75em, chapter 1.5em) {
+      .#{$name}Num a {
+        @include display(inline-flex);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+        z-index: 1;
+        &.addHighlight,
+        &.highlight,
+        &:focus,
+        &:hover {
+          text-decoration: none;
+          &::after {
+            position: absolute;
+            content: " ";
+            width: $value;
+            height: $value;
+            border-radius: 100%;
+            background-color: #4a6da7;
+            @include token(opacity, jwac-footnote-opacity);
+            z-index: -1;
+          }
+        }
+        &.highlight.addHighlight {
+          @include token(color, jwac-footnote-link-color--addHighlight);
+          &::after {
+            @include token(opacity, jwac-footnote-opacity--addHighlight);
+          }
+        }
+        &:visited {
+          @include token(color, ds-link-color);
+        }
+      }
+    }
+    .style-l, .style-p, .style-z {
+      .chapterNum a,
+      .verseNum a {
+        text-indent: 0;
+      }
+    }
+    .xrefLink {
+      @include display(inline-flex);
+      @include justify-content(center);
+      @include align-items(center);
+      position: relative;
+      z-index: 1;
+      &.addHighlight,
+      &.highlight,
+      &:focus,
+      &:hover {
+        text-decoration: none;
+        &::after {
+          position: absolute;
+          content: " ";
+          width: 2.5em;
+          height: 2.5em;
+          border-radius: 100%;
+          background-color: #4a6da7;
+          @include token(opacity, jwac-footnote-opacity);
+          z-index: -1;
+        }
+      }
+      &.highlight.addHighlight {
+        @include token(color, jwac-footnote-link-color--addHighlight);
+        &::after {
+          @include token(opacity, jwac-footnote-opacity--addHighlight);
+        }
+      }
+      &:visited {
+        @include token(color, ds-link-color);
+      }
+    }
+    #{sel("&.pub-", $pubs-maroon-titles)} {
+      &.docClass-11,
+      &.docClass-116,
+      &.docClass-12,
+      &.docClass-125,
+      &.docClass-13,
+      &.docClass-14 {
+        .contextTtl, h1 {
+          @include token(color, du-color--maroon-700);
+        }
+      }
+    }
+    #{sel("&.pub-", $pubs-chapter-badges)} {
+      &.docClass-14 .contextTtl {
+        @include chapter-badge;
+        margin-bottom: .5em;
+      }
+      &.docClass-125 .groupTOC > .source .txtSrcBullet {
+        @include chapter-badge;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 8px;
+        + * {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@mixin part-15 {
+  @include jwac {
+    .BibleChapterOutline>ul,
+    .outline {
+      margin: 0;
+      list-style-type: none;
+    }
+    .BibleChapterOutline > ul,
+    .outline {
+      @include bidi((left, right)) using ($s) {
+        padding-#{$s}: 0;
+      }
+      > li::before {
+        content: "​";
+        position: absolute;
+      }
+      p {
+        margin: 0;
+        + p {
+          margin-top: .25em;
+        }
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        > li::before {
+          content: "​";
+          position: absolute;
+        }
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: 0;
+        }
+      }
+      .L1:not(.chapterNo) p {
+        text-indent: -1em;
+        @include bidi((left, right)) using ($s) {
+          padding-#{$s}: 1em;
+        }
+        .itemLabel {
+          text-indent: 0;
+        }
+      }
+      .L2 ul {
+        padding: 0;
+      }
+      li {
+        &.L1 {
+          margin: 1em 0;
+        }
+        &.L2,
+        &.L3,
+        &.L4 {
+          margin: .25em 0;
+          text-indent: -.75em;
+          @include bidi((left, right)) using ($s) {
+            padding-#{$s}: .75em;
+          }
+        }
+        &.chapterNo {
+          @include display(flex);
+          > p {
+            font-size: 1.45em;
+            @include flex(0 0 auto);
+            line-height: 1.25;
+            min-width: 1.5em;
+          }
+          > ul {
+            @include bidi((left, right)) using ($s) {
+              padding-#{$s}: .5em;
+            }
+            > li {
+              &:first-child {
+                margin-top: 0;
+              }
+              &:last-child {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.pub-igw.docClass-11 .groupTOC>.source .txtSrcBullet,
+    &.pub-nwt.docClass-11 .groupTOC>.source .txtSrcBullet,
+    &.pub-nwtsty.docClass-11 .groupTOC>.source .txtSrcBullet {
+      @include token(color, du-color--maroon-700);
+    }
+    &.docClass-116,
+    &.docClass-12 {
+      h3.inline {
+        margin: 0;
+        font-size: 1em;
+        line-height: inherit;
+        @include bidi((left, right)) using ($s) {
+          float: #{$s};
+        }
+        @include bidi((left, right)) using ($s) {
+          padding-#{flip($s)}: .25em;
+        }
+      }
+      p {
+        &.sk,
+        &.sm {
+          margin: 0;
+          @include bidi((left, right)) using ($s) {
+            padding-#{$s}: 1em;
+          }
+        }
+      }
+      .docNav a {
+        @include token(color, dc-button-tertiary-color);
+        @include display(inline-flex);
+        @include align-items(center);
+        @include justify-content(center);
+        vertical-align: middle;
+        min-width: 53px;
+        padding: .5em;
+        &::before {
+          @include themed(color, dc-button-tertiary-icon-color, #757575);
+        }
+        &:visited {
+          @include token(color, dc-button-tertiary-color);
+        }
+        &:focus,
+        &:hover {
+          @include themed(background-color, dc-button-tertiary-bgColor--hover, #e8effb);
+          text-decoration: none;
+          &::before {
+            @include token(color, dc-button-tertiary-color);
+          }
+        }
+        &:focus {
+          border-color: #7f9fd3;
+          outline: 0;
+          box-shadow: 0 0 5px 1px #7f9fd3;
+        }
+        &::before {
+          align-self: center;
+        }
+      }
+    }
+    ul.dl {
+      list-style-type: none;
+      > li::before {
+        content: "​";
+        position: absolute;
+      }
+      @include bidi((left, right)) using ($s) {
+        padding-#{$s}: 0;
+      }
+    }
+    .ftnGlossaryTerm h3.inline {
+      margin: 0;
+      font-size: 1em;
+      line-height: inherit;
+      @include bidi((left, right)) using ($s) {
+        float: #{$s};
+      }
+      @include bidi((left, right)) using ($s) {
+        padding-#{flip($s)}: .25em;
+      }
+    }
+    &.docId-1001061220,
+    &.docId-1001070220,
+    &.docId-1102013694 {
+      .boxContent ul.noMarker {
+        .west_left {
+          margin-top: 0;
+        }
+        @include bidi((left, right)) using ($s) {
+          .source {
+            margin-#{$s}: 64px;
+          }
+        }
+      }
+    }
+    .jwac-textHighlight {
+      &, ruby {
+        text-underline-offset: .4ex;
+        @include webkit(text-decoration-style, dotted);
+        @include webkit(text-decoration-line, underline);
+        text-decoration-thickness: 1px;
+        @include webkit(text-decoration-color, #8e8e8e);
+      }
+    }
+  }
+}
+
+@mixin part-16 {
+  @include jwac {
+    details {
+      summary::-webkit-details-marker {
+        display: none;
+      }
+      > summary {
+        list-style: none;
+        cursor: pointer;
+        &::before {
+          @include webkit(transition, -webkit-transform .25s ease-in-out);
+          transition: transform .25s ease-in-out;
+          transition: transform .25s ease-in-out,-webkit-transform .25s ease-in-out;
+        }
+        &:active,
+        &:focus,
+        &:hover {
+          background-image: -webkit-linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+          background-image: linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+        }
+      }
+    }
+  }
+}
+
+@mixin part-17 {
+  @include jwac {
+    details {
+      &[open] > summary {
+        &::before {
+          @include webkit(transform, rotate(-180deg));
+        }
+        .details-summary--show {
+          display: none;
+        }
+      }
+      &:not([open]) > summary .details-summary--hide {
+        display: none;
+      }
+    }
+    &.dir-rtl .pm-link-helpContent .pm-replacementIcon-help::before {
+      @include webkit(transform, scaleX(-1));
+    }
+    &.dir-ltr [class*=pm-textIcon]::before {
+      margin-right: 5px;
+    }
+    &.dir-rtl [class*=pm-textIcon]::before,
+    &.dir-ltr .pm-buttonIcon-arrowRight--end a::after {
+      margin-left: 5px;
+    }
+    &.dir-rtl .pm-buttonIcon-arrowRight--end a::after {
+      margin-right: 5px;
+      @include webkit(transform, scaleX(-1));
+    }
+  }
+}
+
+@mixin part-18 {
+  @include jwac {
+    table .pageNum {
+      display: none!important;
+    }
+    a {
+      &,
+      &:visited {
+        color: #2878bb;
+      }
+    }
+  }
+}
+
+@mixin part-19 {
+  @include jwac {
+    @at-root a#{$root} {
+      color: #2878bb;
+    }
+  }
+}
+
+@mixin part-20 {
+  @include jwac {
+    .footnoteResult .groupEndnote,
+    .footnoteResult .groupFootnote,
+    .tooltipContent & .groupEndnote,
+    .tooltipContent & .groupFootnote {
+      display: block;
+      color: inherit;
+      border: none;
+      font-size: 1em;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+@mixin part-21 {
+  @include jwac {
+    @each $dir, $side in (ltr right, rtl left) {
+      .dir-#{$dir} &.pub-nwt .contextTtl .pageNum::after {
+        padding-#{$side}: 16px;
+      }
+    }
+    .clearfix {
+      &::after,
+      &::before {
+        max-width: 0;
+      }
+    }
+    &.pub-int .hl {
+      rt, ruby {
+        color: inherit;
+      }
+    }
+    @at-root #searchResultsForm .searchResult#{$root}.pub-lff,
+             #searchResultsForm .searchResult#{$root}.pub-lffi {
+      background: 0 0;
+    }
+    textarea {
+      height: 42px;
+      line-height: 24px;
+      font-size: 16px;
+    }
+  }
+}

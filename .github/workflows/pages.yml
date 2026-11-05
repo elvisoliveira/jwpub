@@ -3,6 +3,8 @@ name: Deploy to Pages
 on:
   push:
     branches: [master, main]
+  pull_request:   # build only, to check the site builds before merging
+    branches: [master, main]
   workflow_dispatch:
 
 permissions:
@@ -32,11 +34,20 @@ jobs:
             --crate-type cdylib crypto.rs -o crypto.wasm
           rm crypto.rs   # never publish the plaintext key
 
+      - name: Build CSS from scss/
+        run: npx -y sass@1.107.1 --no-source-map --style=compressed scss/main.scss styles.css
+
+      - name: Collect the site
+        run: |
+          mkdir _site
+          cp index.html jwpub.js ui.js styles.css crypto.wasm favicon.ico _site/
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:

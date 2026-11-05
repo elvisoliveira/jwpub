@@ -1,0 +1,13 @@
+@use "lib" as *;
+
+// item → (ltr, rtl) value
+$items: (center: (center, center), left: (left, left), right: (right, right),
+         inlineStart: (left, right), inlineEnd: (right, left));
+
+@include jwac {
+  @each $item, $pair in $items {
+    @include bidi($pair) using ($side) {
+      .du-textAlign--#{$item} { text-align: $side !important; }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@use "sass:list";
+@use "lib" as *;
+@use "icons" as *;
+
+// Also generates dc-iconOverlay (same glyphs, drawn over an image).
+
+@mixin flip { @include webkit(transform, scale(-1, 1)); }
+
+@include jwac {
+  @each $name, $code in $icons {
+    .dc-icon--#{$name}::before { content: $code; }
+    @if list.index($rtl-flipped, $name) {
+      &.dir-rtl .dc-icon--#{$name}::before { @include flip; }
+    }
+  }
+
+  [class*=" dc-icon--"]::before,
+  [class^=dc-icon--]::before {
+    @include icon-font;
+    @include display(inline-flex);
+    font-size: inherit;
+  }
+
+  .dc-icon-order--inlineEnd {
+    @include display(flex);
+    @include flex-direction(row);
+    &::before { @include order(1); }
+  }
+
+  @each $name, $align in (top: flex-start, verticalCenter: center, bottom: flex-end) {
+    @include variants($responsive) using ($s) {
+      .dc-icon-layout#{$s}--#{$name} {
+        @include display(flex);
+        @include align-items($align);
+      }
+    }
+  }
+
+  [class*=" dc-iconOverlay--"],
+  [class^=dc-iconOverlay--] {
+    position: relative;
+    line-height: 1;
+    vertical-align: middle;
+
+    &::before {
+      @include icon-font;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      padding: 8px;
+      font-size: 1.205em;
+      @include token(color, du-color--white);
+      background: rgba(18, 18, 18, 0.6);
+    }
+    @include bidi((left, right)) using ($side) {
+      &::before { #{$side}: 0; }
+    }
+    &:focus::before,
+    &:hover::before { background: rgba(18, 18, 18, 0.8); }
+  }
+
+  @each $name, $code in $icons {
+    @include variants($responsive) using ($s) {
+      .dc-iconOverlay#{$s}--#{$name}::before { content: $code; }
+      @if list.index($rtl-flipped, $name) {
+        &.dir-rtl .dc-iconOverlay#{$s}--#{$name}::before { @include flip; }
+      }
+    }
+  }
+}
