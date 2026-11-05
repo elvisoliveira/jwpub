@@ -2,6 +2,22 @@
 // one mixin per piece; _order.scss puts each piece where it was).
 @use "lib" as *;
 
+// Publications that hide their footnote and endnote groups.
+$pubs-without-notes: Rbi8, bi10, bi12, bi22, bi7, bi7ls, bi8, biFgn, biMt, by, ijw, int, nwt, nwths,
+  nwtmt, nwtp, nwtsty, rh, sbi1, sbi1p, sbi2, sbi2p, sbi3, sbi3p, sbi4;
+// Publications with maroon titles on their Bible pages.
+$pubs-maroon-titles: bi12, bi7, igw, nwt, nwths, nwtsty, sgd;
+// Publications whose page numbers sit beside the heading.
+$pubs-page-nums: bi12, bi7, igw, nwt, nwths, sgd;
+// Publications with a chapter-number badge.
+$pubs-chapter-badges: nwt, nwtsty, sgd;
+// Lists and boxes with images in a side column.
+$img-columns: imgEastEighth, imgEastQuarter, imgWestEighth, imgWestQuarter;
+// What keeps clear of that column.
+$img-column-text: h2, h3, h4, h5, ol, ul, "> li > p", "> p";
+// Image grids.
+$img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid;
+
 @mixin part-1 {
   @include jwac {
     & {
@@ -176,9 +192,7 @@
         margin-top: 1em;
       }
     }
-    .boxSupplement.imgGrid .boxContent,
-    .grpItems.imgGrid,
-    .listImgGrid {
+    #{sel(".", $img-grids)} {
       display: -webkit-box;
       display: flex;
       flex-wrap: wrap;
@@ -209,25 +223,17 @@
         }
       }
     }
-    .boxSupplement.imgGrid .boxContent.threeColumn div.half,
-    .grpItems.imgGrid.threeColumn div.half,
-    .listImgGrid.threeColumn div.half,
-    .boxSupplement.imgGrid .boxContent.threeColumn div.quarter,
-    .grpItems.imgGrid.threeColumn div.quarter,
-    .listImgGrid.threeColumn div.quarter {
+    #{sel(".", $img-grids, ".threeColumn div.half")},
+    #{sel(".", $img-grids, ".threeColumn div.quarter")} {
       flex-basis: 33.33%;
     }
     @supports (display:grid) {
-      .boxSupplement.imgGrid .boxContent,
-      .grpItems.imgGrid,
-      .listImgGrid {
+      #{sel(".", $img-grids)} {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 16px;
       }
-      .boxSupplement.imgGrid .boxContent,
-      .grpItems.imgGrid,
-      .listImgGrid {
+      #{sel(".", $img-grids)} {
         @media #{$desktop-only} {
           gap: 32px;
         }
@@ -242,17 +248,11 @@
           padding: 0;
         }
       }
-      .boxSupplement.imgGrid .boxContent div.half,
-      .grpItems.imgGrid div.half,
-      .listImgGrid div.half,
-      .boxSupplement.imgGrid .boxContent div.quarter,
-      .grpItems.imgGrid div.quarter,
-      .listImgGrid div.quarter {
+      #{sel(".", $img-grids, " div.half")},
+      #{sel(".", $img-grids, " div.quarter")} {
         max-width: 100%;
       }
-      .boxSupplement.imgGrid .boxContent.threeColumn,
-      .grpItems.imgGrid.threeColumn,
-      .listImgGrid.threeColumn {
+      #{sel(".", $img-grids, ".threeColumn")} {
         grid-template-columns: 1fr 1fr 1fr;
       }
     }
@@ -319,10 +319,7 @@
         list-style-type: none;
       }
       ol {
-        &.imgEastEighth > li,
-        &.imgEastQuarter > li,
-        &.imgWestEighth > li,
-        &.imgWestQuarter > li {
+        #{sel("&.", $img-columns, " > li")} {
           list-style-type: none;
         }
       }
@@ -376,18 +373,12 @@
       }
     }
     div, ul {
-      &.imgEastEighth > li,
-      &.imgEastQuarter > li,
-      &.imgWestEighth > li,
-      &.imgWestQuarter > li {
+      #{sel("&.", $img-columns, " > li")} {
         list-style-type: none;
       }
     }
     div, ol, ul {
-      &.imgEastEighth,
-      &.imgEastQuarter,
-      &.imgWestEighth,
-      &.imgWestQuarter {
+      #{sel("&.", $img-columns)} {
         padding: 0;
         > li {
           &::after,
@@ -407,25 +398,11 @@
         &.imgEast#{$name},
         &.imgWest#{$name} {
           @include bidi((left, right)) using ($s) {
-            h2,
-            h3,
-            h4,
-            h5,
-            ol,
-            ul,
-            > li > p,
-            > p {
+            #{$img-column-text} {
               margin-#{$s}: calc($value + 16px);
             }
             @media #{$desktop-only} {
-              h2,
-              h3,
-              h4,
-              h5,
-              ol,
-              ul,
-              > li > p,
-              > p {
+              #{$img-column-text} {
                 margin-#{$s}: calc($value + 32px);
               }
             }
@@ -516,12 +493,7 @@
         }
       }
     }
-    &.pub-bi12,
-    &.pub-bi7,
-    &.pub-igw,
-    &.pub-nwt,
-    &.pub-nwths,
-    &.pub-sgd {
+    #{sel("&.pub-", $pubs-page-nums)} {
       position: relative;
       h3.inline > .pageNum,
       &.docClass-13 .contextTtl .pageNum,
@@ -1563,31 +1535,7 @@
         display: none;
       }
     }
-    &.pub-Rbi8,
-    &.pub-bi10,
-    &.pub-bi12,
-    &.pub-bi22,
-    &.pub-bi7,
-    &.pub-bi7ls,
-    &.pub-bi8,
-    &.pub-biFgn,
-    &.pub-biMt,
-    &.pub-by,
-    &.pub-ijw,
-    &.pub-int,
-    &.pub-nwt,
-    &.pub-nwths,
-    &.pub-nwtmt,
-    &.pub-nwtp,
-    &.pub-nwtsty,
-    &.pub-rh,
-    &.pub-sbi1,
-    &.pub-sbi1p,
-    &.pub-sbi2,
-    &.pub-sbi2p,
-    &.pub-sbi3,
-    &.pub-sbi3p,
-    &.pub-sbi4 {
+    #{sel("&.pub-", $pubs-without-notes)} {
       .groupEndnote, .groupFootnote {
         display: none;
       }
@@ -1843,13 +1791,7 @@
         @include token(color, ds-link-color);
       }
     }
-    &.pub-bi12,
-    &.pub-bi7,
-    &.pub-igw,
-    &.pub-nwt,
-    &.pub-nwths,
-    &.pub-nwtsty,
-    &.pub-sgd {
+    #{sel("&.pub-", $pubs-maroon-titles)} {
       &.docClass-11,
       &.docClass-116,
       &.docClass-12,
@@ -1861,9 +1803,7 @@
         }
       }
     }
-    &.pub-nwt,
-    &.pub-nwtsty,
-    &.pub-sgd {
+    #{sel("&.pub-", $pubs-chapter-badges)} {
       &.docClass-14 .contextTtl {
         display: inline-block;
         min-width: 1.2em;
