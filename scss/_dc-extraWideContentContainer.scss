@@ -7,10 +7,10 @@
     .dc-extraWideContentContainer {
       position: relative;
       overflow: auto;
-    }
-    .dc-extraWideContentContainer>* {
-      min-width: 650px;
-      max-width: 750px;
+      > * {
+        min-width: 650px;
+        max-width: 750px;
+      }
     }
     @media screen and (min-width:760px) {
       .dc-extraWideContentContainer>* {

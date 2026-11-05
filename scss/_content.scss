@@ -51,9 +51,9 @@
   @include jwac {
     a {
       @include themed(color, ds-link-color, #4a6da7);
-    }
-    a:visited {
-      @include themed(color, ds-link-color--visited, #504d7c);
+      &:visited {
+        @include themed(color, ds-link-color--visited, #504d7c);
+      }
     }
   }
 }
@@ -143,12 +143,14 @@
     .clear, .clearBoth {
       clear: both;
     }
-    .clearfix::after, .clearfix::before {
-      content: " ";
-      display: table;
-    }
-    .clearfix::after {
-      clear: both;
+    .clearfix {
+      &::after, &::before {
+        content: " ";
+        display: table;
+      }
+      &::after {
+        clear: both;
+      }
     }
     .displayNone {
       display: none!important;
@@ -223,14 +225,16 @@
         grid-template-columns: 1fr 1fr 1fr;
       }
     }
-    div.half {
-      max-width: 50%;
-    }
-    div.quarter {
-      max-width: 25%;
-    }
-    div.eighth {
-      max-width: 12.5%;
+    div {
+      &.half {
+        max-width: 50%;
+      }
+      &.quarter {
+        max-width: 25%;
+      }
+      &.eighth {
+        max-width: 12.5%;
+      }
     }
     @media only screen and (min-width:760px) {
       .videoModal.inline, .videoModal.inline-start {
@@ -262,24 +266,28 @@
         }
       }
     }
-    &[class*=ml-][class*=ms-] ol.upperAlpha {
-      list-style-type: upper-alpha;
-    }
-    &[class*=ml-][class*=ms-] ol.lowerAlpha {
-      list-style-type: lower-alpha;
-    }
-    &[class*=ml-][class*=ms-] ol.source {
-      list-style-type: none;
-    }
-    &[class*=ml-][class*=ms-] ol.source .txtSrcBullet {
-      display: inline-block;
-      min-width: 1.5em;
-    }
-    &[class*=ml-][class*=ms-].dir-ltr ol.source .txtSrcBullet {
-      margin-left: -1.5em;
-    }
-    &[class*=ml-][class*=ms-].dir-rtl ol.source .txtSrcBullet {
-      margin-right: -1.5em;
+    &[class*=ml-][class*=ms-] {
+      ol {
+        &.upperAlpha {
+          list-style-type: upper-alpha;
+        }
+        &.lowerAlpha {
+          list-style-type: lower-alpha;
+        }
+        &.source {
+          list-style-type: none;
+          .txtSrcBullet {
+            display: inline-block;
+            min-width: 1.5em;
+          }
+        }
+      }
+      &.dir-ltr ol.source .txtSrcBullet {
+        margin-left: -1.5em;
+      }
+      &.dir-rtl ol.source .txtSrcBullet {
+        margin-right: -1.5em;
+      }
     }
     &[class*=ml-][class*=ms-] ol.numberedDiagram, &[class*=ml-][class*=ms-] ol.noMarker, &[class*=ml-][class*=ms-] li.listTitle, &[class*=ml-][class*=ms-] ol.imgEastEighth>li, &[class*=ml-][class*=ms-] ol.imgEastQuarter>li, &[class*=ml-][class*=ms-] ol.imgWestEighth>li, &[class*=ml-][class*=ms-] ol.imgWestQuarter>li, ul.source {
       list-style-type: none;
@@ -409,42 +417,44 @@
         padding-#{$s}: 0;
       }
     }
-    ol.numberedDiagram>li {
+    ol.numberedDiagram > li {
       position: relative;
       counter-increment: numbered-diagram-counter;
-    }
-    ol.numberedDiagram>li::before {
-      display: block;
-      position: absolute;
-      top: .5em;
-      width: 1.5em;
-      height: 1.5em;
-      border-radius: 2em;
-      font-size: .6886933765em;
-      font-weight: 700;
-      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-      @include themed(color, du-color--white, #fff);
-      content: counter(numbered-diagram-counter) " ";
-      line-height: 1.5em;
-      text-align: center;
-    }
-    ol.numberedDiagram>li::before a {
-      color: #9fb9e3;
-    }
-    ol.numberedDiagram>li::before a:visited {
-      color: #a9a7c9;
+      &::before {
+        display: block;
+        position: absolute;
+        top: .5em;
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 2em;
+        font-size: .6886933765em;
+        font-weight: 700;
+        @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+        @include themed(color, du-color--white, #fff);
+        content: counter(numbered-diagram-counter) " ";
+        line-height: 1.5em;
+        text-align: center;
+        a {
+          color: #9fb9e3;
+          &:visited {
+            color: #a9a7c9;
+          }
+        }
+      }
     }
     @include bidi((left, right)) using ($s) {
       ol.numberedDiagram>li>p {
         margin-#{$s}: 1.5em;
       }
     }
-    p.qu {
-      @include themed(color, du-color--textSubdued, #626262);
-      font-size: .8298755187em;
-    }
-    p.noTopMargin {
-      margin-top: 0;
+    p {
+      &.qu {
+        @include themed(color, du-color--textSubdued, #626262);
+        font-size: .8298755187em;
+      }
+      &.noTopMargin {
+        margin-top: 0;
+      }
     }
     .pageNum {
       font-weight: 400;
@@ -509,33 +519,37 @@
         border-#{$s}-color: #ebebeb;
       }
     }
-    ol.timeline h3, ol.timeline p {
-      margin: .25em 0;
-    }
-    ol.timeline>li {
-      clear: both;
-      position: relative;
-      min-height: 3em;
-      padding-bottom: .5em;
-      list-style-type: none;
+    ol.timeline {
+      h3, p {
+        margin: .25em 0;
+      }
+      > li {
+        clear: both;
+        position: relative;
+        min-height: 3em;
+        padding-bottom: .5em;
+        list-style-type: none;
+      }
     }
     @include bidi((left, right)) using ($s) {
       ol.timeline>li {
         padding-#{$s}: 32px;
       }
     }
-    ol.timeline>li::after, ol.timeline>li::before {
-      content: "";
-      position: absolute;
-      top: calc(.75em + 1px);
-    }
-    ol.timeline>li::before {
-      width: 9px;
-      height: 9px;
-      display: inline-block;
-      background-color: #9e9b9a;
-      margin-top: -4px;
-      border-radius: 9px;
+    ol.timeline > li {
+      &::after, &::before {
+        content: "";
+        position: absolute;
+        top: calc(.75em + 1px);
+      }
+      &::before {
+        width: 9px;
+        height: 9px;
+        display: inline-block;
+        background-color: #9e9b9a;
+        margin-top: -4px;
+        border-radius: 9px;
+      }
     }
     @include bidi((left, right)) using ($s) {
       ol.timeline>li::before {
@@ -554,38 +568,44 @@
         #{$s}: 0;
       }
     }
-    ol.timeline>li.timeCirca::after {
-      border-top-width: 1px;
-      border-top-style: dashed;
-      border-top-color: #c5c3c2;
-    }
-    ol.timeline>li.timeBCE::before {
-      border-color: #ffae00;
-      background-color: #ffae00;
-    }
-    ol.timeline>li.timeCE::before {
-      border-color: #3fa2bf;
-      background-color: #3fa2bf;
-    }
-    ol.timeline li.timeline-bigFinish {
-      padding-bottom: 1em;
-      position: absolute;
-      bottom: -9em;
+    ol.timeline {
+       > li {
+        &.timeCirca::after {
+          border-top-width: 1px;
+          border-top-style: dashed;
+          border-top-color: #c5c3c2;
+        }
+        &.timeBCE::before {
+          border-color: #ffae00;
+          background-color: #ffae00;
+        }
+        &.timeCE::before {
+          border-color: #3fa2bf;
+          background-color: #3fa2bf;
+        }
+      }
+      li.timeline-bigFinish {
+        padding-bottom: 1em;
+        position: absolute;
+        bottom: -9em;
+      }
     }
     @include bidi((left, right)) using ($s) {
       ol.timeline li.timeline-bigFinish {
         #{$s}: -32px;
       }
     }
-    ol.timeline li.timeline-bigFinish h4 {
-      font-size: 1.749690125em;
-      font-weight: 700;
-    }
-    ol.timeline.arrowCap {
-      position: relative;
-      margin-left: 16px;
-      margin-right: 16px;
-      margin-bottom: 40px;
+    ol.timeline {
+      li.timeline-bigFinish h4 {
+        font-size: 1.749690125em;
+        font-weight: 700;
+      }
+      &.arrowCap {
+        position: relative;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-bottom: 40px;
+      }
     }
     @media only screen and (min-width:760px) {
       ol.timeline.arrowCap {
@@ -627,12 +647,12 @@
     ol.timeline ol.timeline li {
       clear: both;
       width: 92%;
-    }
-    ol.timeline ol.timeline li::before {
-      display: none;
-    }
-    ol.timeline ol.timeline li::after {
-      width: 50px;
+      &::before {
+        display: none;
+      }
+      &::after {
+        width: 50px;
+      }
     }
     @include bidi((left, right)) using ($s) {
       ol.timeline ol.timeline li {
@@ -661,80 +681,88 @@
       @include themed(color, du-color--textSubdued, #626262);
       font-size: .6886933765em;
     }
-    .tableDiv.gridDefault table, .tableDiv.gridDefault td, .tableDiv.gridDefault th, .tableDiv.gridlines table, .tableDiv.gridlines td, .tableDiv.gridlines th, .tableDiv.tableBorder table, .tableDiv.tableGrid table, .tableDiv.tableGrid td, .tableDiv.tableGrid th {
-      border-width: 1px;
-      border-style: solid;
-      border-color: #a7a7a7;
-    }
-    .tableDiv.rowBorder tr {
-      border-top-width: 1px;
-      border-top-style: solid;
-      border-top-color: #a7a7a7;
-    }
-    .tableDiv.rowBorder tr:first-child, .tableDiv.rowBorder tr.shaded, .tableDiv.rowBorder tr.shaded+tr, .tableDiv.rowBorder tr.shaded th {
-      border-top-style: none;
-    }
-    .tableDiv tr.emphasized th {
-      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-      @include themed(color, du-color--white, #fff);
-    }
-    .tableDiv tr.emphasized th a {
-      color: #9fb9e3;
-    }
-    .tableDiv tr.emphasized th a:visited {
-      color: #a9a7c9;
-    }
-    .tableDiv tr.shaded th {
-      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-      @include themed(color, du-color--white, #fff);
-    }
-    .tableDiv tr.shaded th a {
-      color: #9fb9e3;
-    }
-    .tableDiv tr.shaded th a:visited {
-      color: #a9a7c9;
-    }
-    .tableDiv tr.shaded td {
-      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
-    }
-    .tableDiv.rowStripe th, .tableDiv.rowStripe thead tr, .tableDiv.stripe th, .tableDiv.stripe thead tr {
-      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-      @include themed(color, du-color--white, #fff);
-    }
-    .tableDiv.rowStripe th a, .tableDiv.rowStripe thead tr a, .tableDiv.stripe th a, .tableDiv.stripe thead tr a {
-      color: #9fb9e3;
-    }
-    .tableDiv.rowStripe th a:visited, .tableDiv.rowStripe thead tr a:visited, .tableDiv.stripe th a:visited, .tableDiv.stripe thead tr a:visited {
-      color: #a9a7c9;
-    }
-    .tableDiv.rowStripe tr:nth-child(2n), .tableDiv.stripe tr:nth-child(2n) {
-      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
-    }
-    .tableDiv.gridlines th, .tableDiv.gridlines thead tr {
-      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-      @include themed(color, du-color--white, #fff);
-    }
-    .tableDiv.gridlines th a, .tableDiv.gridlines thead tr a {
-      color: #9fb9e3;
-    }
-    .tableDiv.gridlines th a:visited, .tableDiv.gridlines thead tr a:visited {
-      color: #a9a7c9;
-    }
-    .tableDiv.gridlines td.shaded {
-      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
-    }
-    .tableDiv.columnStripe th, .tableDiv.columnStripe thead tr {
-      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-      @include themed(color, du-color--white, #fff);
-    }
-    .tableDiv.columnStripe th a, .tableDiv.columnStripe thead tr a {
-      color: #9fb9e3;
-    }
-    .tableDiv.columnStripe th a:visited, .tableDiv.columnStripe thead tr a:visited {
-      color: #a9a7c9;
-    }
-    .tableDiv.columnStripe td:nth-child(odd) {
-      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+    .tableDiv {
+      &.gridDefault table, &.gridDefault td, &.gridDefault th, &.gridlines table, &.gridlines td, &.gridlines th, &.tableBorder table, &.tableGrid table, &.tableGrid td, &.tableGrid th {
+        border-width: 1px;
+        border-style: solid;
+        border-color: #a7a7a7;
+      }
+      &.rowBorder tr {
+        border-top-width: 1px;
+        border-top-style: solid;
+        border-top-color: #a7a7a7;
+        &:first-child, &.shaded, &.shaded + tr, &.shaded th {
+          border-top-style: none;
+        }
+      }
+      tr {
+        &.emphasized th {
+          @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+          @include themed(color, du-color--white, #fff);
+        }
+        &.emphasized th a {
+          color: #9fb9e3;
+        }
+        &.emphasized th a:visited {
+          color: #a9a7c9;
+        }
+        &.shaded {
+          th {
+            @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+            @include themed(color, du-color--white, #fff);
+            a {
+              color: #9fb9e3;
+              &:visited {
+                color: #a9a7c9;
+              }
+            }
+          }
+          td {
+            @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+          }
+        }
+      }
+      &.rowStripe th, &.rowStripe thead tr, &.stripe th, &.stripe thead tr {
+        @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+        @include themed(color, du-color--white, #fff);
+      }
+      &.rowStripe th a, &.rowStripe thead tr a, &.stripe th a, &.stripe thead tr a {
+        color: #9fb9e3;
+      }
+      &.rowStripe th a:visited, &.rowStripe thead tr a:visited, &.stripe th a:visited, &.stripe thead tr a:visited {
+        color: #a9a7c9;
+      }
+      &.rowStripe tr:nth-child(2n), &.stripe tr:nth-child(2n) {
+        @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+      }
+      &.gridlines th, &.gridlines thead tr {
+        @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+        @include themed(color, du-color--white, #fff);
+      }
+      &.gridlines th a, &.gridlines thead tr a {
+        color: #9fb9e3;
+      }
+      &.gridlines th a:visited, &.gridlines thead tr a:visited {
+        color: #a9a7c9;
+      }
+      &.gridlines td.shaded {
+        @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+      }
+      &.columnStripe {
+        th, thead tr {
+          @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+          @include themed(color, du-color--white, #fff);
+        }
+        th a, thead tr a {
+          color: #9fb9e3;
+        }
+        th a:visited, thead tr a:visited {
+          color: #a9a7c9;
+        }
+        td:nth-child(odd) {
+          @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+        }
+      }
     }
     @include bidi((left, right)) using ($s) {
       .tableDiv.columnBorder td, .tableDiv.columnBorder th {
@@ -765,16 +793,18 @@
         max-width: 100%;
       }
     }
-    .tableDiv.half table {
-      width: 100%;
-    }
-    .tableDiv.wide {
-      position: relative;
-      overflow: auto;
-    }
-    .tableDiv.wide>* {
-      min-width: 650px;
-      max-width: 750px;
+    .tableDiv {
+      &.half table {
+        width: 100%;
+      }
+      &.wide {
+        position: relative;
+        overflow: auto;
+        > * {
+          min-width: 650px;
+          max-width: 750px;
+        }
+      }
     }
     @media screen and (min-width:760px) {
       .tableDiv.wide>* {
@@ -792,12 +822,12 @@
       margin-top: 1.5em;
       margin-bottom: 1.5em;
       padding: 16px;
-    }
-    .mapElement>:first-child:not(aside), .mapElement>aside:first-child>:first-child {
-      margin-top: 0;
-    }
-    .mapElement>:last-child:not(aside), .mapElement>aside:first-child>:last-child {
-      margin-bottom: 8px;
+      > :first-child:not(aside), > aside:first-child > :first-child {
+        margin-top: 0;
+      }
+      > :last-child:not(aside), > aside:first-child > :last-child {
+        margin-bottom: 8px;
+      }
     }
     @media only screen and (min-width:760px) {
       .mapElement>:last-child:not(aside), .mapElement>aside:first-child>:last-child {
@@ -816,11 +846,13 @@
         padding-right: 32px;
       }
     }
-    .closingContent.dashed>:first-child, .closingContent.rule>:first-child {
-      margin-top: 0;
-    }
-    .closingContent.dashed>:last-child, .closingContent.rule>:last-child {
-      margin-bottom: 8px;
+    .closingContent {
+      &.dashed > :first-child, &.rule > :first-child {
+        margin-top: 0;
+      }
+      &.dashed > :last-child, &.rule > :last-child {
+        margin-bottom: 8px;
+      }
     }
     @media only screen and (min-width:760px) {
       .closingContent.dashed>:last-child, .closingContent.rule>:last-child {
@@ -859,24 +891,26 @@
         margin-right: -32px;
       }
     }
-    .closingContent:not(.rule):not(.dashed) .boxTtl {
-      border-top-style: solid;
-      border-right-style: solid;
-      border-left-style: solid;
-      border-width: 1px;
-      border-color: #a7a7a7;
-    }
-    .closingContent:not(.rule):not(.dashed) .boxTtl+.boxContent {
-      border-right-style: solid;
-      border-bottom-style: solid;
-      border-left-style: solid;
-      border-width: 1px;
-      border-color: #a7a7a7;
-    }
-    .closingContent:not(.rule):not(.dashed)>.boxContent:first-child {
-      border-top-style: solid;
-      border-width: 1px;
-      border-color: #a7a7a7;
+    .closingContent:not(.rule):not(.dashed) {
+      .boxTtl {
+        border-top-style: solid;
+        border-right-style: solid;
+        border-left-style: solid;
+        border-width: 1px;
+        border-color: #a7a7a7;
+        + .boxContent {
+          border-right-style: solid;
+          border-bottom-style: solid;
+          border-left-style: solid;
+          border-width: 1px;
+          border-color: #a7a7a7;
+        }
+      }
+      > .boxContent:first-child {
+        border-top-style: solid;
+        border-width: 1px;
+        border-color: #a7a7a7;
+      }
     }
     .diagram {
       border-top-style: solid;
@@ -889,12 +923,12 @@
       margin-top: 1.5em;
       margin-bottom: 1.5em;
       padding: 16px;
-    }
-    .diagram>:first-child:not(aside), .diagram>aside:first-child>:first-child {
-      margin-top: 0;
-    }
-    .diagram>:last-child:not(aside), .diagram>aside:first-child>:last-child {
-      margin-bottom: 8px;
+      > :first-child:not(aside), > aside:first-child > :first-child {
+        margin-top: 0;
+      }
+      > :last-child:not(aside), > aside:first-child > :last-child {
+        margin-bottom: 8px;
+      }
     }
     @media only screen and (min-width:760px) {
       .diagram>:last-child:not(aside), .diagram>aside:first-child>:last-child {
@@ -903,12 +937,12 @@
     }
     .chart {
       padding: 16px;
-    }
-    .chart>:first-child:not(aside), .chart>aside:first-child>:first-child {
-      margin-top: 0;
-    }
-    .chart>:last-child:not(aside), .chart>aside:first-child>:last-child {
-      margin-bottom: 8px;
+      > :first-child:not(aside), > aside:first-child > :first-child {
+        margin-top: 0;
+      }
+      > :last-child:not(aside), > aside:first-child > :last-child {
+        margin-bottom: 8px;
+      }
     }
     @media only screen and (min-width:760px) {
       .chart>:last-child:not(aside), .chart>aside:first-child>:last-child {
@@ -1051,9 +1085,9 @@
     }
     .sk {
       text-indent: 1.5em;
-    }
-    .sk>* {
-      text-indent: 0;
+      > * {
+        text-indent: 0;
+      }
     }
     .sl {
       text-indent: -40px;
@@ -1232,12 +1266,12 @@
       font-family: NotoSans,Arial,"Arial Unicode MS",sans-serif;
       line-height: 3;
       @include themed(color, du-color--gray-400, #8e8e8e);
-    }
-    &.pub-int ruby>rt {
-      padding-left: 4px;
-      padding-right: 4px;
-      font-family: WTClearText,serif;
-      @include themed(color, du-color--textDefault, #292929);
+      > rt {
+        padding-left: 4px;
+        padding-right: 4px;
+        font-family: WTClearText,serif;
+        @include themed(color, du-color--textDefault, #292929);
+      }
     }
     @supports not (ruby-align:center) {
       &.showRuby.ms-CHINESE ruby {
@@ -1325,184 +1359,192 @@
       line-height: 2;
       font-size: .571529773em;
     }
-    &.docClass-31 .bodyTxt ol li {
-      margin-bottom: 1em;
-    }
-    &.docClass-31 .bodyTxt ol li p {
-      margin-top: .5em;
-      margin-bottom: .5em;
-    }
-    &.docClass-31.dir-ltr .bodyTxt ol li .sz {
-      margin-left: 1.5em;
-    }
-    &.docClass-31.dir-rtl .bodyTxt ol li .sz {
-      margin-right: 1.5em;
-    }
-    &.docClass-31 .chorus {
-      margin-top: 1em;
-      margin-bottom: 1em;
-    }
-    &.docClass-31 .se {
-      @include themed(color, du-color--textSubdued, #626262);
+    &.docClass-31 {
+      .bodyTxt ol li {
+        margin-bottom: 1em;
+        p {
+          margin-top: .5em;
+          margin-bottom: .5em;
+        }
+      }
+      &.dir-ltr .bodyTxt ol li .sz {
+        margin-left: 1.5em;
+      }
+      &.dir-rtl .bodyTxt ol li .sz {
+        margin-right: 1.5em;
+      }
+      .chorus {
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+      .se {
+        @include themed(color, du-color--textSubdued, #626262);
+      }
     }
     header h1+h2 {
       margin-top: 0;
     }
-    h2.headingRuleBottom {
-      border-bottom-style: solid;
-      border-color: #a7a7a7;
-      border-width: 1px;
-      padding-bottom: .25em;
-    }
-    h2.shadedHeader {
-      padding: .25em .5em;
-      font-size: 1.452025em;
-      @include themed(color, du-color--white, #fff);
-    }
-    h2.shadedHeader.treasures {
-      background-color: #626262;
-    }
-    h2.shadedHeader.ministry {
-      background-color: #c48430;
-    }
-    h2.shadedHeader.christianLiving {
-      background-color: #942926;
+    h2 {
+      &.headingRuleBottom {
+        border-bottom-style: solid;
+        border-color: #a7a7a7;
+        border-width: 1px;
+        padding-bottom: .25em;
+      }
+      &.shadedHeader {
+        padding: .25em .5em;
+        font-size: 1.452025em;
+        @include themed(color, du-color--white, #fff);
+        &.treasures {
+          background-color: #626262;
+        }
+        &.ministry {
+          background-color: #c48430;
+        }
+        &.christianLiving {
+          background-color: #942926;
+        }
+      }
     }
     .treasures--rev2021.mwbHeadingIcon {
       display: -webkit-box;
       display: flex;
       -webkit-box-align: center;
       align-items: center;
-    }
-    .treasures--rev2021.mwbHeadingIcon h1, .treasures--rev2021.mwbHeadingIcon h2, .treasures--rev2021.mwbHeadingIcon h3, .treasures--rev2021.mwbHeadingIcon h4, .treasures--rev2021.mwbHeadingIcon h5, .treasures--rev2021.mwbHeadingIcon h6, .treasures--rev2021.mwbHeadingIcon>p {
-      margin: 0;
-    }
-    .treasures--rev2021.mwbHeadingIcon::before {
-      content: "\e720";
-      font-family: jw-icons-all;
-      speak: none;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 400;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      display: -webkit-inline-box;
-      display: inline-flex;
-      font-size: inherit;
-      @include themed(color, du-color--white, #fff);
-      font-size: 40px;
-      line-height: 40px;
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      justify-content: center;
-      -webkit-box-flex: 0;
-      flex: 0 0 auto;
-      height: 56px;
-      width: 56px;
+      h1, h2, h3, h4, h5, h6, > p {
+        margin: 0;
+      }
+      &::before {
+        content: "\e720";
+        font-family: jw-icons-all;
+        speak: none;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        display: -webkit-inline-box;
+        display: inline-flex;
+        font-size: inherit;
+        @include themed(color, du-color--white, #fff);
+        font-size: 40px;
+        line-height: 40px;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-flex: 0;
+        flex: 0 0 auto;
+        height: 56px;
+        width: 56px;
+      }
     }
     @include bidi((left, right)) using ($s) {
       .treasures--rev2021.mwbHeadingIcon::before {
         margin-#{flip($s)}: 16px;
       }
     }
-    .treasures--rev2021 h1, .treasures--rev2021 h2, .treasures--rev2021 h3, .treasures--rev2021 h4, .treasures--rev2021 h5, .treasures--rev2021 h6, .treasures--rev2021>p {
-      @include themed(color, du-color--gray-600, #626262);
-    }
-    .treasures--rev2021.mwbHeadingIcon::before {
-      background-color: #626262;
+    .treasures--rev2021 {
+      h1, h2, h3, h4, h5, h6, > p {
+        @include themed(color, du-color--gray-600, #626262);
+      }
+      &.mwbHeadingIcon::before {
+        background-color: #626262;
+      }
     }
     .ministry--rev2021.mwbHeadingIcon {
       display: -webkit-box;
       display: flex;
       -webkit-box-align: center;
       align-items: center;
-    }
-    .ministry--rev2021.mwbHeadingIcon h1, .ministry--rev2021.mwbHeadingIcon h2, .ministry--rev2021.mwbHeadingIcon h3, .ministry--rev2021.mwbHeadingIcon h4, .ministry--rev2021.mwbHeadingIcon h5, .ministry--rev2021.mwbHeadingIcon h6, .ministry--rev2021.mwbHeadingIcon>p {
-      margin: 0;
-    }
-    .ministry--rev2021.mwbHeadingIcon::before {
-      content: "\e898";
-      font-family: jw-icons-all;
-      speak: none;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 400;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      display: -webkit-inline-box;
-      display: inline-flex;
-      font-size: inherit;
-      @include themed(color, du-color--white, #fff);
-      font-size: 40px;
-      line-height: 40px;
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      justify-content: center;
-      -webkit-box-flex: 0;
-      flex: 0 0 auto;
-      height: 56px;
-      width: 56px;
+      h1, h2, h3, h4, h5, h6, > p {
+        margin: 0;
+      }
+      &::before {
+        content: "\e898";
+        font-family: jw-icons-all;
+        speak: none;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        display: -webkit-inline-box;
+        display: inline-flex;
+        font-size: inherit;
+        @include themed(color, du-color--white, #fff);
+        font-size: 40px;
+        line-height: 40px;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-flex: 0;
+        flex: 0 0 auto;
+        height: 56px;
+        width: 56px;
+      }
     }
     @include bidi((left, right)) using ($s) {
       .ministry--rev2021.mwbHeadingIcon::before {
         margin-#{flip($s)}: 16px;
       }
     }
-    .ministry--rev2021 h1, .ministry--rev2021 h2, .ministry--rev2021 h3, .ministry--rev2021 h4, .ministry--rev2021 h5, .ministry--rev2021 h6, .ministry--rev2021>p {
-      @include themed(color, du-color--amber-700, #9d5d07);
-    }
-    .ministry--rev2021.mwbHeadingIcon::before {
-      background-color: #c48430;
+    .ministry--rev2021 {
+      h1, h2, h3, h4, h5, h6, > p {
+        @include themed(color, du-color--amber-700, #9d5d07);
+      }
+      &.mwbHeadingIcon::before {
+        background-color: #c48430;
+      }
     }
     .christianLiving--rev2021.mwbHeadingIcon {
       display: -webkit-box;
       display: flex;
       -webkit-box-align: center;
       align-items: center;
-    }
-    .christianLiving--rev2021.mwbHeadingIcon h1, .christianLiving--rev2021.mwbHeadingIcon h2, .christianLiving--rev2021.mwbHeadingIcon h3, .christianLiving--rev2021.mwbHeadingIcon h4, .christianLiving--rev2021.mwbHeadingIcon h5, .christianLiving--rev2021.mwbHeadingIcon h6, .christianLiving--rev2021.mwbHeadingIcon>p {
-      margin: 0;
-    }
-    .christianLiving--rev2021.mwbHeadingIcon::before {
-      content: "\e800";
-      font-family: jw-icons-all;
-      speak: none;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 400;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      display: -webkit-inline-box;
-      display: inline-flex;
-      font-size: inherit;
-      @include themed(color, du-color--white, #fff);
-      font-size: 40px;
-      line-height: 40px;
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      justify-content: center;
-      -webkit-box-flex: 0;
-      flex: 0 0 auto;
-      height: 56px;
-      width: 56px;
+      h1, h2, h3, h4, h5, h6, > p {
+        margin: 0;
+      }
+      &::before {
+        content: "\e800";
+        font-family: jw-icons-all;
+        speak: none;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        display: -webkit-inline-box;
+        display: inline-flex;
+        font-size: inherit;
+        @include themed(color, du-color--white, #fff);
+        font-size: 40px;
+        line-height: 40px;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-flex: 0;
+        flex: 0 0 auto;
+        height: 56px;
+        width: 56px;
+      }
     }
     @include bidi((left, right)) using ($s) {
       .christianLiving--rev2021.mwbHeadingIcon::before {
@@ -1513,11 +1555,13 @@
       -webkit-transform: scale(-1,1);
       transform: scale(-1,1);
     }
-    .christianLiving--rev2021 h1, .christianLiving--rev2021 h2, .christianLiving--rev2021 h3, .christianLiving--rev2021 h4, .christianLiving--rev2021 h5, .christianLiving--rev2021 h6, .christianLiving--rev2021>p {
-      @include themed(color, du-color--maroon-600, #942926);
-    }
-    .christianLiving--rev2021.mwbHeadingIcon::before {
-      background-color: #942926;
+    .christianLiving--rev2021 {
+      h1, h2, h3, h4, h5, h6, > p {
+        @include themed(color, du-color--maroon-600, #942926);
+      }
+      &.mwbHeadingIcon::before {
+        background-color: #942926;
+      }
     }
     .contextTtl, .featureTtl {
       margin-top: .25em;
@@ -1594,19 +1638,19 @@
     sup.superscription {
       position: static;
       font-size: 1em;
-    }
-    sup.superscription .style-s, sup.superscription .style-w {
-      display: block;
-      font-size: .8298755187em;
-      margin: .75em 0 .25em 0;
-      text-align: center;
-      text-indent: 0;
-    }
-    sup.superscription .style-s ruby, sup.superscription .style-w ruby {
-      text-indent: 0;
-    }
-    sup.superscription .parabreak, sup.superscription br.para, sup.superscription span.verse>br.para:first-child, sup.superscription span.verse>span.parabreak:first-child {
-      display: none;
+      .style-s, .style-w {
+        display: block;
+        font-size: .8298755187em;
+        margin: .75em 0 .25em 0;
+        text-align: center;
+        text-indent: 0;
+      }
+      .style-s ruby, .style-w ruby {
+        text-indent: 0;
+      }
+      .parabreak, br.para, span.verse > br.para:first-child, span.verse > span.parabreak:first-child {
+        display: none;
+      }
     }
     .parabreak {
       display: block;
@@ -1687,20 +1731,22 @@
     .chapterNum a, .cl:not(.tt), .verseNum a, .vl:not(.tt) {
       @include themed(color, du-color--blue-500, #4a6da7);
     }
-    &.bibleCitation .cl:not(.tt) {
-      font-size: 1.205em;
-    }
-    &.bibleCitation.dir-ltr .vl:not(.tt):first-child {
-      padding-left: 0;
-    }
-    &.bibleCitation.dir-rtl .vl:not(.tt):first-child {
-      padding-right: 0;
-    }
-    &.bibleCitation.dir-ltr .v:not(.tt)+.cl {
-      padding-left: 16px;
-    }
-    &.bibleCitation.dir-rtl .v:not(.tt)+.cl {
-      padding-right: 16px;
+    &.bibleCitation {
+      .cl:not(.tt) {
+        font-size: 1.205em;
+      }
+      &.dir-ltr .vl:not(.tt):first-child {
+        padding-left: 0;
+      }
+      &.dir-rtl .vl:not(.tt):first-child {
+        padding-right: 0;
+      }
+      &.dir-ltr .v:not(.tt) + .cl {
+        padding-left: 16px;
+      }
+      &.dir-rtl .v:not(.tt) + .cl {
+        padding-right: 16px;
+      }
     }
     .m:not(.tt), .xrefLink {
       position: relative;
@@ -1721,28 +1767,28 @@
       align-items: center;
       position: relative;
       z-index: 1;
-    }
-    .verseNum a.addHighlight, .verseNum a.highlight, .verseNum a:focus, .verseNum a:hover {
-      text-decoration: none;
-    }
-    .verseNum a.addHighlight::after, .verseNum a.highlight::after, .verseNum a:focus::after, .verseNum a:hover::after {
-      position: absolute;
-      content: " ";
-      width: 1.75em;
-      height: 1.75em;
-      border-radius: 100%;
-      background-color: #4a6da7;
-      @include themed(opacity, jwac-footnote-opacity, .2);
-      z-index: -1;
-    }
-    .verseNum a.highlight.addHighlight {
-      @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
-    }
-    .verseNum a.highlight.addHighlight::after {
-      @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
-    }
-    .verseNum a:visited {
-      @include themed(color, ds-link-color, #4a6da7);
+      &.addHighlight, &.highlight, &:focus, &:hover {
+        text-decoration: none;
+      }
+      &.addHighlight::after, &.highlight::after, &:focus::after, &:hover::after {
+        position: absolute;
+        content: " ";
+        width: 1.75em;
+        height: 1.75em;
+        border-radius: 100%;
+        background-color: #4a6da7;
+        @include themed(opacity, jwac-footnote-opacity, .2);
+        z-index: -1;
+      }
+      &.highlight.addHighlight {
+        @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
+      }
+      &.highlight.addHighlight::after {
+        @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
+      }
+      &:visited {
+        @include themed(color, ds-link-color, #4a6da7);
+      }
     }
     .chapterNum a {
       display: -webkit-inline-box;
@@ -1753,28 +1799,28 @@
       align-items: center;
       position: relative;
       z-index: 1;
-    }
-    .chapterNum a.addHighlight, .chapterNum a.highlight, .chapterNum a:focus, .chapterNum a:hover {
-      text-decoration: none;
-    }
-    .chapterNum a.addHighlight::after, .chapterNum a.highlight::after, .chapterNum a:focus::after, .chapterNum a:hover::after {
-      position: absolute;
-      content: " ";
-      width: 1.5em;
-      height: 1.5em;
-      border-radius: 100%;
-      background-color: #4a6da7;
-      @include themed(opacity, jwac-footnote-opacity, .2);
-      z-index: -1;
-    }
-    .chapterNum a.highlight.addHighlight {
-      @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
-    }
-    .chapterNum a.highlight.addHighlight::after {
-      @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
-    }
-    .chapterNum a:visited {
-      @include themed(color, ds-link-color, #4a6da7);
+      &.addHighlight, &.highlight, &:focus, &:hover {
+        text-decoration: none;
+      }
+      &.addHighlight::after, &.highlight::after, &:focus::after, &:hover::after {
+        position: absolute;
+        content: " ";
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        background-color: #4a6da7;
+        @include themed(opacity, jwac-footnote-opacity, .2);
+        z-index: -1;
+      }
+      &.highlight.addHighlight {
+        @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
+      }
+      &.highlight.addHighlight::after {
+        @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
+      }
+      &:visited {
+        @include themed(color, ds-link-color, #4a6da7);
+      }
     }
     .style-l .chapterNum a, .style-l .verseNum a, .style-p .chapterNum a, .style-p .verseNum a, .style-z .chapterNum a, .style-z .verseNum a {
       text-indent: 0;
@@ -1788,28 +1834,28 @@
       align-items: center;
       position: relative;
       z-index: 1;
-    }
-    .xrefLink.addHighlight, .xrefLink.highlight, .xrefLink:focus, .xrefLink:hover {
-      text-decoration: none;
-    }
-    .xrefLink.addHighlight::after, .xrefLink.highlight::after, .xrefLink:focus::after, .xrefLink:hover::after {
-      position: absolute;
-      content: " ";
-      width: 2.5em;
-      height: 2.5em;
-      border-radius: 100%;
-      background-color: #4a6da7;
-      @include themed(opacity, jwac-footnote-opacity, .2);
-      z-index: -1;
-    }
-    .xrefLink.highlight.addHighlight {
-      @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
-    }
-    .xrefLink.highlight.addHighlight::after {
-      @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
-    }
-    .xrefLink:visited {
-      @include themed(color, ds-link-color, #4a6da7);
+      &.addHighlight, &.highlight, &:focus, &:hover {
+        text-decoration: none;
+      }
+      &.addHighlight::after, &.highlight::after, &:focus::after, &:hover::after {
+        position: absolute;
+        content: " ";
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 100%;
+        background-color: #4a6da7;
+        @include themed(opacity, jwac-footnote-opacity, .2);
+        z-index: -1;
+      }
+      &.highlight.addHighlight {
+        @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
+      }
+      &.highlight.addHighlight::after {
+        @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
+      }
+      &:visited {
+        @include themed(color, ds-link-color, #4a6da7);
+      }
     }
     &.pub-bi12.docClass-11 .contextTtl, &.pub-bi12.docClass-11 h1, &.pub-bi12.docClass-116 .contextTtl, &.pub-bi12.docClass-116 h1, &.pub-bi12.docClass-12 .contextTtl, &.pub-bi12.docClass-12 h1, &.pub-bi12.docClass-125 .contextTtl, &.pub-bi12.docClass-125 h1, &.pub-bi12.docClass-13 .contextTtl, &.pub-bi12.docClass-13 h1, &.pub-bi12.docClass-14 .contextTtl, &.pub-bi12.docClass-14 h1, &.pub-bi7.docClass-11 .contextTtl, &.pub-bi7.docClass-11 h1, &.pub-bi7.docClass-116 .contextTtl, &.pub-bi7.docClass-116 h1, &.pub-bi7.docClass-12 .contextTtl, &.pub-bi7.docClass-12 h1, &.pub-bi7.docClass-125 .contextTtl, &.pub-bi7.docClass-125 h1, &.pub-bi7.docClass-13 .contextTtl, &.pub-bi7.docClass-13 h1, &.pub-bi7.docClass-14 .contextTtl, &.pub-bi7.docClass-14 h1, &.pub-igw.docClass-11 .contextTtl, &.pub-igw.docClass-11 h1, &.pub-igw.docClass-116 .contextTtl, &.pub-igw.docClass-116 h1, &.pub-igw.docClass-12 .contextTtl, &.pub-igw.docClass-12 h1, &.pub-igw.docClass-125 .contextTtl, &.pub-igw.docClass-125 h1, &.pub-igw.docClass-13 .contextTtl, &.pub-igw.docClass-13 h1, &.pub-igw.docClass-14 .contextTtl, &.pub-igw.docClass-14 h1, &.pub-nwt.docClass-11 .contextTtl, &.pub-nwt.docClass-11 h1, &.pub-nwt.docClass-116 .contextTtl, &.pub-nwt.docClass-116 h1, &.pub-nwt.docClass-12 .contextTtl, &.pub-nwt.docClass-12 h1, &.pub-nwt.docClass-125 .contextTtl, &.pub-nwt.docClass-125 h1, &.pub-nwt.docClass-13 .contextTtl, &.pub-nwt.docClass-13 h1, &.pub-nwt.docClass-14 .contextTtl, &.pub-nwt.docClass-14 h1, &.pub-nwths.docClass-11 .contextTtl, &.pub-nwths.docClass-11 h1, &.pub-nwths.docClass-116 .contextTtl, &.pub-nwths.docClass-116 h1, &.pub-nwths.docClass-12 .contextTtl, &.pub-nwths.docClass-12 h1, &.pub-nwths.docClass-125 .contextTtl, &.pub-nwths.docClass-125 h1, &.pub-nwths.docClass-13 .contextTtl, &.pub-nwths.docClass-13 h1, &.pub-nwths.docClass-14 .contextTtl, &.pub-nwths.docClass-14 h1, &.pub-nwtsty.docClass-11 .contextTtl, &.pub-nwtsty.docClass-11 h1, &.pub-nwtsty.docClass-116 .contextTtl, &.pub-nwtsty.docClass-116 h1, &.pub-nwtsty.docClass-12 .contextTtl, &.pub-nwtsty.docClass-12 h1, &.pub-nwtsty.docClass-125 .contextTtl, &.pub-nwtsty.docClass-125 h1, &.pub-nwtsty.docClass-13 .contextTtl, &.pub-nwtsty.docClass-13 h1, &.pub-nwtsty.docClass-14 .contextTtl, &.pub-nwtsty.docClass-14 h1, &.pub-sgd.docClass-11 .contextTtl, &.pub-sgd.docClass-11 h1, &.pub-sgd.docClass-116 .contextTtl, &.pub-sgd.docClass-116 h1, &.pub-sgd.docClass-12 .contextTtl, &.pub-sgd.docClass-12 h1, &.pub-sgd.docClass-125 .contextTtl, &.pub-sgd.docClass-125 h1, &.pub-sgd.docClass-13 .contextTtl, &.pub-sgd.docClass-13 h1, &.pub-sgd.docClass-14 .contextTtl, &.pub-sgd.docClass-14 h1 {
       @include themed(color, du-color--maroon-700, #801816);
@@ -1990,10 +2036,10 @@
     }
     ul.dl {
       list-style-type: none;
-    }
-    ul.dl>li::before {
-      content: "​";
-      position: absolute;
+      > li::before {
+        content: "​";
+        position: absolute;
+      }
     }
     @include bidi((left, right)) using ($s) {
       ul.dl {
@@ -2039,34 +2085,38 @@
 
 @mixin part-16 {
   @include jwac {
-    details summary::-webkit-details-marker {
-      display: none;
-    }
-    details>summary {
-      list-style: none;
-      cursor: pointer;
-    }
-    details>summary::before {
-      -webkit-transition: -webkit-transform .25s ease-in-out;
-      transition: -webkit-transform .25s ease-in-out;
-      transition: transform .25s ease-in-out;
-      transition: transform .25s ease-in-out,-webkit-transform .25s ease-in-out;
-    }
-    details>summary:active, details>summary:focus, details>summary:hover {
-      background-image: -webkit-linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
-      background-image: linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+    details {
+      summary::-webkit-details-marker {
+        display: none;
+      }
+       > summary {
+        list-style: none;
+        cursor: pointer;
+        &::before {
+          -webkit-transition: -webkit-transform .25s ease-in-out;
+          transition: -webkit-transform .25s ease-in-out;
+          transition: transform .25s ease-in-out;
+          transition: transform .25s ease-in-out,-webkit-transform .25s ease-in-out;
+        }
+        &:active, &:focus, &:hover {
+          background-image: -webkit-linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+          background-image: linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+        }
+      }
     }
   }
 }
 
 @mixin part-17 {
   @include jwac {
-    details[open]>summary::before {
-      -webkit-transform: rotate(-180deg);
-      transform: rotate(-180deg);
-    }
-    details[open]>summary .details-summary--show, details:not([open])>summary .details-summary--hide {
-      display: none;
+    details {
+      &[open] > summary::before {
+        -webkit-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+      }
+      &[open] > summary .details-summary--show, &:not([open]) > summary .details-summary--hide {
+        display: none;
+      }
     }
     &.dir-rtl .pm-link-helpContent .pm-replacementIcon-help::before {
       -webkit-transform: scaleX(-1);

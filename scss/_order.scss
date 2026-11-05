@@ -5,7 +5,6 @@
 @use "du-fontWeight";
 @use "du-clearfix";
 @use "content";
-@use "dc-button";
 @use "dc-table";
 @use "dc-extraWideContentContainer";
 @use "dc-screenReaderText";
@@ -51,7 +50,7 @@
 @include meta.load-css("dc-icon-bgColor");
 @include meta.load-css("dc-icon-margin");
 @include meta.load-css("dc-icon-padding");
-@include dc-button.rules;
+@include meta.load-css("dc-button");
 @include meta.load-css("dc-columns");
 @include meta.load-css("dc-columns-order");
 @include dc-table.rules;

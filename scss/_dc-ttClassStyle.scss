@@ -62,23 +62,27 @@
         padding-right: 32px;
       }
     }
-    .boxContent:not(.dc-ttClassStyle--unset)>:first-child {
-      margin-top: 0;
-    }
-    .boxContent:not(.dc-ttClassStyle--unset)>:last-child {
-      margin-bottom: 8px;
+    .boxContent:not(.dc-ttClassStyle--unset) {
+      > :first-child {
+        margin-top: 0;
+      }
+      > :last-child {
+        margin-bottom: 8px;
+      }
     }
     @media only screen and (min-width:760px) {
       .boxContent:not(.dc-ttClassStyle--unset)>:last-child {
         margin-bottom: 16px;
       }
     }
-    .boxContent:not(.dc-ttClassStyle--unset)::after, .boxContent:not(.dc-ttClassStyle--unset)::before {
-      content: " ";
-      display: table;
-    }
-    .boxContent:not(.dc-ttClassStyle--unset)::after {
-      clear: both;
+    .boxContent:not(.dc-ttClassStyle--unset) {
+      &::after, &::before {
+        content: " ";
+        display: table;
+      }
+      &::after {
+        clear: both;
+      }
     }
     @include bidi((left, right)) using ($s) {
       .boxContent:not(.dc-ttClassStyle--unset) .noMarker {
@@ -117,18 +121,20 @@
       margin-bottom: 1em;
       font-size: 1.205em;
       @include themed(color, du-color--textSubdued, #626262);
-    }
-    .openingContent:not(.dc-ttClassStyle--unset).metaIntro h2 {
-      font-size: .8298755187em;
-    }
-    .openingContent:not(.dc-ttClassStyle--unset).metaIntro p {
-      margin: 0;
-    }
-    .openingContent:not(.dc-ttClassStyle--unset).metaIntro.bottomRule p {
-      margin-bottom: .5em;
-    }
-    .openingContent:not(.dc-ttClassStyle--unset).txtSizeDefault, .openingContent:not(.dc-ttClassStyle--unset) .sa {
-      font-size: 1em;
+      &.metaIntro {
+        h2 {
+          font-size: .8298755187em;
+        }
+        p {
+          margin: 0;
+        }
+        &.bottomRule p {
+          margin-bottom: .5em;
+        }
+      }
+      &.txtSizeDefault, .sa {
+        font-size: 1em;
+      }
     }
     @include bidi((left, right)) using ($s) {
       .openingContent:not(.dc-ttClassStyle--unset) .sa {

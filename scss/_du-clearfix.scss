@@ -4,12 +4,14 @@
 
 @mixin rules {
   @include jwac {
-    .du-clearfix::after, .du-clearfix::before {
-      content: " "!important;
-      display: table!important;
-    }
-    .du-clearfix::after {
-      clear: both!important;
+    .du-clearfix {
+      &::after, &::before {
+        content: " "!important;
+        display: table!important;
+      }
+      &::after {
+        clear: both!important;
+      }
     }
   }
 }

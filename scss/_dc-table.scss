@@ -22,22 +22,24 @@
         border-#{flip($s)}-width: 1px;
       }
     }
-    .dc-table.dc-table-border--cells td, .dc-table.dc-table-border--cells th {
-      border-style: solid;
-      border-width: 1px;
-    }
-    .dc-table.dc-table-stripe--rows thead tr {
-      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-      @include themed(color, du-color--white, #fff);
-    }
-    .dc-table.dc-table-stripe--rows thead tr a {
-      color: #9fb9e3;
-    }
-    .dc-table.dc-table-stripe--rows thead tr a:visited {
-      color: #a9a7c9;
-    }
-    .dc-table.dc-table-stripe--rows tbody tr:nth-child(2n), .dc-table.dc-table-stripe--rows>tr:nth-child(2n), .dc-table.dc-table-stripe--columns td:nth-child(2n), .dc-table.dc-table-stripe--columns th:nth-child(2n) {
-      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+    .dc-table {
+      &.dc-table-border--cells td, &.dc-table-border--cells th {
+        border-style: solid;
+        border-width: 1px;
+      }
+      &.dc-table-stripe--rows thead tr {
+        @include themed(background-color, du-bgColor--bgEmphasized, #757575);
+        @include themed(color, du-color--white, #fff);
+      }
+      &.dc-table-stripe--rows thead tr a {
+        color: #9fb9e3;
+      }
+      &.dc-table-stripe--rows thead tr a:visited {
+        color: #a9a7c9;
+      }
+      &.dc-table-stripe--rows tbody tr:nth-child(2n), &.dc-table-stripe--rows > tr:nth-child(2n), &.dc-table-stripe--columns td:nth-child(2n), &.dc-table-stripe--columns th:nth-child(2n) {
+        @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+      }
     }
   }
 }
