@@ -15,7 +15,7 @@
   @include mirrored(".footnoteLink:last-child", padding, right, 0);
   .en:not(.tt), .fn:not(.tt) {
     display: inline;
-    @include themed(color, ds-link-color, $link-color);
+    @include token(color, ds-link-color);
   }
 
   @include note-link-states((".endnoteLink", ".footnoteLink"));

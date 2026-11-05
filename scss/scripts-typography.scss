@@ -31,7 +31,7 @@ $headings: h1, h2, h3, h4, h5, h6;
     text-decoration: underline;
     text-underline-offset: 0.5ex;
     @each $prop in -webkit-text-decoration-color, text-decoration-color {
-      @include themed($prop, du-color--textDefault, #292929);
+      @include token($prop, du-color--textDefault);
     }
   }
   @each $ms, $offset in (CHINESE: 0.5ex, JAPANESE: 0.2ex) {

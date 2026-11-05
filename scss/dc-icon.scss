@@ -52,7 +52,7 @@
       bottom: 0;
       padding: 8px;
       font-size: 1.205em;
-      @include themed(color, du-color--white, #ffffff);
+      @include token(color, du-color--white);
       background: rgba(18, 18, 18, 0.6);
     }
   }

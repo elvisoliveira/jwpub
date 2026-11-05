@@ -6,7 +6,7 @@
   @include jwac {
     & {
       @include themed(background-color, ds-content-bgColor, #fff);
-      @include themed(color, du-color--textDefault, #292929);
+      @include token(color, du-color--textDefault);
     }
     *, ::after, ::before {
       box-sizing: border-box;
@@ -50,9 +50,9 @@
 @mixin part-5 {
   @include jwac {
     a {
-      @include themed(color, ds-link-color, #4a6da7);
+      @include token(color, ds-link-color);
       &:visited {
-        @include themed(color, ds-link-color--visited, #504d7c);
+        @include token(color, ds-link-color--visited);
       }
     }
   }
@@ -90,10 +90,10 @@
       margin-top: 2em;
     }
     .altsize, .small {
-      font-size: .8298755187em;
+      font-size: .83em;
     }
     .big {
-      font-size: 1.205em;
+      font-size: 1.21em;
     }
     .centered {
       text-align: center;
@@ -106,7 +106,7 @@
       margin-top: 1em;
       margin-bottom: 1em;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .flLeft:not(img), .flRight:not(img), .floatEast:not(img), .floatWest:not(img) {
         max-width: 50%;
       }
@@ -173,7 +173,7 @@
     .boxSupplement.imgGrid .boxContent figure, .grpItems.imgGrid figure, .listImgGrid figure {
       padding: 8px;
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       .boxSupplement.imgGrid .boxContent figure, .grpItems.imgGrid figure, .listImgGrid figure {
         padding: 16px;
       }
@@ -203,7 +203,7 @@
         grid-template-columns: 1fr 1fr;
         gap: 16px;
       }
-      @media screen and (min-width:760px) {
+      @media #{$desktop-only} {
         .boxSupplement.imgGrid .boxContent, .grpItems.imgGrid, .listImgGrid {
           gap: 32px;
         }
@@ -236,7 +236,7 @@
         max-width: 12.5%;
       }
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .videoModal.inline, .videoModal.inline-start {
         width: 50%;
         margin-bottom: 1em;
@@ -320,7 +320,7 @@
       margin-bottom: 2em;
     }
     li.listTitle {
-      font-size: 1.205em;
+      font-size: 1.21em;
     }
     @include bidi((left, right)) using ($s) {
       li.listTitle {
@@ -351,7 +351,7 @@
     &.dir-ltr div.imgEastQuarter h2, &.dir-ltr div.imgEastQuarter h3, &.dir-ltr div.imgEastQuarter h4, &.dir-ltr div.imgEastQuarter h5, &.dir-ltr div.imgEastQuarter ol, &.dir-ltr div.imgEastQuarter ul, &.dir-ltr div.imgEastQuarter>li>p, &.dir-ltr div.imgEastQuarter>p, &.dir-ltr div.imgWestQuarter h2, &.dir-ltr div.imgWestQuarter h3, &.dir-ltr div.imgWestQuarter h4, &.dir-ltr div.imgWestQuarter h5, &.dir-ltr div.imgWestQuarter ol, &.dir-ltr div.imgWestQuarter ul, &.dir-ltr div.imgWestQuarter>li>p, &.dir-ltr div.imgWestQuarter>p, &.dir-ltr ol.imgEastQuarter h2, &.dir-ltr ol.imgEastQuarter h3, &.dir-ltr ol.imgEastQuarter h4, &.dir-ltr ol.imgEastQuarter h5, &.dir-ltr ol.imgEastQuarter ol, &.dir-ltr ol.imgEastQuarter ul, &.dir-ltr ol.imgEastQuarter>li>p, &.dir-ltr ol.imgEastQuarter>p, &.dir-ltr ol.imgWestQuarter h2, &.dir-ltr ol.imgWestQuarter h3, &.dir-ltr ol.imgWestQuarter h4, &.dir-ltr ol.imgWestQuarter h5, &.dir-ltr ol.imgWestQuarter ol, &.dir-ltr ol.imgWestQuarter ul, &.dir-ltr ol.imgWestQuarter>li>p, &.dir-ltr ol.imgWestQuarter>p, &.dir-ltr ul.imgEastQuarter h2, &.dir-ltr ul.imgEastQuarter h3, &.dir-ltr ul.imgEastQuarter h4, &.dir-ltr ul.imgEastQuarter h5, &.dir-ltr ul.imgEastQuarter ol, &.dir-ltr ul.imgEastQuarter ul, &.dir-ltr ul.imgEastQuarter>li>p, &.dir-ltr ul.imgEastQuarter>p, &.dir-ltr ul.imgWestQuarter h2, &.dir-ltr ul.imgWestQuarter h3, &.dir-ltr ul.imgWestQuarter h4, &.dir-ltr ul.imgWestQuarter h5, &.dir-ltr ul.imgWestQuarter ol, &.dir-ltr ul.imgWestQuarter ul, &.dir-ltr ul.imgWestQuarter>li>p, &.dir-ltr ul.imgWestQuarter>p {
       margin-left: calc(25% + 16px);
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       &.dir-ltr div.imgEastQuarter h2, &.dir-ltr div.imgEastQuarter h3, &.dir-ltr div.imgEastQuarter h4, &.dir-ltr div.imgEastQuarter h5, &.dir-ltr div.imgEastQuarter ol, &.dir-ltr div.imgEastQuarter ul, &.dir-ltr div.imgEastQuarter>li>p, &.dir-ltr div.imgEastQuarter>p, &.dir-ltr div.imgWestQuarter h2, &.dir-ltr div.imgWestQuarter h3, &.dir-ltr div.imgWestQuarter h4, &.dir-ltr div.imgWestQuarter h5, &.dir-ltr div.imgWestQuarter ol, &.dir-ltr div.imgWestQuarter ul, &.dir-ltr div.imgWestQuarter>li>p, &.dir-ltr div.imgWestQuarter>p, &.dir-ltr ol.imgEastQuarter h2, &.dir-ltr ol.imgEastQuarter h3, &.dir-ltr ol.imgEastQuarter h4, &.dir-ltr ol.imgEastQuarter h5, &.dir-ltr ol.imgEastQuarter ol, &.dir-ltr ol.imgEastQuarter ul, &.dir-ltr ol.imgEastQuarter>li>p, &.dir-ltr ol.imgEastQuarter>p, &.dir-ltr ol.imgWestQuarter h2, &.dir-ltr ol.imgWestQuarter h3, &.dir-ltr ol.imgWestQuarter h4, &.dir-ltr ol.imgWestQuarter h5, &.dir-ltr ol.imgWestQuarter ol, &.dir-ltr ol.imgWestQuarter ul, &.dir-ltr ol.imgWestQuarter>li>p, &.dir-ltr ol.imgWestQuarter>p, &.dir-ltr ul.imgEastQuarter h2, &.dir-ltr ul.imgEastQuarter h3, &.dir-ltr ul.imgEastQuarter h4, &.dir-ltr ul.imgEastQuarter h5, &.dir-ltr ul.imgEastQuarter ol, &.dir-ltr ul.imgEastQuarter ul, &.dir-ltr ul.imgEastQuarter>li>p, &.dir-ltr ul.imgEastQuarter>p, &.dir-ltr ul.imgWestQuarter h2, &.dir-ltr ul.imgWestQuarter h3, &.dir-ltr ul.imgWestQuarter h4, &.dir-ltr ul.imgWestQuarter h5, &.dir-ltr ul.imgWestQuarter ol, &.dir-ltr ul.imgWestQuarter ul, &.dir-ltr ul.imgWestQuarter>li>p, &.dir-ltr ul.imgWestQuarter>p {
         margin-left: calc(25% + 32px);
       }
@@ -359,7 +359,7 @@
     &.dir-rtl div.imgEastQuarter h2, &.dir-rtl div.imgEastQuarter h3, &.dir-rtl div.imgEastQuarter h4, &.dir-rtl div.imgEastQuarter h5, &.dir-rtl div.imgEastQuarter ol, &.dir-rtl div.imgEastQuarter ul, &.dir-rtl div.imgEastQuarter>li>p, &.dir-rtl div.imgEastQuarter>p, &.dir-rtl div.imgWestQuarter h2, &.dir-rtl div.imgWestQuarter h3, &.dir-rtl div.imgWestQuarter h4, &.dir-rtl div.imgWestQuarter h5, &.dir-rtl div.imgWestQuarter ol, &.dir-rtl div.imgWestQuarter ul, &.dir-rtl div.imgWestQuarter>li>p, &.dir-rtl div.imgWestQuarter>p, &.dir-rtl ol.imgEastQuarter h2, &.dir-rtl ol.imgEastQuarter h3, &.dir-rtl ol.imgEastQuarter h4, &.dir-rtl ol.imgEastQuarter h5, &.dir-rtl ol.imgEastQuarter ol, &.dir-rtl ol.imgEastQuarter ul, &.dir-rtl ol.imgEastQuarter>li>p, &.dir-rtl ol.imgEastQuarter>p, &.dir-rtl ol.imgWestQuarter h2, &.dir-rtl ol.imgWestQuarter h3, &.dir-rtl ol.imgWestQuarter h4, &.dir-rtl ol.imgWestQuarter h5, &.dir-rtl ol.imgWestQuarter ol, &.dir-rtl ol.imgWestQuarter ul, &.dir-rtl ol.imgWestQuarter>li>p, &.dir-rtl ol.imgWestQuarter>p, &.dir-rtl ul.imgEastQuarter h2, &.dir-rtl ul.imgEastQuarter h3, &.dir-rtl ul.imgEastQuarter h4, &.dir-rtl ul.imgEastQuarter h5, &.dir-rtl ul.imgEastQuarter ol, &.dir-rtl ul.imgEastQuarter ul, &.dir-rtl ul.imgEastQuarter>li>p, &.dir-rtl ul.imgEastQuarter>p, &.dir-rtl ul.imgWestQuarter h2, &.dir-rtl ul.imgWestQuarter h3, &.dir-rtl ul.imgWestQuarter h4, &.dir-rtl ul.imgWestQuarter h5, &.dir-rtl ul.imgWestQuarter ol, &.dir-rtl ul.imgWestQuarter ul, &.dir-rtl ul.imgWestQuarter>li>p, &.dir-rtl ul.imgWestQuarter>p {
       margin-right: calc(25% + 16px);
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       &.dir-rtl div.imgEastQuarter h2, &.dir-rtl div.imgEastQuarter h3, &.dir-rtl div.imgEastQuarter h4, &.dir-rtl div.imgEastQuarter h5, &.dir-rtl div.imgEastQuarter ol, &.dir-rtl div.imgEastQuarter ul, &.dir-rtl div.imgEastQuarter>li>p, &.dir-rtl div.imgEastQuarter>p, &.dir-rtl div.imgWestQuarter h2, &.dir-rtl div.imgWestQuarter h3, &.dir-rtl div.imgWestQuarter h4, &.dir-rtl div.imgWestQuarter h5, &.dir-rtl div.imgWestQuarter ol, &.dir-rtl div.imgWestQuarter ul, &.dir-rtl div.imgWestQuarter>li>p, &.dir-rtl div.imgWestQuarter>p, &.dir-rtl ol.imgEastQuarter h2, &.dir-rtl ol.imgEastQuarter h3, &.dir-rtl ol.imgEastQuarter h4, &.dir-rtl ol.imgEastQuarter h5, &.dir-rtl ol.imgEastQuarter ol, &.dir-rtl ol.imgEastQuarter ul, &.dir-rtl ol.imgEastQuarter>li>p, &.dir-rtl ol.imgEastQuarter>p, &.dir-rtl ol.imgWestQuarter h2, &.dir-rtl ol.imgWestQuarter h3, &.dir-rtl ol.imgWestQuarter h4, &.dir-rtl ol.imgWestQuarter h5, &.dir-rtl ol.imgWestQuarter ol, &.dir-rtl ol.imgWestQuarter ul, &.dir-rtl ol.imgWestQuarter>li>p, &.dir-rtl ol.imgWestQuarter>p, &.dir-rtl ul.imgEastQuarter h2, &.dir-rtl ul.imgEastQuarter h3, &.dir-rtl ul.imgEastQuarter h4, &.dir-rtl ul.imgEastQuarter h5, &.dir-rtl ul.imgEastQuarter ol, &.dir-rtl ul.imgEastQuarter ul, &.dir-rtl ul.imgEastQuarter>li>p, &.dir-rtl ul.imgEastQuarter>p, &.dir-rtl ul.imgWestQuarter h2, &.dir-rtl ul.imgWestQuarter h3, &.dir-rtl ul.imgWestQuarter h4, &.dir-rtl ul.imgWestQuarter h5, &.dir-rtl ul.imgWestQuarter ol, &.dir-rtl ul.imgWestQuarter ul, &.dir-rtl ul.imgWestQuarter>li>p, &.dir-rtl ul.imgWestQuarter>p {
         margin-right: calc(25% + 32px);
       }
@@ -367,7 +367,7 @@
     &.dir-ltr div.imgEastEighth h2, &.dir-ltr div.imgEastEighth h3, &.dir-ltr div.imgEastEighth h4, &.dir-ltr div.imgEastEighth h5, &.dir-ltr div.imgEastEighth ol, &.dir-ltr div.imgEastEighth ul, &.dir-ltr div.imgEastEighth>li>p, &.dir-ltr div.imgEastEighth>p, &.dir-ltr div.imgWestEighth h2, &.dir-ltr div.imgWestEighth h3, &.dir-ltr div.imgWestEighth h4, &.dir-ltr div.imgWestEighth h5, &.dir-ltr div.imgWestEighth ol, &.dir-ltr div.imgWestEighth ul, &.dir-ltr div.imgWestEighth>li>p, &.dir-ltr div.imgWestEighth>p, &.dir-ltr ol.imgEastEighth h2, &.dir-ltr ol.imgEastEighth h3, &.dir-ltr ol.imgEastEighth h4, &.dir-ltr ol.imgEastEighth h5, &.dir-ltr ol.imgEastEighth ol, &.dir-ltr ol.imgEastEighth ul, &.dir-ltr ol.imgEastEighth>li>p, &.dir-ltr ol.imgEastEighth>p, &.dir-ltr ol.imgWestEighth h2, &.dir-ltr ol.imgWestEighth h3, &.dir-ltr ol.imgWestEighth h4, &.dir-ltr ol.imgWestEighth h5, &.dir-ltr ol.imgWestEighth ol, &.dir-ltr ol.imgWestEighth ul, &.dir-ltr ol.imgWestEighth>li>p, &.dir-ltr ol.imgWestEighth>p, &.dir-ltr ul.imgEastEighth h2, &.dir-ltr ul.imgEastEighth h3, &.dir-ltr ul.imgEastEighth h4, &.dir-ltr ul.imgEastEighth h5, &.dir-ltr ul.imgEastEighth ol, &.dir-ltr ul.imgEastEighth ul, &.dir-ltr ul.imgEastEighth>li>p, &.dir-ltr ul.imgEastEighth>p, &.dir-ltr ul.imgWestEighth h2, &.dir-ltr ul.imgWestEighth h3, &.dir-ltr ul.imgWestEighth h4, &.dir-ltr ul.imgWestEighth h5, &.dir-ltr ul.imgWestEighth ol, &.dir-ltr ul.imgWestEighth ul, &.dir-ltr ul.imgWestEighth>li>p, &.dir-ltr ul.imgWestEighth>p {
       margin-left: calc(12.5% + 16px);
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       &.dir-ltr div.imgEastEighth h2, &.dir-ltr div.imgEastEighth h3, &.dir-ltr div.imgEastEighth h4, &.dir-ltr div.imgEastEighth h5, &.dir-ltr div.imgEastEighth ol, &.dir-ltr div.imgEastEighth ul, &.dir-ltr div.imgEastEighth>li>p, &.dir-ltr div.imgEastEighth>p, &.dir-ltr div.imgWestEighth h2, &.dir-ltr div.imgWestEighth h3, &.dir-ltr div.imgWestEighth h4, &.dir-ltr div.imgWestEighth h5, &.dir-ltr div.imgWestEighth ol, &.dir-ltr div.imgWestEighth ul, &.dir-ltr div.imgWestEighth>li>p, &.dir-ltr div.imgWestEighth>p, &.dir-ltr ol.imgEastEighth h2, &.dir-ltr ol.imgEastEighth h3, &.dir-ltr ol.imgEastEighth h4, &.dir-ltr ol.imgEastEighth h5, &.dir-ltr ol.imgEastEighth ol, &.dir-ltr ol.imgEastEighth ul, &.dir-ltr ol.imgEastEighth>li>p, &.dir-ltr ol.imgEastEighth>p, &.dir-ltr ol.imgWestEighth h2, &.dir-ltr ol.imgWestEighth h3, &.dir-ltr ol.imgWestEighth h4, &.dir-ltr ol.imgWestEighth h5, &.dir-ltr ol.imgWestEighth ol, &.dir-ltr ol.imgWestEighth ul, &.dir-ltr ol.imgWestEighth>li>p, &.dir-ltr ol.imgWestEighth>p, &.dir-ltr ul.imgEastEighth h2, &.dir-ltr ul.imgEastEighth h3, &.dir-ltr ul.imgEastEighth h4, &.dir-ltr ul.imgEastEighth h5, &.dir-ltr ul.imgEastEighth ol, &.dir-ltr ul.imgEastEighth ul, &.dir-ltr ul.imgEastEighth>li>p, &.dir-ltr ul.imgEastEighth>p, &.dir-ltr ul.imgWestEighth h2, &.dir-ltr ul.imgWestEighth h3, &.dir-ltr ul.imgWestEighth h4, &.dir-ltr ul.imgWestEighth h5, &.dir-ltr ul.imgWestEighth ol, &.dir-ltr ul.imgWestEighth ul, &.dir-ltr ul.imgWestEighth>li>p, &.dir-ltr ul.imgWestEighth>p {
         margin-left: calc(12.5% + 32px);
       }
@@ -375,7 +375,7 @@
     &.dir-rtl div.imgEastEighth h2, &.dir-rtl div.imgEastEighth h3, &.dir-rtl div.imgEastEighth h4, &.dir-rtl div.imgEastEighth h5, &.dir-rtl div.imgEastEighth ol, &.dir-rtl div.imgEastEighth ul, &.dir-rtl div.imgEastEighth>li>p, &.dir-rtl div.imgEastEighth>p, &.dir-rtl div.imgWestEighth h2, &.dir-rtl div.imgWestEighth h3, &.dir-rtl div.imgWestEighth h4, &.dir-rtl div.imgWestEighth h5, &.dir-rtl div.imgWestEighth ol, &.dir-rtl div.imgWestEighth ul, &.dir-rtl div.imgWestEighth>li>p, &.dir-rtl div.imgWestEighth>p, &.dir-rtl ol.imgEastEighth h2, &.dir-rtl ol.imgEastEighth h3, &.dir-rtl ol.imgEastEighth h4, &.dir-rtl ol.imgEastEighth h5, &.dir-rtl ol.imgEastEighth ol, &.dir-rtl ol.imgEastEighth ul, &.dir-rtl ol.imgEastEighth>li>p, &.dir-rtl ol.imgEastEighth>p, &.dir-rtl ol.imgWestEighth h2, &.dir-rtl ol.imgWestEighth h3, &.dir-rtl ol.imgWestEighth h4, &.dir-rtl ol.imgWestEighth h5, &.dir-rtl ol.imgWestEighth ol, &.dir-rtl ol.imgWestEighth ul, &.dir-rtl ol.imgWestEighth>li>p, &.dir-rtl ol.imgWestEighth>p, &.dir-rtl ul.imgEastEighth h2, &.dir-rtl ul.imgEastEighth h3, &.dir-rtl ul.imgEastEighth h4, &.dir-rtl ul.imgEastEighth h5, &.dir-rtl ul.imgEastEighth ol, &.dir-rtl ul.imgEastEighth ul, &.dir-rtl ul.imgEastEighth>li>p, &.dir-rtl ul.imgEastEighth>p, &.dir-rtl ul.imgWestEighth h2, &.dir-rtl ul.imgWestEighth h3, &.dir-rtl ul.imgWestEighth h4, &.dir-rtl ul.imgWestEighth h5, &.dir-rtl ul.imgWestEighth ol, &.dir-rtl ul.imgWestEighth ul, &.dir-rtl ul.imgWestEighth>li>p, &.dir-rtl ul.imgWestEighth>p {
       margin-right: calc(12.5% + 16px);
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       &.dir-rtl div.imgEastEighth h2, &.dir-rtl div.imgEastEighth h3, &.dir-rtl div.imgEastEighth h4, &.dir-rtl div.imgEastEighth h5, &.dir-rtl div.imgEastEighth ol, &.dir-rtl div.imgEastEighth ul, &.dir-rtl div.imgEastEighth>li>p, &.dir-rtl div.imgEastEighth>p, &.dir-rtl div.imgWestEighth h2, &.dir-rtl div.imgWestEighth h3, &.dir-rtl div.imgWestEighth h4, &.dir-rtl div.imgWestEighth h5, &.dir-rtl div.imgWestEighth ol, &.dir-rtl div.imgWestEighth ul, &.dir-rtl div.imgWestEighth>li>p, &.dir-rtl div.imgWestEighth>p, &.dir-rtl ol.imgEastEighth h2, &.dir-rtl ol.imgEastEighth h3, &.dir-rtl ol.imgEastEighth h4, &.dir-rtl ol.imgEastEighth h5, &.dir-rtl ol.imgEastEighth ol, &.dir-rtl ol.imgEastEighth ul, &.dir-rtl ol.imgEastEighth>li>p, &.dir-rtl ol.imgEastEighth>p, &.dir-rtl ol.imgWestEighth h2, &.dir-rtl ol.imgWestEighth h3, &.dir-rtl ol.imgWestEighth h4, &.dir-rtl ol.imgWestEighth h5, &.dir-rtl ol.imgWestEighth ol, &.dir-rtl ol.imgWestEighth ul, &.dir-rtl ol.imgWestEighth>li>p, &.dir-rtl ol.imgWestEighth>p, &.dir-rtl ul.imgEastEighth h2, &.dir-rtl ul.imgEastEighth h3, &.dir-rtl ul.imgEastEighth h4, &.dir-rtl ul.imgEastEighth h5, &.dir-rtl ul.imgEastEighth ol, &.dir-rtl ul.imgEastEighth ul, &.dir-rtl ul.imgEastEighth>li>p, &.dir-rtl ul.imgEastEighth>p, &.dir-rtl ul.imgWestEighth h2, &.dir-rtl ul.imgWestEighth h3, &.dir-rtl ul.imgWestEighth h4, &.dir-rtl ul.imgWestEighth h5, &.dir-rtl ul.imgWestEighth ol, &.dir-rtl ul.imgWestEighth ul, &.dir-rtl ul.imgWestEighth>li>p, &.dir-rtl ul.imgWestEighth>p {
         margin-right: calc(12.5% + 32px);
       }
@@ -383,7 +383,7 @@
     &.dir-ltr ol.numberedDiagram.imgWestQuarter>li ul, &.dir-ltr ol.numberedDiagram.imgWestQuarter>li>p {
       margin-left: calc(25% + 16px + 1.5em);
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       &.dir-ltr ol.numberedDiagram.imgWestQuarter>li ul, &.dir-ltr ol.numberedDiagram.imgWestQuarter>li>p {
         margin-left: calc(25% + 32px + 1.5em);
       }
@@ -391,7 +391,7 @@
     &.dir-rtl ol.numberedDiagram.imgWestQuarter>li ul, &.dir-rtl ol.numberedDiagram.imgWestQuarter>li>p {
       margin-right: calc(25% + 16px + 1.5em);
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       &.dir-rtl ol.numberedDiagram.imgWestQuarter>li ul, &.dir-rtl ol.numberedDiagram.imgWestQuarter>li>p {
         margin-right: calc(25% + 32px + 1.5em);
       }
@@ -399,7 +399,7 @@
     &.dir-ltr ol.numberedDiagram.imgWestQuarter>li::before {
       left: calc(25% + 16px);
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       &.dir-ltr ol.numberedDiagram.imgWestQuarter>li::before {
         left: calc(25% + 32px);
       }
@@ -407,7 +407,7 @@
     &.dir-rtl ol.numberedDiagram.imgWestQuarter>li::before {
       right: calc(25% + 16px);
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       &.dir-rtl ol.numberedDiagram.imgWestQuarter>li::before {
         right: calc(25% + 32px);
       }
@@ -427,10 +427,10 @@
         width: 1.5em;
         height: 1.5em;
         border-radius: 2em;
-        font-size: .6886933765em;
+        font-size: .69em;
         font-weight: 700;
-        @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-        @include themed(color, du-color--white, #fff);
+        @include token(background-color, du-bgColor--bgEmphasized);
+        @include token(color, du-color--white);
         content: counter(numbered-diagram-counter) " ";
         line-height: 1.5em;
         text-align: center;
@@ -449,8 +449,8 @@
     }
     p {
       &.qu {
-        @include themed(color, du-color--textSubdued, #626262);
-        font-size: .8298755187em;
+        @include token(color, du-color--textSubdued);
+        font-size: .83em;
       }
       &.noTopMargin {
         margin-top: 0;
@@ -460,7 +460,7 @@
       font-weight: 400;
       font-size: 13px;
       letter-spacing: normal;
-      @include themed(color, du-color--textSubdued, #626262);
+      @include token(color, du-color--textSubdued);
     }
     @include bidi((left, right)) using ($s) {
       .pageNum {
@@ -597,7 +597,7 @@
     }
     ol.timeline {
       li.timeline-bigFinish h4 {
-        font-size: 1.749690125em;
+        font-size: 1.75em;
         font-weight: 700;
       }
       &.arrowCap {
@@ -607,7 +607,7 @@
         margin-bottom: 40px;
       }
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       ol.timeline.arrowCap {
         margin-left: 32px;
         margin-right: 32px;
@@ -667,19 +667,19 @@
       margin-left: 16px;
       margin-right: 16px;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .boxSupplement .fullBleed .figcaption, .boxSupplement .fullBleed .imgCredit {
         margin-left: 32px;
         margin-right: 32px;
       }
     }
     figcaption {
-      @include themed(color, du-color--textSubdued, #626262);
-      font-size: .8298755187em;
+      @include token(color, du-color--textSubdued);
+      font-size: .83em;
     }
     .imgCredit {
-      @include themed(color, du-color--textSubdued, #626262);
-      font-size: .6886933765em;
+      @include token(color, du-color--textSubdued);
+      font-size: .69em;
     }
     .tableDiv {
       &.gridDefault table, &.gridDefault td, &.gridDefault th, &.gridlines table, &.gridlines td, &.gridlines th, &.tableBorder table, &.tableGrid table, &.tableGrid td, &.tableGrid th {
@@ -697,8 +697,8 @@
       }
       tr {
         &.emphasized th {
-          @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-          @include themed(color, du-color--white, #fff);
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
         }
         &.emphasized th a {
           color: #9fb9e3;
@@ -708,8 +708,8 @@
         }
         &.shaded {
           th {
-            @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-            @include themed(color, du-color--white, #fff);
+            @include token(background-color, du-bgColor--bgEmphasized);
+            @include token(color, du-color--white);
             a {
               color: #9fb9e3;
               &:visited {
@@ -718,13 +718,13 @@
             }
           }
           td {
-            @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+            @include token(background-color, du-bgColor--bgSecondary);
           }
         }
       }
       &.rowStripe th, &.rowStripe thead tr, &.stripe th, &.stripe thead tr {
-        @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-        @include themed(color, du-color--white, #fff);
+        @include token(background-color, du-bgColor--bgEmphasized);
+        @include token(color, du-color--white);
       }
       &.rowStripe th a, &.rowStripe thead tr a, &.stripe th a, &.stripe thead tr a {
         color: #9fb9e3;
@@ -733,11 +733,11 @@
         color: #a9a7c9;
       }
       &.rowStripe tr:nth-child(2n), &.stripe tr:nth-child(2n) {
-        @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+        @include token(background-color, du-bgColor--bgSecondary);
       }
       &.gridlines th, &.gridlines thead tr {
-        @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-        @include themed(color, du-color--white, #fff);
+        @include token(background-color, du-bgColor--bgEmphasized);
+        @include token(color, du-color--white);
       }
       &.gridlines th a, &.gridlines thead tr a {
         color: #9fb9e3;
@@ -746,12 +746,12 @@
         color: #a9a7c9;
       }
       &.gridlines td.shaded {
-        @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+        @include token(background-color, du-bgColor--bgSecondary);
       }
       &.columnStripe {
         th, thead tr {
-          @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-          @include themed(color, du-color--white, #fff);
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
         }
         th a, thead tr a {
           color: #9fb9e3;
@@ -760,7 +760,7 @@
           color: #a9a7c9;
         }
         td:nth-child(odd) {
-          @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+          @include token(background-color, du-bgColor--bgSecondary);
         }
       }
     }
@@ -787,7 +787,7 @@
     .tableDiv.full table {
       width: 100%;
     }
-    @media screen and (max-width:759px) {
+    @media #{$mobile-only} {
       .tableDiv.half {
         width: 100%;
         max-width: 100%;
@@ -806,7 +806,7 @@
         }
       }
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       .tableDiv.wide>* {
         min-width: 750px;
         max-width: 960px;
@@ -818,7 +818,7 @@
 @mixin part-10 {
   @include jwac {
     .mapElement {
-      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+      @include token(background-color, du-bgColor--bgSecondary);
       margin-top: 1.5em;
       margin-bottom: 1.5em;
       padding: 16px;
@@ -829,7 +829,7 @@
         margin-bottom: 8px;
       }
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .mapElement>:last-child:not(aside), .mapElement>aside:first-child>:last-child {
         margin-bottom: 16px;
       }
@@ -840,7 +840,7 @@
       padding-left: 16px;
       padding-right: 16px;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .closingContent.dashed, .closingContent.rule {
         padding-left: 32px;
         padding-right: 32px;
@@ -854,7 +854,7 @@
         margin-bottom: 8px;
       }
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .closingContent.dashed>:last-child, .closingContent.rule>:last-child {
         margin-bottom: 16px;
       }
@@ -864,7 +864,7 @@
       margin-left: -16px;
       margin-right: -16px;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .closingContent.dashed .boxTtl, .closingContent.rule .boxTtl {
         margin-left: -32px;
         margin-right: -32px;
@@ -874,7 +874,7 @@
       margin-left: -16px;
       margin-right: -16px;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .closingContent.dashed .boxSubTtl, .closingContent.rule .boxSubTtl {
         margin-left: -32px;
         margin-right: -32px;
@@ -885,7 +885,7 @@
       margin-left: -16px;
       margin-right: -16px;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .closingContent.dashed .boxContent, .closingContent.rule .boxContent {
         margin-left: -32px;
         margin-right: -32px;
@@ -930,7 +930,7 @@
         margin-bottom: 8px;
       }
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .diagram>:last-child:not(aside), .diagram>aside:first-child>:last-child {
         margin-bottom: 16px;
       }
@@ -944,7 +944,7 @@
         margin-bottom: 8px;
       }
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .chart>:last-child:not(aside), .chart>aside:first-child>:last-child {
         margin-bottom: 16px;
       }
@@ -987,7 +987,7 @@
     .blockTeach.bgTransparent, .boxSupplement.bgTransparent, .chart.bgTransparent, .closingContent.bgTransparent, .diagram.bgTransparent, .mapElement.bgTransparent {
       background-color: transparent;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .blockTeach.flLeft, .blockTeach.floatWest, .boxSupplement.flLeft, .boxSupplement.floatWest, .chart.flLeft, .chart.floatWest, .closingContent.flLeft, .closingContent.floatWest, .diagram.flLeft, .diagram.floatWest, .mapElement.flLeft, .mapElement.floatWest {
         max-width: 50%;
         min-width: 25%;
@@ -1023,14 +1023,14 @@
       min-width: 650px;
       max-width: 750px;
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       .blockTeach.wide>*, .boxSupplement.wide>*, .chart.wide>*, .closingContent.wide>*, .diagram.wide>*, .mapElement.wide>* {
         min-width: 750px;
         max-width: 960px;
       }
     }
     .sa {
-      font-size: 1.205em;
+      font-size: 1.21em;
     }
     @include bidi((left, right)) using ($s) {
       .sa {
@@ -1057,7 +1057,7 @@
       border-top-width: 1px;
       border-top-style: solid;
       border-top-color: #a7a7a7;
-      @include themed(color, du-color--textSubdued, #626262);
+      @include token(color, du-color--textSubdued);
       padding-top: .5em;
       text-indent: 0;
     }
@@ -1115,7 +1115,7 @@
       border-top-width: 1px;
       border-top-style: solid;
       border-top-color: #a7a7a7;
-      @include themed(color, du-color--textSubdued, #626262);
+      @include token(color, du-color--textSubdued);
       padding-top: .5em;
       text-indent: 0;
     }
@@ -1125,14 +1125,14 @@
     .ss {
       margin-top: 1em;
       margin-bottom: .25em;
-      font-size: 1.452025em;
+      font-size: 1.45em;
       font-weight: 700;
       line-height: 1.25;
     }
     .st {
       margin-top: 0;
       margin-bottom: .25em;
-      font-size: 1.749690125em;
+      font-size: 1.75em;
       font-weight: 700;
       line-height: 1.25;
     }
@@ -1257,10 +1257,10 @@
       display: none;
     }
     &.pub-int ruby>rt, &.showRuby ruby>rt {
-      font-size: .8298755187em;
+      font-size: .83em;
     }
     @at-root body.noJS #{$root} ruby>rt {
-      font-size: .8298755187em;
+      font-size: .83em;
     }
     &.pub-int ruby {
       font-family: NotoSans,Arial,"Arial Unicode MS",sans-serif;
@@ -1270,7 +1270,7 @@
         padding-left: 4px;
         padding-right: 4px;
         font-family: WTClearText,serif;
-        @include themed(color, du-color--textDefault, #292929);
+        @include token(color, du-color--textDefault);
       }
     }
     @supports not (ruby-align:center) {
@@ -1338,10 +1338,10 @@
       line-height: 3;
     }
     &.showRuby.ms-CHINESE .qu ruby, &.showRuby.ms-CHINESE .w_question {
-      font-size: 1.205em;
+      font-size: 1.21em;
     }
     @at-root body.noJS.ms-CHINESE #{$root} .qu ruby, body.noJS.ms-CHINESE #{$root} .w_question {
-      font-size: 1.205em;
+      font-size: 1.21em;
     }
     &.showRuby.ms-JAPANESE ruby {
       line-height: 2;
@@ -1352,12 +1352,12 @@
     &.showRuby.ms-JAPANESE ruby>rt {
       margin-bottom: -.25em;
       line-height: 2;
-      font-size: .571529773em;
+      font-size: .57em;
     }
     @at-root body.noJS.ms-JAPANESE #{$root} ruby>rt {
       margin-bottom: -.25em;
       line-height: 2;
-      font-size: .571529773em;
+      font-size: .57em;
     }
     &.docClass-31 {
       .bodyTxt ol li {
@@ -1378,7 +1378,7 @@
         margin-bottom: 1em;
       }
       .se {
-        @include themed(color, du-color--textSubdued, #626262);
+        @include token(color, du-color--textSubdued);
       }
     }
     header h1+h2 {
@@ -1393,8 +1393,8 @@
       }
       &.shadedHeader {
         padding: .25em .5em;
-        font-size: 1.452025em;
-        @include themed(color, du-color--white, #fff);
+        font-size: 1.45em;
+        @include token(color, du-color--white);
         &.treasures {
           background-color: #626262;
         }
@@ -1429,7 +1429,7 @@
         display: -webkit-inline-box;
         display: inline-flex;
         font-size: inherit;
-        @include themed(color, du-color--white, #fff);
+        @include token(color, du-color--white);
         font-size: 40px;
         line-height: 40px;
         display: -webkit-box;
@@ -1480,7 +1480,7 @@
         display: -webkit-inline-box;
         display: inline-flex;
         font-size: inherit;
-        @include themed(color, du-color--white, #fff);
+        @include token(color, du-color--white);
         font-size: 40px;
         line-height: 40px;
         display: -webkit-box;
@@ -1531,7 +1531,7 @@
         display: -webkit-inline-box;
         display: inline-flex;
         font-size: inherit;
-        @include themed(color, du-color--white, #fff);
+        @include token(color, du-color--white);
         font-size: 40px;
         line-height: 40px;
         display: -webkit-box;
@@ -1566,7 +1566,7 @@
     .contextTtl, .featureTtl {
       margin-top: .25em;
       margin-bottom: .25em;
-      @include themed(color, du-color--textSubdued, #626262);
+      @include token(color, du-color--textSubdued);
     }
   }
 }
@@ -1583,8 +1583,8 @@
   @include jwac {
     .groupEndnote, .groupFootnote, .relatedContent {
       margin: 1em 0;
-      font-size: .8298755187em;
-      @include themed(color, du-color--textSubdued, #626262);
+      font-size: .83em;
+      @include token(color, du-color--textSubdued);
       border-top-style: solid;
       border-top-width: 1px;
       border-color: #a7a7a7;
@@ -1640,7 +1640,7 @@
       font-size: 1em;
       .style-s, .style-w {
         display: block;
-        font-size: .8298755187em;
+        font-size: .83em;
         margin: .75em 0 .25em 0;
         text-align: center;
         text-indent: 0;
@@ -1673,7 +1673,7 @@
       text-indent: 0;
     }
     &.bible .ss, &.bible .sw, &.bibleCitation .ss, &.bibleCitation .sw, &.docClass-1 .ss, &.docClass-1 .sw {
-      font-size: .8298755187em;
+      font-size: .83em;
       margin: .75em 0 .25em 0;
       text-align: center;
       text-indent: 0;
@@ -1716,7 +1716,7 @@
       padding-right: 3em;
     }
     .chapterNum, .cl:not(.tt) {
-      font-size: 1.749690125em;
+      font-size: 1.75em;
       line-height: 1;
     }
     .verseNum, .vl:not(.tt) {
@@ -1733,7 +1733,7 @@
     }
     &.bibleCitation {
       .cl:not(.tt) {
-        font-size: 1.205em;
+        font-size: 1.21em;
       }
       &.dir-ltr .vl:not(.tt):first-child {
         padding-left: 0;
@@ -1754,9 +1754,9 @@
       text-indent: 0;
       padding-left: 4px;
       padding-right: 4px;
-      font-size: .6886933765em;
+      font-size: .69em;
       font-style: italic;
-      @include themed(color, ds-link-color, #4a6da7);
+      @include token(color, ds-link-color);
     }
     .verseNum a {
       display: -webkit-inline-box;
@@ -1777,17 +1777,17 @@
         height: 1.75em;
         border-radius: 100%;
         background-color: #4a6da7;
-        @include themed(opacity, jwac-footnote-opacity, .2);
+        @include token(opacity, jwac-footnote-opacity);
         z-index: -1;
       }
       &.highlight.addHighlight {
-        @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
+        @include token(color, jwac-footnote-link-color--addHighlight);
       }
       &.highlight.addHighlight::after {
-        @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
+        @include token(opacity, jwac-footnote-opacity--addHighlight);
       }
       &:visited {
-        @include themed(color, ds-link-color, #4a6da7);
+        @include token(color, ds-link-color);
       }
     }
     .chapterNum a {
@@ -1809,17 +1809,17 @@
         height: 1.5em;
         border-radius: 100%;
         background-color: #4a6da7;
-        @include themed(opacity, jwac-footnote-opacity, .2);
+        @include token(opacity, jwac-footnote-opacity);
         z-index: -1;
       }
       &.highlight.addHighlight {
-        @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
+        @include token(color, jwac-footnote-link-color--addHighlight);
       }
       &.highlight.addHighlight::after {
-        @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
+        @include token(opacity, jwac-footnote-opacity--addHighlight);
       }
       &:visited {
-        @include themed(color, ds-link-color, #4a6da7);
+        @include token(color, ds-link-color);
       }
     }
     .style-l .chapterNum a, .style-l .verseNum a, .style-p .chapterNum a, .style-p .verseNum a, .style-z .chapterNum a, .style-z .verseNum a {
@@ -1844,21 +1844,21 @@
         height: 2.5em;
         border-radius: 100%;
         background-color: #4a6da7;
-        @include themed(opacity, jwac-footnote-opacity, .2);
+        @include token(opacity, jwac-footnote-opacity);
         z-index: -1;
       }
       &.highlight.addHighlight {
-        @include themed(color, jwac-footnote-link-color--addHighlight, #4a6da7);
+        @include token(color, jwac-footnote-link-color--addHighlight);
       }
       &.highlight.addHighlight::after {
-        @include themed(opacity, jwac-footnote-opacity--addHighlight, .4);
+        @include token(opacity, jwac-footnote-opacity--addHighlight);
       }
       &:visited {
-        @include themed(color, ds-link-color, #4a6da7);
+        @include token(color, ds-link-color);
       }
     }
     &.pub-bi12.docClass-11 .contextTtl, &.pub-bi12.docClass-11 h1, &.pub-bi12.docClass-116 .contextTtl, &.pub-bi12.docClass-116 h1, &.pub-bi12.docClass-12 .contextTtl, &.pub-bi12.docClass-12 h1, &.pub-bi12.docClass-125 .contextTtl, &.pub-bi12.docClass-125 h1, &.pub-bi12.docClass-13 .contextTtl, &.pub-bi12.docClass-13 h1, &.pub-bi12.docClass-14 .contextTtl, &.pub-bi12.docClass-14 h1, &.pub-bi7.docClass-11 .contextTtl, &.pub-bi7.docClass-11 h1, &.pub-bi7.docClass-116 .contextTtl, &.pub-bi7.docClass-116 h1, &.pub-bi7.docClass-12 .contextTtl, &.pub-bi7.docClass-12 h1, &.pub-bi7.docClass-125 .contextTtl, &.pub-bi7.docClass-125 h1, &.pub-bi7.docClass-13 .contextTtl, &.pub-bi7.docClass-13 h1, &.pub-bi7.docClass-14 .contextTtl, &.pub-bi7.docClass-14 h1, &.pub-igw.docClass-11 .contextTtl, &.pub-igw.docClass-11 h1, &.pub-igw.docClass-116 .contextTtl, &.pub-igw.docClass-116 h1, &.pub-igw.docClass-12 .contextTtl, &.pub-igw.docClass-12 h1, &.pub-igw.docClass-125 .contextTtl, &.pub-igw.docClass-125 h1, &.pub-igw.docClass-13 .contextTtl, &.pub-igw.docClass-13 h1, &.pub-igw.docClass-14 .contextTtl, &.pub-igw.docClass-14 h1, &.pub-nwt.docClass-11 .contextTtl, &.pub-nwt.docClass-11 h1, &.pub-nwt.docClass-116 .contextTtl, &.pub-nwt.docClass-116 h1, &.pub-nwt.docClass-12 .contextTtl, &.pub-nwt.docClass-12 h1, &.pub-nwt.docClass-125 .contextTtl, &.pub-nwt.docClass-125 h1, &.pub-nwt.docClass-13 .contextTtl, &.pub-nwt.docClass-13 h1, &.pub-nwt.docClass-14 .contextTtl, &.pub-nwt.docClass-14 h1, &.pub-nwths.docClass-11 .contextTtl, &.pub-nwths.docClass-11 h1, &.pub-nwths.docClass-116 .contextTtl, &.pub-nwths.docClass-116 h1, &.pub-nwths.docClass-12 .contextTtl, &.pub-nwths.docClass-12 h1, &.pub-nwths.docClass-125 .contextTtl, &.pub-nwths.docClass-125 h1, &.pub-nwths.docClass-13 .contextTtl, &.pub-nwths.docClass-13 h1, &.pub-nwths.docClass-14 .contextTtl, &.pub-nwths.docClass-14 h1, &.pub-nwtsty.docClass-11 .contextTtl, &.pub-nwtsty.docClass-11 h1, &.pub-nwtsty.docClass-116 .contextTtl, &.pub-nwtsty.docClass-116 h1, &.pub-nwtsty.docClass-12 .contextTtl, &.pub-nwtsty.docClass-12 h1, &.pub-nwtsty.docClass-125 .contextTtl, &.pub-nwtsty.docClass-125 h1, &.pub-nwtsty.docClass-13 .contextTtl, &.pub-nwtsty.docClass-13 h1, &.pub-nwtsty.docClass-14 .contextTtl, &.pub-nwtsty.docClass-14 h1, &.pub-sgd.docClass-11 .contextTtl, &.pub-sgd.docClass-11 h1, &.pub-sgd.docClass-116 .contextTtl, &.pub-sgd.docClass-116 h1, &.pub-sgd.docClass-12 .contextTtl, &.pub-sgd.docClass-12 h1, &.pub-sgd.docClass-125 .contextTtl, &.pub-sgd.docClass-125 h1, &.pub-sgd.docClass-13 .contextTtl, &.pub-sgd.docClass-13 h1, &.pub-sgd.docClass-14 .contextTtl, &.pub-sgd.docClass-14 h1 {
-      @include themed(color, du-color--maroon-700, #801816);
+      @include token(color, du-color--maroon-700);
     }
     &.pub-nwt.docClass-14 .contextTtl, &.pub-nwtsty.docClass-14 .contextTtl, &.pub-sgd.docClass-14 .contextTtl {
       display: inline-block;
@@ -1866,8 +1866,8 @@
       padding: .3em .45em;
       margin: 0;
       background-color: #801816;
-      @include themed(color, du-color--white, #fff);
-      font-size: .8298755187em;
+      @include token(color, du-color--white);
+      font-size: .83em;
       text-align: center;
       margin-bottom: .5em;
     }
@@ -1877,8 +1877,8 @@
       padding: .3em .45em;
       margin: 0;
       background-color: #801816;
-      @include themed(color, du-color--white, #fff);
-      font-size: .8298755187em;
+      @include token(color, du-color--white);
+      font-size: .83em;
       text-align: center;
       margin-left: 0;
       margin-right: 0;
@@ -1955,7 +1955,7 @@
       display: flex;
     }
     .BibleChapterOutline>ul li.chapterNo>p, .outline li.chapterNo>p {
-      font-size: 1.452025em;
+      font-size: 1.45em;
       -webkit-box-flex: 0;
       flex: 0 0 auto;
       line-height: 1.25;
@@ -1973,7 +1973,7 @@
       margin-bottom: 0;
     }
     &.pub-igw.docClass-11 .groupTOC>.source .txtSrcBullet, &.pub-nwt.docClass-11 .groupTOC>.source .txtSrcBullet, &.pub-nwtsty.docClass-11 .groupTOC>.source .txtSrcBullet {
-      @include themed(color, du-color--maroon-700, #801816);
+      @include token(color, du-color--maroon-700);
     }
     &.docClass-116 h3.inline, &.docClass-12 h3.inline {
       margin: 0;
@@ -2002,7 +2002,7 @@
       padding-right: 1em;
     }
     &.docClass-116 .docNav a, &.docClass-12 .docNav a {
-      @include themed(color, dc-button-tertiary-color, #4a6da7);
+      @include token(color, dc-button-tertiary-color);
       display: -webkit-inline-box;
       display: inline-flex;
       -webkit-box-align: center;
@@ -2017,14 +2017,14 @@
       @include themed(color, dc-button-tertiary-icon-color, #757575);
     }
     &.docClass-116 .docNav a:visited, &.docClass-12 .docNav a:visited {
-      @include themed(color, dc-button-tertiary-color, #4a6da7);
+      @include token(color, dc-button-tertiary-color);
     }
     &.docClass-116 .docNav a:focus, &.docClass-116 .docNav a:hover, &.docClass-12 .docNav a:focus, &.docClass-12 .docNav a:hover {
       @include themed(background-color, dc-button-tertiary-bgColor--hover, #e8effb);
       text-decoration: none;
     }
     &.docClass-116 .docNav a:focus::before, &.docClass-116 .docNav a:hover::before, &.docClass-12 .docNav a:focus::before, &.docClass-12 .docNav a:hover::before {
-      @include themed(color, dc-button-tertiary-color, #4a6da7);
+      @include token(color, dc-button-tertiary-color);
     }
     &.docClass-116 .docNav a:focus, &.docClass-12 .docNav a:focus {
       border-color: #7f9fd3;

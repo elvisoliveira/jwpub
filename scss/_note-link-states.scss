@@ -45,16 +45,16 @@ $states: ".addHighlight", ".highlight", ":focus", ":hover";
     background-color: $link-color;
     -webkit-transform: translateY($lift);
     transform: translateY($lift);
-    @include themed(opacity, jwac-footnote-opacity, 0.2);
+    @include token(opacity, jwac-footnote-opacity);
     z-index: -1;
   }
   #{with($links, ".highlight.addHighlight")} {
-    @include themed(color, jwac-footnote-link-color--addHighlight, $link-color);
+    @include token(color, jwac-footnote-link-color--addHighlight);
   }
   #{with($links, ".highlight.addHighlight::after")} {
-    @include themed(opacity, jwac-footnote-opacity--addHighlight, 0.4);
+    @include token(opacity, jwac-footnote-opacity--addHighlight);
   }
   #{with($links, ":visited")} {
-    @include themed(color, ds-link-color, $link-color);
+    @include token(color, ds-link-color);
   }
 }

@@ -62,10 +62,10 @@ $palette: map.merge($palette, (
   @each $name, $hex in $palette {
     .#{$class}--#{$name}#{$pseudo} { background-color: $hex $i; }
   }
-  .#{$class}--bgSecondary#{$pseudo} { @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1, $imp); }
+  .#{$class}--bgSecondary#{$pseudo} { @include token(background-color, du-bgColor--bgSecondary, $imp); }
   .#{$class}--bgEmphasized#{$pseudo} {
-    @include themed(background-color, du-bgColor--bgEmphasized, #757575, $imp);
-    @include themed(color, du-color--white, #ffffff, $imp);
+    @include token(background-color, du-bgColor--bgEmphasized, $imp);
+    @include token(color, du-color--white, $imp);
   }
   .#{$class}--bgEmphasized#{$pseudo} a { color: #9fb9e3 $i; }
   .#{$class}--bgEmphasized#{$pseudo} a:visited { color: #a9a7c9 $i; }

@@ -28,8 +28,8 @@
         border-width: 1px;
       }
       &.dc-table-stripe--rows thead tr {
-        @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-        @include themed(color, du-color--white, #fff);
+        @include token(background-color, du-bgColor--bgEmphasized);
+        @include token(color, du-color--white);
       }
       &.dc-table-stripe--rows thead tr a {
         color: #9fb9e3;
@@ -38,7 +38,7 @@
         color: #a9a7c9;
       }
       &.dc-table-stripe--rows tbody tr:nth-child(2n), &.dc-table-stripe--rows > tr:nth-child(2n), &.dc-table-stripe--columns td:nth-child(2n), &.dc-table-stripe--columns th:nth-child(2n) {
-        @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+        @include token(background-color, du-bgColor--bgSecondary);
       }
     }
   }

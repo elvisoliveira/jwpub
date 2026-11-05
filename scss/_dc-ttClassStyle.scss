@@ -10,7 +10,7 @@
       padding-left: 16px;
       padding-right: 16px;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .boxTtl:not(.dc-ttClassStyle--unset) {
         padding-left: 32px;
         padding-right: 32px;
@@ -22,7 +22,7 @@
       padding-left: 16px;
       padding-right: 16px;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .boxSubTtl:not(.dc-ttClassStyle--unset) {
         padding-left: 32px;
         padding-right: 32px;
@@ -41,8 +41,8 @@
       border-color: #a7a7a7;
     }
     .boxSubTtl:not(.dc-ttClassStyle--unset).emphasized, .boxTtl:not(.dc-ttClassStyle--unset).emphasized {
-      @include themed(background-color, du-bgColor--bgEmphasized, #757575);
-      @include themed(color, du-color--white, #fff);
+      @include token(background-color, du-bgColor--bgEmphasized);
+      @include token(color, du-color--white);
     }
     .boxSubTtl:not(.dc-ttClassStyle--unset).emphasized a, .boxTtl:not(.dc-ttClassStyle--unset).emphasized a {
       color: #9fb9e3;
@@ -56,7 +56,7 @@
       padding-left: 16px;
       padding-right: 16px;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .boxContent:not(.dc-ttClassStyle--unset) {
         padding-left: 32px;
         padding-right: 32px;
@@ -70,7 +70,7 @@
         margin-bottom: 8px;
       }
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .boxContent:not(.dc-ttClassStyle--unset)>:last-child {
         margin-bottom: 16px;
       }
@@ -93,14 +93,14 @@
       padding-left: 16px;
       padding-right: 16px;
     }
-    @media only screen and (min-width:760px) {
+    @media #{$desktop} {
       .boxContent:not(.dc-ttClassStyle--unset)+.groupFootnote {
         padding-left: 32px;
         padding-right: 32px;
       }
     }
     .blockTeach:not(.dc-ttClassStyle--unset), .boxSupplement:not(.dc-ttClassStyle--unset) {
-      @include themed(background-color, du-bgColor--bgSecondary, #f1f1f1);
+      @include token(background-color, du-bgColor--bgSecondary);
       margin-top: 1.5em;
       margin-bottom: 1.5em;
     }
@@ -119,11 +119,11 @@
     .openingContent:not(.dc-ttClassStyle--unset) {
       margin-top: 1em;
       margin-bottom: 1em;
-      font-size: 1.205em;
-      @include themed(color, du-color--textSubdued, #626262);
+      font-size: 1.21em;
+      @include token(color, du-color--textSubdued);
       &.metaIntro {
         h2 {
-          font-size: .8298755187em;
+          font-size: .83em;
         }
         p {
           margin: 0;
@@ -144,14 +144,14 @@
     .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset), blockquote:not(.dc-ttClassStyle--unset) {
       margin-left: 0;
       margin-right: 0;
-      @include themed(color, du-color--textSubdued, #626262);
+      @include token(color, du-color--textSubdued);
     }
     @include bidi((left, right)) using ($s) {
       .blockTxt:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule:not(.dc-ttClassStyle--unset), .stdCaption:not(.dc-ttClassStyle--unset), .stdPullQuote:not(.dc-ttClassStyle--unset), blockquote:not(.dc-ttClassStyle--unset) {
         padding-#{$s}: 1.5em;
       }
     }
-    @media screen and (min-width:760px) {
+    @media #{$desktop-only} {
       @include bidi((left, right)) using ($s) {
         .blockTxt[class*=float]:not(.dc-ttClassStyle--unset), .bodyTxtAlt.rule[class*=float]:not(.dc-ttClassStyle--unset), .stdCaption[class*=float]:not(.dc-ttClassStyle--unset), .stdPullQuote[class*=float]:not(.dc-ttClassStyle--unset), blockquote[class*=float]:not(.dc-ttClassStyle--unset) {
           padding-#{$s}: 0;
@@ -172,7 +172,7 @@
       border-bottom-style: solid;
       border-width: 1px;
       border-color: #a7a7a7;
-      @include themed(color, du-color--textSubdued, #626262);
+      @include token(color, du-color--textSubdued);
       font-size: 1em;
       clear: both;
     }

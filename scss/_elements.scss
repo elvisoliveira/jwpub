@@ -103,21 +103,21 @@
     h1 {
       margin-top: 0;
       margin-bottom: .25em;
-      font-size: 1.749690125em;
+      font-size: 1.75em;
       font-weight: 700;
       line-height: 1.25;
     }
     h2 {
       margin-top: 1em;
       margin-bottom: .25em;
-      font-size: 1.452025em;
+      font-size: 1.45em;
       font-weight: 700;
       line-height: 1.25;
     }
     h3 {
       margin-top: 1em;
       margin-bottom: .25em;
-      font-size: 1.205em;
+      font-size: 1.21em;
       font-weight: 700;
       line-height: 1.25;
     }
@@ -133,7 +133,7 @@
       max-width: 100%;
     }
     figcaption {
-      @include themed(color, du-color--textSubdued, #626262);
+      @include token(color, du-color--textSubdued);
       p {
         &:first-child {
           margin-top: 0;
@@ -161,7 +161,7 @@
     border-color: inherit;
     text-indent: 0;
     margin-bottom: 1.5em;
-    font-size: .8298755187em;
+    font-size: .83em;
     p {
       margin: 0;
       + p {
@@ -171,7 +171,7 @@
     caption {
       margin-top: 1em;
       margin-bottom: .25em;
-      font-size: 1.205em;
+      font-size: 1.21em;
       font-weight: 700;
       line-height: 1.25;
     }
@@ -243,7 +243,7 @@
 @mixin part-7 {
   :where(#reader) {
     sub, sup {
-      font-size: .8298755187em;
+      font-size: .83em;
       position: relative;
       vertical-align: baseline;
     }
@@ -257,12 +257,12 @@
 }
 
 @mixin part-8 {
-  @media only screen and (min-width:760px) {
+  @media #{$desktop} {
     :where(#reader) [data-tag-presentationintent=Mobile] {
       display: none;
     }
   }
-  @media only screen and (max-width:759px) {
+  @media #{$mobile} {
     :where(#reader) [data-tag-presentationintent=Desktop] {
       display: none;
     }
