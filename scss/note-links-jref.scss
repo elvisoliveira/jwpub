@@ -9,10 +9,8 @@ $jref-colors: (Hebrew: #8aa643, English: #c561b7, Other: #3fa0c1, Reference: #d8
 @include jwac {
   @each $kind, $color in $jref-colors {
     li.jRef-#{$kind} {
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-align: start;
-      align-items: flex-start;
+      @include display(flex);
+      @include align-items(flex-start);
 
       p { margin-top: 0; }
       &::before {
@@ -40,8 +38,7 @@ $jref-colors: (Hebrew: #8aa643, English: #c561b7, Other: #3fa0c1, Reference: #d8
       height: 1em;
       border-radius: 100%;
       background-color: $color;
-      -webkit-transform: translateY(-0.1em);
-      transform: translateY(-0.1em);
+      @include webkit(transform, translateY(-0.1em));
       color: $color;
     }
   }

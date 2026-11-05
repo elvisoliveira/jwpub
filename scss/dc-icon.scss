@@ -4,10 +4,7 @@
 
 // Also generates dc-iconOverlay (same glyphs, drawn over an image).
 
-@mixin flip {
-  -webkit-transform: scale(-1, 1);
-  transform: scale(-1, 1);
-}
+@mixin flip { @include webkit(transform, scale(-1, 1)); }
 
 @include jwac {
   @each $name, $code in $icons {
@@ -20,21 +17,21 @@
   [class*=" dc-icon--"]::before,
   [class^=dc-icon--]::before {
     @include icon-font;
-    display: -webkit-inline-box;
-    display: inline-flex;
+    @include display(inline-flex);
     font-size: inherit;
   }
 
-  .dc-icon-order--inlineEnd { display: -webkit-box; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; flex-direction: row; }
-  .dc-icon-order--inlineEnd::before { -webkit-box-ordinal-group: 2; order: 1; }
+  .dc-icon-order--inlineEnd {
+    @include display(flex);
+    @include flex-direction(row);
+    &::before { @include order(1); }
+  }
 
-  @each $name, $align in (top: (start, flex-start), verticalCenter: (center, center), bottom: (end, flex-end)) {
+  @each $name, $align in (top: flex-start, verticalCenter: center, bottom: flex-end) {
     @include variants($responsive) using ($s) {
       .dc-icon-layout#{$s}--#{$name} {
-        display: -webkit-box;
-        display: flex;
-        -webkit-box-align: list.nth($align, 1);
-        align-items: list.nth($align, 2);
+        @include display(flex);
+        @include align-items($align);
       }
     }
   }

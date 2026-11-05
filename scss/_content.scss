@@ -1,6 +1,7 @@
 // Written by split.py --convert from reference/jw-site.min.css (plain jw.org CSS,
 // one mixin per piece; _order.scss puts each piece where it was).
 @use "lib" as *;
+@use "icons" as *;
 
 // Publications that hide their footnote and endnote groups.
 $pubs-without-notes: Rbi8, bi10, bi12, bi22, bi7, bi7ls, bi8, biFgn, biMt, by, ijw, int, nwt, nwths,
@@ -17,6 +18,34 @@ $img-columns: imgEastEighth, imgEastQuarter, imgWestEighth, imgWestQuarter;
 $img-column-text: h2, h3, h4, h5, ol, ul, "> li > p", "> p";
 // Image grids.
 $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid;
+
+// The round icon before a meeting workbook heading.
+@mixin mwb-heading-icon {
+  @include icon-font;
+  @include display(inline-flex);
+  font-size: inherit;
+  @include token(color, du-color--white);
+  font-size: 40px;
+  line-height: 40px;
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+  @include flex(0 0 auto);
+  height: 56px;
+  width: 56px;
+}
+
+// A chapter number in a maroon box.
+@mixin chapter-badge {
+  display: inline-block;
+  min-width: 1.2em;
+  padding: .3em .45em;
+  margin: 0;
+  background-color: #801816;
+  @include token(color, du-color--white);
+  font-size: .83em;
+  text-align: center;
+}
 
 @mixin part-1 {
   @include jwac {
@@ -193,11 +222,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     #{sel(".", $img-grids)} {
-      display: -webkit-box;
-      display: flex;
+      @include display(flex);
       flex-wrap: wrap;
-      -webkit-box-pack: justify;
-      justify-content: space-between;
+      @include justify-content(space-between);
       figure {
         padding: 8px;
         @media #{$desktop-only} {
@@ -241,8 +268,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           grid-column: 1/-1;
         }
         &.alignBottom {
-          -webkit-box-align: end;
-          align-items: end;
+          @include align-items(end);
         }
         figure {
           padding: 0;
@@ -1221,11 +1247,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     @supports not (ruby-align:center) {
       &.showRuby.ms-CHINESE ruby,
       body.noJS.ms-CHINESE & ruby {
-        display: -webkit-inline-box;
-        display: inline-flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: reverse;
-        flex-direction: column-reverse;
+        @include display(inline-flex);
+        @include flex-direction(column-reverse);
         baseline-source: last;
         text-align: center;
         line-height: 1!important;
@@ -1320,10 +1343,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .treasures--rev2021 {
       &.mwbHeadingIcon {
-        display: -webkit-box;
-        display: flex;
-        -webkit-box-align: center;
-        align-items: center;
+        @include display(flex);
+        @include align-items(center);
         h1,
         h2,
         h3,
@@ -1335,32 +1356,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
         &::before {
           content: "\e720";
-          font-family: jw-icons-all;
-          speak: none;
-          font-size: 24px;
-          font-style: normal;
-          font-weight: 400;
-          font-variant: normal;
-          text-transform: none;
-          line-height: 1;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          display: -webkit-inline-box;
-          display: inline-flex;
-          font-size: inherit;
-          @include token(color, du-color--white);
-          font-size: 40px;
-          line-height: 40px;
-          display: -webkit-box;
-          display: flex;
-          -webkit-box-align: center;
-          align-items: center;
-          -webkit-box-pack: center;
-          justify-content: center;
-          -webkit-box-flex: 0;
-          flex: 0 0 auto;
-          height: 56px;
-          width: 56px;
+          @include mwb-heading-icon;
           @include bidi((left, right)) using ($s) {
             margin-#{flip($s)}: 16px;
           }
@@ -1381,10 +1377,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .ministry--rev2021 {
       &.mwbHeadingIcon {
-        display: -webkit-box;
-        display: flex;
-        -webkit-box-align: center;
-        align-items: center;
+        @include display(flex);
+        @include align-items(center);
         h1,
         h2,
         h3,
@@ -1396,32 +1390,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
         &::before {
           content: "\e898";
-          font-family: jw-icons-all;
-          speak: none;
-          font-size: 24px;
-          font-style: normal;
-          font-weight: 400;
-          font-variant: normal;
-          text-transform: none;
-          line-height: 1;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          display: -webkit-inline-box;
-          display: inline-flex;
-          font-size: inherit;
-          @include token(color, du-color--white);
-          font-size: 40px;
-          line-height: 40px;
-          display: -webkit-box;
-          display: flex;
-          -webkit-box-align: center;
-          align-items: center;
-          -webkit-box-pack: center;
-          justify-content: center;
-          -webkit-box-flex: 0;
-          flex: 0 0 auto;
-          height: 56px;
-          width: 56px;
+          @include mwb-heading-icon;
           @include bidi((left, right)) using ($s) {
             margin-#{flip($s)}: 16px;
           }
@@ -1441,10 +1410,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .christianLiving--rev2021.mwbHeadingIcon {
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
+      @include display(flex);
+      @include align-items(center);
       h1,
       h2,
       h3,
@@ -1456,40 +1423,14 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
       &::before {
         content: "\e800";
-        font-family: jw-icons-all;
-        speak: none;
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 400;
-        font-variant: normal;
-        text-transform: none;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        display: -webkit-inline-box;
-        display: inline-flex;
-        font-size: inherit;
-        @include token(color, du-color--white);
-        font-size: 40px;
-        line-height: 40px;
-        display: -webkit-box;
-        display: flex;
-        -webkit-box-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        justify-content: center;
-        -webkit-box-flex: 0;
-        flex: 0 0 auto;
-        height: 56px;
-        width: 56px;
+        @include mwb-heading-icon;
         @include bidi((left, right)) using ($s) {
           margin-#{flip($s)}: 16px;
         }
       }
     }
     &.dir-rtl .christianLiving--rev2021.mwbHeadingIcon::before {
-      -webkit-transform: scale(-1,1);
-      transform: scale(-1,1);
+      @include webkit(transform, scale(-1,1));
     }
     .christianLiving--rev2021 {
       h1,
@@ -1715,12 +1656,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     @each $name, $value in (verse 1.75em, chapter 1.5em) {
       .#{$name}Num a {
-        display: -webkit-inline-box;
-        display: inline-flex;
-        -webkit-box-pack: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        align-items: center;
+        @include display(inline-flex);
+        @include justify-content(center);
+        @include align-items(center);
         position: relative;
         z-index: 1;
         &.addHighlight,
@@ -1757,12 +1695,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .xrefLink {
-      display: -webkit-inline-box;
-      display: inline-flex;
-      -webkit-box-pack: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      align-items: center;
+      @include display(inline-flex);
+      @include justify-content(center);
+      @include align-items(center);
       position: relative;
       z-index: 1;
       &.addHighlight,
@@ -1805,25 +1740,11 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     #{sel("&.pub-", $pubs-chapter-badges)} {
       &.docClass-14 .contextTtl {
-        display: inline-block;
-        min-width: 1.2em;
-        padding: .3em .45em;
-        margin: 0;
-        background-color: #801816;
-        @include token(color, du-color--white);
-        font-size: .83em;
-        text-align: center;
+        @include chapter-badge;
         margin-bottom: .5em;
       }
       &.docClass-125 .groupTOC > .source .txtSrcBullet {
-        display: inline-block;
-        min-width: 1.2em;
-        padding: .3em .45em;
-        margin: 0;
-        background-color: #801816;
-        @include token(color, du-color--white);
-        font-size: .83em;
-        text-align: center;
+        @include chapter-badge;
         margin-left: 0;
         margin-right: 0;
         margin-bottom: 8px;
@@ -1894,12 +1815,10 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           }
         }
         &.chapterNo {
-          display: -webkit-box;
-          display: flex;
+          @include display(flex);
           > p {
             font-size: 1.45em;
-            -webkit-box-flex: 0;
-            flex: 0 0 auto;
+            @include flex(0 0 auto);
             line-height: 1.25;
             min-width: 1.5em;
           }
@@ -1948,12 +1867,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
       .docNav a {
         @include token(color, dc-button-tertiary-color);
-        display: -webkit-inline-box;
-        display: inline-flex;
-        -webkit-box-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        justify-content: center;
+        @include display(inline-flex);
+        @include align-items(center);
+        @include justify-content(center);
         vertical-align: middle;
         min-width: 53px;
         padding: .5em;
@@ -2019,13 +1935,10 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     .jwac-textHighlight {
       &, ruby {
         text-underline-offset: .4ex;
-        -webkit-text-decoration-style: dotted;
-        text-decoration-style: dotted;
-        -webkit-text-decoration-line: underline;
-        text-decoration-line: underline;
+        @include webkit(text-decoration-style, dotted);
+        @include webkit(text-decoration-line, underline);
         text-decoration-thickness: 1px;
-        -webkit-text-decoration-color: #8e8e8e;
-        text-decoration-color: #8e8e8e;
+        @include webkit(text-decoration-color, #8e8e8e);
       }
     }
   }
@@ -2041,8 +1954,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         list-style: none;
         cursor: pointer;
         &::before {
-          -webkit-transition: -webkit-transform .25s ease-in-out;
-          transition: -webkit-transform .25s ease-in-out;
+          @include webkit(transition, -webkit-transform .25s ease-in-out);
           transition: transform .25s ease-in-out;
           transition: transform .25s ease-in-out,-webkit-transform .25s ease-in-out;
         }
@@ -2062,8 +1974,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     details {
       &[open] > summary {
         &::before {
-          -webkit-transform: rotate(-180deg);
-          transform: rotate(-180deg);
+          @include webkit(transform, rotate(-180deg));
         }
         .details-summary--show {
           display: none;
@@ -2074,8 +1985,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     &.dir-rtl .pm-link-helpContent .pm-replacementIcon-help::before {
-      -webkit-transform: scaleX(-1);
-      transform: scaleX(-1);
+      @include webkit(transform, scaleX(-1));
     }
     &.dir-ltr [class*=pm-textIcon]::before {
       margin-right: 5px;
@@ -2086,8 +1996,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     &.dir-rtl .pm-buttonIcon-arrowRight--end a::after {
       margin-right: 5px;
-      -webkit-transform: scaleX(-1);
-      transform: scaleX(-1);
+      @include webkit(transform, scaleX(-1));
     }
   }
 }

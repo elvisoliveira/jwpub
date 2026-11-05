@@ -1,3 +1,5 @@
+@use "lib" as *;
+
 // jw-icons-all glyphs used by dc-icon/dc-iconOverlay, in reference order.
 $icons: (
   "airplay": "\e600",
@@ -713,6 +715,5 @@ $rtl-flipped: (
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @include font-smoothing;
 }

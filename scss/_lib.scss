@@ -238,3 +238,27 @@ $opposite: (left: right, right: left);
   @each $n in $names { $out: list.append($out, "#{$prefix}#{$n}#{$suffix}", comma); }
   @return $out;
 }
+
+// Vendor prefixes, written before the standard property as the reference CSS does.
+// Old (2009) flexbox: -webkit-box-* names and values for the modern flex properties.
+$box-values: (flex-start: start, flex-end: end, space-between: justify);
+$box-directions: (row: horizontal normal, row-reverse: horizontal reverse,
+                  column: vertical normal, column-reverse: vertical reverse);
+
+@function box-value($value) { @return map.get($box-values, $value) or $value; }
+
+@mixin display($value) {   // flex | inline-flex
+  @if $value == flex { display: -webkit-box; } @else { display: -webkit-inline-box; }
+  display: $value;
+}
+@mixin align-items($value) { -webkit-box-align: box-value($value); align-items: $value; }
+@mixin justify-content($value) { -webkit-box-pack: box-value($value); justify-content: $value; }
+@mixin flex($value) { -webkit-box-flex: list.nth($value, 1); flex: $value; }
+@mixin order($value) { -webkit-box-ordinal-group: $value + 1; order: $value; }
+@mixin flex-direction($value) {
+  -webkit-box-orient: list.nth(map.get($box-directions, $value), 1);
+  -webkit-box-direction: list.nth(map.get($box-directions, $value), 2);
+  flex-direction: $value;
+}
+@mixin webkit($prop, $value) { -webkit-#{$prop}: $value; #{$prop}: $value; }
+@mixin font-smoothing { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }

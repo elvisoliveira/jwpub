@@ -6,12 +6,9 @@
 $focus-ring: 0 0 5px 1px #7f9fd3;
 
 @mixin box {
-  display: -webkit-inline-box;
-  display: inline-flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
+  @include display(inline-flex);
+  @include align-items(center);
+  @include justify-content(center);
   vertical-align: middle;
   min-width: 53px;
   padding: .5em;
@@ -71,8 +68,7 @@ $focus-ring: 0 0 5px 1px #7f9fd3;
 @include jwac {
   @at-root #{$root}.pub-int [class*=dc-button], #{$root}.showRuby [class*=dc-button],
            body.noJS #{$root} [class*=dc-button] {
-    -webkit-box-align: baseline;
-    align-items: baseline;
+    @include align-items(baseline);
   }
 
   @each $button in "a.dc-button--primary", "div.dc-button--primary a" {

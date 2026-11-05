@@ -26,12 +26,9 @@ $states: ".addHighlight", ".highlight", ":focus", ":hover";
 // $lift: how far the circle is raised behind the marker
 @mixin note-link-states($links, $lift: -0.38em) {
   #{$links} {
-    display: -webkit-inline-box;
-    display: inline-flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
+    @include display(inline-flex);
+    @include justify-content(center);
+    @include align-items(center);
     position: relative;
     z-index: 1;
   }
@@ -43,8 +40,7 @@ $states: ".addHighlight", ".highlight", ":focus", ":hover";
     height: 1.75em;
     border-radius: 100%;
     background-color: $link-color;
-    -webkit-transform: translateY($lift);
-    transform: translateY($lift);
+    @include webkit(transform, translateY($lift));
     @include token(opacity, jwac-footnote-opacity);
     z-index: -1;
   }
