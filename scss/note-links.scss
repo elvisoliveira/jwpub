@@ -1,7 +1,7 @@
 @use "lib" as *;
 @use "note-link-states" as *;
 
-// Footnote (.fn, .footnoteLink) and endnote (.en, .endnoteLink) markers (reference/note-links.css).
+// Footnote (.fn, .footnoteLink) and endnote (.en, .endnoteLink) markers.
 
 @include jwac {
   .fn-symbol:not(.tt),

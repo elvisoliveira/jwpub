@@ -1,8 +1,8 @@
 @use "sass:map";
 @use "lib" as *;
 
-// du-float then du-clear: item → (ltr, rtl) value; inline* items are mirrored
-// (reference/du-floatClear.css). clear also has "both".
+// du-float then du-clear: item → (ltr, rtl) value; inline* items are mirrored;
+// clear also has "both".
 $sides: (left: (left, left), right: (right, right), inlineStart: (left, right), inlineEnd: (right, left));
 $families: (float: $sides, clear: map.merge($sides, (both: (both, both))));
 

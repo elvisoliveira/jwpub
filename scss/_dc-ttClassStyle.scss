@@ -1,6 +1,4 @@
-// Converted by split.py --convert from reference/jw-site.min.css, then edited by hand
-// (listed in HAND_EDITED, so --convert keeps it). One mixin per piece; _order.scss puts
-// each piece where it was.
+// Box styles of the jw.org CSS, one mixin per piece; _order.scss puts each piece where it was.
 @use "sass:list";
 @use "lib" as *;
 

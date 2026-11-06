@@ -1,6 +1,6 @@
 @use "lib" as *;
 
-// LFF page numbers inside text-width boxes and columns (reference/lff-page-nums.css):
+// LFF page numbers inside text-width boxes and columns:
 // no width, number pinned to the inline end. One block in the original, far from both families.
 $boxes: ".du-constrainStylesToTextWidth", "[class*=dc-columns]";
 

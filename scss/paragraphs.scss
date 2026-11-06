@@ -1,6 +1,6 @@
 @use "lib" as *;
 
-// Paragraph styles (p.sX) lose their indent inside lists and quotes (reference/paragraphs.css).
+// Paragraph styles (p.sX) lose their indent inside lists and quotes.
 // Lettered styles indent with text-indent + padding; numbered ones with a margin.
 $lettered: c, "d se", f, g, h, k, l, m, n, o, p, q, r, u, v, x, y, z;
 $numbered: 0, "1 s2", 3, 4, 5, 6, 7, 8, 9;

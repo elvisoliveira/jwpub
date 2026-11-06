@@ -1,5 +1,4 @@
-// Written by split.py --convert from reference/jw-site.min.css (plain jw.org CSS,
-// one mixin per piece; _order.scss puts each piece where it was).
+// Plain jw.org CSS, one mixin per piece; _order.scss puts each piece where it was.
 @use "lib" as *;
 
 @mixin rules {

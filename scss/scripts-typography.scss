@@ -3,7 +3,7 @@
 @use "locales" as *;
 @use "lib" as *;
 
-// Base typography per script/language (reference/scripts-typography.css), from _locales.scss:
+// Base typography per script/language, from _locales.scss:
 // the scripts (.ms-*) first, then the languages (.ml-*), as in the original.
 
 $headings: h1, h2, h3, h4, h5, h6;

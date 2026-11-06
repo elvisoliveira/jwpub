@@ -26,7 +26,7 @@ export default {
     "scss/at-if-no-null": null, // "== null" reads better than "not" for optional arguments
     "declaration-block-single-line-max-declarations": null, // generated families are one rule per line
 
-    // --- blank lines stay as written (split.py --convert writes the converted partials) ---
+    // --- blank lines stay as written -------------------------------------------------------
     "rule-empty-line-before": null,
     "declaration-empty-line-before": null,
     "at-rule-empty-line-before": null,

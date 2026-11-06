@@ -1,7 +1,7 @@
 @use "sass:list";
 @use "lib" as *;
 
-// du-bgImage, du-bgSize, du-bgPosition, du-bgRepeat, in this order (reference/du-backgrounds.css).
+// du-bgImage, du-bgSize, du-bgPosition, du-bgRepeat, in this order.
 // Each lists all base rules first, then mobileOnly/desktopOnly value by value.
 
 // .<class>--<name> { <prop>: <value> } for every name → value

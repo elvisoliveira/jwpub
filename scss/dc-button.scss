@@ -1,6 +1,6 @@
 @use "lib" as *;
 
-// Buttons (reference/dc-button.css). Each variant is written once and applied both to a
+// Buttons. Each variant is written once and applied both to a
 // link that is the button (a.dc-button--X) and to a link inside one (div.dc-button--X a).
 
 $focus-ring: 0 0 5px 1px #7f9fd3;
