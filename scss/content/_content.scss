@@ -1,6 +1,6 @@
 // Plain jw.org CSS, one mixin per piece; _order.scss puts each piece where it was.
 @use "lib" as *;
-@use "icons" as *;
+@use "lib/icons" as *;
 
 // Publications that hide their footnote and endnote groups.
 $pubs-without-notes: Rbi8, bi10, bi12, bi22, bi7, bi7ls, bi8, biFgn, biMt, by, ijw, int, nwt, nwths,

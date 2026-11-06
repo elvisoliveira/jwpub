@@ -68,12 +68,12 @@ export default {
   overrides: [
     {
       // the mixins that write the prefixed pairs, and the browser reset
-      files: ["scss/_lib.scss", "scss/_elements.scss"],
+      files: ["scss/lib/_index.scss", "scss/content/_elements.scss"],
       rules: { "property-no-vendor-prefix": null, "value-no-vendor-prefix": null },
     },
     {
       // app UI, not jw.org content
-      files: ["scss/_app.scss"],
+      files: ["scss/app/_app.scss"],
       rules: { "media-feature-name-disallowed-list": null },
     },
   ],

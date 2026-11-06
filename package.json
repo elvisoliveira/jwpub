@@ -3,8 +3,8 @@
   "private": true,
   "description": "JWPUB reader in the browser: index.html + jwpub.js, styles.css built from scss/",
   "scripts": {
-    "css": "sass --no-source-map --style=compressed scss/main.scss styles.css",
-    "css:watch": "sass --no-source-map --watch scss/main.scss styles.css",
+    "css": "sass --load-path=scss --no-source-map --style=compressed scss/main.scss styles.css",
+    "css:watch": "sass --load-path=scss --no-source-map --watch scss/main.scss styles.css",
     "lint": "stylelint \"scss/**/*.scss\"",
     "lint:fix": "stylelint \"scss/**/*.scss\" --fix"
   },

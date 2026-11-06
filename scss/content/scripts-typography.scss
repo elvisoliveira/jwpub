@@ -1,6 +1,6 @@
 @use "sass:map";
 @use "sass:string";
-@use "locales" as *;
+@use "lib/locales" as *;
 @use "lib" as *;
 
 // Base typography per script/language, from _locales.scss:

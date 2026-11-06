@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "locales" as *;
+@use "lib/locales" as *;
 @use "lib" as *;
 
 // Font utilities per locale, from the same stacks the content typography uses:

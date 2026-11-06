@@ -4,15 +4,15 @@
 @use "order";
 
 // The same font family names, served from open-source files (not the jw.org CDN)
-@use "fonts-oss";
+@use "app/fonts-oss";
 
 // No reference in the jw.org bundle: built on the reader gutter (see _lib.scss)
-@use "dc-bleedToArticleEdge";
-@use "dc-paddingToContentEdge";
-@use "dc-marginToContentEdge";
+@use "app/dc-bleedToArticleEdge";
+@use "app/dc-paddingToContentEdge";
+@use "app/dc-marginToContentEdge";
 
 // dc-icon glyphs from Material Design Icons (the jw.org icon font is not reachable)
-@use "icons-oss";
+@use "app/icons-oss";
 
 // App UI last, so content rules do not restyle it.
-@use "app";
+@use "app/app";
