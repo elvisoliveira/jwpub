@@ -79,7 +79,8 @@ $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
           margin-bottom: 16px;
         }
       }
-      &::after, &::before {
+      &::after,
+      &::before {
         content: " ";
         display: table;
       }
@@ -100,7 +101,8 @@ $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
         @include token(background-color, du-bgColor--bgSecondary);
         margin-top: 1.5em;
         margin-bottom: 1.5em;
-        &::after, &::before {
+        &::after,
+        &::before {
           content: " ";
           display: table;
         }

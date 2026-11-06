@@ -47,7 +47,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       @include themed(background-color, ds-content-bgColor, #fff);
       @include token(color, du-color--textDefault);
     }
-    *, ::after, ::before {
+    *,
+    ::after,
+    ::before {
       box-sizing: border-box;
     }
   }
@@ -190,7 +192,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       clear: both;
     }
     .clearfix {
-      &::after, &::before {
+      &::after,
+      &::before {
         content: " ";
         display: table;
       }
@@ -207,7 +210,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 @mixin part-8 {
   @include jwac {
     .boxContent > div {
-      &.half:first-child, &.quarter:first-child {
+      &.half:first-child,
+      &.quarter:first-child {
         margin-top: 1em;
       }
     }
@@ -394,7 +398,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       &.imgEastEighth, &.imgEastQuarter, &.imgWestEighth, &.imgWestQuarter {
         padding: 0;
         > li {
-          &::after, &::before {
+          &::after,
+          &::before {
             content: " ";
             display: table;
           }
@@ -566,7 +571,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         @include bidi((left, right)) using ($s) {
           padding-#{$s}: 32px;
         }
-        &::after, &::before {
+        &::after,
+        &::before {
           content: "";
           position: absolute;
           top: calc(.75em + 1px);
@@ -972,7 +978,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .blockTeach, .boxSupplement, .chart, .closingContent, .diagram, .mapElement {
       clear: both;
-      &::after, &::before {
+      &::after,
+      &::before {
         content: " ";
         display: table;
       }
@@ -1496,7 +1503,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
       .sb {
         text-indent: 1em;
-        &:first-child, &:first-of-type, > * {
+        &:first-child,
+        &:first-of-type,
+        > * {
           text-indent: 0;
         }
       }
@@ -1538,11 +1547,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         padding-right: 3em;
       }
     }
-    .chapterNum, .cl:not(.tt) {
+    .chapterNum,
+    .cl:not(.tt) {
       font-size: 1.75em;
       line-height: 1;
     }
-    .verseNum, .vl:not(.tt) {
+    .verseNum,
+    .vl:not(.tt) {
       padding: 0 .25em;
       font-size: 1em;
       font-weight: 700;
@@ -1572,7 +1583,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
     }
-    .m:not(.tt), .xrefLink {
+    .m:not(.tt),
+    .xrefLink {
       position: relative;
       top: -.5em;
       text-indent: 0;
@@ -1589,7 +1601,10 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         @include align-items(center);
         position: relative;
         z-index: 1;
-        &.addHighlight, &.highlight, &:focus, &:hover {
+        &.addHighlight,
+        &.highlight,
+        &:focus,
+        &:hover {
           text-decoration: none;
           &::after {
             position: absolute;
@@ -1625,7 +1640,10 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       @include align-items(center);
       position: relative;
       z-index: 1;
-      &.addHighlight, &.highlight, &:focus, &:hover {
+      &.addHighlight,
+      &.highlight,
+      &:focus,
+      &:hover {
         text-decoration: none;
         &::after {
           position: absolute;
@@ -1792,7 +1810,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         &:visited {
           @include token(color, dc-button-tertiary-color);
         }
-        &:focus, &:hover {
+        &:focus,
+        &:hover {
           @include themed(background-color, dc-button-tertiary-bgColor--hover, #e8effb);
           text-decoration: none;
           &::before {
@@ -1868,7 +1887,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           transition: transform .25s ease-in-out;
           transition: transform .25s ease-in-out,-webkit-transform .25s ease-in-out;
         }
-        &:active, &:focus, &:hover {
+        &:active,
+        &:focus,
+        &:hover {
           background-image: -webkit-linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
           background-image: linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
         }
@@ -1915,7 +1936,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       display: none!important;
     }
     a {
-      &, &:visited {
+      &,
+      &:visited {
         color: #2878bb;
       }
     }
@@ -1954,7 +1976,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .clearfix {
-      &::after, &::before {
+      &::after,
+      &::before {
         max-width: 0;
       }
     }
