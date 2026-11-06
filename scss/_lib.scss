@@ -260,5 +260,8 @@ $box-directions: (row: horizontal normal, row-reverse: horizontal reverse,
   -webkit-box-direction: list.nth(map.get($box-directions, $value), 2);
   flex-direction: $value;
 }
-@mixin webkit($prop, $value) { -webkit-#{$prop}: $value; #{$prop}: $value; }
+@mixin webkit($prop, $value, $important: false) {
+  @include decl(-webkit-#{$prop}, $value, $important);
+  @include decl($prop, $value, $important);
+}
 @mixin font-smoothing { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }

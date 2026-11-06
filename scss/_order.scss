@@ -52,7 +52,6 @@
 @include meta.load-css("dc-icon-padding");
 @include meta.load-css("dc-button");
 @include meta.load-css("dc-columns");
-@include meta.load-css("dc-columns-order");
 @include dc-table.rules;
 @include dc-extraWideContentContainer.rules;
 @include dc-screenReaderText.rules;
@@ -60,6 +59,7 @@
 @include content.part-7;
 @include meta.load-css("cardinals");
 @include content.part-8;
+@include meta.load-css("lff-page-nums");
 @include content.part-9;
 @include dc-ttClassStyle.part-1;
 @include content.part-10;

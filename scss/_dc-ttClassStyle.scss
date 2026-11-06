@@ -6,6 +6,16 @@
 
 $styled: ":not(.dc-ttClassStyle--unset)";  // jw.org's opt-out of these box styles
 
+// Side padding of a box: 16px, 32px on desktop.
+@mixin box-gutter {
+  padding-left: 16px;
+  padding-right: 16px;
+  @media #{$desktop} {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
 // The quote-like boxes styled here.
 $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
 
@@ -23,22 +33,12 @@ $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
     .boxTtl#{$styled} {
       padding-top: 16px;
       padding-bottom: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
-      @media #{$desktop} {
-        padding-left: 32px;
-        padding-right: 32px;
-      }
+      @include box-gutter;
     }
     .boxSubTtl#{$styled} {
       padding-top: 0;
       padding-bottom: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
-      @media #{$desktop} {
-        padding-left: 32px;
-        padding-right: 32px;
-      }
+      @include box-gutter;
       p {
         margin-top: 0;
         margin-bottom: 0;
@@ -69,12 +69,7 @@ $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
     .boxContent#{$styled} {
       padding-top: 16px;
       padding-bottom: 16px;
-      padding-left: 16px;
-      padding-right: 16px;
-      @media #{$desktop} {
-        padding-left: 32px;
-        padding-right: 32px;
-      }
+      @include box-gutter;
       > :first-child {
         margin-top: 0;
       }
@@ -98,12 +93,7 @@ $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
         }
       }
       + .groupFootnote {
-        padding-left: 16px;
-        padding-right: 16px;
-        @media #{$desktop} {
-          padding-left: 32px;
-          padding-right: 32px;
-        }
+        @include box-gutter;
       }
     }
     .blockTeach, .boxSupplement {

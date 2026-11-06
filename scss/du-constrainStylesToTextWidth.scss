@@ -1,17 +1,5 @@
 @use "lib" as *;
 
-$cls: ".du-constrainStylesToTextWidth";
-$pubs: ".pub-lff", ".pub-lffi";
-
 @include jwac {
-  #{sel("h", (1, 2, 3, 4, 5, 6), $cls)} { display: table !important; }
-
-  @each $pub in $pubs { &#{$pub} #{$cls} .pageNum { width: 0 !important; } }
-
-  // Page number pinned to the end edge.
-  @each $dir, $side in (ltr: right, rtl: left) {
-    @each $pub in $pubs {
-      &#{$pub}.dir-#{$dir} #{$cls} .pageNum::after { position: absolute !important; #{$side}: 4px !important; }
-    }
-  }
+  #{sel("h", (1, 2, 3, 4, 5, 6), ".du-constrainStylesToTextWidth")} { display: table !important; }
 }
