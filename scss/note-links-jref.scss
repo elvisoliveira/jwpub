@@ -17,11 +17,11 @@ $jref-colors: (Hebrew: #8aa643, English: #c561b7, Other: #3fa0c1, Reference: #d8
         display: block;
         content: "";
         flex-shrink: 0;
-        height: 0.85em;
-        width: 0.85em;
+        height: .85em;
+        width: .85em;
         border-radius: 100%;
         background-color: $color;
-        margin: 0.3em 10px 0;
+        margin: .3em 10px 0;
       }
     }
   }
@@ -38,7 +38,7 @@ $jref-colors: (Hebrew: #8aa643, English: #c561b7, Other: #3fa0c1, Reference: #d8
       height: 1em;
       border-radius: 100%;
       background-color: $color;
-      @include webkit(transform, translateY(-0.1em));
+      @include webkit(transform, translateY(-.1em));
       color: $color;
     }
   }
@@ -47,5 +47,5 @@ $jref-colors: (Hebrew: #8aa643, English: #c561b7, Other: #3fa0c1, Reference: #d8
   $kinds: English, Hebrew, Other, Reference;
   $links: ();
   @each $kind in $kinds { $links: list.append($links, ".jRef-#{$kind} .footnoteLink", comma); }
-  @include note-link-states($links, $lift: -0.1em);
+  @include note-link-states($links, $lift: -.1em);
 }

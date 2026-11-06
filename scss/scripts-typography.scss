@@ -29,12 +29,12 @@ $headings: h1, h2, h3, h4, h5, h6;
   // CJK underlines sit between the two halves in the original.
   &.ms-CHINESE .underline {
     text-decoration: underline;
-    text-underline-offset: 0.5ex;
+    text-underline-offset: .5ex;
     @each $prop in -webkit-text-decoration-color, text-decoration-color {
       @include token($prop, du-color--textDefault);
     }
   }
-  @each $ms, $offset in (CHINESE: 0.5ex, JAPANESE: 0.2ex) {
+  @each $ms, $offset in (CHINESE: .5ex, JAPANESE: .2ex) {
     &.ms-#{$ms} { .jwac-textHighlight, .jwac-textHighlight ruby { text-underline-offset: $offset; } }
   }
 

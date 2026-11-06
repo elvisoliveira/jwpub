@@ -1,11 +1,11 @@
 @use "sass:list";
 @use "sass:map";
-@use "sass:math";
 @use "sass:string";
 @use "lib" as *;
 
 // jw-icons-all glyphs used by dc-icon/dc-iconOverlay, in reference order: the codepoints
 // run from \e600 with no gap, so each icon's code is its position in this list.
+// Names that are also CSS colours are quoted, so Sass keeps them as strings.
 $icon-names: (
   airplay, airplay-fill, angleBracketDown, angleBracketDown-bold, angleBracketLeft,
   angleBracketLeft-bold, angleBracketRight, angleBracketRight-bold, angleBracketUp,
@@ -130,19 +130,9 @@ $icon-names: (
   video-fill, videoCamera, videoCamera-fill, videoCameraCrossed, videoCameraCrossed-fill,
   videoEncoding, videoEncoding-fill, videoMusic, videoMusic-fill, videoStack, videoStack-fill,
   watchtower, watchtower-fill, watchtowerSquare, watchtowerSquare-fill, waveform, waveform-bold,
-  webpage, webpage-fill, wheat, wheat-fill, wineBread, wineBread-fill, womanPraying,
+  webpage, webpage-fill, "wheat", wheat-fill, wineBread, wineBread-fill, womanPraying,
   womanPraying-fill, womanSun, womanSun-fill, x, x-bold, xCircle, xCircle-fill
 );
-
-@function hex($n) {
-  $digits: "0123456789abcdef";
-  $out: "";
-  @while $n > 0 {
-    $out: string.slice($digits, $n % 16 + 1, $n % 16 + 1) + $out;
-    $n: math.floor(math.div($n, 16));
-  }
-  @return $out;
-}
 
 // name → "\e600" … (content: "\e600")
 $icons: ();

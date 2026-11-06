@@ -50,13 +50,13 @@
       padding: 8px;
       font-size: 1.205em;
       @include token(color, du-color--white);
-      background: rgba(18, 18, 18, 0.6);
+      background: rgba(18, 18, 18, .6);
     }
     @include bidi((left, right)) using ($side) {
       &::before { #{$side}: 0; }
     }
     &:focus::before,
-    &:hover::before { background: rgba(18, 18, 18, 0.8); }
+    &:hover::before { background: rgba(18, 18, 18, .8); }
   }
 
   @each $name, $code in $icons {

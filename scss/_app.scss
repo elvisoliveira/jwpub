@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap";
 
 :root {
   --brand: #1683ff;
-  --ink:   #34495e;
-  --edge:  #e0eafc;
+  --ink: #34495e;
+  --edge: #e0eafc;
   --paper: #fff;
   --muted: gray;
 }
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   background: var(--edge);
 }
 
@@ -38,7 +38,7 @@ body:not(.loaded) {
   width: 100%;
   padding: 30px;
   background: var(--paper);
-  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  box-shadow: rgba(149, 157, 165, .2) 0 8px 24px;
 }
 
 .container h3 {
@@ -54,13 +54,13 @@ body:not(.loaded) {
   align-items: center;
   justify-content: center;
 
-  & .icon    { font-size: 50px; color: var(--brand); }
-  & .header  { font-size: 20px; font-weight: 500; color: var(--ink); }
+  & .icon { font-size: 50px; color: var(--brand); }
+  & .header { font-size: 20px; font-weight: 500; color: var(--ink); }
   & .support { font-size: 12px; color: var(--muted); margin: 10px 0 15px; }
-  & .button  { font-size: 20px; font-weight: 500; color: var(--brand); cursor: pointer; }
+  & .button { font-size: 20px; font-weight: 500; color: var(--brand); cursor: pointer; }
   & .button:hover { color: color-mix(in srgb, var(--brand) 75%, black); }
-  & img      { width: 100%; height: 100%; object-fit: cover; }
-  &.active   { border: 2px solid var(--brand); }
+  & img { width: 100%; height: 100%; object-fit: cover; }
+  &.active { border: 2px solid var(--brand); }
 }
 
 // After a file is opened the upload card goes away and the content takes the page.
@@ -77,10 +77,10 @@ body.loaded .container { display: none; }
   margin: 0 auto;
   background: var(--paper);
 
-  &[data-width="narrow"] { --reader-width: 600px;  --gutter: 16px; }
-  &[data-width="medium"] { --reader-width: 780px;  --gutter: 20px; }
-  &[data-width="wide"]   { --reader-width: 1000px; --gutter: 50px; }
-  &[data-width="full"]   { --reader-width: 100%;   --gutter: 80px; }
+  &[data-width="narrow"] { --reader-width: 600px; --gutter: 16px; }
+  &[data-width="medium"] { --reader-width: 780px; --gutter: 20px; }
+  &[data-width="wide"] { --reader-width: 1000px; --gutter: 50px; }
+  &[data-width="full"] { --reader-width: 100%; --gutter: 80px; }
 
   &:empty { display: none; }
 
@@ -113,10 +113,10 @@ body.loaded .fabs { display: flex; }
   padding: 8px 14px;
   border: 0;
   border-radius: 999px;
-  font: 500 14px 'Poppins', sans-serif;
+  font: 500 14px Poppins, sans-serif;
   color: var(--paper);
   background: var(--brand);
-  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
+  box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
   cursor: pointer;
 
   &:hover { background: color-mix(in srgb, var(--brand) 80%, black); }

@@ -2,6 +2,7 @@
 @use "sass:list";
 @use "sass:map";
 @use "sass:selector";
+@use "sass:string";
 
 // Every rule of the reader's content hangs from this class (set on each <article>).
 $root: ".jwac";
@@ -217,6 +218,17 @@ $edge-sides: ("": (left right, left right), left: (left, left), right: (right, r
 }
 
 $opposite: (left: right, right: left);
+
+// $n in lowercase hex, zero-padded to $width digits: hex(10, 2) → "0a"
+@function hex($n, $width: 1) {
+  $digits: "0123456789abcdef";
+  $out: "";
+  @while $n > 0 or string.length($out) < $width {
+    $out: string.slice($digits, $n % 16 + 1, $n % 16 + 1) + $out;
+    $n: math.floor(math.div($n, 16));
+  }
+  @return $out;
+}
 
 // left ↔ right
 @function flip($side) {

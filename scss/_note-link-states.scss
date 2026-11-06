@@ -24,7 +24,7 @@ $states: ".addHighlight", ".highlight", ":focus", ":hover";
 // Call it inside @include jwac.
 // Inline badge, highlighted with a translucent circle on hover/focus/highlight.
 // $lift: how far the circle is raised behind the marker
-@mixin note-link-states($links, $lift: -0.38em) {
+@mixin note-link-states($links, $lift: -.38em) {
   #{$links} {
     @include display(inline-flex);
     @include justify-content(center);

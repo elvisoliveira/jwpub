@@ -545,7 +545,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 @mixin part-9 {
   @include jwac {
     .unstyled .pageNum,
-    .pageNum+.pageNum,
+    .pageNum + .pageNum,
     &.docClass-115 .pageNum,
     &.bible .pageNum,
     table .pageNum,
@@ -1225,12 +1225,12 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 
 @mixin part-11 {
   @include jwac {
-    body:not(.noJS) &:not(.showRuby):not(.pub-int) ruby>rt {
+    body:not(.noJS) &:not(.showRuby):not(.pub-int) ruby > rt {
       display: none;
     }
-    &.pub-int ruby>rt,
-    &.showRuby ruby>rt,
-    body.noJS & ruby>rt {
+    &.pub-int ruby > rt,
+    &.showRuby ruby > rt,
+    body.noJS & ruby > rt {
       font-size: .83em;
     }
     &.pub-int ruby {
@@ -1254,8 +1254,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         line-height: 1!important;
         text-indent: 0;
       }
-      &.showRuby.ms-CHINESE ruby>rt,
-      body.noJS.ms-CHINESE & ruby>rt {
+      &.showRuby.ms-CHINESE ruby > rt,
+      body.noJS.ms-CHINESE & ruby > rt {
         display: inline;
         line-height: normal!important;
         padding-left: .25em;
@@ -1272,8 +1272,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     body.noJS.ms-CHINESE & ruby {
       line-height: 3;
     }
-    &.showRuby.ms-CHINESE ruby>rt,
-    body.noJS.ms-CHINESE & ruby>rt {
+    &.showRuby.ms-CHINESE ruby > rt,
+    body.noJS.ms-CHINESE & ruby > rt {
       padding-left: 4px;
       padding-right: 4px;
       margin-bottom: 1px;
@@ -1289,8 +1289,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     body.noJS.ms-JAPANESE & ruby {
       line-height: 2;
     }
-    &.showRuby.ms-JAPANESE ruby>rt,
-    body.noJS.ms-JAPANESE & ruby>rt {
+    &.showRuby.ms-JAPANESE ruby > rt,
+    body.noJS.ms-JAPANESE & ruby > rt {
       margin-bottom: -.25em;
       line-height: 2;
       font-size: .57em;
@@ -1316,7 +1316,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         @include token(color, du-color--textSubdued);
       }
     }
-    header h1+h2 {
+    header h1 + h2 {
       margin-top: 0;
     }
     h2 {
@@ -1456,7 +1456,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 
 @mixin part-12 {
   @include jwac {
-    blockquote+blockquote {
+    blockquote + blockquote {
       clear: both;
     }
   }
@@ -1548,7 +1548,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       display: block;
       height: 0;
     }
-    .verse>& .parabreak:last-child {
+    .verse > & .parabreak:last-child {
       height: .25em;
     }
     .newblock {
@@ -1758,7 +1758,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 
 @mixin part-15 {
   @include jwac {
-    .BibleChapterOutline>ul,
+    .BibleChapterOutline > ul,
     .outline {
       margin: 0;
       list-style-type: none;
@@ -1838,9 +1838,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
     }
-    &.pub-igw.docClass-11 .groupTOC>.source .txtSrcBullet,
-    &.pub-nwt.docClass-11 .groupTOC>.source .txtSrcBullet,
-    &.pub-nwtsty.docClass-11 .groupTOC>.source .txtSrcBullet {
+    &.pub-igw.docClass-11 .groupTOC > .source .txtSrcBullet,
+    &.pub-nwt.docClass-11 .groupTOC > .source .txtSrcBullet,
+    &.pub-nwtsty.docClass-11 .groupTOC > .source .txtSrcBullet {
       @include token(color, du-color--maroon-700);
     }
     &.docClass-116,
@@ -2058,7 +2058,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     @at-root #searchResultsForm .searchResult#{$root}.pub-lff,
-             #searchResultsForm .searchResult#{$root}.pub-lffi {
+    #searchResultsForm .searchResult#{$root}.pub-lffi {
       background: 0 0;
     }
     textarea {

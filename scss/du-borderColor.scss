@@ -9,7 +9,7 @@
 // The opacity variants use a different side order in the reference.
 @each $name in "black", "white" {
   @for $n from 1 through 9 {
-    @include directional(du-borderColor, $name, rgba(map.get($palette, $name), $n * 0.1),
+    @include directional(du-borderColor, $name, rgba(map.get($palette, $name), $n * .1),
       ("", vertical, horizontal, top, bottom, right, left, inlineStart, inlineEnd), border, -color,
       $extra: ".du-borderColorOpacity--#{$n * 10}");
   }

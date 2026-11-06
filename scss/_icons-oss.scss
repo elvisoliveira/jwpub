@@ -15,14 +15,14 @@ $icons: (  // jw.org icon → MDI codepoint (MDI name)
 );
 
 @font-face {
-  font-family: "mdi";
+  font-family: mdi;
   src: url("https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/fonts/materialdesignicons-webfont.woff2") format("woff2");
   font-display: block;
 }
 
 @include jwac {
   :is([class*=" dc-icon--"], [class^=dc-icon--], [class*=" dc-iconOverlay--"], [class^=dc-iconOverlay--])::before {
-    font-family: "mdi";
+    font-family: mdi;
     content: none;
   }
 

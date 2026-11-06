@@ -67,7 +67,7 @@ $focus-ring: 0 0 5px 1px #7f9fd3;
 
 @include jwac {
   @at-root #{$root}.pub-int [class*=dc-button], #{$root}.showRuby [class*=dc-button],
-           body.noJS #{$root} [class*=dc-button] {
+  body.noJS #{$root} [class*=dc-button] {
     @include align-items(baseline);
   }
 

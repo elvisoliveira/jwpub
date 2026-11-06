@@ -22,13 +22,10 @@ $hues: (
 $tones: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900;
 
 // #rrggbb text, so generated colours print like the literal ones (also inside var() fallbacks)
-@function hex($c) {
-  $digits: "0123456789abcdef";
+@function rgb-hex($c) {
   $out: "#";
   @each $channel in "red", "green", "blue" {
-    $v: math.round(color.channel(color.to-space($c, rgb), $channel));
-    $out: $out + string.slice($digits, math.floor(math.div($v, 16)) + 1, math.floor(math.div($v, 16)) + 1)
-               + string.slice($digits, $v % 16 + 1, $v % 16 + 1);
+    $out: $out + hex(math.round(color.channel(color.to-space($c, rgb), $channel)), 2);
   }
   @return string.unquote($out);
 }
@@ -37,7 +34,7 @@ $tones: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900;
   $steps: list.index($tones, 500) - list.index($tones, $tone);  // +5 … −4
   $step: 18%;
   @if $steps < 0 { $step: 16%; }
-  @return hex(color.scale($base, $lightness: $steps * $step, $space: hsl));
+  @return rgb-hex(color.scale($base, $lightness: $steps * $step, $space: hsl));
 }
 
 $palette: ();
@@ -72,7 +69,7 @@ $palette: map.merge($palette, (
   @each $name in "black", "white" {
     @for $n from 1 through 9 {
       .#{$class}--#{$name}.#{$class}Opacity--#{$n * 10}#{$pseudo} {
-        background: rgba(map.get($palette, $name), $n * 0.1) $i;
+        background: rgba(map.get($palette, $name), $n * .1) $i;
       }
     }
   }
