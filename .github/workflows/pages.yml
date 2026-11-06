@@ -18,29 +18,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Bake secret key into crypto.wasm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+      - run: rustup target add wasm32-unknown-unknown
+      - name: Build the site into _site/
         env:
           JWPUB_KEY: ${{ secrets.JWPUB_KEY }}
-        run: |
-          rustup target add wasm32-unknown-unknown
-          python3 - <<'PY'
-          import os
-          key = os.environ['JWPUB_KEY'].strip()
-          data = ','.join(str(int(key[i:i+2], 16)) for i in range(0, len(key), 2))
-          open('crypto.rs', 'w').write(
-              open('crypto.template.rs').read().replace('__SECRET_BYTES__', data))
-          PY
-          rustc --target wasm32-unknown-unknown -C opt-level=z -C panic=abort \
-            --crate-type cdylib crypto.rs -o crypto.wasm
-          rm crypto.rs   # never publish the plaintext key
-
-      - name: Build CSS from scss/
-        run: npx -y sass@1.107.1 --no-source-map --style=compressed scss/main.scss styles.css
-
-      - name: Collect the site
-        run: |
-          mkdir _site
-          cp index.html jwpub.js ui.js styles.css crypto.wasm favicon.ico _site/
+        run: ./build.sh
 
       - uses: actions/upload-pages-artifact@v3
         with:
