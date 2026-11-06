@@ -5,8 +5,7 @@
 @mixin rules {
   @include jwac {
     .du-clearfix {
-      &::after,
-      &::before {
+      &::after, &::before {
         content: " "!important;
         display: table!important;
       }

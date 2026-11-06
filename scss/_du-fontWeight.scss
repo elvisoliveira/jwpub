@@ -6,8 +6,7 @@
   @include jwac {
     .du-fontWeight {
       &--normal {
-        &,
-        > strong {
+        &, > strong {
           font-weight: 400!important;
         }
       }

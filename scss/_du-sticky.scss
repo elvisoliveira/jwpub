@@ -5,8 +5,7 @@
 @mixin rules {
   @include jwac {
     summary.du-sticky {
-      &.du-bgPageDefault,
-      &[class*=du-bgColor] {
+      &.du-bgPageDefault, &[class*=du-bgColor] {
         position: -webkit-sticky!important;
         position: sticky!important;
         top: 0!important;

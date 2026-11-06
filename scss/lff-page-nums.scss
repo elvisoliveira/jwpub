@@ -5,8 +5,7 @@
 $boxes: ".du-constrainStylesToTextWidth", "[class*=dc-columns]";
 
 @include jwac {
-  &.pub-lff,
-  &.pub-lffi {
+  &.pub-lff, &.pub-lffi {
     #{sel("", $boxes, " .pageNum")} { width: 0 !important; }
     @include bidi((right, left)) using ($side) {
       #{sel("", $boxes, " .pageNum::after")} { position: absolute !important; #{$side}: 4px !important; }

@@ -54,8 +54,7 @@
           }
         }
         &--columns {
-          td:nth-child(2n),
-          th:nth-child(2n) {
+          td:nth-child(2n), th:nth-child(2n) {
             @include token(background-color, du-bgColor--bgSecondary);
           }
         }

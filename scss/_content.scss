@@ -6,12 +6,6 @@
 // Publications that hide their footnote and endnote groups.
 $pubs-without-notes: Rbi8, bi10, bi12, bi22, bi7, bi7ls, bi8, biFgn, biMt, by, ijw, int, nwt, nwths,
   nwtmt, nwtp, nwtsty, rh, sbi1, sbi1p, sbi2, sbi2p, sbi3, sbi3p, sbi4;
-// Publications with maroon titles on their Bible pages.
-$pubs-maroon-titles: bi12, bi7, igw, nwt, nwths, nwtsty, sgd;
-// Publications whose page numbers sit beside the heading.
-$pubs-page-nums: bi12, bi7, igw, nwt, nwths, sgd;
-// Publications with a chapter-number badge.
-$pubs-chapter-badges: nwt, nwtsty, sgd;
 // Lists and boxes with images in a side column.
 $img-columns: imgEastEighth, imgEastQuarter, imgWestEighth, imgWestQuarter;
 // What keeps clear of that column.
@@ -53,9 +47,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       @include themed(background-color, ds-content-bgColor, #fff);
       @include token(color, du-color--textDefault);
     }
-    *,
-    ::after,
-    ::before {
+    *, ::after, ::before {
       box-sizing: border-box;
     }
   }
@@ -198,8 +190,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       clear: both;
     }
     .clearfix {
-      &::after,
-      &::before {
+      &::after, &::before {
         content: " ";
         display: table;
       }
@@ -216,8 +207,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 @mixin part-8 {
   @include jwac {
     .boxContent > div {
-      &.half:first-child,
-      &.quarter:first-child {
+      &.half:first-child, &.quarter:first-child {
         margin-top: 1em;
       }
     }
@@ -295,8 +285,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     @media #{$desktop} {
       .videoModal {
-        &.inline,
-        &.inline-start {
+        &.inline, &.inline-start {
           width: 50%;
           margin-bottom: 1em;
           @include bidi((left, right)) using ($s) {
@@ -336,8 +325,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
             }
           }
         }
-        &.numberedDiagram,
-        &.noMarker {
+        &.numberedDiagram, &.noMarker {
           list-style-type: none;
         }
       }
@@ -368,8 +356,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     ol, ul {
       &.noIndent {
         @include bidi((left, right)) using ($s) {
-          &,
-          &.noMarker {
+          &, &.noMarker {
             padding-#{$s}: 0;
           }
         }
@@ -404,11 +391,10 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     div, ol, ul {
-      #{sel("&.", $img-columns)} {
+      &.imgEastEighth, &.imgEastQuarter, &.imgWestEighth, &.imgWestQuarter {
         padding: 0;
         > li {
-          &::after,
-          &::before {
+          &::after, &::before {
             content: " ";
             display: table;
           }
@@ -421,8 +407,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
       @each $name, $value in (Quarter 25%, Eighth 12.5%) {
-        &.imgEast#{$name},
-        &.imgWest#{$name} {
+        &.imgEast#{$name}, &.imgWest#{$name} {
           @include bidi((left, right)) using ($s) {
             #{$img-column-text} {
               margin-#{$s}: calc($value + 16px);
@@ -439,13 +424,11 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     ol.numberedDiagram {
       &.imgWestQuarter > li {
         @include bidi((left, right)) using ($s) {
-          ul,
-          > p {
+          ul, > p {
             margin-#{$s}: calc(25% + 16px + 1.5em);
           }
           @media #{$desktop-only} {
-            ul,
-            > p {
+            ul, > p {
               margin-#{$s}: calc(25% + 32px + 1.5em);
             }
           }
@@ -519,7 +502,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
     }
-    #{sel("&.pub-", $pubs-page-nums)} {
+    &.pub-bi12, &.pub-bi7, &.pub-igw, &.pub-nwt, &.pub-nwths, &.pub-sgd {
       position: relative;
       h3.inline > .pageNum,
       &.docClass-13 .contextTtl .pageNum,
@@ -535,8 +518,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
     }
-    &.pub-lff,
-    &.pub-lffi {
+    &.pub-lff, &.pub-lffi {
       position: relative;
     }
   }
@@ -584,8 +566,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         @include bidi((left, right)) using ($s) {
           padding-#{$s}: 32px;
         }
-        &::after,
-        &::before {
+        &::after, &::before {
           content: "";
           position: absolute;
           top: calc(.75em + 1px);
@@ -763,8 +744,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           }
         }
       }
-      &.rowStripe,
-      &.stripe {
+      &.rowStripe, &.stripe {
         th,
         thead tr {
           @include token(background-color, du-bgColor--bgEmphasized);
@@ -880,8 +860,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .closingContent {
-      &.dashed,
-      &.rule {
+      &.dashed, &.rule {
         padding-top: 16px;
         padding-bottom: 16px;
         padding-left: 16px;
@@ -993,8 +972,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .blockTeach, .boxSupplement, .chart, .closingContent, .diagram, .mapElement {
       clear: both;
-      &::after,
-      &::before {
+      &::after, &::before {
         content: " ";
         display: table;
       }
@@ -1021,8 +999,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         background-color: transparent;
       }
       @media #{$desktop} {
-        &.flLeft,
-        &.floatWest {
+        &.flLeft, &.floatWest {
           max-width: 50%;
           min-width: 25%;
           margin-top: 0;
@@ -1032,8 +1009,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
             float: #{$s};
           }
         }
-        &.flRight,
-        &.floatEast {
+        &.flRight, &.floatEast {
           max-width: 50%;
           min-width: 25%;
           margin-top: 0;
@@ -1077,8 +1053,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .sc, .sd, .se {
-      &,
-      > * {
+      &, > * {
         text-indent: 0;
       }
     }
@@ -1094,14 +1069,12 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .sg {
-      &,
-      > * {
+      &, > * {
         text-indent: 0;
       }
     }
     .sh {
-      &,
-      > * {
+      &, > * {
         text-indent: 0;
       }
     }
@@ -1135,8 +1108,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .sm, .sn, .so {
-      &,
-      > * {
+      &, > * {
         text-indent: 0;
       }
     }
@@ -1161,8 +1133,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .sr {
-      &,
-      > * {
+      &, > * {
         text-indent: 0;
       }
     }
@@ -1345,13 +1316,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       &.mwbHeadingIcon {
         @include display(flex);
         @include align-items(center);
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        > p {
+        h1, h2, h3, h4, h5, h6, > p {
           margin: 0;
         }
         &::before {
@@ -1362,13 +1327,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           }
         }
       }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      > p {
+      h1, h2, h3, h4, h5, h6, > p {
         @include themed(color, du-color--gray-600, #626262);
       }
       &.mwbHeadingIcon::before {
@@ -1379,13 +1338,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       &.mwbHeadingIcon {
         @include display(flex);
         @include align-items(center);
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        > p {
+        h1, h2, h3, h4, h5, h6, > p {
           margin: 0;
         }
         &::before {
@@ -1396,13 +1349,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           }
         }
       }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      > p {
+      h1, h2, h3, h4, h5, h6, > p {
         @include themed(color, du-color--amber-700, #9d5d07);
       }
       &.mwbHeadingIcon::before {
@@ -1412,13 +1359,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     .christianLiving--rev2021.mwbHeadingIcon {
       @include display(flex);
       @include align-items(center);
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      > p {
+      h1, h2, h3, h4, h5, h6, > p {
         margin: 0;
       }
       &::before {
@@ -1433,13 +1374,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       @include webkit(transform, scale(-1,1));
     }
     .christianLiving--rev2021 {
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      > p {
+      h1, h2, h3, h4, h5, h6, > p {
         @include themed(color, du-color--maroon-600, #942926);
       }
       &.mwbHeadingIcon::before {
@@ -1555,17 +1490,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       display: block;
       height: 0;
     }
-    &.bible,
-    &.bibleCitation,
-    &.docClass-1 {
+    &.bible, &.bibleCitation, &.docClass-1 {
       p {
         margin: 0;
       }
       .sb {
         text-indent: 1em;
-        &:first-child,
-        &:first-of-type,
-        > * {
+        &:first-child, &:first-of-type, > * {
           text-indent: 0;
         }
       }
@@ -1607,13 +1538,11 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         padding-right: 3em;
       }
     }
-    .chapterNum,
-    .cl:not(.tt) {
+    .chapterNum, .cl:not(.tt) {
       font-size: 1.75em;
       line-height: 1;
     }
-    .verseNum,
-    .vl:not(.tt) {
+    .verseNum, .vl:not(.tt) {
       padding: 0 .25em;
       font-size: 1em;
       font-weight: 700;
@@ -1643,8 +1572,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
     }
-    .m:not(.tt),
-    .xrefLink {
+    .m:not(.tt), .xrefLink {
       position: relative;
       top: -.5em;
       text-indent: 0;
@@ -1661,10 +1589,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         @include align-items(center);
         position: relative;
         z-index: 1;
-        &.addHighlight,
-        &.highlight,
-        &:focus,
-        &:hover {
+        &.addHighlight, &.highlight, &:focus, &:hover {
           text-decoration: none;
           &::after {
             position: absolute;
@@ -1700,10 +1625,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       @include align-items(center);
       position: relative;
       z-index: 1;
-      &.addHighlight,
-      &.highlight,
-      &:focus,
-      &:hover {
+      &.addHighlight, &.highlight, &:focus, &:hover {
         text-decoration: none;
         &::after {
           position: absolute;
@@ -1726,19 +1648,14 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         @include token(color, ds-link-color);
       }
     }
-    #{sel("&.pub-", $pubs-maroon-titles)} {
-      &.docClass-11,
-      &.docClass-116,
-      &.docClass-12,
-      &.docClass-125,
-      &.docClass-13,
-      &.docClass-14 {
+    &.pub-bi12, &.pub-bi7, &.pub-igw, &.pub-nwt, &.pub-nwths, &.pub-nwtsty, &.pub-sgd {
+      &.docClass-11, &.docClass-116, &.docClass-12, &.docClass-125, &.docClass-13, &.docClass-14 {
         .contextTtl, h1 {
           @include token(color, du-color--maroon-700);
         }
       }
     }
-    #{sel("&.pub-", $pubs-chapter-badges)} {
+    &.pub-nwt, &.pub-nwtsty, &.pub-sgd {
       &.docClass-14 .contextTtl {
         @include chapter-badge;
         margin-bottom: .5em;
@@ -1805,9 +1722,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         &.L1 {
           margin: 1em 0;
         }
-        &.L2,
-        &.L3,
-        &.L4 {
+        &.L2, &.L3, &.L4 {
           margin: .25em 0;
           text-indent: -.75em;
           @include bidi((left, right)) using ($s) {
@@ -1843,8 +1758,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     &.pub-nwtsty.docClass-11 .groupTOC > .source .txtSrcBullet {
       @include token(color, du-color--maroon-700);
     }
-    &.docClass-116,
-    &.docClass-12 {
+    &.docClass-116, &.docClass-12 {
       h3.inline {
         margin: 0;
         font-size: 1em;
@@ -1857,8 +1771,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
       p {
-        &.sk,
-        &.sm {
+        &.sk, &.sm {
           margin: 0;
           @include bidi((left, right)) using ($s) {
             padding-#{$s}: 1em;
@@ -1879,8 +1792,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         &:visited {
           @include token(color, dc-button-tertiary-color);
         }
-        &:focus,
-        &:hover {
+        &:focus, &:hover {
           @include themed(background-color, dc-button-tertiary-bgColor--hover, #e8effb);
           text-decoration: none;
           &::before {
@@ -1918,9 +1830,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         padding-#{flip($s)}: .25em;
       }
     }
-    &.docId-1001061220,
-    &.docId-1001070220,
-    &.docId-1102013694 {
+    &.docId-1001061220, &.docId-1001070220, &.docId-1102013694 {
       .boxContent ul.noMarker {
         .west_left {
           margin-top: 0;
@@ -1958,9 +1868,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           transition: transform .25s ease-in-out;
           transition: transform .25s ease-in-out,-webkit-transform .25s ease-in-out;
         }
-        &:active,
-        &:focus,
-        &:hover {
+        &:active, &:focus, &:hover {
           background-image: -webkit-linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
           background-image: linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
         }
@@ -2007,8 +1915,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       display: none!important;
     }
     a {
-      &,
-      &:visited {
+      &, &:visited {
         color: #2878bb;
       }
     }
@@ -2047,8 +1954,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .clearfix {
-      &::after,
-      &::before {
+      &::after, &::before {
         max-width: 0;
       }
     }
