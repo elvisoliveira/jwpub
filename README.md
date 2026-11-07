@@ -1,4 +1,4 @@
-# jwpub
+# Open `.jwpub` reader
 
 Open-source JWPUB reader that runs entirely in your browser: open a `.jwpub` file and read it
 with the publication's own styling.
