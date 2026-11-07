@@ -6,10 +6,10 @@
     summary.du-sticky {
       &.du-bgPageDefault,
       &[class*=du-bgColor] {
-        position: -webkit-sticky!important;
-        position: sticky!important;
-        top: 0!important;
-        z-index: 1!important;
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1 !important;
       }
     }
   }

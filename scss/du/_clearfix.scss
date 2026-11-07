@@ -6,11 +6,11 @@
     .du-clearfix {
       &::after,
       &::before {
-        content: " "!important;
-        display: table!important;
+        content: " " !important;
+        display: table !important;
       }
       &::after {
-        clear: both!important;
+        clear: both !important;
       }
     }
   }

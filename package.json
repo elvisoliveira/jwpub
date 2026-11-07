@@ -9,6 +9,7 @@
     "lint:fix": "stylelint \"scss/**/*.scss\" --fix"
   },
   "devDependencies": {
+    "@stylistic/stylelint-config": "^3.0.1",
     "@stylistic/stylelint-plugin": "^3",
     "sass": "1.107.1",
     "stylelint": "^16",

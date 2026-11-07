@@ -6,11 +6,11 @@
     .du-fontWeight {
       &--normal {
         &, > strong {
-          font-weight: 400!important;
+          font-weight: 400 !important;
         }
       }
       &--bold {
-        font-weight: 700!important;
+        font-weight: 700 !important;
       }
     }
   }

@@ -2,9 +2,6 @@
 @use "lib" as *;
 @use "lib/glyphs" as *;
 
-// Publications that hide their footnote and endnote groups.
-$pubs-without-notes: Rbi8, bi10, bi12, bi22, bi7, bi7ls, bi8, biFgn, biMt, by, ijw, int, nwt, nwths,
-  nwtmt, nwtp, nwtsty, rh, sbi1, sbi1p, sbi2, sbi2p, sbi3, sbi3p, sbi4;
 // Lists and boxes with images in a side column.
 $img-columns: imgEastEighth, imgEastQuarter, imgWestEighth, imgWestQuarter;
 // What keeps clear of that column.
@@ -201,7 +198,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .displayNone {
-      display: none!important;
+      display: none !important;
     }
   }
 }
@@ -1211,13 +1208,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       font-size: .83em;
     }
     &.pub-int ruby {
-      font-family: NotoSans,Arial,"Arial Unicode MS",sans-serif;
+      font-family: NotoSans, Arial, "Arial Unicode MS", sans-serif;
       line-height: 3;
       @include themed(color, du-color--gray-400, #8e8e8e);
       > rt {
         padding-left: 4px;
         padding-right: 4px;
-        font-family: WTClearText,serif;
+        font-family: WTClearText, serif;
         @include token(color, du-color--textDefault);
       }
     }
@@ -1228,13 +1225,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         @include flex-direction(column-reverse);
         baseline-source: last;
         text-align: center;
-        line-height: 1!important;
+        line-height: 1 !important;
         text-indent: 0;
       }
       &.showRuby.ms-CHINESE ruby > rt,
       body.noJS.ms-CHINESE & ruby > rt {
         display: inline;
-        line-height: normal!important;
+        line-height: normal !important;
         padding-left: .25em;
         padding-right: .25em;
         margin-top: .1em;
@@ -1417,7 +1414,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         display: none;
       }
     }
-    #{sel("&.pub-", $pubs-without-notes)} {
+    &.pub-Rbi8, &.pub-bi10, &.pub-bi12, &.pub-bi22, &.pub-bi7, &.pub-bi7ls, &.pub-bi8, &.pub-biFgn, &.pub-biMt, &.pub-by, &.pub-ijw, &.pub-int, &.pub-nwt, &.pub-nwths, &.pub-nwtmt, &.pub-nwtp, &.pub-nwtsty, &.pub-rh, &.pub-sbi1, &.pub-sbi1p, &.pub-sbi2, &.pub-sbi2p, &.pub-sbi3, &.pub-sbi3p, &.pub-sbi4 {
       .groupEndnote, .groupFootnote {
         display: none;
       }
@@ -1884,13 +1881,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         &::before {
           @include webkit(transition, -webkit-transform .25s ease-in-out);
           transition: transform .25s ease-in-out;
-          transition: transform .25s ease-in-out,-webkit-transform .25s ease-in-out;
+          transition: transform .25s ease-in-out, -webkit-transform .25s ease-in-out;
         }
         &:active,
         &:focus,
         &:hover {
-          background-image: -webkit-linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
-          background-image: linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+          background-image: -webkit-linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1));
+          background-image: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1));
         }
       }
     }
@@ -1932,7 +1929,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 @mixin part-18 {
   @include jwac {
     table .pageNum {
-      display: none!important;
+      display: none !important;
     }
     a {
       &,

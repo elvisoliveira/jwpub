@@ -134,10 +134,10 @@ $theme: (
 
 // Responsive variants: .du-margin-top-mobileOnly--4 only applies below 760px.
 // Media queries, written as the jw.org CSS writes them (both spellings exist there).
-$mobile-only: "screen and (max-width:759px)";
-$desktop-only: "screen and (min-width:760px)";
-$mobile: "only screen and (max-width:759px)";
-$desktop: "only screen and (min-width:760px)";
+$mobile-only: "screen and (max-width: 759px)";
+$desktop-only: "screen and (min-width: 760px)";
+$mobile: "only screen and (max-width: 759px)";
+$desktop: "only screen and (min-width: 760px)";
 $breakpoints: (mobileOnly: $mobile-only, desktopOnly: $desktop-only);
 $responsive: ("", mobileOnly, desktopOnly);
 

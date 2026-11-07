@@ -3,8 +3,7 @@
 // rule that would rewrite the compiled CSS is off; what is left is layout and the project's
 // own conventions.
 export default {
-  extends: "stylelint-config-standard-scss",
-  plugins: ["@stylistic/stylelint-plugin"],
+  extends: ["stylelint-config-standard-scss", "@stylistic/stylelint-config"],
   rules: {
     // --- parity: these change the output -------------------------------------------------
     "media-feature-range-notation": null,
@@ -47,23 +46,14 @@ export default {
     "property-no-vendor-prefix": [true, { disableFix: true }],
     "value-no-vendor-prefix": [true, { disableFix: true, ignoreValues: ["sticky", "/gradient/", "transform"] }],
 
-    // --- layout (fixed by lint:fix) --------------------------------------------------------
-    "@stylistic/indentation": [2, { ignore: ["inside-parens"] }],
-    "@stylistic/no-eol-whitespace": true,
-    "@stylistic/no-missing-end-of-source-newline": true,
-    "@stylistic/block-opening-brace-space-before": "always",
-    "@stylistic/block-opening-brace-space-after": "always-single-line",
-    "@stylistic/block-closing-brace-space-before": "always-single-line",
-    "@stylistic/declaration-colon-space-after": "always-single-line",
-    "@stylistic/declaration-colon-space-before": "never",
-    "@stylistic/declaration-block-semicolon-space-after": "always-single-line",
-    "@stylistic/declaration-block-trailing-semicolon": "always",
-    "@stylistic/selector-list-comma-newline-after": "always-multi-line",
-    "@stylistic/selector-combinator-space-before": "always",
-    "@stylistic/selector-combinator-space-after": "always",
-    "@stylistic/number-leading-zero": "never",
-    "@stylistic/string-quotes": "double",
-    "@stylistic/color-hex-case": "lower",
+    // --- layout: @stylistic/stylelint-config, except -----------------------------------------
+    "@stylistic/max-line-length": null, // a line is as long as it needs to be
+    "@stylistic/selector-list-comma-newline-after": "always-multi-line", // h1, h2, > p { … } on one line
+    "@stylistic/number-leading-zero": "never", // .5em, as the jw.org CSS writes it
+    "@stylistic/indentation": [2, { ignore: ["inside-parens"] }], // maps and lists align as they like
+    "@stylistic/block-closing-brace-newline-after": ["always", { ignoreAtRules: ["if", "else"] }], // } @else {
+    "@stylistic/function-parentheses-newline-inside": null, // Sass maps passed to functions span lines
+    "@stylistic/function-comma-newline-after": null,
   },
   overrides: [
     {

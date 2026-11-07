@@ -13,7 +13,7 @@ $bible-refs: "p.themeScrp .inactiveBibleLink", "p.themeScrp a", ".chapterNum", "
   @each $locale, $d in $bible {
     &.#{$locale} {
       @if map.has-key($d, text) { #{$bible-text} { font-family: map.get($d, text); } }
-      #{$bible-refs} { font-family: if(sass(map.has-key($d, refs)): map.get($d, refs); else: map.get($d, text)); }
+      #{$bible-refs} { font-family: map.get($d, refs) or map.get($d, text); }
     }
   }
 
