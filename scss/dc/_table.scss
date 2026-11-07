@@ -40,12 +40,7 @@
           thead tr {
             @include token(background-color, du-bgColor--bgEmphasized);
             @include token(color, du-color--white);
-            a {
-              color: #9fb9e3;
-              &:visited {
-                color: #a9a7c9;
-              }
-            }
+            @include links-on-dark;
           }
           tbody tr:nth-child(2n),
           > tr:nth-child(2n) {

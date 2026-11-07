@@ -136,6 +136,28 @@ $theme: (
 @mixin margin($sides, $value) { @include sides($sides, margin, "", $value, false); }
 @mixin padding($sides, $value) { @include sides($sides, padding, "", $value, false); }
 
+// The clearfix of the content CSS (du-clearfix is the same with !important).
+@mixin clearfix {
+  &::after,
+  &::before {
+    content: " ";
+    display: table;
+  }
+  &::after {
+    clear: both;
+  }
+}
+
+// Links on a dark background (emphasized boxes, table headers, dark utility colours).
+@mixin links-on-dark($important: false) {
+  a {
+    @include decl(color, #9fb9e3, $important);
+    &:visited {
+      @include decl(color, #a9a7c9, $important);
+    }
+  }
+}
+
 // Responsive variants: .du-margin-top-mobileOnly--4 only applies below 760px.
 // Media queries, written as the jw.org CSS writes them (both spellings exist there).
 $mobile-only: "screen and (max-width: 759px)";

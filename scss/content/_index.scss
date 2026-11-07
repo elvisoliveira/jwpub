@@ -186,14 +186,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       clear: both;
     }
     .clearfix {
-      &::after,
-      &::before {
-        content: " ";
-        display: table;
-      }
-      &::after {
-        clear: both;
-      }
+      @include clearfix;
     }
     .displayNone {
       display: none !important;
@@ -391,14 +384,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       &.imgEastEighth, &.imgEastQuarter, &.imgWestEighth, &.imgWestQuarter {
         padding: 0;
         > li {
-          &::after,
-          &::before {
-            content: " ";
-            display: table;
-          }
-          &::after {
-            clear: both;
-          }
+          @include clearfix;
         }
         ul li {
           list-style-type: disc;
@@ -460,12 +446,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           content: counter(numbered-diagram-counter) " ";
           line-height: 1.5em;
           text-align: center;
-          a {
-            color: #9fb9e3;
-            &:visited {
-              color: #a9a7c9;
-            }
-          }
+          @include links-on-dark;
         }
         @include bidi((left, right)) using ($s) {
           > p {
@@ -715,23 +696,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         &.emphasized th {
           @include token(background-color, du-bgColor--bgEmphasized);
           @include token(color, du-color--white);
-          a {
-            color: #9fb9e3;
-            &:visited {
-              color: #a9a7c9;
-            }
-          }
+          @include links-on-dark;
         }
         &.shaded {
           th {
             @include token(background-color, du-bgColor--bgEmphasized);
             @include token(color, du-color--white);
-            a {
-              color: #9fb9e3;
-              &:visited {
-                color: #a9a7c9;
-              }
-            }
+            @include links-on-dark;
           }
           td {
             @include token(background-color, du-bgColor--bgSecondary);
@@ -743,12 +714,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         thead tr {
           @include token(background-color, du-bgColor--bgEmphasized);
           @include token(color, du-color--white);
-          a {
-            color: #9fb9e3;
-            &:visited {
-              color: #a9a7c9;
-            }
-          }
+          @include links-on-dark;
         }
         tr:nth-child(2n) {
           @include token(background-color, du-bgColor--bgSecondary);
@@ -759,12 +725,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         thead tr {
           @include token(background-color, du-bgColor--bgEmphasized);
           @include token(color, du-color--white);
-          a {
-            color: #9fb9e3;
-            &:visited {
-              color: #a9a7c9;
-            }
-          }
+          @include links-on-dark;
         }
         td.shaded {
           @include token(background-color, du-bgColor--bgSecondary);
@@ -775,12 +736,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         thead tr {
           @include token(background-color, du-bgColor--bgEmphasized);
           @include token(color, du-color--white);
-          a {
-            color: #9fb9e3;
-            &:visited {
-              color: #a9a7c9;
-            }
-          }
+          @include links-on-dark;
         }
         td:nth-child(odd) {
           @include token(background-color, du-bgColor--bgSecondary);
@@ -952,14 +908,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .blockTeach, .boxSupplement, .chart, .closingContent, .diagram, .mapElement {
       clear: both;
-      &::after,
-      &::before {
-        content: " ";
-        display: table;
-      }
-      &::after {
-        clear: both;
-      }
+      @include clearfix;
       table {
         width: 100%;
       }

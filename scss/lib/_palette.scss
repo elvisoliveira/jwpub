@@ -64,8 +64,7 @@ $palette: map.merge($palette, (
     @include token(background-color, du-bgColor--bgEmphasized, $imp);
     @include token(color, du-color--white, $imp);
   }
-  .#{$class}--bgEmphasized#{$pseudo} a { color: #9fb9e3 $i; }
-  .#{$class}--bgEmphasized#{$pseudo} a:visited { color: #a9a7c9 $i; }
+  .#{$class}--bgEmphasized#{$pseudo} { @include links-on-dark($imp); }
   @each $name in "black", "white" {
     @for $n from 1 through 9 {
       .#{$class}--#{$name}.#{$class}Opacity--#{$n * 10}#{$pseudo} {
@@ -89,8 +88,7 @@ $palette: map.merge($palette, (
   @each $name, $hex in map.merge($palette, ("textDefault": #292929, "textSubdued": #626262)) {
     .#{$class}--#{$name}#{$pseudo} { @include themed(color, du-color--#{$name}, $hex, $imp); }
     @if $links and light($name) {
-      .#{$class}--#{$name} a { color: #9fb9e3 $i; }
-      .#{$class}--#{$name} a:visited { color: #a9a7c9 $i; }
+      .#{$class}--#{$name} { @include links-on-dark($imp); }
     }
   }
 }
