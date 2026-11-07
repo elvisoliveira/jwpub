@@ -11,8 +11,7 @@
     line-height: 1;
     text-indent: 0;
     text-align: center;
-    padding-left: 4px;
-    padding-right: 4px;
+    @include padding(left right, 4px);
   }
   @include mirrored(".footnoteLink:last-child", padding, right, 0);
   .en:not(.tt),

@@ -4,8 +4,7 @@
 
 // Bible fonts per script/language, from lib/_locales.scss.
 // Bible text (serif stack); "&" = class on .jwac itself (.jwac.ms-X.bible .v)
-$bible-text: ".pm-inspiredText", ".scrp", "p.themeScrp", ".superscription", ".verse",
-  "&.bible .ss", "&.bible .sw", "&.bible .v", "&.bibleCitation .ss", "&.bibleCitation .sw", "&.bibleCitation .v";
+$bible-text: ".pm-inspiredText", ".scrp", "p.themeScrp", ".superscription", ".verse", "&.bible .ss", "&.bible .sw", "&.bible .v", "&.bibleCitation .ss", "&.bibleCitation .sw", "&.bibleCitation .v";
 // Verse/chapter references: the text font unless the locale sets its own
 $bible-refs: "p.themeScrp .inactiveBibleLink", "p.themeScrp a", ".chapterNum", ".cl", ".m", ".verseNum", ".vl", ".xrefLink";
 

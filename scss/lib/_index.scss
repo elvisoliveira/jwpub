@@ -132,6 +132,10 @@ $theme: (
   }
 }
 
+// margin-top: 1em; margin-bottom: 1em → @include margin(top bottom, 1em)
+@mixin margin($sides, $value) { @include sides($sides, margin, "", $value, false); }
+@mixin padding($sides, $value) { @include sides($sides, padding, "", $value, false); }
+
 // Responsive variants: .du-margin-top-mobileOnly--4 only applies below 760px.
 // Media queries, written as the jw.org CSS writes them (both spellings exist there).
 $mobile-only: "screen and (max-width: 759px)";

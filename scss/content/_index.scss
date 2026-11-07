@@ -140,13 +140,11 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       text-align: center;
     }
     .indent {
-      margin-left: 40px;
-      margin-right: 40px;
+      @include margin(left right, 40px);
     }
     .flLeft, .flRight, .floatEast, .floatWest {
       &:not(img) {
-        margin-top: 1em;
-        margin-bottom: 1em;
+        @include margin(top bottom, 1em);
         @media #{$desktop} {
           max-width: 50%;
         }
@@ -362,8 +360,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
       &.listSpacing li {
-        margin-top: 4em;
-        margin-bottom: 4em;
+        @include margin(top bottom, 4em);
         &:first-of-type {
           margin-top: 2em;
         }
@@ -622,12 +619,10 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
       &.arrowCap {
         position: relative;
-        margin-left: 16px;
-        margin-right: 16px;
+        @include margin(left right, 16px);
         margin-bottom: 40px;
         @media #{$desktop} {
-          margin-left: 32px;
-          margin-right: 32px;
+          @include margin(left right, 32px);
         }
         &::after {
           position: absolute;
@@ -672,16 +667,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .figcaption {
-      margin-top: 12px;
-      margin-bottom: 12px;
+      @include margin(top bottom, 12px);
     }
     .boxSupplement .fullBleed {
       .figcaption, .imgCredit {
-        margin-left: 16px;
-        margin-right: 16px;
+        @include margin(left right, 16px);
         @media #{$desktop} {
-          margin-left: 32px;
-          margin-right: 32px;
+          @include margin(left right, 32px);
         }
       }
     }
@@ -843,8 +835,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
   @include jwac {
     .mapElement {
       @include token(background-color, du-bgColor--bgSecondary);
-      margin-top: 1.5em;
-      margin-bottom: 1.5em;
+      @include margin(top bottom, 1.5em);
       padding: 16px;
       > :first-child:not(aside),
       > aside:first-child > :first-child {
@@ -863,13 +854,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .closingContent {
       &.dashed, &.rule {
-        padding-top: 16px;
-        padding-bottom: 16px;
-        padding-left: 16px;
-        padding-right: 16px;
+        @include padding(top bottom left right, 16px);
         @media #{$desktop} {
-          padding-left: 32px;
-          padding-right: 32px;
+          @include padding(left right, 32px);
         }
         > :first-child {
           margin-top: 0;
@@ -881,29 +868,21 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           }
         }
         .boxTtl {
-          margin-top: -16px;
-          margin-left: -16px;
-          margin-right: -16px;
+          @include margin(top left right, -16px);
           @media #{$desktop} {
-            margin-left: -32px;
-            margin-right: -32px;
+            @include margin(left right, -32px);
           }
         }
         .boxSubTtl {
-          margin-left: -16px;
-          margin-right: -16px;
+          @include margin(left right, -16px);
           @media #{$desktop} {
-            margin-left: -32px;
-            margin-right: -32px;
+            @include margin(left right, -32px);
           }
         }
         .boxContent {
-          margin-bottom: -16px;
-          margin-left: -16px;
-          margin-right: -16px;
+          @include margin(bottom left right, -16px);
           @media #{$desktop} {
-            margin-left: -32px;
-            margin-right: -32px;
+            @include margin(left right, -32px);
           }
         }
       }
@@ -937,8 +916,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       border-width: 1px;
       border-color: #a7a7a7;
       background-color: transparent;
-      margin-top: 1.5em;
-      margin-bottom: 1.5em;
+      @include margin(top bottom, 1.5em);
       padding: 16px;
       > :first-child:not(aside),
       > aside:first-child > :first-child {
@@ -994,8 +972,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           border-width: 1px;
           border-color: #a7a7a7;
           background-color: transparent;
-          margin-top: 1.5em;
-          margin-bottom: 1.5em;
+          @include margin(top bottom, 1.5em);
         }
       }
       &.bgTransparent {
@@ -1026,8 +1003,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       &.wide {
         position: relative;
         overflow: auto;
-        padding-top: 0;
-        padding-bottom: 0;
+        @include padding(top bottom, 0);
         > * {
           min-width: 650px;
           max-width: 750px;
@@ -1082,8 +1058,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .si {
-      margin-top: .5em;
-      margin-bottom: .5em;
+      @include margin(top bottom, .5em);
       @include bidi((left, right)) using ($s) {
         margin-#{$s}: 40px;
       }
@@ -1150,15 +1125,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .copyrightInfo .st {
-      margin-top: 1em;
-      margin-bottom: 1em;
+      @include margin(top bottom, 1em);
       font-size: 1em;
       line-height: 1.5;
     }
     @each $name, $value, $value2 in (su 20px 20px, sv 30px 80px, sx 20px 20px, sy 30px 80px) {
       .#{$name} {
-        margin-top: .5em;
-        margin-bottom: .5em;
+        @include margin(top bottom, .5em);
         text-indent: -#{$value};
         @include bidi((left, right)) using ($s) {
           padding-#{$s}: $value2;
@@ -1177,8 +1150,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .s1, .s2, .s3, .s4 {
-      margin-top: 0;
-      margin-bottom: 0;
+      @include margin(top bottom, 0);
       text-indent: 0;
       > * {
         text-indent: 0;
@@ -1212,8 +1184,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       line-height: 3;
       @include themed(color, du-color--gray-400, #8e8e8e);
       > rt {
-        padding-left: 4px;
-        padding-right: 4px;
+        @include padding(left right, 4px);
         font-family: WTClearText, serif;
         @include token(color, du-color--textDefault);
       }
@@ -1232,10 +1203,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       body.noJS.ms-CHINESE & ruby > rt {
         display: inline;
         line-height: normal !important;
-        padding-left: .25em;
-        padding-right: .25em;
-        margin-top: .1em;
-        margin-bottom: .1em;
+        @include padding(left right, .25em);
+        @include margin(top bottom, .1em);
       }
       &.showRuby.ms-CHINESE p ruby,
       body.noJS.ms-CHINESE & p ruby {
@@ -1248,8 +1217,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     &.showRuby.ms-CHINESE ruby > rt,
     body.noJS.ms-CHINESE & ruby > rt {
-      padding-left: 4px;
-      padding-right: 4px;
+      @include padding(left right, 4px);
       margin-bottom: 1px;
       line-height: 3;
     }
@@ -1273,8 +1241,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       .bodyTxt ol li {
         margin-bottom: 1em;
         p {
-          margin-top: .5em;
-          margin-bottom: .5em;
+          @include margin(top bottom, .5em);
         }
         @include bidi((left, right)) using ($s) {
           .sz {
@@ -1283,8 +1250,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
       .chorus {
-        margin-top: 1em;
-        margin-bottom: 1em;
+        @include margin(top bottom, 1em);
       }
       .se {
         @include token(color, du-color--textSubdued);
@@ -1385,8 +1351,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .contextTtl, .featureTtl {
-      margin-top: .25em;
-      margin-bottom: .25em;
+      @include margin(top bottom, .25em);
       @include token(color, du-color--textSubdued);
     }
   }
@@ -1584,8 +1549,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       position: relative;
       top: -.5em;
       text-indent: 0;
-      padding-left: 4px;
-      padding-right: 4px;
+      @include padding(left right, 4px);
       font-size: .69em;
       font-style: italic;
       @include token(color, ds-link-color);
@@ -1676,8 +1640,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
       &.docClass-125 .groupTOC > .source .txtSrcBullet {
         @include chapter-badge;
-        margin-left: 0;
-        margin-right: 0;
+        @include margin(left right, 0);
         margin-bottom: 8px;
         + * {
           display: block;
