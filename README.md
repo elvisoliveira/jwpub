@@ -1,6 +1,6 @@
 # Open `.jwpub` reader
 
-Open-source JWPUB reader that runs entirely in your browser: open a `.jwpub` file and read it
+Open-source (MIT) JWPUB reader that runs entirely in your browser: open a `.jwpub` file and read it
 with the publication's own styling.
 
 Everything happens on your computer. The file is unpacked, decrypted and rendered by the page
