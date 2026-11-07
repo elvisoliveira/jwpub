@@ -5,8 +5,8 @@
   "scripts": {
     "css": "sass --load-path=scss --no-source-map --style=compressed scss/main.scss styles.css",
     "css:watch": "sass --load-path=scss --no-source-map --watch scss/main.scss styles.css",
-    "lint": "stylelint \"scss/**/*.scss\" && node lint/map-columns.mjs --check",
-    "lint:fix": "stylelint \"scss/**/*.scss\" --fix && node lint/map-columns.mjs"
+    "lint": "stylelint \"scss/**/*.scss\" && node lint/format.mjs --check",
+    "lint:fix": "stylelint \"scss/**/*.scss\" --fix && node lint/format.mjs"
   },
   "devDependencies": {
     "@stylistic/stylelint-config": "^3.0.1",
