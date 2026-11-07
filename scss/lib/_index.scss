@@ -259,7 +259,7 @@ $box-directions: (row: horizontal normal, row-reverse: horizontal reverse,
 
 @function box-value($value) { @return map.get($box-values, $value) or $value; }
 
-@mixin display($value) {   // flex | inline-flex
+@mixin display($value) {  // flex | inline-flex
   @if $value == flex { display: -webkit-box; } @else { display: -webkit-inline-box; }
   display: $value;
 }

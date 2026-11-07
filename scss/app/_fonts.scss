@@ -177,7 +177,7 @@ $ranges: (
 
 @each $family, $faces in $families {
   $font: map.get($replacements, $family) or kebab($family);
-  $script: string.slice($font, string.length("noto-sans-") + 1);   // for noto-sans-<script>
+  $script: string.slice($font, string.length("noto-sans-") + 1);  // for noto-sans-<script>
   @if string.index($font, "noto-serif-") { $script: string.slice($font, string.length("noto-serif-") + 1); }
   @each $face in $faces {
     $weight: list.nth($face, 1);
