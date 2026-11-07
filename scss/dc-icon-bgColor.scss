@@ -1,6 +1,0 @@
-@use "palette" as *;
-@use "lib" as *;
-
-@include jwac {
-  @include bg-colors(dc-icon-bgColor, "::before", false);
-}

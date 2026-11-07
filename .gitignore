@@ -1,4 +1,4 @@
-crypto.rs
 crypto.wasm
 styles.css
 _site/
+node_modules/

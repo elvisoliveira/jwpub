@@ -1,0 +1,150 @@
+// Box styles of the jw.org CSS, one mixin per piece; _order.scss puts each piece where it was.
+@use "sass:list";
+@use "lib" as *;
+
+$styled: ":not(.dc-ttClassStyle--unset)";  // jw.org's opt-out of these box styles
+
+// Side padding of a box: 16px, 32px on desktop.
+@mixin box-gutter {
+  @include padding(left right, 16px);
+  @media #{$desktop} {
+    @include padding(left right, 32px);
+  }
+}
+
+// The quote-like boxes styled here.
+$quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
+
+// One rule for each box (+ $extra on it), unless opted out: .stdCaption[class*=float]:not(…)
+@mixin quotes($boxes: list.append($quote-boxes, "blockquote"), $extra: "") {
+  $selectors: ();
+  @each $box in $boxes {
+    $selectors: list.append($selectors, "#{$box}#{$extra}#{$styled}", comma);
+  }
+  #{$selectors} { @content; }
+}
+
+@mixin part-1 {
+  @include jwac {
+    .boxTtl#{$styled} {
+      padding-top: 16px;
+      padding-bottom: 8px;
+      @include box-gutter;
+    }
+    .boxSubTtl#{$styled} {
+      padding-top: 0;
+      padding-bottom: 8px;
+      @include box-gutter;
+      p {
+        @include margin(top bottom, 0);
+      }
+    }
+    .boxSubTtl, .boxTtl {
+      &#{$styled} {
+        h2, h3, h4, h5, h6 {
+          margin: 0;
+        }
+        &.rule {
+          border-bottom-style: solid;
+          border-width: 1px;
+          border-color: #a7a7a7;
+        }
+        &.emphasized {
+          @include token(background-color, du-bgColor--bgEmphasized);
+          @include token(color, du-color--white);
+          @include links-on-dark;
+        }
+      }
+    }
+    .boxContent#{$styled} {
+      @include padding(top bottom, 16px);
+      @include box-gutter;
+      > :first-child {
+        margin-top: 0;
+      }
+      > :last-child {
+        margin-bottom: 8px;
+        @media #{$desktop} {
+          margin-bottom: 16px;
+        }
+      }
+      @include clearfix;
+      @include bidi((left, right)) using ($s) {
+        .noMarker {
+          padding-#{$s}: 0;
+        }
+      }
+      + .groupFootnote {
+        @include box-gutter;
+      }
+    }
+    .blockTeach, .boxSupplement {
+      &#{$styled} {
+        @include token(background-color, du-bgColor--bgSecondary);
+        @include margin(top bottom, 1.5em);
+        @include clearfix;
+      }
+    }
+  }
+}
+
+@mixin part-2 {
+  @include jwac {
+    .openingContent#{$styled} {
+      @include margin(top bottom, 1em);
+      font-size: 1.21em;
+      @include token(color, du-color--textSubdued);
+      &.metaIntro {
+        h2 {
+          font-size: .83em;
+        }
+        p {
+          margin: 0;
+        }
+        &.bottomRule p {
+          margin-bottom: .5em;
+        }
+      }
+      &.txtSizeDefault {
+        font-size: 1em;
+      }
+      .sa {
+        font-size: 1em;
+        @include bidi((left, right)) using ($s) {
+          & {
+            margin-#{$s}: 0;
+          }
+        }
+      }
+    }
+    @include quotes {
+      @include margin(left right, 0);
+      @include token(color, du-color--textSubdued);
+    }
+    @include bidi((left, right)) using ($s) {
+      @include quotes { padding-#{$s}: 1.5em; }
+    }
+    @media #{$desktop-only} {
+      @include bidi((left, right)) using ($s) {
+        @include quotes($extra: "[class*=float]") { padding-#{$s}: 0; }
+      }
+    }
+  }
+}
+
+@mixin part-3 {
+  @include jwac {
+    @include quotes($quote-boxes) {
+      @include margin(top bottom, 1em);
+    }
+    @include quotes(list.append($quote-boxes, "blockquote.rule")) {
+      border-top-style: solid;
+      border-bottom-style: solid;
+      border-width: 1px;
+      border-color: #a7a7a7;
+      @include token(color, du-color--textSubdued);
+      font-size: 1em;
+      clear: both;
+    }
+  }
+}

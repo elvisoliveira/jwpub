@@ -1,0 +1,15 @@
+@use "sass:map";
+@use "lib/locales" as *;
+@use "lib" as *;
+
+// Font utilities per locale, from the same stacks the content typography uses:
+// sansSerif = the locale's own font-family, serif = its Bible text font.
+@include jwac {
+  @each $locale, $d in $locales {
+    $font: map.get($d, self, font-family);
+    @if $font { &.#{$locale} .du-fontFamily--sansSerif { font-family: $font !important; } }
+  }
+  @each $locale, $d in $bible {
+    @if map.has-key($d, text) { &.#{$locale} .du-fontFamily--serif { font-family: map.get($d, text) !important; } }
+  }
+}

@@ -1,0 +1,19 @@
+// Plain jw.org CSS, one mixin per piece; _order.scss puts each piece where it was.
+@use "lib" as *;
+
+@mixin rules {
+  @include jwac {
+    .dc-extraWideContentContainer {
+      position: relative;
+      overflow: auto;
+      > * {
+        min-width: 650px;
+        max-width: 750px;
+        @media #{$desktop-only} {
+          min-width: 750px;
+          max-width: 960px;
+        }
+      }
+    }
+  }
+}
