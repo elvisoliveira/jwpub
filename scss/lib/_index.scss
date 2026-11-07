@@ -71,24 +71,24 @@ $fractions: (
 // direction → (sides in ltr, sides in rtl); null = the shorthand property.
 // When both are equal the rule is emitted once, without .dir-ltr/.dir-rtl.
 $directions: (
-  "": (null, null),
-  vertical: ((top, bottom), (top, bottom)),
-  horizontal: ((left, right), (left, right)),
-  top: (top, top),
-  bottom: (bottom, bottom),
-  right: (right, right),
-  left: (left, left),
-  inlineStart: (left, right),
-  inlineEnd: (right, left),
+  "":                 (null, null),
+  vertical:           ((top, bottom), (top, bottom)),
+  horizontal:         ((left, right), (left, right)),
+  top:                (top, top),
+  bottom:             (bottom, bottom),
+  right:              (right, right),
+  left:               (left, left),
+  inlineStart:        (left, right),
+  inlineEnd:          (right, left),
   // corners (border-radius)
-  top-left: (top-left, top-left),
-  top-right: (top-right, top-right),
-  bottom-left: (bottom-left, bottom-left),
-  bottom-right: (bottom-right, bottom-right),
-  top-inlineStart: (top-left, top-right),
+  top-left:           (top-left, top-left),
+  top-right:          (top-right, top-right),
+  bottom-left:        (bottom-left, bottom-left),
+  bottom-right:       (bottom-right, bottom-right),
+  top-inlineStart:    (top-left, top-right),
   bottom-inlineStart: (bottom-left, bottom-right),
-  top-inlineEnd: (top-right, top-left),
-  bottom-inlineEnd: (bottom-right, bottom-left),
+  top-inlineEnd:      (top-right, top-left),
+  bottom-inlineEnd:   (bottom-right, bottom-left),
 );
 
 @mixin decl($prop, $value, $important) {
@@ -104,18 +104,18 @@ $directions: (
 
 // Values behind the jw.org CSS variables used more than once (the original's own values).
 $theme: (
-  du-color--white: #fff,
-  du-color--textDefault: #292929,
-  du-color--textSubdued: #626262,
-  du-color--maroon-700: #801816,
-  du-bgColor--bgEmphasized: #757575,
-  du-bgColor--bgSecondary: #f1f1f1,
-  ds-link-color: #4a6da7,
-  ds-link-color--visited: #504d7c,
-  dc-button-tertiary-color: #4a6da7,
+  du-color--white:                        #fff,
+  du-color--textDefault:                  #292929,
+  du-color--textSubdued:                  #626262,
+  du-color--maroon-700:                   #801816,
+  du-bgColor--bgEmphasized:               #757575,
+  du-bgColor--bgSecondary:                #f1f1f1,
+  ds-link-color:                          #4a6da7,
+  ds-link-color--visited:                 #504d7c,
+  dc-button-tertiary-color:               #4a6da7,
   jwac-footnote-link-color--addHighlight: #4a6da7,
-  jwac-footnote-opacity: .2,
-  jwac-footnote-opacity--addHighlight: .4,
+  jwac-footnote-opacity:                  .2,
+  jwac-footnote-opacity--addHighlight:    .4,
 );
 
 // themed() with the value taken from $theme: color: #626262; color: var(--du-color--textSubdued, #626262)
