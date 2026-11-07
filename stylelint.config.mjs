@@ -4,9 +4,7 @@
 // own conventions.
 export default {
   extends: ["stylelint-config-standard-scss", "@stylistic/stylelint-config"],
-  plugins: ["./lint/map-columns.mjs"],
   rules: {
-    "jwpub/map-columns": true, // values of a table-like map aligned in one column
 
     // --- parity: these change the output -------------------------------------------------
     "media-feature-range-notation": null,

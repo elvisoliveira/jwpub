@@ -5,12 +5,13 @@
   "scripts": {
     "css": "sass --load-path=scss --no-source-map --style=compressed scss/main.scss styles.css",
     "css:watch": "sass --load-path=scss --no-source-map --watch scss/main.scss styles.css",
-    "lint": "stylelint \"scss/**/*.scss\"",
-    "lint:fix": "stylelint \"scss/**/*.scss\" --fix"
+    "lint": "stylelint \"scss/**/*.scss\" && node lint/map-columns.mjs --check",
+    "lint:fix": "stylelint \"scss/**/*.scss\" --fix && node lint/map-columns.mjs"
   },
   "devDependencies": {
     "@stylistic/stylelint-config": "^3.0.1",
     "@stylistic/stylelint-plugin": "^3",
+    "regex": "^6.1.0",
     "sass": "1.107.1",
     "stylelint": "^16",
     "stylelint-config-standard-scss": "^14"

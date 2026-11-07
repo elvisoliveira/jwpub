@@ -15,10 +15,8 @@ $in-box: list.join(sel(".boxSupplement aside>div.", $stacked), sel(".boxSuppleme
 
 // Beside the text: side it floats to (ltr) → figures.
 $floating: (
-  right: (east_center, east_left, east_right, "north_center.floatEast", "north_right.floatEast",
-          "south_center.floatEast", "south_right.floatEast"),
-  left:  ("north_center.floatWest", "north_left.floatWest", "south_center.floatWest",
-          "south_left.floatWest", west_center, west_left, west_right),
+  right: (east_center, east_left, east_right, "north_center.floatEast", "north_right.floatEast", "south_center.floatEast", "south_right.floatEast"),
+  left:  ("north_center.floatWest", "north_left.floatWest", "south_center.floatWest", "south_left.floatWest", west_center, west_left, west_right),
 );
 
 @include jwac {
