@@ -2,7 +2,7 @@
 @use "lib/locales" as *;
 @use "lib" as *;
 
-// Bible fonts per script/language, from _locales.scss.
+// Bible fonts per script/language, from lib/_locales.scss.
 // Bible text (serif stack); "&" = class on .jwac itself (.jwac.ms-X.bible .v)
 $bible-text: ".pm-inspiredText", ".scrp", "p.themeScrp", ".superscription", ".verse",
   "&.bible .ss", "&.bible .sw", "&.bible .v", "&.bibleCitation .ss", "&.bibleCitation .sw", "&.bibleCitation .v";

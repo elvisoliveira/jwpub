@@ -73,8 +73,13 @@ export default {
     },
     {
       // app UI, not jw.org content
-      files: ["scss/app/_app.scss"],
+      files: ["scss/app/_index.scss"],
       rules: { "media-feature-name-disallowed-list": null },
+    },
+    {
+      // U+ in the unicode-range lists is not an operator
+      files: ["scss/app/_fonts.scss"],
+      rules: { "scss/operator-no-unspaced": null },
     },
   ],
 };

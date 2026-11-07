@@ -200,7 +200,7 @@ $type-steps: (base: 0, basePlus1: 1, basePlus2: 2, basePlus3: 3, basePlus4: 4, b
 
 // dc-bleedToArticleEdge / dc-paddingToContentEdge / dc-marginToContentEdge.
 // No reference: the jw.org bundle has none of them; the WOL app CSS sets them to
-// its article gutter per width mode. Here that gutter is --gutter on #reader (_app.scss).
+// its article gutter per width mode. Here that gutter is --gutter on #reader (app/_index.scss).
 // side → (ltr sides, rtl sides)
 $edge-sides: ("": (left right, left right), left: (left, left), right: (right, right),
               inlineStart: (left, right), inlineEnd: (right, left));

@@ -1,7 +1,7 @@
 @use "sass:map";
 
 // Typography per script (.ms-*) and language (.ml-*), from the jw.org content CSS.
-// Used by scripts-typography.scss, scripts-bible.scss and du-fontFamily.scss.
+// Used by content/_typography.scss, content/_bible.scss and du/_fontFamily.scss.
 
 // Font stacks shared by several locales.
 $latin: (NotoSans, Arial, "Arial Unicode MS", sans-serif);
