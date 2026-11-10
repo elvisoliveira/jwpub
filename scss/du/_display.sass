@@ -1,0 +1,7 @@
+@use "lib" as *
+
+// Only the responsive variants exist in the reference.
+@include jwac
+  @include variants((mobileOnly, desktopOnly)) using ($s)
+    .du-display#{$s}--none
+      display: none !important

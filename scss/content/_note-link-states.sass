@@ -1,0 +1,55 @@
+@use "sass:list"
+@use "lib" as *
+
+// Footnote/endnote link behaviour shared by note-links.scss and note-links-jref.scss.
+// The original lists links (and states) alphabetically, so callers pass them in that order.
+
+$link-color: #4a6da7
+$states: ".addHighlight", ".highlight", ":focus", ":hover"
+
+@function each-state($links, $suffix: "")
+  $out: ()
+  @each $link in $links
+    @each $state in $states
+      $out: list.append($out, "#{$link}#{$state}#{$suffix}", comma)
+
+  @return $out
+
+@function with($links, $suffix)
+  $out: ()
+  @each $link in $links
+    $out: list.append($out, "#{$link}#{$suffix}", comma)
+  @return $out
+
+// Call it inside @include jwac.
+// Inline badge, highlighted with a translucent circle on hover/focus/highlight.
+// $lift: how far the circle is raised behind the marker
+@mixin note-link-states($links, $lift: -.38em)
+  #{$links}
+    @include display(inline-flex)
+    @include justify-content(center)
+    @include align-items(center)
+    position: relative
+    z-index: 1
+
+  #{each-state($links)}
+    text-decoration: none
+  #{each-state($links, "::after")}
+    position: absolute
+    content: " "
+    width: 1.75em
+    height: 1.75em
+    border-radius: 100%
+    background-color: $link-color
+    @include webkit(transform, translateY($lift))
+    @include token(opacity, jwac-footnote-opacity)
+    z-index: -1
+
+  #{with($links, ".highlight.addHighlight")}
+    @include token(color, jwac-footnote-link-color--addHighlight)
+
+  #{with($links, ".highlight.addHighlight::after")}
+    @include token(opacity, jwac-footnote-opacity--addHighlight)
+
+  #{with($links, ":visited")}
+    @include token(color, ds-link-color)

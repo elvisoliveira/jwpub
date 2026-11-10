@@ -1,0 +1,21 @@
+@use "lib" as *
+
+$values: (none: none, source: none, disc: disc, circle: circle, square: square,
+          lowerAlpha: lower-alpha, upperAlpha: upper-alpha)
+
+// "source" lists draw their own bullet (.txtSrcBullet) hanging into the start margin.
+@mixin rule($cls, $name, $value)
+  #{$cls}
+    list-style-type: $value !important
+  @if $name == source
+    #{$cls} .txtSrcBullet
+      display: inline-block !important
+      min-width: 1.5em !important
+    @include mirrored("#{$cls} .txtSrcBullet", margin, left, -1.5em !important)
+
+// All base rules first, then mobileOnly/desktopOnly interleaved per value.
+@include jwac
+  @each $variants in ("",), (mobileOnly, desktopOnly)
+    @each $name, $value in $values
+      @include variants($variants) using ($s)
+        @include rule(".du-listStyleType#{$s}--#{$name}", $name, $value)

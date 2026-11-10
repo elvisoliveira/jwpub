@@ -1,0 +1,38 @@
+@use "sass:list"
+@use "lib" as *
+
+// du-bgImage, du-bgSize, du-bgPosition, du-bgRepeat, in this order.
+// Each lists all base rules first, then mobileOnly/desktopOnly value by value.
+
+// .<class>--<name> { <prop>: <value> } for every name → value
+@mixin values($class, $prop, $values)
+  @each $variants in ("",), (mobileOnly, desktopOnly)
+    @each $name, $value in $values
+      @include variants($variants) using ($s)
+        .#{$class}#{$s}--#{$name}
+          #{$prop}: $value !important
+
+// position item → (ltr, rtl) horizontal keyword
+$items: (left: (left, left), right: (right, right), center: (center, center),
+         inlineStart: (left, right), inlineEnd: (right, left))
+
+@include jwac
+  @include variants($responsive) using ($s)
+    .du-bgImage#{$s}--none
+      background-image: none !important
+
+  @include values(du-bgSize, background-size, (auto: auto, cover: cover, contain: contain))
+
+  @each $variants in ("",), (mobileOnly, desktopOnly)
+    @each $v in top, center, bottom
+      @each $item, $pair in $items
+        @include variants($variants) using ($s)
+          // the reference keeps the base class name for inline* inside the @media blocks
+          @if list.nth($pair, 1) != list.nth($pair, 2)
+            $s: ""
+          @include bidi($pair) using ($side)
+            .du-bgPosition#{$s}--#{$v}-#{$item}
+              background-position: $v $side !important
+
+  @include values(du-bgRepeat, background-repeat, (repeat: repeat, repeatX: repeat-x, repeatY: repeat-y,
+    noRepeat: no-repeat, round: round, space: space))

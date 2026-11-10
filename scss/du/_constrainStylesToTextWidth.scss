@@ -1,5 +1,0 @@
-@use "lib" as *;
-
-@include jwac {
-  #{sel("h", (1, 2, 3, 4, 5, 6), ".du-constrainStylesToTextWidth")} { display: table !important; }
-}

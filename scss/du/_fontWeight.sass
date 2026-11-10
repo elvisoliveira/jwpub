@@ -1,0 +1,12 @@
+// Plain jw.org CSS, one mixin per piece; _order.scss puts each piece where it was.
+@use "lib" as *
+
+@mixin rules
+  @include jwac
+    .du-fontWeight
+      &--normal
+        &, > strong
+          font-weight: 400 !important
+
+      &--bold
+        font-weight: 700 !important

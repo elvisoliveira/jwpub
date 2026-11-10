@@ -1,0 +1,43 @@
+// Plain jw.org CSS, one mixin per piece; _order.scss puts each piece where it was.
+@use "lib" as *
+
+@mixin rules
+  @include jwac
+    .dc-table
+      &, caption, tbody, td, th, thead, tr
+        border-color: #a7a7a7
+        border-width: 1px
+
+      &.dc-table-border
+        &--rows
+          tbody tr:not(:last-child),
+          thead,
+          > tr:not(:last-child)
+            border-bottom-style: solid
+            border-bottom-width: 1px
+
+        &--columns
+          td, th
+            &:not(:last-child)
+              @each $name, $name2 in (style solid, width 1px)
+                @include bidi((left, right)) using ($s)
+                  border-#{flip($s)}-#{$name}: $name2
+
+        &--cells
+          td, th
+            border-style: solid
+            border-width: 1px
+
+      &.dc-table-stripe
+        &--rows
+          thead tr
+            @include emphasized
+
+          tbody tr:nth-child(2n),
+          > tr:nth-child(2n)
+            @include token(background-color, du-bgColor--bgSecondary)
+
+        &--columns
+          td:nth-child(2n),
+          th:nth-child(2n)
+            @include token(background-color, du-bgColor--bgSecondary)

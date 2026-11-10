@@ -1,0 +1,8 @@
+@use "lib" as *
+
+@include jwac
+  @each $n in 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64
+    @include variants($responsive) using ($s)
+      .dc-icon-padding#{$s}--#{$n}::before,
+      .dc-icon-padding#{$s}--#{$n}[class*=dc-iconOverlay-]::before
+        padding: $n * 1px

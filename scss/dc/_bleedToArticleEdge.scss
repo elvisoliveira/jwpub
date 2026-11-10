@@ -1,3 +1,0 @@
-@use "lib" as *;
-
-@include content-edge(dc-bleedToArticleEdge, margin, calc(-1 * var(--gutter)));

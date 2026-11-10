@@ -13,8 +13,8 @@ the page and its static assets (scripts and fonts from a CDN).
   lint uses.
 - `./build.sh` builds `crypto.wasm` (needs `JWPUB_KEY` and rustc with the
   `wasm32-unknown-unknown` target), `styles.css` and `_site/`.
-- `bun run lint` checks the conventions of `scss/` (`lint/lint.mjs`) and its formatting;
+- `bun run lint` checks the conventions of the Sass in `scss/` (`lint/lint.mjs`) and its formatting;
   `bun run lint:fix` formats it.
 
-`styles.css` reproduces the jw.org stylesheet rule for rule; a change to the SCSS must not
+`styles.css` reproduces the jw.org stylesheet rule for rule; a change to the Sass must not
 change the compiled CSS.

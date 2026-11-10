@@ -1,0 +1,31 @@
+@use "sass:list"
+@use "lib" as *
+
+// Languages (.ml-*) that get letter-spacing utilities; every other language ignores them.
+$languages: (
+  AA, ABU, AF, AHK, AJG, AK, AKN, AL, ALS, ALU, AM, AMG, AN, AO, ARO, ASL, AU, AUS, AWN, AYW, AZ, B,
+  BA, BAU, BB, BFI, BH, BI, BKK, BL, BLB, BLF, BLN, BLS, BM, BMB, BMN, BQ, BRM, BS, BSN, BT, BTD,
+  BTK, BUR, BVL, C, CA, CBS, CC, CE, CGA, CGW, CI, CIN, CKE, CMK, CQC, CSL, CTW, CV, CW, CY, CYS, D,
+  DA, DGS, DI, DK, DM, DND, DTM, DU, E, EBA, ED, EF, EG, EJH, ELI, ETN, EWN, F, FF, FGN, FID, FJS,
+  FLN, FN, FNB, FO, FR, G, GB, GCS, GHM, GLC, GNB, GNC, GRC, GRF, GRZ, GSL, HA, HCH, HDF, HFJ, HKI,
+  HM, HMA, HMN, HMS, HPI, HSK, HST, HU, HUV, HV, HVU, HW, HWP, HZJ, I, IA, IB, IC, ID, IG, IGE, IH,
+  II, IJ, IK, IMN, IN, INI, INS, IS, ISL, IT, IU, IXL, JA, JCR, JL, JML, K, KAB, KAD, KAZ, KB, KBR,
+  KHA, KHK, KIN, KIP, KLZ, KMW, KP, KQ, KS, KSN, KT, KU, KUK, KW, KWA, KY, KYK, L, LAD, LGD, LI,
+  LMG, LNN, LO, LR, LS, LSA, LSE, LSG, LSL, LSM, LSN, LSP, LSS, LT, LTG, LTS, LUC, LVA, LWX, LX, M,
+  MAY, MBA, MBL, MC, MCT, MGR, MH, MIS, MK, MKA, ML, MLG, MM, MNC, MNO, MQ, MQN, MSH, MSR, MT, MWI,
+  MWM, MX, MZ, N, NB, NBZ, NC, NDA, NDI, NDR, NEN, NGB, NGM, NGU, NHC, NHH, NHT, NM, NMB, NNR, NOR,
+  NOS, NTU, NV, NZS, O, OA, OB, OBL, ODW, OE, OG, OGS, OKP, OM, OS, OT, P, PA, PAA, PGW, PHN, PMN,
+  PN, PP, PPU, PQM, PRA, PT, PTJ, Q, QC, QNJ, QSL, RA, RD, RGS, RH, RHS, RM, RMB, RMC, RME, RMG,
+  RML, RMN, RMS, RMU, RMX, RNN, RO, RSC, RSL, RU, RV, RVK, S, SA, SB, SBO, SC, SCH, SCR, SD, SEN,
+  SGH, SGM, SGR, SGS, SH, SK, SLV, SO, SP, SPL, SR, SRM, ST, STD, STN, SV, SW, TBW, TE, TEM, TG, TH,
+  TI, TJ, TJO, TK, TKL, TMR, TOR, TOT, TRH, TS, TSC, TTM, TV, TZE, UBM, UG, UN, UR, UU, V, VL, VLC,
+  VSL, VT, VZ, WL, WRO, WY, X, XPA, XSW, YG, YKP, YLA, YP, YR, Z, ZN, ZPD, ZR, ZS
+)
+
+@include jwac
+  @each $n in 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 16
+    $sel: ()
+    @each $ml in $languages
+      $sel: list.append($sel, "&.ml-#{$ml} .du-letterSpacing--#{$n}", comma)
+    #{$sel}
+      letter-spacing: px($n, 1.6px) !important

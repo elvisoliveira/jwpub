@@ -1,7 +1,7 @@
 // The project's conventions, checked on the Sass syntax tree (`bun run lint`).
 // Nothing here looks at layout; lint/format.mjs covers the little that is enforced.
 import { Glob } from "bun";
-import { scss } from "sass-parser";
+import { sass } from "sass-parser";
 
 const PREFIXED = /-(?:webkit|moz|ms|o)-[\w-]+/g;
 const PREFIXED_VALUES_ALLOWED = /sticky|gradient|transform/;  // no unprefixed twin in the original
@@ -11,23 +11,19 @@ const SIMPLE = /^(?:[>+~] )?[&*]?(?:[.#]?[\w-]+|#\{[^}]*\})*$/;
 // Files that may break a convention: the mixins that write the prefixed pairs, the browser
 // reset, and the app UI (not jw.org content).
 const EXEMPT = {
-  "scss/lib/_index.scss":        ["prefix"],
-  "scss/content/_elements.scss": ["prefix"],
-  "scss/app/_index.scss":        ["media"],
+  "scss/lib/_index.sass":        ["prefix"],
+  "scss/content/_elements.sass": ["prefix"],
+  "scss/app/_index.sass":        ["media"],
 };
 
 // A node as written in its file (the tree itself normalizes numbers and line breaks).
 const written = (node) => node.source.input.css.slice(node.source.start.offset, node.source.end.offset);
 
-// What comes before a block's "{": its selector list or at-rule parameters.
+// What opens a block: its selector list (every line ending in a comma, and the one after)
+// or at-rule parameters.
 const head = (node) => {
-  const source = written(node);
-  let depth = 0;
-  for (let i = 0; i < source.length; i++) {
-    if (source[i] === "{" && source[i - 1] !== "#" && depth === 0) return source.slice(0, i);
-    depth += (source[i] === "{") - (source[i] === "}");
-  }
-  return source;
+  const lines = written(node).split("\n");
+  return lines.slice(0, lines.findIndex((line) => !line.trimEnd().endsWith(",")) + 1).join("\n");
 };
 
 // "a, b:not(c, d)" → ["a", "b:not(c, d)"]
@@ -51,9 +47,8 @@ const crowded = (selector) => selector.split("\n").some((line) => {
 const checks = {
   rule(node, report) {
     const selector = head(node);
-    if (/\.jwac(?![\w-])/.test(selector)) report("jwac", "wrap the rules in @include jwac { … } instead of writing .jwac");
-    // a whole rule written on one line (the generated families) keeps its list as it is
-    if (written(node).includes("\n") && crowded(selector))
+    if (/\.jwac(?![\w-])/.test(selector)) report("jwac", "wrap the rules in @include jwac instead of writing .jwac");
+    if (crowded(selector))
       report("selectors", "one selector per line (only simple compounds may share one)");
   },
   decl(node, report) {
@@ -71,9 +66,9 @@ const checks = {
 };
 
 let failed = false;
-for (const file of [...new Glob("scss/**/*.scss").scanSync()].sort()) {
+for (const file of [...new Glob("scss/**/*.sass").scanSync()].sort()) {
   const exempt = EXEMPT[file] ?? [];
-  scss.parse(await Bun.file(file).text()).walk((node) => checks[node.type]?.(node, (check, message) => {
+  sass.parse(await Bun.file(file).text()).walk((node) => checks[node.type]?.(node, (check, message) => {
     if (exempt.includes(check)) return;
     failed = true;
     console.error(`${file}:${node.source.start.line}: ${message}`);

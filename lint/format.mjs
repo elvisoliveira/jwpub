@@ -10,7 +10,7 @@ import { regex } from "regex";
 const MAP = regex("gm")`
   ^ (?<open> \$ [\w\-]+ : .* \( \ * (?: // .* )? \n )   # $families: (  // …
     (?<body> [\s\S]*? )                                  # the entries
-  (?= ^ \) )                                             # up to the closing );
+  (?= ^ \) )                                             # up to the closing )
 `;
 
 // One entry of a table-like map: two-space indent, key, colon, then the value.
@@ -39,7 +39,7 @@ const align = (body) => {
 
 const check = process.argv.includes("--check");
 let dirty = false;
-for (const file of new Glob("scss/**/*.scss").scanSync()) {
+for (const file of new Glob("scss/**/*.sass").scanSync()) {
   const text = await Bun.file(file).text();
   const out = text
     .replace(MAP, (...match) => {

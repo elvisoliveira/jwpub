@@ -1,0 +1,35 @@
+@use "sass:map"
+@use "lib/locales" as *
+@use "lib" as *
+
+// Bible fonts per script/language, from lib/_locales.scss.
+// Bible text (serif stack); "&" = class on .jwac itself (.jwac.ms-X.bible .v)
+$bible-text: ".pm-inspiredText", ".scrp", "p.themeScrp", ".superscription", ".verse", "&.bible .ss", "&.bible .sw", "&.bible .v", "&.bibleCitation .ss", "&.bibleCitation .sw", "&.bibleCitation .v"
+// Verse/chapter references: the text font unless the locale sets its own
+$bible-refs: "p.themeScrp .inactiveBibleLink", "p.themeScrp a", ".chapterNum", ".cl", ".m", ".verseNum", ".vl", ".xrefLink"
+
+@include jwac
+  @each $locale, $d in $bible
+    &.#{$locale}
+      @if map.has-key($d, text)
+        #{$bible-text}
+          font-family: map.get($d, text)
+      #{$bible-refs}
+        font-family: map.get($d, refs) or map.get($d, text)
+
+  // One-offs at the end of the block
+  &.ms-ROMAN
+    h1, h2, h3, h4, h5, h6
+      text-wrap: balance
+  @each $ml in KR, BU, BUS
+    &.ms-MYANMAR.ml-#{$ml}
+      .featuredChapters,
+      &.pub-bh #content
+        word-wrap: break-word
+
+  &.ms-ARABIC
+    .scrp,
+    .verse,
+    &.bible .v,
+    &.bibleCitation .v
+      line-height: 1.8
