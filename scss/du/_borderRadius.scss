@@ -1,9 +1,0 @@
-@use "lib" as *;
-
-$dirs: ("", top-left, top-right, bottom-left, bottom-right,
-        top-inlineStart, bottom-inlineStart, top-inlineEnd, bottom-inlineEnd);
-
-@include directional(du-borderRadius, circle, 100%, $dirs, border, -radius);
-@each $n in 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 16, 20, 24, 32, 40, 48, 56, 64 {
-  @include directional(du-borderRadius, $n, $n * 1px, $dirs, border, -radius);
-}

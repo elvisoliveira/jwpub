@@ -1,0 +1,22 @@
+@use "lib" as *
+@use "note-link-states" as *
+
+// Footnote (.fn, .footnoteLink) and endnote (.en, .endnoteLink) markers.
+
+@include jwac
+  .fn-symbol:not(.tt),
+  .fn:not(.tt),
+  .footnoteLink
+    font-family: WTFootnote !important
+    line-height: 1
+    text-indent: 0
+    text-align: center
+    @include padding(left right, 4px)
+
+  @include mirrored(".footnoteLink:last-child", padding, right, 0)
+  .en:not(.tt),
+  .fn:not(.tt)
+    display: inline
+    @include token(color, ds-link-color)
+
+  @include note-link-states((".endnoteLink", ".footnoteLink"))

@@ -1,0 +1,237 @@
+// Plain jw.org CSS, one mixin per piece; _order.sass puts each piece where it was.
+@use "lib" as *
+
+@mixin part-1
+  @include reader
+    main
+      display: block
+
+    figure
+      margin: 0
+
+    h1
+      font-size: 2em
+      margin: .67em 0
+
+    hr
+      color: inherit
+      overflow: visible
+
+    table
+      border-collapse: collapse
+      border-spacing: 0
+      empty-cells: show
+
+    img
+      height: auto
+      max-width: 100%
+      vertical-align: bottom
+      border-style: none
+
+    pre
+      font-family: monospace
+      font-size: 1em
+
+    audio, video
+      display: inline-block
+
+    audio:not([controls])
+      display: none
+      height: 0
+
+    svg:not(:root)
+      overflow: hidden
+
+    textarea
+      margin: 0
+      overflow: auto
+
+    button, input, optgroup, textarea
+      color: inherit
+      font: inherit
+      margin: 0
+
+    select
+      font: inherit
+      margin: 0
+
+    button
+      overflow: visible
+
+    button, select
+      text-transform: none
+
+    button,
+    input[type=reset],
+    input[type=submit]
+      -webkit-appearance: button
+      cursor: pointer
+
+    button[disabled]
+      cursor: default
+
+    button::-moz-focus-inner,
+    input::-moz-focus-inner
+      border: 0
+      padding: 0
+
+    input
+      line-height: normal
+      overflow: visible
+      &[type=checkbox],
+      &[type=radio]
+        box-sizing: border-box
+        padding: 0
+
+      &[type=number]
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button
+          height: auto
+
+      &[type=search]
+        -webkit-appearance: textfield
+        box-sizing: content-box
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-decoration
+          -webkit-appearance: none
+
+@mixin part-2
+  @include reader
+    p
+      @include margin(top bottom, 1em)
+
+    @each $value, $value2, $value3 in (1 0 1.75em, 2 1em 1.45em, 3 1em 1.21em)
+      h#{$value}
+        @include heading($value2, $value3)
+
+    h4, h5, h6
+      @include heading(1em, 1em)
+
+    img
+      height: auto
+      max-width: 100%
+
+    figcaption
+      @include token(color, du-color--textSubdued)
+      p
+        &:first-child
+          margin-top: 0
+          margin-bottom: .5em
+
+        &:last-child
+          margin-bottom: 0
+
+        & + p
+          @include margin(top bottom, .5em)
+
+    ol, ul
+      @include margin(top bottom, 1em)
+
+@mixin part-3
+  @include reader
+    table
+      border-collapse: collapse
+      border-color: inherit
+      text-indent: 0
+      margin-bottom: 1.5em
+      font-size: .83em
+      p
+        margin: 0
+        & + p
+          margin-top: .5em
+
+      caption
+        @include heading(1em, 1.21em)
+
+@mixin part-4
+  @include reader
+    table th
+      min-width: 75px
+      padding: 8px
+      vertical-align: bottom
+
+@mixin part-5
+  @include reader
+    table td
+      min-width: 75px
+      padding: 8px
+      vertical-align: top
+
+    blockquote
+      @include margin(top bottom, 1em)
+
+    q
+      &::after,
+      &::before
+        content: ""
+
+    ruby
+      ruby-align: center
+
+    fieldset
+      border: none
+      margin: 0
+      padding: 0
+
+    legend
+      padding: 0
+
+    a
+      color: #4a6da7
+      text-decoration: none
+      &:visited
+        color: #3f3c6d
+
+@mixin part-6
+  @include reader
+    strong
+      font-weight: 700
+
+    em
+      font-style: italic
+
+    hr
+      border: 0
+      border-top-width: 1px
+      border-top-style: solid
+      border-top-color: #a7a7a7
+      margin: 1em 0
+      clear: both
+
+@mixin part-7
+  @include reader
+    sub, sup
+      font-size: .83em
+      position: relative
+      vertical-align: baseline
+
+    sup
+      top: -.5em
+
+    sub
+      bottom: -.25em
+
+@mixin part-8
+  @include reader
+    @media #{$desktop}
+      [data-tag-presentationintent=Mobile]
+        display: none
+
+    @media #{$mobile}
+      [data-tag-presentationintent=Desktop]
+        display: none
+
+@mixin part-9
+  @include reader
+    a
+      color: #2878bb
+
+@mixin part-10
+  @include reader
+    a:visited
+      color: #2878bb
+
+@mixin part-11
+  @include reader
+    button, input
+      line-height: 1

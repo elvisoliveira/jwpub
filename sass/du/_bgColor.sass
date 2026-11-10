@@ -1,0 +1,9 @@
+@use "lib/palette" as *
+@use "lib" as *
+
+@include jwac
+  @include bg-colors(du-bgColor)
+
+  .du-bgColor--gray-400 .jwac-textHighlight
+    &, ruby
+      @include webkit(text-decoration-color, #626262, true)

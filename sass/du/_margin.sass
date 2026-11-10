@@ -1,0 +1,30 @@
+@use "sass:map"
+@use "lib" as *
+
+// The reference emits two passes: shorthand/axes for every token, then the single sides.
+// Fractions only exist on the horizontal axis.
+$sizes: 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 100
+$tokens: (1px: 1px, auto: auto)
+$tokens: map.merge($tokens, $fractions)
+@each $n in $sizes
+  $tokens: map.set($tokens, $n, px($n, 4px))
+@each $n in $sizes
+  @if $n > 0
+    $tokens: map.set($tokens, negative-#{$n}, -$n * 4px)
+
+@mixin pass($axes, $sides, $variants)
+  @each $token, $value in $tokens
+    $dirs: $axes
+    @if map.has-key($fractions, $token)
+      $dirs: (horizontal,)
+    @if $sides
+      $dirs: (top, bottom, right, left, inlineStart, inlineEnd)
+    @if $sides and map.has-key($fractions, $token)
+      $dirs: (right, left, inlineStart, inlineEnd)
+    @include directional(du-margin, $token, $value, $dirs, margin, $children: true, $variants: $variants)
+
+// all base rules first, then mobileOnly/desktopOnly call by call
+@include pass(("", vertical, horizontal), false, ("",))
+@include pass((), true, ("",))
+@include pass(("", vertical, horizontal), false, (mobileOnly, desktopOnly))
+@include pass((), true, (mobileOnly, desktopOnly))

@@ -1,6 +1,0 @@
-@use "lib/palette" as *;
-@use "lib" as *;
-
-@include jwac {
-  @include text-colors(dc-icon-color, "::before", false);
-}
