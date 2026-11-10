@@ -5,7 +5,8 @@
 // link that is the button (a.dc-button--X) and to a link inside one (div.dc-button--X a).
 
 @include jwac {
-  @at-root #{$root}.pub-int [class*=dc-button], #{$root}.showRuby [class*=dc-button],
+  @at-root #{$root}.pub-int [class*=dc-button],
+  #{$root}.showRuby [class*=dc-button],
   body.noJS #{$root} [class*=dc-button] {
     @include align-items(baseline);
   }

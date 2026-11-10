@@ -9,10 +9,11 @@ the page and its static assets (scripts and fonts from a CDN).
 
 ## Development
 
-- `npm ci` installs sass and stylelint.
+- `npm ci` installs sass and the Sass parser the lint uses.
 - `./build.sh` builds `crypto.wasm` (needs `JWPUB_KEY` and rustc with the
   `wasm32-unknown-unknown` target), `styles.css` and `_site/`.
-- `npm run lint` and `npm run lint:fix` check and format `scss/`.
+- `npm run lint` checks the conventions of `scss/` (`lint/lint.mjs`) and its formatting;
+  `npm run lint:fix` formats it.
 
 `styles.css` reproduces the jw.org stylesheet rule for rule; a change to the SCSS must not
 change the compiled CSS.

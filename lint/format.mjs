@@ -1,4 +1,4 @@
-// The project's own formatting, beyond stylelint: the values of table-like Sass maps (one
+// The formatting the project enforces: the values of table-like Sass maps (one
 // "key: value" per line) aligned in one column, one space after the longest key's colon
 // (lists and maps packed several entries per line are left alone), and two spaces before
 // an inline // comment. `node lint/format.mjs` rewrites scss/; `--check` only reports.
