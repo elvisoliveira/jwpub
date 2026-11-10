@@ -1,6 +1,6 @@
-// The project's conventions, checked on the Sass syntax tree (`npm run lint`).
+// The project's conventions, checked on the Sass syntax tree (`bun run lint`).
 // Nothing here looks at layout; lint/format.mjs covers the little that is enforced.
-import { globSync, readFileSync } from "node:fs";
+import { Glob } from "bun";
 import { scss } from "sass-parser";
 
 const PREFIXED = /-(?:webkit|moz|ms|o)-[\w-]+/g;
@@ -71,9 +71,9 @@ const checks = {
 };
 
 let failed = false;
-for (const file of globSync("scss/**/*.scss").sort()) {
+for (const file of [...new Glob("scss/**/*.scss").scanSync()].sort()) {
   const exempt = EXEMPT[file] ?? [];
-  scss.parse(readFileSync(file, "utf8")).walk((node) => checks[node.type]?.(node, (check, message) => {
+  scss.parse(await Bun.file(file).text()).walk((node) => checks[node.type]?.(node, (check, message) => {
     if (exempt.includes(check)) return;
     failed = true;
     console.error(`${file}:${node.source.start.line}: ${message}`);

@@ -1,8 +1,8 @@
 // The formatting the project enforces: the values of table-like Sass maps (one
 // "key: value" per line) aligned in one column, one space after the longest key's colon
 // (lists and maps packed several entries per line are left alone), and two spaces before
-// an inline // comment. `node lint/format.mjs` rewrites scss/; `--check` only reports.
-import { globSync, readFileSync, writeFileSync } from "node:fs";
+// an inline // comment. `bun lint/format.mjs` rewrites scss/; `--check` only reports.
+import { Glob } from "bun";
 import { regex } from "regex";
 
 // Patterns in free-spacing mode (whitespace ignored, so a literal space is "\ ").
@@ -39,8 +39,8 @@ const align = (body) => {
 
 const check = process.argv.includes("--check");
 let dirty = false;
-for (const file of globSync("scss/**/*.scss")) {
-  const text = readFileSync(file, "utf8");
+for (const file of new Glob("scss/**/*.scss").scanSync()) {
+  const text = await Bun.file(file).text();
   const out = text
     .replace(MAP, (...match) => {
       const { open, body } = match.at(-1);
@@ -49,7 +49,7 @@ for (const file of globSync("scss/**/*.scss")) {
     .replace(INLINE_COMMENT, "  ");
   if (out === text) continue;
   dirty = true;
-  if (check) console.error(`${file}: not formatted (npm run lint:fix)`);
-  else writeFileSync(file, out);
+  if (check) console.error(`${file}: not formatted (bun run lint:fix)`);
+  else await Bun.write(file, out);
 }
 process.exit(check && dirty ? 1 : 0);
