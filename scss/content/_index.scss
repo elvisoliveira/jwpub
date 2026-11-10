@@ -1,5 +1,7 @@
 // Plain jw.org CSS, one mixin per piece; _order.scss puts each piece where it was.
+@use "sass:list";
 @use "lib" as *;
+@use "lib/button";
 @use "lib/glyphs" as *;
 
 // Lists and boxes with images in a side column.
@@ -9,20 +11,175 @@ $img-column-text: h2, h3, h4, h5, ol, ul, "> li > p", "> p";
 // Image grids.
 $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid;
 
-// The round icon before a meeting workbook heading.
-@mixin mwb-heading-icon {
-  @include icon-font;
-  @include display(inline-flex);
-  font-size: inherit;
-  @include token(color, du-color--white);
-  font-size: 40px;
-  line-height: 40px;
+// What a meeting workbook section colours.
+$mwb-text: "h1, h2, h3, h4, h5, h6, > p";
+
+// A meeting workbook heading with its round section icon ($glyph) before it.
+@mixin mwb-heading-icon($glyph) {
   @include display(flex);
   @include align-items(center);
+  #{$mwb-text} {
+    margin: 0;
+  }
+  &::before {
+    content: $glyph;
+    @include icon-font;
+    @include display(inline-flex);
+    font-size: inherit;
+    @include token(color, du-color--white);
+    font-size: 40px;
+    line-height: 40px;
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    @include flex(0 0 auto);
+    height: 56px;
+    width: 56px;
+    @include end(margin, 16px);
+  }
+}
+
+// A source list: no markers, the bullet text hangs in the indent.
+@mixin source-list {
+  list-style-type: none;
+  .txtSrcBullet {
+    display: inline-block;
+    min-width: 1.5em;
+    @include start(margin, -1.5em);
+  }
+}
+
+// 16px of padding; the first and last child give up their outer margins.
+@mixin padded-box {
+  padding: 16px;
+  > :first-child:not(aside),
+  > aside:first-child > :first-child {
+    margin-top: 0;
+  }
+  > :last-child:not(aside),
+  > aside:first-child > :last-child {
+    margin-bottom: 8px;
+  }
+  @media #{$desktop} {
+    > :last-child:not(aside),
+    > aside:first-child > :last-child {
+      margin-bottom: 16px;
+    }
+  }
+}
+
+// Wide boxes and tables scroll sideways instead of shrinking; @content: more declarations.
+@mixin wide {
+  position: relative;
+  overflow: auto;
+  @content;
+  > * {
+    min-width: 650px;
+    max-width: 750px;
+    @media #{$desktop-only} {
+      min-width: 750px;
+      max-width: 960px;
+    }
+  }
+}
+
+// A paragraph style set off by a rule above it (.sf, .sq).
+@mixin ruled-paragraph {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #a7a7a7;
+  @include token(color, du-color--textSubdued);
+  padding-top: .5em;
+  text-indent: 0;
+  > * {
+    text-indent: 0;
+  }
+}
+
+// Visible ruby text of a $script: switched on (.showRuby) or without JS.
+@mixin ruby-shown($script) {
+  &.showRuby.ms-#{$script},
+  body.noJS.ms-#{$script} & {
+    @content;
+  }
+}
+
+// Small centred line of a Bible book (superscriptions).
+@mixin superscription {
+  font-size: .83em;
+  margin: .75em 0 .25em 0;
+  text-align: center;
+  text-indent: 0;
+  ruby {
+    text-indent: 0;
+  }
+}
+
+// Poetry lines of a Bible verse; $l, $z and $p are the classes of the three line styles.
+@mixin poetry($l, $z, $p) {
+  #{$l} {
+    display: block;
+    text-indent: -3em;
+    @include start(padding, 3em);
+  }
+  #{$z} {
+    display: block;
+    margin: .2em 1em;
+    text-indent: -1em;
+    @include start(padding, 2.5em);
+  }
+  #{$p} {
+    display: block;
+    text-indent: -2.5em;
+    // 4em in ltr but 3em in rtl, as in the original
+    @include bidi(((left, 4em), (right, 3em))) using ($v) {
+      padding-#{list.nth($v, 1)}: list.nth($v, 2);
+    }
+  }
+}
+
+// A verse, chapter or cross-reference link: a translucent circle of $size behind it
+// on hover/focus/highlight.
+@mixin bubble($size) {
+  @include display(inline-flex);
   @include justify-content(center);
-  @include flex(0 0 auto);
-  height: 56px;
-  width: 56px;
+  @include align-items(center);
+  position: relative;
+  z-index: 1;
+  &.addHighlight,
+  &.highlight,
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    &::after {
+      position: absolute;
+      content: " ";
+      width: $size;
+      height: $size;
+      border-radius: 100%;
+      background-color: #4a6da7;
+      @include token(opacity, jwac-footnote-opacity);
+      z-index: -1;
+    }
+  }
+  &.highlight.addHighlight {
+    @include token(color, jwac-footnote-link-color--addHighlight);
+    &::after {
+      @include token(opacity, jwac-footnote-opacity--addHighlight);
+    }
+  }
+  &:visited {
+    @include token(color, ds-link-color);
+  }
+}
+
+// A heading that runs into the text after it.
+@mixin inline-heading {
+  margin: 0;
+  font-size: 1em;
+  line-height: inherit;
+  @include start(float);
+  @include end(padding, .25em);
 }
 
 // A chapter number in a maroon box.
@@ -53,16 +210,10 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 
 @mixin part-2 {
   @include jwac {
-    &.dir-ltr {
+    @include bidi(((1.5em, 0), (0, 1.5em))) using ($v) {
       ol, ul {
-        padding-left: 1.5em;
-        padding-right: 0;
-      }
-    }
-    &.dir-rtl {
-      ol, ul {
-        padding-left: 0;
-        padding-right: 1.5em;
+        padding-left: list.nth($v, 1);
+        padding-right: list.nth($v, 2);
       }
     }
   }
@@ -70,20 +221,16 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 
 @mixin part-3 {
   @include jwac {
-    @include bidi((left, right)) using ($s) {
-      table caption {
-        text-align: #{$s};
-      }
+    table caption {
+      @include start(text-align);
     }
   }
 }
 
 @mixin part-4 {
   @include jwac {
-    @include bidi((left, right)) using ($s) {
-      table th {
-        text-align: #{$s};
-      }
+    table th {
+      @include start(text-align);
     }
   }
 }
@@ -101,10 +248,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 
 @mixin part-6 {
   @include jwac {
-    @include bidi((left, right)) using ($s) {
-      hr {
-        text-align: #{$s};
-      }
+    hr {
+      @include start(text-align);
     }
   }
 }
@@ -112,16 +257,12 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
 @mixin part-7 {
   @include jwac {
     .ruleAbove {
-      border-top-style: solid;
-      border-width: 1px;
-      border-color: #a7a7a7;
+      @include hairline(top);
       padding-top: .25em;
       display: flow-root;
     }
     .borderSolid--bottom, .bottomRule {
-      border-bottom-style: solid;
-      border-width: 1px;
-      border-color: #a7a7a7;
+      @include hairline(bottom);
     }
     .underline {
       text-decoration: underline;
@@ -153,22 +294,14 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     @media #{$desktop} {
       .flRight, .floatEast {
         &:not(img) {
-          @include bidi((left, right)) using ($s) {
-            float: #{flip($s)};
-          }
-          @include bidi((left, right)) using ($s) {
-            margin-#{$s}: 32px;
-          }
+          @include end(float);
+          @include start(margin, 32px);
         }
       }
       .flLeft, .floatWest {
         &:not(img) {
-          @include bidi((left, right)) using ($s) {
-            float: #{$s};
-          }
-          @include bidi((left, right)) using ($s) {
-            margin-#{flip($s)}: 32px;
-          }
+          @include start(float);
+          @include end(margin, 32px);
         }
       }
     }
@@ -225,10 +358,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           margin: 0;
         }
       }
-      @include bidi((left, right)) using ($s) {
-        &.threeColumn {
-          padding-#{$s}: 0;
-        }
+      &.threeColumn {
+        @include start(padding, 0);
       }
     }
     #{sel(".", $img-grids, ".threeColumn div.half")},
@@ -279,22 +410,14 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         &.inline, &.inline-start {
           width: 50%;
           margin-bottom: 1em;
-          @include bidi((left, right)) using ($s) {
-            float: #{$s};
-          }
-          @include bidi((left, right)) using ($s) {
-            margin-#{flip($s)}: 32px;
-          }
+          @include start(float);
+          @include end(margin, 32px);
         }
         &.inline-end {
           width: 50%;
           margin-bottom: 1em;
-          @include bidi((left, right)) using ($s) {
-            float: #{flip($s)};
-          }
-          @include bidi((left, right)) using ($s) {
-            margin-#{$s}: 32px;
-          }
+          @include end(float);
+          @include start(margin, 32px);
         }
       }
     }
@@ -307,14 +430,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           list-style-type: lower-alpha;
         }
         &.source {
-          list-style-type: none;
-          .txtSrcBullet {
-            display: inline-block;
-            min-width: 1.5em;
-            @include bidi((left, right)) using ($s) {
-              margin-#{$s}: -1.5em;
-            }
-          }
+          @include source-list;
         }
         &.numberedDiagram, &.noMarker {
           list-style-type: none;
@@ -331,14 +447,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     ul {
       &.source {
-        list-style-type: none;
-        .txtSrcBullet {
-          display: inline-block;
-          min-width: 1.5em;
-          @include bidi((left, right)) using ($s) {
-            margin-#{$s}: -1.5em;
-          }
-        }
+        @include source-list;
       }
       &.noMarker {
         list-style-type: none;
@@ -346,10 +455,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     ol, ul {
       &.noIndent {
-        @include bidi((left, right)) using ($s) {
-          &, &.noMarker {
-            padding-#{$s}: 0;
-          }
+        &, &.noMarker {
+          @include start(padding, 0);
         }
       }
       &.listSpacing li {
@@ -365,14 +472,10 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     li {
       &.listTitle {
         font-size: 1.21em;
-        @include bidi((left, right)) using ($s) {
-          margin-#{$s}: -1em;
-        }
+        @include start(margin, -1em);
       }
       &.borderDotted--top {
-        border-top-style: dotted;
-        border-width: 1px;
-        border-color: #a7a7a7;
+        @include hairline(top, dotted);
       }
     }
     div, ul {
@@ -426,9 +529,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           }
         }
       }
-      @include bidi((left, right)) using ($s) {
-        padding-#{$s}: 0;
-      }
+      @include start(padding, 0);
       > li {
         position: relative;
         counter-increment: numbered-diagram-counter;
@@ -448,10 +549,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           text-align: center;
           @include links-on-dark;
         }
-        @include bidi((left, right)) using ($s) {
-          > p {
-            margin-#{$s}: 1.5em;
-          }
+        > p {
+          @include start(margin, 1.5em);
         }
       }
     }
@@ -476,9 +575,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       &::after {
         content: attr(data-before-text);
         position: relative;
-        @include bidi((left, right)) using ($s) {
-          #{flip($s)}: -10px;
-        }
+        @include end(inset, -10px);
       }
     }
     &.pub-bi12, &.pub-bi7, &.pub-igw, &.pub-nwt, &.pub-nwths, &.pub-sgd {
@@ -542,9 +639,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         min-height: 3em;
         padding-bottom: .5em;
         list-style-type: none;
-        @include bidi((left, right)) using ($s) {
-          padding-#{$s}: 32px;
-        }
+        @include start(padding, 32px);
         &::after,
         &::before {
           content: "";
@@ -558,9 +653,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           background-color: #9e9b9a;
           margin-top: -4px;
           border-radius: 9px;
-          @include bidi((left, right)) using ($s) {
-            #{$s}: -9px;
-          }
+          @include start(inset, -9px);
         }
         &::after {
           width: 20px;
@@ -568,9 +661,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           border-top-color: #c5c3c2;
           border-top-width: 1px;
           border-top-style: solid;
-          @include bidi((left, right)) using ($s) {
-            #{$s}: 0;
-          }
+          @include start(inset, 0);
         }
         &.timeCirca::after {
           border-top-width: 1px;
@@ -590,9 +681,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         padding-bottom: 1em;
         position: absolute;
         bottom: -9em;
-        @include bidi((left, right)) using ($s) {
-          #{$s}: -32px;
-        }
+        @include start(inset, -32px);
         h4 {
           font-size: 1.75em;
           font-weight: 700;
@@ -619,9 +708,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           border-left-width: 20px;
           border-left-color: transparent;
           border-top-style: solid;
-          @include bidi((left, right)) using ($s) {
-            #{$s}: -25px;
-          }
+          @include start(inset, -25px);
         }
       }
       ol.timeline {
@@ -643,9 +730,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       &::after {
         width: 50px;
       }
-      @include bidi((left, right)) using ($s) {
-        padding-#{$s}: 64px;
-      }
+      @include start(padding, 64px);
     }
     .figcaption {
       @include margin(top bottom, 12px);
@@ -694,52 +779,28 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
       tr {
         &.emphasized th {
-          @include token(background-color, du-bgColor--bgEmphasized);
-          @include token(color, du-color--white);
-          @include links-on-dark;
+          @include emphasized;
         }
         &.shaded {
           th {
-            @include token(background-color, du-bgColor--bgEmphasized);
-            @include token(color, du-color--white);
-            @include links-on-dark;
+            @include emphasized;
           }
           td {
             @include token(background-color, du-bgColor--bgSecondary);
           }
         }
       }
-      &.rowStripe, &.stripe {
-        th,
-        thead tr {
-          @include token(background-color, du-bgColor--bgEmphasized);
-          @include token(color, du-color--white);
-          @include links-on-dark;
-        }
-        tr:nth-child(2n) {
-          @include token(background-color, du-bgColor--bgSecondary);
-        }
-      }
-      &.gridlines {
-        th,
-        thead tr {
-          @include token(background-color, du-bgColor--bgEmphasized);
-          @include token(color, du-color--white);
-          @include links-on-dark;
-        }
-        td.shaded {
-          @include token(background-color, du-bgColor--bgSecondary);
-        }
-      }
-      &.columnStripe {
-        th,
-        thead tr {
-          @include token(background-color, du-bgColor--bgEmphasized);
-          @include token(color, du-color--white);
-          @include links-on-dark;
-        }
-        td:nth-child(odd) {
-          @include token(background-color, du-bgColor--bgSecondary);
+      // table kind → what it shades
+      @each $kind, $shaded in ("&.rowStripe, &.stripe" "tr:nth-child(2n)", "&.gridlines" "td.shaded",
+                               "&.columnStripe" "td:nth-child(odd)") {
+        #{$kind} {
+          th,
+          thead tr {
+            @include emphasized;
+          }
+          #{$shaded} {
+            @include token(background-color, du-bgColor--bgSecondary);
+          }
         }
       }
       &.columnBorder {
@@ -772,16 +833,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
       &.wide {
-        position: relative;
-        overflow: auto;
-        > * {
-          min-width: 650px;
-          max-width: 750px;
-          @media #{$desktop-only} {
-            min-width: 750px;
-            max-width: 960px;
-          }
-        }
+        @include wide;
       }
     }
   }
@@ -792,21 +844,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     .mapElement {
       @include token(background-color, du-bgColor--bgSecondary);
       @include margin(top bottom, 1.5em);
-      padding: 16px;
-      > :first-child:not(aside),
-      > aside:first-child > :first-child {
-        margin-top: 0;
-      }
-      > :last-child:not(aside),
-      > aside:first-child > :last-child {
-        margin-bottom: 8px;
-      }
-      @media #{$desktop} {
-        > :last-child:not(aside),
-        > aside:first-child > :last-child {
-          margin-bottom: 16px;
-        }
-      }
+      @include padded-box;
     }
     .closingContent {
       &.dashed, &.rule {
@@ -844,67 +882,24 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
       &:not(.rule):not(.dashed) {
         .boxTtl {
-          border-top-style: solid;
-          border-right-style: solid;
-          border-left-style: solid;
-          border-width: 1px;
-          border-color: #a7a7a7;
+          @include hairline(top right left);
           + .boxContent {
-            border-right-style: solid;
-            border-bottom-style: solid;
-            border-left-style: solid;
-            border-width: 1px;
-            border-color: #a7a7a7;
+            @include hairline(right bottom left);
           }
         }
         > .boxContent:first-child {
-          border-top-style: solid;
-          border-width: 1px;
-          border-color: #a7a7a7;
+          @include hairline(top);
         }
       }
     }
     .diagram {
-      border-top-style: solid;
-      border-right-style: solid;
-      border-bottom-style: solid;
-      border-left-style: solid;
-      border-width: 1px;
-      border-color: #a7a7a7;
+      @include hairline(top right bottom left);
       background-color: transparent;
       @include margin(top bottom, 1.5em);
-      padding: 16px;
-      > :first-child:not(aside),
-      > aside:first-child > :first-child {
-        margin-top: 0;
-      }
-      > :last-child:not(aside),
-      > aside:first-child > :last-child {
-        margin-bottom: 8px;
-      }
-      @media #{$desktop} {
-        > :last-child:not(aside),
-        > aside:first-child > :last-child {
-          margin-bottom: 16px;
-        }
-      }
+      @include padded-box;
     }
     .chart {
-      padding: 16px;
-      > :first-child:not(aside),
-      > aside:first-child > :first-child {
-        margin-top: 0;
-      }
-      > :last-child:not(aside),
-      > aside:first-child > :last-child {
-        margin-bottom: 8px;
-      }
-      @media #{$desktop} {
-        > :last-child:not(aside),
-        > aside:first-child > :last-child {
-          margin-bottom: 16px;
-        }
-      }
+      @include padded-box;
     }
     .blockTeach, .boxSupplement, .chart, .closingContent, .diagram, .mapElement {
       clear: both;
@@ -914,12 +909,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
       @each $name, $name2 in (rule solid, dashed dashed) {
         &.#{$name} {
-          border-top-style: $name2;
-          border-right-style: $name2;
-          border-bottom-style: $name2;
-          border-left-style: $name2;
-          border-width: 1px;
-          border-color: #a7a7a7;
+          @include hairline(top right bottom left, $name2);
           background-color: transparent;
           @include margin(top bottom, 1.5em);
         }
@@ -950,35 +940,21 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
       &.wide {
-        position: relative;
-        overflow: auto;
-        @include padding(top bottom, 0);
-        > * {
-          min-width: 650px;
-          max-width: 750px;
-          @media #{$desktop-only} {
-            min-width: 750px;
-            max-width: 960px;
-          }
+        @include wide {
+          @include padding(top bottom, 0);
         }
       }
     }
     .sa {
       font-size: 1.21em;
-      @include bidi((left, right)) using ($s) {
-        margin-#{$s}: 24px;
-      }
+      @include start(margin, 24px);
     }
-    @include bidi((left, right)) using ($s) {
-      blockquote .sa {
-        margin-#{$s}: 0;
-      }
+    blockquote .sa {
+      @include start(margin, 0);
     }
     ul li > p.sa {
       font-size: 1em;
-      @include bidi((left, right)) using ($s) {
-        margin-#{$s}: 0;
-      }
+      @include start(margin, 0);
     }
     .sc, .sd, .se {
       &, > * {
@@ -986,15 +962,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .sf {
-      border-top-width: 1px;
-      border-top-style: solid;
-      border-top-color: #a7a7a7;
-      @include token(color, du-color--textSubdued);
-      padding-top: .5em;
-      text-indent: 0;
-      > * {
-        text-indent: 0;
-      }
+      @include ruled-paragraph;
     }
     .sg {
       &, > * {
@@ -1008,19 +976,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .si {
       @include margin(top bottom, .5em);
-      @include bidi((left, right)) using ($s) {
-        margin-#{$s}: 40px;
-      }
+      @include start(margin, 40px);
     }
-    @include bidi((left, right)) using ($s) {
-      .boxContent .si {
-        margin-#{$s}: 0;
-      }
+    .boxContent .si {
+      @include start(margin, 0);
     }
-    @include bidi((left, right)) using ($s) {
-      .sj {
-        margin-#{$s}: 40%;
-      }
+    .sj {
+      @include start(margin, 40%);
     }
     .sk {
       text-indent: 1.5em;
@@ -1030,9 +992,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .sl {
       text-indent: -40px;
-      @include bidi((left, right)) using ($s) {
-        padding-#{$s}: 40px;
-      }
+      @include start(padding, 40px);
     }
     .sm, .sn, .so {
       &, > * {
@@ -1041,23 +1001,13 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .sp {
       text-indent: -20px;
-      @include bidi((left, right)) using ($s) {
-        padding-#{$s}: 40px;
-      }
+      @include start(padding, 40px);
       > * {
         text-indent: 0;
       }
     }
     .sq {
-      border-top-width: 1px;
-      border-top-style: solid;
-      border-top-color: #a7a7a7;
-      @include token(color, du-color--textSubdued);
-      padding-top: .5em;
-      text-indent: 0;
-      > * {
-        text-indent: 0;
-      }
+      @include ruled-paragraph;
     }
     .sr {
       &, > * {
@@ -1066,11 +1016,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     @each $name, $value, $value2 in (ss 1em 1.45em, st 0 1.75em) {
       .#{$name} {
-        margin-top: $value;
-        margin-bottom: .25em;
-        font-size: $value2;
-        font-weight: 700;
-        line-height: 1.25;
+        @include heading($value, $value2);
       }
     }
     .copyrightInfo .st {
@@ -1082,9 +1028,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       .#{$name} {
         @include margin(top bottom, .5em);
         text-indent: -#{$value};
-        @include bidi((left, right)) using ($s) {
-          padding-#{$s}: $value2;
-        }
+        @include start(padding, $value2);
         > * {
           text-indent: 0;
         }
@@ -1139,52 +1083,49 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     @supports not (ruby-align:center) {
-      &.showRuby.ms-CHINESE ruby,
-      body.noJS.ms-CHINESE & ruby {
-        @include display(inline-flex);
-        @include flex-direction(column-reverse);
-        baseline-source: last;
-        text-align: center;
-        line-height: 1 !important;
-        text-indent: 0;
+      @include ruby-shown(CHINESE) {
+        ruby {
+          @include display(inline-flex);
+          @include flex-direction(column-reverse);
+          baseline-source: last;
+          text-align: center;
+          line-height: 1 !important;
+          text-indent: 0;
+        }
+        ruby > rt {
+          display: inline;
+          line-height: normal !important;
+          @include padding(left right, .25em);
+          @include margin(top bottom, .1em);
+        }
+        p ruby {
+          margin-bottom: .5em;
+        }
       }
-      &.showRuby.ms-CHINESE ruby > rt,
-      body.noJS.ms-CHINESE & ruby > rt {
-        display: inline;
-        line-height: normal !important;
-        @include padding(left right, .25em);
-        @include margin(top bottom, .1em);
+    }
+    @include ruby-shown(CHINESE) {
+      ruby {
+        line-height: 3;
       }
-      &.showRuby.ms-CHINESE p ruby,
-      body.noJS.ms-CHINESE & p ruby {
-        margin-bottom: .5em;
+      ruby > rt {
+        @include padding(left right, 4px);
+        margin-bottom: 1px;
+        line-height: 3;
+      }
+      .qu ruby,
+      .w_question {
+        font-size: 1.21em;
       }
     }
-    &.showRuby.ms-CHINESE ruby,
-    body.noJS.ms-CHINESE & ruby {
-      line-height: 3;
-    }
-    &.showRuby.ms-CHINESE ruby > rt,
-    body.noJS.ms-CHINESE & ruby > rt {
-      @include padding(left right, 4px);
-      margin-bottom: 1px;
-      line-height: 3;
-    }
-    &.showRuby.ms-CHINESE .qu ruby,
-    &.showRuby.ms-CHINESE .w_question,
-    body.noJS.ms-CHINESE & .qu ruby,
-    body.noJS.ms-CHINESE & .w_question {
-      font-size: 1.21em;
-    }
-    &.showRuby.ms-JAPANESE ruby,
-    body.noJS.ms-JAPANESE & ruby {
-      line-height: 2;
-    }
-    &.showRuby.ms-JAPANESE ruby > rt,
-    body.noJS.ms-JAPANESE & ruby > rt {
-      margin-bottom: -.25em;
-      line-height: 2;
-      font-size: .57em;
+    @include ruby-shown(JAPANESE) {
+      ruby {
+        line-height: 2;
+      }
+      ruby > rt {
+        margin-bottom: -.25em;
+        line-height: 2;
+        font-size: .57em;
+      }
     }
     &.docClass-31 {
       .bodyTxt ol li {
@@ -1192,10 +1133,8 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         p {
           @include margin(top bottom, .5em);
         }
-        @include bidi((left, right)) using ($s) {
-          .sz {
-            margin-#{$s}: 1.5em;
-          }
+        .sz {
+          @include start(margin, 1.5em);
         }
       }
       .chorus {
@@ -1230,69 +1169,29 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
     }
-    .treasures--rev2021 {
-      &.mwbHeadingIcon {
-        @include display(flex);
-        @include align-items(center);
-        h1, h2, h3, h4, h5, h6, > p {
-          margin: 0;
+    // section, icon glyph, text colour (variable, value), icon background
+    @each $section, $glyph, $var, $color, $bg in (treasures "\e720" gray-600 #626262 #626262,
+                                                  ministry "\e898" amber-700 #9d5d07 #c48430) {
+      .#{$section}--rev2021 {
+        &.mwbHeadingIcon {
+          @include mwb-heading-icon($glyph);
         }
-        &::before {
-          content: "\e720";
-          @include mwb-heading-icon;
-          @include bidi((left, right)) using ($s) {
-            margin-#{flip($s)}: 16px;
-          }
+        #{$mwb-text} {
+          @include themed(color, du-color--#{$var}, $color);
         }
-      }
-      h1, h2, h3, h4, h5, h6, > p {
-        @include themed(color, du-color--gray-600, #626262);
-      }
-      &.mwbHeadingIcon::before {
-        background-color: #626262;
-      }
-    }
-    .ministry--rev2021 {
-      &.mwbHeadingIcon {
-        @include display(flex);
-        @include align-items(center);
-        h1, h2, h3, h4, h5, h6, > p {
-          margin: 0;
+        &.mwbHeadingIcon::before {
+          background-color: $bg;
         }
-        &::before {
-          content: "\e898";
-          @include mwb-heading-icon;
-          @include bidi((left, right)) using ($s) {
-            margin-#{flip($s)}: 16px;
-          }
-        }
-      }
-      h1, h2, h3, h4, h5, h6, > p {
-        @include themed(color, du-color--amber-700, #9d5d07);
-      }
-      &.mwbHeadingIcon::before {
-        background-color: #c48430;
       }
     }
     .christianLiving--rev2021.mwbHeadingIcon {
-      @include display(flex);
-      @include align-items(center);
-      h1, h2, h3, h4, h5, h6, > p {
-        margin: 0;
-      }
-      &::before {
-        content: "\e800";
-        @include mwb-heading-icon;
-        @include bidi((left, right)) using ($s) {
-          margin-#{flip($s)}: 16px;
-        }
-      }
+      @include mwb-heading-icon("\e800");
     }
     &.dir-rtl .christianLiving--rev2021.mwbHeadingIcon::before {
       @include webkit(transform, scale(-1,1));
     }
     .christianLiving--rev2021 {
-      h1, h2, h3, h4, h5, h6, > p {
+      #{$mwb-text} {
         @include themed(color, du-color--maroon-600, #942926);
       }
       &.mwbHeadingIcon::before {
@@ -1343,51 +1242,19 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
   @include jwac {
     .verse {
       .style-b {
-        @include bidi((left, right)) using ($s) {
-          + .parabreak + .style-b,
-          &.first {
-            padding-#{$s}: 1em;
-          }
+        + .parabreak + .style-b,
+        &.first {
+          @include start(padding, 1em);
         }
       }
-      .style-l {
-        display: block;
-        text-indent: -3em;
-        @include bidi((left, right)) using ($s) {
-          padding-#{$s}: 3em;
-        }
-      }
-      .style-z {
-        display: block;
-        margin: .2em 1em;
-        text-indent: -1em;
-        @include bidi((left, right)) using ($s) {
-          padding-#{$s}: 2.5em;
-        }
-      }
-      .style-p {
-        display: block;
-        text-indent: -2.5em;
-      }
-    }
-    &.dir-ltr .verse .style-p {
-      padding-left: 4em;
-    }
-    &.dir-rtl .verse .style-p {
-      padding-right: 3em;
+      @include poetry(".style-l", ".style-z", ".style-p");
     }
     sup.superscription {
       position: static;
       font-size: 1em;
       .style-s, .style-w {
         display: block;
-        font-size: .83em;
-        margin: .75em 0 .25em 0;
-        text-align: center;
-        text-indent: 0;
-        ruby {
-          text-indent: 0;
-        }
+        @include superscription;
       }
       .parabreak,
       br.para,
@@ -1420,42 +1287,12 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         }
       }
       .ss, .sw {
-        font-size: .83em;
-        margin: .75em 0 .25em 0;
-        text-align: center;
-        text-indent: 0;
-        ruby {
-          text-indent: 0;
-        }
+        @include superscription;
       }
       .ss {
         font-weight: 400;
       }
-      .sl {
-        display: block;
-        text-indent: -3em;
-        @include bidi((left, right)) using ($s) {
-          padding-#{$s}: 3em;
-        }
-      }
-      .sz {
-        display: block;
-        margin: .2em 1em;
-        text-indent: -1em;
-        @include bidi((left, right)) using ($s) {
-          padding-#{$s}: 2.5em;
-        }
-      }
-      .sp {
-        display: block;
-        text-indent: -2.5em;
-      }
-      &.dir-ltr .sp {
-        padding-left: 4em;
-      }
-      &.dir-rtl .sp {
-        padding-right: 3em;
-      }
+      @include poetry(".sl", ".sz", ".sp");
     }
     .chapterNum,
     .cl:not(.tt) {
@@ -1482,15 +1319,11 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       .cl:not(.tt) {
         font-size: 1.21em;
       }
-      @include bidi((left, right)) using ($s) {
-        .vl:not(.tt):first-child {
-          padding-#{$s}: 0;
-        }
+      .vl:not(.tt):first-child {
+        @include start(padding, 0);
       }
-      @include bidi((left, right)) using ($s) {
-        .v:not(.tt) + .cl {
-          padding-#{$s}: 16px;
-        }
+      .v:not(.tt) + .cl {
+        @include start(padding, 16px);
       }
     }
     .m:not(.tt),
@@ -1503,38 +1336,9 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       font-style: italic;
       @include token(color, ds-link-color);
     }
-    @each $name, $value in (verse 1.75em, chapter 1.5em) {
+    @each $name, $size in (verse 1.75em, chapter 1.5em) {
       .#{$name}Num a {
-        @include display(inline-flex);
-        @include justify-content(center);
-        @include align-items(center);
-        position: relative;
-        z-index: 1;
-        &.addHighlight,
-        &.highlight,
-        &:focus,
-        &:hover {
-          text-decoration: none;
-          &::after {
-            position: absolute;
-            content: " ";
-            width: $value;
-            height: $value;
-            border-radius: 100%;
-            background-color: #4a6da7;
-            @include token(opacity, jwac-footnote-opacity);
-            z-index: -1;
-          }
-        }
-        &.highlight.addHighlight {
-          @include token(color, jwac-footnote-link-color--addHighlight);
-          &::after {
-            @include token(opacity, jwac-footnote-opacity--addHighlight);
-          }
-        }
-        &:visited {
-          @include token(color, ds-link-color);
-        }
+        @include bubble($size);
       }
     }
     .style-l, .style-p, .style-z {
@@ -1544,36 +1348,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
       }
     }
     .xrefLink {
-      @include display(inline-flex);
-      @include justify-content(center);
-      @include align-items(center);
-      position: relative;
-      z-index: 1;
-      &.addHighlight,
-      &.highlight,
-      &:focus,
-      &:hover {
-        text-decoration: none;
-        &::after {
-          position: absolute;
-          content: " ";
-          width: 2.5em;
-          height: 2.5em;
-          border-radius: 100%;
-          background-color: #4a6da7;
-          @include token(opacity, jwac-footnote-opacity);
-          z-index: -1;
-        }
-      }
-      &.highlight.addHighlight {
-        @include token(color, jwac-footnote-link-color--addHighlight);
-        &::after {
-          @include token(opacity, jwac-footnote-opacity--addHighlight);
-        }
-      }
-      &:visited {
-        @include token(color, ds-link-color);
-      }
+      @include bubble(2.5em);
     }
     &.pub-bi12, &.pub-bi7, &.pub-igw, &.pub-nwt, &.pub-nwths, &.pub-nwtsty, &.pub-sgd {
       &.docClass-11, &.docClass-116, &.docClass-12, &.docClass-125, &.docClass-13, &.docClass-14 {
@@ -1608,9 +1383,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     .BibleChapterOutline > ul,
     .outline {
-      @include bidi((left, right)) using ($s) {
-        padding-#{$s}: 0;
-      }
+      @include start(padding, 0);
       > li::before {
         content: "​";
         position: absolute;
@@ -1628,15 +1401,11 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
           content: "​";
           position: absolute;
         }
-        @include bidi((left, right)) using ($s) {
-          padding-#{$s}: 0;
-        }
+        @include start(padding, 0);
       }
       .L1:not(.chapterNo) p {
         text-indent: -1em;
-        @include bidi((left, right)) using ($s) {
-          padding-#{$s}: 1em;
-        }
+        @include start(padding, 1em);
         .itemLabel {
           text-indent: 0;
         }
@@ -1651,9 +1420,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         &.L2, &.L3, &.L4 {
           margin: .25em 0;
           text-indent: -.75em;
-          @include bidi((left, right)) using ($s) {
-            padding-#{$s}: .75em;
-          }
+          @include start(padding, .75em);
         }
         &.chapterNo {
           @include display(flex);
@@ -1664,9 +1431,7 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
             min-width: 1.5em;
           }
           > ul {
-            @include bidi((left, right)) using ($s) {
-              padding-#{$s}: .5em;
-            }
+            @include start(padding, .5em);
             > li {
               &:first-child {
                 margin-top: 0;
@@ -1686,54 +1451,16 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
     }
     &.docClass-116, &.docClass-12 {
       h3.inline {
-        margin: 0;
-        font-size: 1em;
-        line-height: inherit;
-        @include bidi((left, right)) using ($s) {
-          float: #{$s};
-        }
-        @include bidi((left, right)) using ($s) {
-          padding-#{flip($s)}: .25em;
-        }
+        @include inline-heading;
       }
       p {
         &.sk, &.sm {
           margin: 0;
-          @include bidi((left, right)) using ($s) {
-            padding-#{$s}: 1em;
-          }
+          @include start(padding, 1em);
         }
       }
       .docNav a {
-        @include token(color, dc-button-tertiary-color);
-        @include display(inline-flex);
-        @include align-items(center);
-        @include justify-content(center);
-        vertical-align: middle;
-        min-width: 53px;
-        padding: .5em;
-        &::before {
-          @include themed(color, dc-button-tertiary-icon-color, #757575);
-        }
-        &:visited {
-          @include token(color, dc-button-tertiary-color);
-        }
-        &:focus,
-        &:hover {
-          @include themed(background-color, dc-button-tertiary-bgColor--hover, #e8effb);
-          text-decoration: none;
-          &::before {
-            @include token(color, dc-button-tertiary-color);
-          }
-        }
-        &:focus {
-          border-color: #7f9fd3;
-          outline: 0;
-          box-shadow: 0 0 5px 1px #7f9fd3;
-        }
-        &::before {
-          align-self: center;
-        }
+        @include button.light(tertiary, false);
       }
     }
     ul.dl {
@@ -1742,30 +1469,18 @@ $img-grids: "boxSupplement.imgGrid .boxContent", "grpItems.imgGrid", listImgGrid
         content: "​";
         position: absolute;
       }
-      @include bidi((left, right)) using ($s) {
-        padding-#{$s}: 0;
-      }
+      @include start(padding, 0);
     }
     .ftnGlossaryTerm h3.inline {
-      margin: 0;
-      font-size: 1em;
-      line-height: inherit;
-      @include bidi((left, right)) using ($s) {
-        float: #{$s};
-      }
-      @include bidi((left, right)) using ($s) {
-        padding-#{flip($s)}: .25em;
-      }
+      @include inline-heading;
     }
     &.docId-1001061220, &.docId-1001070220, &.docId-1102013694 {
       .boxContent ul.noMarker {
         .west_left {
           margin-top: 0;
         }
-        @include bidi((left, right)) using ($s) {
-          .source {
-            margin-#{$s}: 64px;
-          }
+        .source {
+          @include start(margin, 64px);
         }
       }
     }

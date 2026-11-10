@@ -38,9 +38,7 @@
       &.dc-table-stripe {
         &--rows {
           thead tr {
-            @include token(background-color, du-bgColor--bgEmphasized);
-            @include token(color, du-color--white);
-            @include links-on-dark;
+            @include emphasized;
           }
           tbody tr:nth-child(2n),
           > tr:nth-child(2n) {

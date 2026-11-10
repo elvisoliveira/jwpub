@@ -45,14 +45,10 @@ $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
           margin: 0;
         }
         &.rule {
-          border-bottom-style: solid;
-          border-width: 1px;
-          border-color: #a7a7a7;
+          @include hairline(bottom);
         }
         &.emphasized {
-          @include token(background-color, du-bgColor--bgEmphasized);
-          @include token(color, du-color--white);
-          @include links-on-dark;
+          @include emphasized;
         }
       }
     }
@@ -69,10 +65,8 @@ $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
         }
       }
       @include clearfix;
-      @include bidi((left, right)) using ($s) {
-        .noMarker {
-          padding-#{$s}: 0;
-        }
+      .noMarker {
+        @include start(padding, 0);
       }
       + .groupFootnote {
         @include box-gutter;
@@ -110,24 +104,16 @@ $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
       }
       .sa {
         font-size: 1em;
-        @include bidi((left, right)) using ($s) {
-          & {
-            margin-#{$s}: 0;
-          }
-        }
+        @include start(margin, 0);
       }
     }
     @include quotes {
       @include margin(left right, 0);
       @include token(color, du-color--textSubdued);
     }
-    @include bidi((left, right)) using ($s) {
-      @include quotes { padding-#{$s}: 1.5em; }
-    }
+    @include quotes { @include start(padding, 1.5em); }
     @media #{$desktop-only} {
-      @include bidi((left, right)) using ($s) {
-        @include quotes($extra: "[class*=float]") { padding-#{$s}: 0; }
-      }
+      @include quotes($extra: "[class*=float]") { @include start(padding, 0); }
     }
   }
 }
@@ -138,10 +124,7 @@ $quote-boxes: ".blockTxt", ".bodyTxtAlt.rule", ".stdCaption", ".stdPullQuote";
       @include margin(top bottom, 1em);
     }
     @include quotes(list.append($quote-boxes, "blockquote.rule")) {
-      border-top-style: solid;
-      border-bottom-style: solid;
-      border-width: 1px;
-      border-color: #a7a7a7;
+      @include hairline(top bottom);
       @include token(color, du-color--textSubdued);
       font-size: 1em;
       clear: both;
