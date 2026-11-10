@@ -136,6 +136,22 @@ $theme: (
 @mixin margin($sides, $value) { @include sides($sides, margin, "", $value, false); }
 @mixin padding($sides, $value) { @include sides($sides, padding, "", $value, false); }
 
+// A 1px grey rule on $sides: border-top-style: solid; border-width: 1px; border-color: #a7a7a7
+@mixin hairline($sides, $style: solid) {
+  @each $side in $sides { border-#{$side}-style: $style; }
+  border-width: 1px;
+  border-color: #a7a7a7;
+}
+
+// The heading block of h1–h6, table captions and the .ss/.st paragraph styles.
+@mixin heading($top, $size) {
+  margin-top: $top;
+  margin-bottom: .25em;
+  font-size: $size;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
 // The clearfix of the content CSS (du-clearfix is the same with !important).
 @mixin clearfix {
   &::after,
@@ -156,6 +172,13 @@ $theme: (
       @include decl(color, #a9a7c9, $important);
     }
   }
+}
+
+// White text on the emphasized grey (table headers, box titles).
+@mixin emphasized {
+  @include token(background-color, du-bgColor--bgEmphasized);
+  @include token(color, du-color--white);
+  @include links-on-dark;
 }
 
 // Responsive variants: .du-margin-top-mobileOnly--4 only applies below 760px.
@@ -269,6 +292,23 @@ $opposite: (left: right, right: left);
     }
   }
 }
+
+// One declaration on the inline-start side: left in ltr, right in rtl (end: the opposite).
+//   @include start(padding, 0)   → padding-left: 0 | padding-right: 0
+//   @include start(float)        → float: left     | float: right
+//   @include start(inset, -9px)  → left: -9px      | right: -9px
+@mixin start($prop, $value: null, $side: left) {
+  @include bidi(($side, flip($side))) using ($s) {
+    @if $value == null {
+      #{$prop}: $s;
+    } @else if $prop == inset {
+      #{$s}: $value;
+    } @else {
+      #{$prop}-#{$s}: $value;
+    }
+  }
+}
+@mixin end($prop, $value: null) { @include start($prop, $value, right); }
 
 // "div.", (a, b) → "div.a", "div.b" as one selector list
 @function sel($prefix, $names, $suffix: "") {

@@ -108,19 +108,11 @@
     }
     @each $value, $value2, $value3 in (1 0 1.75em, 2 1em 1.45em, 3 1em 1.21em) {
       h#{$value} {
-        margin-top: $value2;
-        margin-bottom: .25em;
-        font-size: $value3;
-        font-weight: 700;
-        line-height: 1.25;
+        @include heading($value2, $value3);
       }
     }
     h4, h5, h6 {
-      margin-top: 1em;
-      margin-bottom: .25em;
-      font-size: 1em;
-      font-weight: 700;
-      line-height: 1.25;
+      @include heading(1em, 1em);
     }
     img {
       height: auto;
@@ -162,11 +154,7 @@
         }
       }
       caption {
-        margin-top: 1em;
-        margin-bottom: .25em;
-        font-size: 1.21em;
-        font-weight: 700;
-        line-height: 1.25;
+        @include heading(1em, 1.21em);
       }
     }
   }

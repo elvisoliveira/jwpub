@@ -1,69 +1,8 @@
 @use "lib" as *;
+@use "lib/button" as *;
 
 // Buttons. Each variant is written once and applied both to a
 // link that is the button (a.dc-button--X) and to a link inside one (div.dc-button--X a).
-
-$focus-ring: 0 0 5px 1px #7f9fd3;
-
-@mixin box {
-  @include display(inline-flex);
-  @include align-items(center);
-  @include justify-content(center);
-  vertical-align: middle;
-  min-width: 53px;
-  padding: .5em;
-}
-
-@mixin bordered {
-  border-width: 1px;
-  border-style: solid;
-  @include themed(border-color, dc-button-borderColor, rgba(18, 18, 18, .1));
-}
-
-// Solid blue button with white text.
-@mixin primary {
-  background-color: #4a6da7;
-  @include token(color, du-color--white);
-  @include bordered;
-  @include box;
-  &:visited { @include token(color, du-color--white); }
-  &:focus,
-  &:hover { background-color: #345996; text-decoration: none; }
-  &:focus {
-    @include themed(border-color, dc-button-borderColor--focus, rgba(18, 18, 18, .5));
-    outline: 0;
-    box-shadow: $focus-ring;
-  }
-  &::before { align-self: center; }
-}
-
-// Blue text on a light background; colours come from --dc-button-<variant>-* properties.
-// secondary is bordered, tertiary is not.
-@mixin light($variant, $bordered) {
-  @if $bordered { background-color: transparent; }
-  @include themed(color, dc-button-#{$variant}-color, #4a6da7);
-  @if $bordered { @include bordered; }
-  @include box;
-  &::before { @include themed(color, dc-button-#{$variant}-icon-color, #757575); }
-  &:visited { @include themed(color, dc-button-#{$variant}-color, #4a6da7); }
-  &:focus,
-  &:hover {
-    @include themed(background-color, dc-button-#{$variant}-bgColor--hover, #e8effb);
-    text-decoration: none;
-  }
-  &:focus::before,
-  &:hover::before { @include themed(color, dc-button-#{$variant}-color, #4a6da7); }
-  &:focus {
-    @if $bordered {
-      @include themed(border-color, dc-button-borderColor--focus, #7f9fd3);
-    } @else {
-      border-color: #7f9fd3;
-    }
-    outline: 0;
-    box-shadow: $focus-ring;
-  }
-  &::before { align-self: center; }
-}
 
 @include jwac {
   @at-root #{$root}.pub-int [class*=dc-button], #{$root}.showRuby [class*=dc-button],
