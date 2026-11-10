@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Builds the site into _site/: crypto.wasm (the key comes from JWPUB_KEY at compile time),
-# styles.css from scss/, then the published files. Run by dev.sh and the Pages workflow.
+# styles.css from sass/, then the published files. Run by dev.sh and the Pages workflow.
 # Needs rustc with the wasm32-unknown-unknown target and bun (after bun install).
 set -euo pipefail
 cd "$(dirname "$0")"

@@ -1,7 +1,7 @@
 // The formatting the project enforces: the values of table-like Sass maps (one
 // "key: value" per line) aligned in one column, one space after the longest key's colon
 // (lists and maps packed several entries per line are left alone), and two spaces before
-// an inline // comment. `bun lint/format.mjs` rewrites scss/; `--check` only reports.
+// an inline // comment. `bun lint/format.mjs` rewrites sass/; `--check` only reports.
 import { Glob } from "bun";
 import { regex } from "regex";
 
@@ -39,7 +39,7 @@ const align = (body) => {
 
 const check = process.argv.includes("--check");
 let dirty = false;
-for (const file of new Glob("scss/**/*.sass").scanSync()) {
+for (const file of new Glob("sass/**/*.sass").scanSync()) {
   const text = await Bun.file(file).text();
   const out = text
     .replace(MAP, (...match) => {

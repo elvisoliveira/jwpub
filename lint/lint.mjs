@@ -11,9 +11,9 @@ const SIMPLE = /^(?:[>+~] )?[&*]?(?:[.#]?[\w-]+|#\{[^}]*\})*$/;
 // Files that may break a convention: the mixins that write the prefixed pairs, the browser
 // reset, and the app UI (not jw.org content).
 const EXEMPT = {
-  "scss/lib/_index.sass":        ["prefix"],
-  "scss/content/_elements.sass": ["prefix"],
-  "scss/app/_index.sass":        ["media"],
+  "sass/lib/_index.sass":        ["prefix"],
+  "sass/content/_elements.sass": ["prefix"],
+  "sass/app/_index.sass":        ["media"],
 };
 
 // A node as written in its file (the tree itself normalizes numbers and line breaks).
@@ -66,7 +66,7 @@ const checks = {
 };
 
 let failed = false;
-for (const file of [...new Glob("scss/**/*.sass").scanSync()].sort()) {
+for (const file of [...new Glob("sass/**/*.sass").scanSync()].sort()) {
   const exempt = EXEMPT[file] ?? [];
   sass.parse(await Bun.file(file).text()).walk((node) => checks[node.type]?.(node, (check, message) => {
     if (exempt.includes(check)) return;
